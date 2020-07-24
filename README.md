@@ -24,6 +24,7 @@ const publicKeyCredentialCreationOptions = {
   timeout,
   attestation,
 };
+
 const credential = await navigator.credentials.create({
   publicKey: publicKeyCredentialCreationOptions
 });
@@ -45,6 +46,7 @@ const publicKeyCredentialRequestOptions = {
   }],
   timeout,
 };
+
 const credential = await navigator.credentials.get({
   publicKey: publicKeyCredentialRequestOptions
 });
@@ -64,9 +66,16 @@ const publicKeyCredentialRequestOptions = {
   }],
   timeout,
 };
+
 const request = new PaymentRequest(
   [{supportedMethods: 'secure-payment-confirmation',
-    data: {publicKey: publicKeyCredentialRequestOptions}}],
+    data: {
+      publicKey: publicKeyCredentialRequestOptions,
+      fallbackUrl: 'https://fallback.example/url.html',
+    },
+  }],
   {total: {label: 'total', amount: {currency: 'USD', value: '20.00'}}});
 const response = await request.show();
 ```
+
+If none of the credentials from `allowCredentials.id` are available, then Chrome ...

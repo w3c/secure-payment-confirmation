@@ -2,7 +2,7 @@
 
 ## Creating a credential
 
-A new credential type is introduced for `navigator.credentials` that stores the name and the icons of a payment instrument.
+A new credential type is introduced for `navigator.credentials.create()` that stores the name and the icons of a payment instrument.
 
 ```javascript
 const publicKeyCredentialCreationOptions = {
@@ -29,7 +29,13 @@ const credential = await navigator.credentials.create({
 
 ## Querying the credential
 
-Only the creator of the credential can query it through the `navigator.credentials` API.
+Only the creator of the credential can query it through the `navigator.credentials.get()` API.
+
+```javascript
+const credential = await navigator.credentials.get({
+    publicKey: publicKeyCredentialRequestOptions
+});
+```
 
 ## Confirming payment
 

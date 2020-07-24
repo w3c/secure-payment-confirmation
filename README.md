@@ -2,6 +2,8 @@
 
 The goal is to improve payment confirmation experience with the help of WebAuthn.
 
+![Screenshot](https://raw.githubusercontent.com/rsolomakhin/secure-payment-confirmation/master/payment.png)
+
 ## Creating a credential
 
 A new credential type is introduced for `navigator.credentials.create()` that stores the name and the icons of a payment instrument.
@@ -71,11 +73,11 @@ const request = new PaymentRequest(
   [{supportedMethods: 'secure-payment-confirmation',
     data: {
       publicKey: publicKeyCredentialRequestOptions,
-      fallbackUrl: 'https://fallback.example/url.html',
+      fallback: 'https://fallback.example/url',
     },
   }],
   {total: {label: 'total', amount: {currency: 'USD', value: '20.00'}}});
 const response = await request.show();
 ```
 
-If none of the credentials from `allowCredentials.id` are available, then Chrome ...
+If none of the credentials from `allowCredentials.id` are available, then the user agent will invoke the payment handler for the payment method specified in the `fallback` method. It is recommended that the `fallback` payment method supports just-in-time installation of a payment handler, so the user agent may install it just-in-time. This enables the payment handler to open a fallback URL in the payment handler window.

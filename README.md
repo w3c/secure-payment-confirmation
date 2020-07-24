@@ -4,6 +4,12 @@ The goal is to improve payment confirmation experience with the help of WebAuthn
 
 ![Screenshot](https://raw.githubusercontent.com/rsolomakhin/secure-payment-confirmation/master/payment.png)
 
+The rest of the document is organized into these sections:
+
+- [Creating a credential](#creating-a-credential)
+- [Querying a credential](#querying-a-credential)
+- [Authenticating a payment](#authentication-a-payment)
+
 ## Creating a credential
 
 A new `SecurePaymentCredential` credential type is introduced for `navigator.credentials.create()` to bind descriptions of a payment instrument, i.e. a name and an icon, with a vanilla [PublicKeyCredential].
@@ -103,9 +109,9 @@ const credential = await navigator.credentials.create({
 ```
 
 
-## Querying the credential
+## Querying a credential
 
-The creator of the credential can query it through the `navigator.credentials.get()` API, as if it is a vanilla PublicKeyCredential.
+The creator of a SecurePaymentCredential can query it through the `navigator.credentials.get()` API, as if it is a vanilla PublicKeyCredential.
 
 ```javascript
 const publicKeyCredentialRequestOptions = {
@@ -123,9 +129,9 @@ const credential = await navigator.credentials.get({
 });
 ```
 
-## Confirming payment
+## Authenticating a payment
 
-Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) to prompt the user to verify a credential created by any other origin. The `PaymentRequest.show()` method must require a user gesture and display user interface with the amount of payment and the hostname of the top-level context where the `PaymentRequest` API was invoked.
+Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) with the `secure-payment-confirmation` payment method to prompt the user to verify a SecurePaymentCredential created by any other origin. The `PaymentRequest.show()` method must require a user gesture. The browser will display a native user interface with the payment amount and the payee origin, which is taken to be the origin of the top-level context where the `PaymentRequest` API was invoked.
 
 Proposed new `secure-payment-confirmation` payment method:
 

@@ -2,19 +2,28 @@
 
 ## Creating a credential
 
-A new credential type is introduced for `navigator.credentials` that stores the label and the icon of a payment instrument.
+A new credential type is introduced for `navigator.credentials` that stores the name and the icons of a payment instrument.
 
 ```javascript
-const credential = await navigator.credentials.create({
-    publicKey: publicKeyCredentialCreationOptions,
-    paymentInstrument: {
+const publicKeyCredentialCreationOptions = {
+   paymentInstrument: {
       name: 'Mastercard****4444',
       icons: [{
   	    'src': 'icon.png',
   	    'sizes': '48x48',
-  	    'type': 'image/png'
-      }]
-    }
+  	    'type': 'image/png',
+      }],
+    },
+    challenge,
+    rp,
+    user,
+    pubKeyCredParams,
+    authenticatorSelection,
+    timeout,
+    attestation,
+};
+const credential = await navigator.credentials.create({
+    publicKey: publicKeyCredentialCreationOptions
 });
 ```
 

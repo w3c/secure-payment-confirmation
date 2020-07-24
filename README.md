@@ -179,4 +179,4 @@ If the payment instrument specified by `instrumentId` is not available or if the
 user agent will open `fallbackUrl` inside the Secure Modal Window.
 
 [PublicKeyCredential]: https://www.w3.org/TR/webauthn/#iface-pkcredential
-[WebAuthentication]: https://www.w3.org/TR/webauthn/
+[Web Authentication]: https://www.w3.org/TR/webauthn/

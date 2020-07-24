@@ -27,11 +27,22 @@ const credential = await navigator.credentials.create({
 });
 ```
 
+See the [Guide to Web Authentication](https://webauthn.guide/) for mode details about the `navigator.credentials` API.
+
 ## Querying the credential
 
 Only the creator of the credential can query it through the `navigator.credentials.get()` API.
 
 ```javascript
+const publicKeyCredentialRequestOptions = {
+    challenge,
+    allowCredentials: [{
+        id: ['ADSUllKQmbqdGtpu4sjseh4cg2TxSvrbcHDTBsv4NSSX9...'],
+        type,
+        transports,
+    }],
+    timeout,
+};
 const credential = await navigator.credentials.get({
     publicKey: publicKeyCredentialRequestOptions
 });

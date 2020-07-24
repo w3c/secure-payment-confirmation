@@ -54,7 +54,7 @@ const credential = await navigator.credentials.get({
 
 ## Confirming payment
 
-Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) to prompt the user to verify a credential from any origin. The `PaymentRequest.show()` method must require a user gesture and display user interface with the amount of payment and the hostname of the top-level context where the `PaymentRequest` API was invoked.
+Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) to prompt the user to verify a credential created by any other origin. The `PaymentRequest.show()` method must require a user gesture and display user interface with the amount of payment and the hostname of the top-level context where the `PaymentRequest` API was invoked.
 
 ```javascript
 const publicKeyCredentialRequestOptions = {

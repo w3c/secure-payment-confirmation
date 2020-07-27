@@ -12,33 +12,33 @@ The rest of the document is organized into these sections:
 
 ## Creating a credential
 
-A new `SecurePaymentCredential` credential type is introduced for `navigator.credentials.create()` to bind descriptions of a payment instrument, i.e. a name and an icon, with a vanilla [PublicKeyCredential].
+A new `PaymentCredential` credential type is introduced for `navigator.credentials.create()` to bind descriptions of a payment instrument, i.e. a name and an icon, with a vanilla [PublicKeyCredential].
 
 Proposed new spec that extends [Web Authentication]:
 ```webidl
 [SecureContext, Exposed=Window]
-interface SecurePaymentCredential : PublicKeyCredential {
+interface PaymentCredential : PublicKeyCredential {
 };
 
 partial dictionary CredentialCreationOptions {
-  SecurePaymentCredentialCreationOptions securePayment;
+  PaymentCredentialCreationOptions securePayment;
 };
 
-dictionary SecurePaymentCredentialCreationOptions {
+dictionary PaymentCredentialCreationOptions {
   required PublicKeyCredentialRpEntity rp;
-  required SecurePaymentCredentialInstrument instrument;
+  required PaymentCredentialInstrument instrument;
   required BufferSource challenge;
   required sequece<PublicKeyCredentialParameters> pubKeyCredParams;
   unsigned long timeout;
   
   // PublicKeyCredentialCreationOption attributes that are intentionall omitted:
-  // user: For a SecurePaymentCredential, |instrument| is analogous to |user|.
+  // user: For a PaymentCredential, |instrument| is analogous to |user|.
   // excludeCredentials: No payment use case has been proposed for this field.
   // attestation: Authenticator attestation is considered an anti-pattern for adoption so will not be supported.
   // extensions: No payment use case has been proposed for this field.
 };
 
-dictionary SecurePaymentCredentialInstrument {
+dictionary PaymentCredentialInstrument {
   // |instrumentId| is a caller provided ID for the payment instrument to which the new PaymentCredential should
   // be bound. It should be an opaque string generated using a payment network specific algorithm that allows the
   // network to identify the issuer of the instrument and the issuer to identify the account associated with this
@@ -63,7 +63,7 @@ const securePaymentConfirmationCredentialCreationOptions = {
   timeout,
 };
 
-// This returns a SecurePaymentCredential, which is a subtype of PublicKeyCredential.
+// This returns a PaymentCredential, which is a subtype of PublicKeyCredential.
 const credential = await navigator.credentials.create({
   securePayment: securePaymentCredentialCreationOptions
 });
@@ -73,15 +73,15 @@ See the [Guide to Web Authentication](https://webauthn.guide/) for mode details 
 
 ### [Future] Register an existing PublicKeyCredential for Secure Payment Confirmation
 
-The relying party of an existing PublicKeyCredential can bind it for use in Secure Payment Confirmation.
+The relying party of an existing `PublicKeyCredential` can bind it for use in Secure Payment Confirmation.
 
 Proposed new spec that extends [Web Authentication]:
 ```webidl
-partial dictionary SecurePaymentCredentialCreationOptions {
+partial dictionary PaymentCredentialCreationOptions {
   PublicKeyCredentialDescriptor existingCredential;
 };
 
-partial interface SecurePaymentCredential {
+partial interface PaymentCredential {
   readonly attribute boolean createdCredential;
 };
 ```
@@ -115,7 +115,7 @@ const credential = await navigator.credentials.create({
 
 ## Querying a credential
 
-The creator of a SecurePaymentCredential can query it through the `navigator.credentials.get()` API, as if it is a vanilla PublicKeyCredential.
+The creator of a `PaymentCredential` can query it through the `navigator.credentials.get()` API, as if it is a vanilla `PublicKeyCredential`.
 
 ```javascript
 const publicKeyCredentialRequestOptions = {
@@ -135,7 +135,7 @@ const credential = await navigator.credentials.get({
 
 ## Authenticating a payment
 
-Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) with the `secure-payment-confirmation` payment method to prompt the user to verify a SecurePaymentCredential created by any other origin. The `PaymentRequest.show()` method requires a user gesture. The browser will display a native user interface with the payment amount and the payee origin, which is taken to be the origin of the top-level context where the `PaymentRequest` API was invoked.
+Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) with the `secure-payment-confirmation` payment method to prompt the user to verify a `PaymentCredential` created by any other origin. The `PaymentRequest.show()` method requires a user gesture. The browser will display a native user interface with the payment amount and the payee origin, which is taken to be the origin of the top-level context where the `PaymentRequest` API was invoked.
 
 Proposed new `secure-payment-confirmation` payment method:
 

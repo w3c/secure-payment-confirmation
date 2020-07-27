@@ -39,6 +39,10 @@ dictionary SecurePaymentCredentialCreationOptions {
 };
 
 dictionary SecurePaymentCredentialInstrument {
+  // |instrumentId| is a caller provided ID for the payment instrument to which the new PaymentCredential should
+  // be bound. It should be an opaque string generated using a payment network specific algorithm that allows the
+  // network to identify the issuer of the instrument and the issuer to identify the account associated with this
+  // instrument.
   required DOMString instrumentId;
   required DOMString displayName;
   required USVString icon;
@@ -50,7 +54,7 @@ Example usage:
 const securePaymentConfirmationCredentialCreationOptions = {
   instrument: {
     instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
-    displayName: 'Mastercard****4444',
+    displayName: 'Mastercard····4444',
     icon: 'icon.png'
   },
   challenge,
@@ -87,7 +91,7 @@ Example usage:
 const securePaymentConfirmationCredentialCreationOptions = {
   instrument: {
     instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
-    displayName: 'Mastercard****4444',
+    displayName: 'Mastercard····4444',
     icon: 'icon.png'
   },
   existingCredential: {
@@ -131,7 +135,7 @@ const credential = await navigator.credentials.get({
 
 ## Authenticating a payment
 
-Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) with the `secure-payment-confirmation` payment method to prompt the user to verify a SecurePaymentCredential created by any other origin. The `PaymentRequest.show()` method must require a user gesture. The browser will display a native user interface with the payment amount and the payee origin, which is taken to be the origin of the top-level context where the `PaymentRequest` API was invoked.
+Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) with the `secure-payment-confirmation` payment method to prompt the user to verify a SecurePaymentCredential created by any other origin. The `PaymentRequest.show()` method requires a user gesture. The browser will display a native user interface with the payment amount and the payee origin, which is taken to be the origin of the top-level context where the `PaymentRequest` API was invoked.
 
 Proposed new `secure-payment-confirmation` payment method:
 
@@ -139,6 +143,8 @@ Proposed new `secure-payment-confirmation` payment method:
 dictionary SecurePaymentConfirmationRequest {
   SecurePaymentConfirmationAction action;
   required DOMString instrumentId;
+  // Opaque data about the current transaction provided by the issuer. As the issuer is the RP
+  // of the credential, |networkData| provides protection against replay attacks.
   required BufferSource networkData;
   unsigned long timeout;
   required USVString fallbackUrl;
@@ -149,9 +155,15 @@ enum SecurePaymentConfirmationAction {
 };
 
 dictionary SecurePaymentConfirmationResponse {
+  // A bundle of key attributes about the transaction.
+  required SecurePaymentConfirmationPaymentData paymentData;
+  // The WebAuthn assertion created by signing over |paymentData|.
+  required AuthenticatorAssertionResponse assertion;
+};
+
+dictionary SecurePaymentConfirmationPaymentData {
   required SecurePaymentConfirmationMerchantData merchantData;
   required BufferSource networkData;
-  required AuthenticatorAssertionResponse assertion;
 };
 
 dictionary SecurePaymentConfirmationMerchantData {
@@ -181,8 +193,10 @@ const response = await request.show();
 // Merchant validates |response.merchantData| and sends |response| to issuer for authentication.
 ```
 
-If the payment instrument specified by `instrumentId` is not available or if the user failed to authenticate, then the
-user agent will open `fallbackUrl` inside the Secure Modal Window.
+If the payment instrument specified by `instrumentId` is not available or if the user failed to authenticate, the desired long-term solution is for the user agent to open `fallbackUrl` inside the Secure Modal Window and somehow extract a response from that interaction. 🚧 **The exact mechanism for support this flow still needs to be designed.**
+
+🚨 As a hack for the [pilot], the user agent will simply resolve `request.show()` with an exception. The caller is responsible for constructing a second Payment Request to open `fallbackUrl` inside a Secure Modal Window by abusing the Just-in-Time registration and skip-the-sheet features of Payment Handler API.
 
 [PublicKeyCredential]: https://www.w3.org/TR/webauthn/#iface-pkcredential
 [Web Authentication]: https://www.w3.org/TR/webauthn/
+[pilot]: bit.ly/webauthn-to-pay-2020h2-pilot

@@ -9,6 +9,7 @@ The rest of the document is organized into these sections:
 - [Creating a credential](#creating-a-credential)
 - [Querying a credential](#querying-a-credential)
 - [Authenticating a payment](#authentication-a-payment)
+- [Privacy Considerations](#privacy-considerations)
 
 ## Creating a credential
 
@@ -196,6 +197,12 @@ const response = await request.show();
 If the payment instrument specified by `instrumentId` is not available or if the user failed to authenticate, the desired long-term solution is for the user agent to open `fallbackUrl` inside the Secure Modal Window and somehow extract a response from that interaction. 🚧 **The exact mechanism for support this flow still needs to be designed.**
 
 🚨 As a hack for the [pilot], the user agent will simply resolve `request.show()` with an exception. The caller is responsible for constructing a second Payment Request to open `fallbackUrl` inside a Secure Modal Window by abusing the Just-in-Time registration and skip-the-sheet features of Payment Handler API.
+
+## Privacy Considerations
+
+Regular PublicKeyCredentials can only be used to generate assertions by the origin that created them, preventing the credential from being used to track the user across origins. In contrast, the PaymentCredential can be used from any origin to generate an assertion.
+
+This behaviour is neccessary because payments are initiated by a variety of origins (e.g. merchants) who do not have a direct relationship with the relying party (e.g. the user's bank that issued their payment card). To protect the abuse of this API as a tracking tool it is only possible to invoke the Secure Payment Confirmation via the Payment Request API.
 
 [PublicKeyCredential]: https://www.w3.org/TR/webauthn/#iface-pkcredential
 [Web Authentication]: https://www.w3.org/TR/webauthn/

@@ -4,11 +4,25 @@ The goal is to improve payment confirmation experience with the help of WebAuthn
 
 ![Screenshot](https://raw.githubusercontent.com/rsolomakhin/secure-payment-confirmation/master/payment.png)
 
+## Background
+
+In order to leverage WebAuthn in the secure confirmation of a payment this document proposes a new credential type that extends the existing [PublicKeyCredential].
+
+The new credential is created by a Relying Party (RP) (e.g. an issuer of a payment card) and linked to one or more payment instruments (e.g. payment cards). 
+
+The payment instruments each have a unique identifier, a payment method, and a label and icon that are displayed to the user during the payment flow.
+
+In future it will also be possible for a RP to link payment instruments to existing [PublicKeyCredential]s.
+
+Once created, the credential can be used to sign transaction details of payments initiated through the Payment Request API providing both confirmation of the transaction details and authentication of the user to the RP.
+
+The mapping of payment instruments to credential in the browser allows the browser to present users with an instrument selection UI in future and also display the instrument details to the user when the user is prompted to confirm the payment.
+
 The rest of the document is organized into these sections:
 
 - [Creating a credential](#creating-a-credential)
-- [Querying a credential](#querying-a-credential)
-- [Authenticating a payment](#authentication-a-payment)
+- [Generating an assertion](#generating-an-assertion)
+- [Confirming a payment](#confirming-a-payment)
 
 ## Creating a credential
 
@@ -26,12 +40,12 @@ partial dictionary CredentialCreationOptions {
 
 dictionary PaymentCredentialCreationOptions {
   required PublicKeyCredentialRpEntity rp;
-  required PaymentCredentialInstrument instrument;
+  required sequence<PaymentCredentialInstrument> instruments;
   required BufferSource challenge;
-  required sequece<PublicKeyCredentialParameters> pubKeyCredParams;
+  required sequence<PublicKeyCredentialParameters> pubKeyCredParams;
   unsigned long timeout;
   
-  // PublicKeyCredentialCreationOption attributes that are intentionall omitted:
+  // PublicKeyCredentialCreationOption attributes that are intentionally omitted:
   // user: For a PaymentCredential, |instrument| is analogous to |user|.
   // excludeCredentials: No payment use case has been proposed for this field.
   // attestation: Authenticator attestation is considered an anti-pattern for adoption so will not be supported.
@@ -46,17 +60,18 @@ dictionary PaymentCredentialInstrument {
   required DOMString instrumentId;
   required DOMString displayName;
   required USVString icon;
+  optional DOMString paymentMethod;
 };
 ```
 
 Example usage:
 ```javascript
 const securePaymentConfirmationCredentialCreationOptions = {
-  instrument: {
+  instruments: [{
     instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
     displayName: 'Mastercard····4444',
     icon: 'icon.png'
-  },
+  }],
   challenge,
   rp,
   pubKeyCredParams,
@@ -73,7 +88,7 @@ See the [Guide to Web Authentication](https://webauthn.guide/) for mode details 
 
 ### [Future] Register an existing PublicKeyCredential for Secure Payment Confirmation
 
-The relying party of an existing `PublicKeyCredential` can bind it for use in Secure Payment Confirmation.
+The relying party of an existing `PublicKeyCredential` can link it to payment instruments for use in Secure Payment Confirmation.
 
 Proposed new spec that extends [Web Authentication]:
 ```webidl
@@ -89,11 +104,11 @@ partial interface PaymentCredential {
 Example usage:
 ```javascript
 const securePaymentConfirmationCredentialCreationOptions = {
-  instrument: {
+  instruments: [{
     instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
     displayName: 'Mastercard····4444',
     icon: 'icon.png'
-  },
+  }],
   existingCredential: {
     type: "public-key",
     id: Uint8Array.from(credentialId, c => c.charCodeAt(0))
@@ -113,9 +128,9 @@ const credential = await navigator.credentials.create({
 ```
 
 
-## Querying a credential
+## Generating an assertion
 
-The creator of a `PaymentCredential` can query it through the `navigator.credentials.get()` API, as if it is a vanilla `PublicKeyCredential`.
+The creator of a `PaymentCredential` can use it to generate an assertion through the `navigator.credentials.get()` API, as if it is a vanilla `PublicKeyCredential`.
 
 ```javascript
 const publicKeyCredentialRequestOptions = {
@@ -133,7 +148,7 @@ const credential = await navigator.credentials.get({
 });
 ```
 
-## Authenticating a payment
+## Confirming a payment
 
 Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) with the `secure-payment-confirmation` payment method to prompt the user to verify a `PaymentCredential` created by any other origin. The `PaymentRequest.show()` method requires a user gesture. The browser will display a native user interface with the payment amount and the payee origin, which is taken to be the origin of the top-level context where the `PaymentRequest` API was invoked.
 
@@ -193,7 +208,7 @@ const response = await request.show();
 // Merchant validates |response.merchantData| and sends |response| to issuer for authentication.
 ```
 
-If the payment instrument specified by `instrumentId` is not available or if the user failed to authenticate, the desired long-term solution is for the user agent to open `fallbackUrl` inside the Secure Modal Window and somehow extract a response from that interaction. 🚧 **The exact mechanism for support this flow still needs to be designed.**
+If the payment instrument specified by `instrumentId` is not available or if the user failed to authenticate, the desired long-term solution is for the user agent to open `fallbackUrl` inside the Secure Modal Window and somehow extract a response from that interaction. 🚧 **The exact mechanism to support this flow still needs to be designed.**
 
 🚨 As a hack for the [pilot], the user agent will simply resolve `request.show()` with an exception. The caller is responsible for constructing a second Payment Request to open `fallbackUrl` inside a Secure Modal Window by abusing the Just-in-Time registration and skip-the-sheet features of Payment Handler API.
 

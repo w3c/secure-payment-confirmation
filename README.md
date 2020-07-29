@@ -199,4 +199,4 @@ If the payment instrument specified by `instrumentId` is not available or if the
 
 [PublicKeyCredential]: https://www.w3.org/TR/webauthn/#iface-pkcredential
 [Web Authentication]: https://www.w3.org/TR/webauthn/
-[pilot]: bit.ly/webauthn-to-pay-2020h2-pilot
+[pilot]: https://bit.ly/webauthn-to-pay-2020h2-pilot

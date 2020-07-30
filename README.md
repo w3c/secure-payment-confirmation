@@ -28,10 +28,10 @@ dictionary PaymentCredentialCreationOptions {
   required PublicKeyCredentialRpEntity rp;
   required PaymentCredentialInstrument instrument;
   required BufferSource challenge;
-  required sequece<PublicKeyCredentialParameters> pubKeyCredParams;
+  required sequence<PublicKeyCredentialParameters> pubKeyCredParams;
   unsigned long timeout;
   
-  // PublicKeyCredentialCreationOption attributes that are intentionall omitted:
+  // PublicKeyCredentialCreationOption attributes that are intentionally omitted:
   // user: For a PaymentCredential, |instrument| is analogous to |user|.
   // excludeCredentials: No payment use case has been proposed for this field.
   // attestation: Authenticator attestation is considered an anti-pattern for adoption so will not be supported.

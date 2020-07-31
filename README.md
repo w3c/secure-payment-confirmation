@@ -210,8 +210,10 @@ enum SecurePaymentConfirmationAction {
 dictionary SecurePaymentConfirmationResponse {
   // A bundle of key attributes about the transaction.
   required SecurePaymentConfirmationPaymentData paymentData;
-  // The WebAuthn assertion created by signing over |paymentData|.
-  required AuthenticatorAssertionResponse assertion;
+  // The public key credential used to sign over |paymentData|.
+  // |credential.response| is an AuthenticatorAssertionResponse and contains
+  // the signature.
+  required PublicKeyCredential credential;
 };
 
 dictionary SecurePaymentConfirmationPaymentData {
@@ -231,7 +233,7 @@ Example usage:
 const securePaymentConfirmationRequest = {
   action: "authenticate",
   instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
-  challenge,
+  networkData,
   timeout,
   fallbackUrl: "https://fallback.example/url"
 };

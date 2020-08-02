@@ -202,7 +202,7 @@ In this case the caller must provide:
  - an `instrumentId` provided by the RP for a payment instrument that was already selected by the user
  - an opaque `challenge` provided by the RP
  
-These data elements will be sourced directly via the payment network by the caller before calling the API. This flow is well suited to payment methods such as card payments with 3D Secure (3DS) where the user has entered a payment card number into a form or selected a card on file (i.e. selected a payment instrument) and the caller has used the 3DS infrastructure to get a valid `instrumentId` and dynamic `networkData` from the card issuer.
+These data elements will be sourced directly via the payment network by the caller before calling the API. This flow is well suited to payment methods such as card payments with 3D Secure (3DS) where the user has entered a payment card number into a form or selected a card on file (i.e. selected a payment instrument) and the caller has used the 3DS infrastructure to get a valid `instrumentId` and dynamic `challenge` from the card issuer.
  
 After calling `PaymentRequest.show()` the browser will display a native user interface with the payment amount and the payee origin, which is taken to be the origin of the top-level context where the `PaymentRequest` API was invoked.
 

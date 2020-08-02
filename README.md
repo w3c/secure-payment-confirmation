@@ -188,7 +188,7 @@ const credential = await navigator.credentials.get({
 
 ## Confirming a payment
 
-Any origin may invoke the [Payment Request API] in order to use a PaymentCredential to confirm a payment. The caller will either:
+Any origin may invoke the [Payment Request API] in order to use a `PaymentCredential` to confirm a payment. The caller will either:
  - invoke the API using a known `instrumentId` (using the `secure-payment-confirmation` payment method identifier), or
  - invoke the API using one or more payment methods that support a Secure Payment Confirmation response and have a supporting Payment Handler installed
 

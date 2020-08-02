@@ -289,24 +289,7 @@ Proposed new `PaymentRequestEvent`:
 
 ```webidl
 [Exposed=ServiceWorker]
-interface PaymentRequestEvent : ExtendableEvent {
-  constructor(DOMString type, optional PaymentRequestEventInit eventInitDict = {});
-  readonly attribute USVString topOrigin;
-  readonly attribute USVString paymentRequestOrigin;
-  readonly attribute DOMString paymentRequestId;
-  readonly attribute FrozenArray<PaymentMethodData> methodData;
-  readonly attribute object total;
-  readonly attribute FrozenArray<PaymentDetailsModifier> modifiers;
-  readonly attribute DOMString instrumentKey;
-  readonly attribute boolean requestBillingAddress;
-  readonly attribute object? paymentOptions;
-  readonly attribute FrozenArray<PaymentShippingOption>? shippingOptions;
-  Promise<WindowClient?> openWindow(USVString url);
-  Promise<PaymentRequestDetailsUpdate?> changePaymentMethod(DOMString methodName, optional object? methodDetails = null);
-  Promise<PaymentRequestDetailsUpdate?> changeShippingAddress(optional AddressInit shippingAddress = {});
-  Promise<PaymentRequestDetailsUpdate?> changeShippingOption(DOMString shippingOption);
-  void respondWith(Promise<PaymentHandlerResponse> handlerResponsePromise);
-  // New members
+partial interface PaymentRequestEvent {
   readonly attribute boolean isSecurePaymentConfirmationAvailable;
   Promise<SecurePaymentConfirmationResponse?> securePaymentConfirmation(BufferSource challenge, long timeout);
 };

@@ -1,7 +1,6 @@
 # Self-Review Questionnaire: Security and Privacy
 
-## 1. What information might this feature expose to Web sites or other parties,
-    and for what purposes is that exposure necessary?
+## 1. What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary?
 
 This feature allows a web site that is not the original Relying Party of a
 `PaymentCredential` (which is a public key credential) to exercise the
@@ -19,13 +18,11 @@ is found. We believe this does not pose a significant probing risk because
 `paymentRequest.show()` consumes a user activation. This makes it hard for a
 malicious merchant to automate probing at scale.
 
-## 2. Is this specification exposing the minimum amount of information necessary
-    to power the feature?
+## 2. Is this specification exposing the minimum amount of information necessary to power the feature?
 
 Yes.
 
-## 3. How does this specification deal with personal information or
-    personally-identifiable information or information derived thereof?
+## 3. How does this specification deal with personal information or personally-identifiable information or information derived thereof?
 
 This feature does not collect or expose any such information.
 

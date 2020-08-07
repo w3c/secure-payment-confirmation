@@ -28,10 +28,9 @@ Note over PSP_SW, PSP: PSP Payment Handler
 User -> Element: Fills out checkout form: cc#, etc.
 
 Note over Element, PSP: (1) Launch secure modal window using JIT payment handler & skip-the-sheet
+
 Note over Element, PSP #EDD980
-  Open Question:
-  The only purpose of the PSP payment handler during enrollment is to open the secure modal window.
-  Should there be a Secure Modal Window API instead to simplify the system? 
+  Note: In the future, there may be a Secure Modal Window API so a payment handler does not need to be involved.
 end note
 
 Element -> Browser: let request = new PaymentRequest()
@@ -50,12 +49,6 @@ User -> Issuer: Enters SMS confirmation code
 Issuer -> IssuerBE: Authenticate
 IssuerBE -> Issuer: Authentication response
 
-Note over PSP_SW, IssuerBE #EDD980
-    Open question:
-    The user is authenticated at this point.
-    Does the Issuer need to communicate this back to Stripe Element?
-end note
-
 Note over User, IssuerBE: (3) Secure Payment Confirmation Enrollment
 Issuer -> Browser: let result = window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
 Browser -> Issuer: result.resolve(availability)
@@ -70,14 +63,19 @@ User -> Issuer: User gesture
         Issuer -> Browser: Create new credential for instrument
         Note right of Browser #FFCFD9
         New API:
-        let promise = window.SecurePaymentConfirmation.instruments.set(
-            "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",  // instrument ID
-            challenge,
-            {
-                name: "Visa BankAmericard ····1234"
-                icon: "..."
-            }
-        );
+        const paymentCredentialCreationOptions = {
+            instrument: {
+                instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
+                displayName: 'Mastercard····4444',
+                icon: 'icon.png'
+            },
+            challenge, rp, pubKeyCredParams, timeout,
+        };
+
+        // This returns a PaymentCredential, which is a subtype of PublicKeyCredential.
+        const credential = await navigator.credentials.create({
+            securePayment: paymentCredentialCreationOptions
+        });
         end note
 
         activate Browser #FFBBBB
@@ -90,7 +88,7 @@ User -> Issuer: User gesture
         deactivate Platform
 
         Browser -> Browser: Create a new SecurePaymentConfirmation\nand associate with newly created credential ID.
-        Browser -> Issuer: promise.resolve(PublicKeyCredential)
+        Browser -> Issuer: promise.resolve(PaymentCredential)
         deactivate Browser
         
         Issuer -> IssuerBE: Save PublicKeyCredential

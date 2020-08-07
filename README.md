@@ -12,6 +12,7 @@ The rest of the document is organized into these sections:
   - [Creating a credential](#creating-a-credential)
   - [Querying a credential](#querying-a-credential)
   - [Authenticating a payment](#authenticating-a-payment)
+- [Security and Privacy Considerations](#security-and-privacy-considerations)
 - [Acknowledgements](#acknowledgements)
 
 ## Problem
@@ -252,11 +253,38 @@ If the payment instrument specified by `instrumentId` is not available or if the
 
 🚨 As a hack for the [pilot], the user agent will simply resolve `request.show()` with an exception. The caller is responsible for constructing a second Payment Request to open `fallbackUrl` inside a Secure Modal Window by abusing the Just-in-Time registration and skip-the-sheet features of Payment Handler API.
 
-## Privacy Considerations
+## Security and Privacy Considerations
 
-Regular PublicKeyCredentials can only be used to generate assertions by the origin that created them, preventing the credential from being used to track the user across origins. In contrast, the PaymentCredential can be used from any origin to generate an assertion.
+### Security of PaymentCredential
 
-This behaviour is neccessary because payments are initiated by a variety of origins (e.g. merchants) who do not have a direct relationship with the relying party (e.g. the user's bank that issued their payment card). To protect the abuse of this API as a tracking tool it is only possible to invoke the Secure Payment Confirmation via the Payment Request API.
+#### Downgrading the Relying Party origin restriction for exercising a credential
+
+A regular PublicKeyCredential can only be used to generate assertions by the origin that created them to avoid phishing risk. In contrast, the PaymentCredential can be used from any origin to generate an assertion, but only via the Payment Request API. When used this way, the browser shows a native UI to clearly inform the user that they are in a payments context and the parties involved in the payment transaction (i.e. payee, payment instrument - which usually identifies the issuing bank). An attacker that is not genuinely interested in facilitating a payment transaction cannot effectively use the new behavior in this proposal to phish a user credential.
+
+This security downgrade in the payments context is neccessary because payments are initiated by a variety of origins (e.g. merchants) who do not have a direct relationship with the relying party (e.g. the user's bank that issued their payment card). An alternative is to redirect the user to the issuer's origin for authentication, but both merchants and issuing banks would like to avoid this increased friction due to impact on cart abandonment.
+
+#### Probing
+
+If there are no matching credentials for a request, the Web Payment service immediately rejects PaymentRequest.show() without showing any user interface. However, since PaymentRequest.show() consumes a user activation, a malicious website cannot efficiently probe available credentials on the user’s device without tricking the user to repeatedly provide user activations.
+
+#### Issuer supplied display name and icon
+
+The display name and icon are an arbitrary string and icon provided by the issuer (RP). Although a poor name may be confusing, we don’t believe this creates a new security threat because the credential will only be displayed to the user on a website that has a relationship with the issuer and the credential is only usable with the issuer. A confusing or misleading name cannot be used by a malicious party in a phishing attack.
+
+
+### Privacy
+
+The [privacy considerations for Web Authentication][webauthn-privacy] are also applicable to this proposal.
+[webauthn-privacy]: https://www.w3.org/TR/webauthn/#sctn-privacy-considerations
+
+#### 3rd party access to authenticator assertion
+
+This proposal allows a 3rd party (i.e. a merchant) that is not the Relying Party of the credential (i.e. the issuing bank) to gain access to the authenticator assertion, which contains a credential ID and the authenticator signature. However, we do not believe this increases the privacy attack surface.
+
+While the credential ID may be used as a tracker to correlate a user across origins, an origin (e.g. a merchant) needs to already have access to the credential ID in order to invoke the new API. A merchant also already has a more powerful identifier, i.e. the raw credit card number the user provided, that it used to exchange to the credential ID via trusted server side integration with the issuing bank.
+
+The authenticator signature is emphemeral to each transaction and is not useful to any party unless it obtains the public key from the issuing bank.
+
 
 [PublicKeyCredential]: https://www.w3.org/TR/webauthn/#iface-pkcredential
 [Web Authentication]: https://www.w3.org/TR/webauthn/

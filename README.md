@@ -195,17 +195,12 @@ Proposed new `secure-payment-confirmation` payment method:
 
 ```webidl
 dictionary SecurePaymentConfirmationRequest {
-  SecurePaymentConfirmationAction action;
   required DOMString instrumentId;
   // Opaque data about the current transaction provided by the issuer. As the issuer is the RP
   // of the credential, |networkData| provides protection against replay attacks.
   required BufferSource networkData;
   unsigned long timeout;
   required USVString fallbackUrl;
-};
-
-enum SecurePaymentConfirmationAction {
-  "authenticate",
 };
 
 dictionary SecurePaymentConfirmationResponse {
@@ -232,7 +227,6 @@ Example usage:
 
 ```javascript
 const securePaymentConfirmationRequest = {
-  action: "authenticate",
   instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
   networkData,
   timeout,

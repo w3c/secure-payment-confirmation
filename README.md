@@ -93,11 +93,6 @@ dictionary PaymentCredentialCreationOptions {
 };
 
 dictionary PaymentCredentialInstrument {
-  // |instrumentId| is a caller provided ID for the payment instrument to which the new PaymentCredential should
-  // be bound. It should be an opaque string generated using a payment network specific algorithm that allows the
-  // network to identify the issuer of the instrument and the issuer to identify the account associated with this
-  // instrument.
-  required DOMString instrumentId;
   required DOMString displayName;
   required USVString icon;
 };
@@ -106,20 +101,19 @@ dictionary PaymentCredentialInstrument {
 Example usage:
 ```javascript
 const securePaymentConfirmationCredentialCreationOptions = {
+  rp,
   instrument: {
-    instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
     displayName: 'Mastercard····4444',
     icon: 'icon.png'
   },
   challenge,
-  rp,
   pubKeyCredParams,
   timeout,
 };
 
 // This returns a PaymentCredential, which is a subtype of PublicKeyCredential.
 const credential = await navigator.credentials.create({
-  securePayment: securePaymentCredentialCreationOptions
+  securePaymentCredentialCreationOptions
 });
 ```
 
@@ -144,7 +138,6 @@ Example usage:
 ```javascript
 const securePaymentConfirmationCredentialCreationOptions = {
   instrument: {
-    instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
     displayName: 'Mastercard····4444',
     icon: 'icon.png'
   },
@@ -160,7 +153,7 @@ const securePaymentConfirmationCredentialCreationOptions = {
 
 // Bind |instrument| to |credentialId|, or create a new credential if |credentialId| doesn't exist.
 const credential = await navigator.credentials.create({
-  securePayment: securePaymentCredentialCreationOptions
+  securePaymentCredentialCreationOptions
 });
 
 // |credential.createdCredential| is true if the specified credential does not exist and a new one is created instead.
@@ -194,8 +187,13 @@ Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-re
 Proposed new `secure-payment-confirmation` payment method:
 
 ```webidl
+enum SecurePaymentConfirmationAction {
+  "authenticate",
+};
+
 dictionary SecurePaymentConfirmationRequest {
-  required DOMString instrumentId;
+  SecurePaymentConfirmationAction action;
+  required FrozenArray<BufferSource> credentialIds;
   // Opaque data about the current transaction provided by the issuer. As the issuer is the RP
   // of the credential, |networkData| provides protection against replay attacks.
   required BufferSource networkData;
@@ -227,7 +225,8 @@ Example usage:
 
 ```javascript
 const securePaymentConfirmationRequest = {
-  instrumentId: "Q1J4AwSWD4Dx6q1DTo0MB21XDAV76",
+  action: 'authenticate',
+  credentialIds: ["Q1J4AwSWD4Dx6q1DTo0MB21XDAV76"],
   networkData,
   timeout,
   fallbackUrl: "https://fallback.example/url"
@@ -242,6 +241,8 @@ const response = await request.show();
 
 // Merchant validates |response.merchantData| and sends |response| to issuer for authentication.
 ```
+
+Note that in M86 the `SecurePaymentConfirmationResponse` is actually just a `PaymentResponse` with the authentication details in `response.details`.
 
 If the payment instrument specified by `instrumentId` is not available or if the user failed to authenticate, the desired long-term solution is for the user agent to open `fallbackUrl` inside the Secure Modal Window and somehow extract a response from that interaction. 🚧 **The exact mechanism for support this flow still needs to be designed.**
 
@@ -294,4 +295,5 @@ Contributors:
 * Danyao Wang (Google)
 * Christian Brand (Google)
 * Rouslan Solomakhin (Google)
+* Nick Burris (Google)
 * Gerhard Oosthuizen (Entersekt)

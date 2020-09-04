@@ -113,7 +113,7 @@ const securePaymentConfirmationCredentialCreationOptions = {
 
 // This returns a PaymentCredential, which is a subtype of PublicKeyCredential.
 const credential = await navigator.credentials.create({
-  securePaymentCredentialCreationOptions
+  payment: securePaymentCredentialCreationOptions
 });
 ```
 

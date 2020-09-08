@@ -2,6 +2,8 @@
 
 Using FIDO-based authentication to securely confirm payments initiated via the Payment Request API.
 
+This work is currently in incubation within [W3C Web Payments Working Group](https://www.w3.org/Payments/WG/).
+
 ![Screenshot](https://raw.githubusercontent.com/rsolomakhin/secure-payment-confirmation/master/payment.png)
 
 The rest of the document is organized into these sections:

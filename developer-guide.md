@@ -19,7 +19,8 @@ Follow the [Origin Trial Developer Guide](https://github.com/GoogleChrome/Origin
 
 ## Frequently Asked Questions
 
-TODO
+### Q: What are the maximum dimensions of the payment instrument icon when registering a PaymentCredential?
+A: Chrome's current implementation expects an icon that is 32px wide by 20px high.
 
 ## Need help?
 

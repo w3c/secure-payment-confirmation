@@ -288,6 +288,11 @@ The authenticator signature is emphemeral to each transaction and is not useful 
 [Web Authentication]: https://www.w3.org/TR/webauthn/
 [pilot]: https://bit.ly/webauthn-to-pay-2020h2-pilot
 
+## FAQ
+
+### Q. Can the party that calls SPC validate the assertion even if not the RP?
+
+Yes. The Relying Party can share the credentialPublicKey (of the authenticator data) with another party, e.g., through an out-of-band communication.
 
 ## Acknowledgements
 

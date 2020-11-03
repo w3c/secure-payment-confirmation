@@ -290,9 +290,9 @@ The authenticator signature is emphemeral to each transaction and is not useful 
 
 ## FAQ
 
-### Q. Can the party that calls SPC validate the assertion even if not the RP?
+### Q. Who can validate the SPC response besides the actual Relying Party (RP)?
 
-Yes. The Relying Party can share the credentialPublicKey (of the authenticator data) with another party, e.g., through an out-of-band communication.
+An SPC challenge bundles transaction details with transaction-specific dynamic data from the Relying Party. An SPC response includes a signature over that challenge. Validation in SPC refers to the verification of that signature using the credential public key. A Relying Party can choose to share the credential public key with another party (e.g., a card network or payment service provider) via out-of-band communication to enable that party to validate the SPC assertion.
 
 ## Acknowledgements
 

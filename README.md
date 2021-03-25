@@ -2,6 +2,8 @@
 
 Using FIDO-based authentication to securely confirm payments initiated via the Payment Request API.
 
+This work is currently in incubation within [W3C Web Payments Working Group](https://www.w3.org/Payments/WG/).
+
 ![Screenshot](https://raw.githubusercontent.com/rsolomakhin/secure-payment-confirmation/master/payment.png)
 
 The rest of the document is organized into these sections:
@@ -113,7 +115,7 @@ const securePaymentConfirmationCredentialCreationOptions = {
 
 // This returns a PaymentCredential, which is a subtype of PublicKeyCredential.
 const credential = await navigator.credentials.create({
-  securePaymentCredentialCreationOptions
+  payment: securePaymentCredentialCreationOptions
 });
 ```
 
@@ -153,7 +155,7 @@ const securePaymentConfirmationCredentialCreationOptions = {
 
 // Bind |instrument| to |credentialId|, or create a new credential if |credentialId| doesn't exist.
 const credential = await navigator.credentials.create({
-  securePaymentCredentialCreationOptions
+  payment: securePaymentCredentialCreationOptions
 });
 
 // |credential.createdCredential| is true if the specified credential does not exist and a new one is created instead.
@@ -195,7 +197,7 @@ dictionary SecurePaymentConfirmationRequest {
   SecurePaymentConfirmationAction action;
   required FrozenArray<BufferSource> credentialIds;
   // Opaque data about the current transaction provided by the issuer. As the issuer is the RP
-  // of the credential, |networkData| provides protection against replay attacks.
+  // of the credential, `networkData` provides protection against replay attacks.
   required BufferSource networkData;
   unsigned long timeout;
   required USVString fallbackUrl;
@@ -226,7 +228,7 @@ Example usage:
 ```javascript
 const securePaymentConfirmationRequest = {
   action: 'authenticate',
-  credentialIds: ["Q1J4AwSWD4Dx6q1DTo0MB21XDAV76"],
+  credentialIds: [Uint8Array.from(atob('Q1J4AwSWD4Dx6q1DTo0MB21XDAV76'), c => c.charCodeAt(0))],
   networkData,
   timeout,
   fallbackUrl: "https://fallback.example/url"
@@ -238,13 +240,14 @@ const request = new PaymentRequest(
   }],
   {total: {label: 'total', amount: {currency: 'USD', value: '20.00'}}});
 const response = await request.show();
+await response.complete('success');
 
-// Merchant validates |response.merchantData| and sends |response| to issuer for authentication.
+// Merchant validates |response.merchantData| and sends |response| to the issuer for authentication.
 ```
 
 Note that in M86 the `SecurePaymentConfirmationResponse` is actually just a `PaymentResponse` with the authentication details in `response.details`.
 
-If the payment instrument specified by `instrumentId` is not available or if the user failed to authenticate, the desired long-term solution is for the user agent to open `fallbackUrl` inside the Secure Modal Window and somehow extract a response from that interaction. 🚧 **The exact mechanism for support this flow still needs to be designed.**
+If no payment instrument specified by `credentialIds` is available or if the user failed to authenticate, the desired long-term solution is for the user agent to open `fallbackUrl` inside the Secure Modal Window and somehow extract a response from that interaction. 🚧 **The exact mechanism for support this flow still needs to be designed.**
 
 🚨 As a hack for the [pilot], the user agent will simply resolve `request.show()` with an exception. The caller is responsible for constructing a second Payment Request to open `fallbackUrl` inside a Secure Modal Window by utilizing the Just-in-Time registration and skip-the-sheet features of Payment Handler API.
 

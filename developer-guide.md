@@ -22,15 +22,17 @@ which may use a device PIN, for example.
 
 * Canary channel: 91.0.4459.0 or later
 
-Until the origin trial is available in M91, you can test out the feature by
-enabling the flag chrome://flags#enable-experimental-web-platform-features.
+You can test out the feature by registering your site in the origin trial (see
+below), or by enabling the flag chrome://flags#enable-experimental-web-platform-features.
 You can verify that you have the right version of Chrome by trying out this
 [test page](https://rsolomakhin.github.io/pr/spc/).
 
 ## Step 3: Enable the Origin Trial on your website
 
-Stay tuned at paymentrequest@chromium.org for updates on origin trial
-availability coming in M91. Once it's available, you can follow the
+Register your origin for the trial
+[here](https://developer.chrome.com/origintrials/#/view_trial/2735936773627576321)
+to enable the feature on your origin for the duration of the trial. You can
+follow the
 [Origin Trial Developer Guide](https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md)
 to obtain a trial token and use it on your website.
 

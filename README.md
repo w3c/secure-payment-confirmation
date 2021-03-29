@@ -242,10 +242,38 @@ const request = new PaymentRequest(
 const response = await request.show();
 await response.complete('success');
 
-// Merchant validates |response.merchantData| and sends |response| to the issuer for authentication.
+// Merchant validates |response.challenge| and sends |response| to the issuer for authentication.
 ```
 
-Note that in M86 the `SecurePaymentConfirmationResponse` is actually just a `PaymentResponse` with the authentication details in `response.details`.
+#### Transaction Binding and Web Payments Cryptogram
+
+In a normal WebAuthn interaction, the Relying Party provides a `challenge` that is signed by the authenticator. When a `PaymentCredential` is exercised via Payment Request API, the browser does an additional step: it takes the standard challenge (`networkData` in the example above) and combines it with the transaction details (e.g. payee origin and amount) to create a new challenge for the authenticator to sign. The response is a Web Payments Cryptogram, which contains the browser-constructed challenge in plain text and the signature. This allows the issuer and any party with whom the issuer has chosen to share the credential's public key, to verify that the signature matches the expected transaction details.
+
+For reference, see Chromium's [implementation of transaction binding](https://source.chromium.org/chromium/chromium/src/+/master:components/payments/content/secure_payment_confirmation_app.cc;l=53;drc=965551d5ef24466c83a4edc9fe13e9813443d9f1). 
+
+The Web Payments Cryptogram is returned via payment method [details](https://w3c.github.io/payment-request/#dom-paymentresponse-details) of `PaymentResponse`.
+
+For example, in the sample response below, `challenge` is the browser-constructed challenge that contains transaction details, and `signature` is the authenticator signature over a SHA-256 hash of `challenge`:
+
+```
+"details": {
+    "appid_extension": false,
+    "challenge": "{\"merchantData\":{\"merchantOrigin\":\"https://rsolomakhin.github.io\",\"total\":{\"currency\":\"USD\",\"value\":\"0.01\"}},\"networkData\":\"bmV0d29ya19kYXRh\"}",
+    "signature": "MEYCIQDfx231pNz7DfhCoNl20uwqmJ304JtXJwyxo/jQzSLiwgIhAL2wFlSSSZR3tQ6D9MaMxhyT7NYB332FVhWAwCGh6OAs",
+    "echo_appid_extension": false,
+    "echo_prf": false,
+    "info": {
+      "authenticator_data": "yFnBU/b2Oli2DTHAX1WdPaZktogLFFJVu9ECZWWXxpMFYGHoqg==",
+      "client_data_json": "eyJ0eXBlIjoid2ViYXV0aG4uZ2V0IiwiY2hhbGxlbmdlIjoiY0NzTnU1aTZVbldCcE45ZHNmTEpNMnU1NHlPX3pQaVMxaVdsVS1kajlHVSIsIm9yaWdpbiI6Imh0dHBzOi8vcnNvbG9tYWtoaW4uZ2l0aHViLmlvIiwiY3Jvc3NPcmlnaW4iOmZhbHNlfQ==",
+      "id": "Aaz3T-2kASNRxxvP1AMH9WGWjtjH7aTlzVce_bW61aEKZgYKr3-d2F5h3c_0e1Tz-GRdHEgUjDA_MxWhy__H8TbAsYQyxo2WRGonnXJ_Z1MJPObHHgVqmL0mWGfG"
+    },
+    "prf_not_evaluated": false,
+    "prf_results": {},
+    "user_handle": "qR72lDpOmub67MWJ1E+9TCqV7MLuJXWO5EAIauG6DHs="
+  },
+```
+
+#### Caveats
 
 If no payment instrument specified by `credentialIds` is available or if the user failed to authenticate, the desired long-term solution is for the user agent to open `fallbackUrl` inside the Secure Modal Window and somehow extract a response from that interaction. 🚧 **The exact mechanism for support this flow still needs to be designed.**
 

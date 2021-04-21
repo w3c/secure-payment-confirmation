@@ -59,17 +59,17 @@ See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Paym
 
 ## Definitions
 
-SPC Credential
+**SPC Credential**
 : The data stored in the browser that represents the association between a payment instrument and some authentication credential(s). An SPC Credential includes one or more SPC Credential Identifiers.
 
-SPC Credential Identifiers
+**SPC Credential Identifiers**
 : These identifiers are generated during enrollment and stored by the Relying Party in association with a payment instrument. 
 
-SPC Request
+**SPC Request**
 : Information provided as input to the API. It is likely to include
 SPC Credential Identifiers, sources of randomness, and other data.
 
-SPC Assertion
+**SPC Assertion**
 : The output of a successful SPC API authentication.
 
 ## Use Cases Helping to Guide Requirements

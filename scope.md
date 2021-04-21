@@ -31,6 +31,17 @@ compared to other approaches such as one-time passwords. A third goal
 is to create a consistent and trusted authentication experience across
 the Web.
 
+* **Scalable and Secure**. With FIDO, the Relying Party that creates
+FIDO credentials is the only origin that can authenticate the user
+with those credentials. With SPC, any origin can authenticate the user
+using another Relying Party's credentials, provided that the
+authentication takes place within a known payment context. This
+supports streamlined authentication across merchant sites without
+additional enrollments. At the current time, Payment Request API
+establishes the payment context. In practice, SPC can reduce the need
+to embed code provided by a Relying Party in a Web page, reducing
+security risks.
+
 * **Transaction Confirmation**. SPC generates cryptographic proof of the
 user's confirmation of transaction details. This is intended to help
 entities fulfill regulatory requirements (e.g., when used with 3DS2
@@ -46,14 +57,6 @@ display of transaction details, SPC is phishing-resistant.
 controls the display, the merchant site (or payment service provider)
 does not need to provide user experience for authentication.
 
-* **Strong Security Boundary**. With FIDO, the Relying Party that creates
-FIDO credentials is the only origin that can authenticate the user
-with those credentials. With SPC, any origin can authenticate the user
-using another Relying Party's credentials, provided that the
-authentication takes place within a known payment context. At the
-current time, Payment Request API establishes the payment context. In
-practice, SPC can reduce the need to embed code provided by a Relying
-Party in a Web page, reducing security risks.
 
 See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Payment-Confirmation#benefits).
 

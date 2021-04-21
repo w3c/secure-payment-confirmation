@@ -31,7 +31,7 @@ compared to other approaches such as one-time passwords. A third goal
 is to create a consistent and trusted authentication experience across
 the Web.
 
-* **Scalable and Secure**. With FIDO, the Relying Party that creates
+* **Scalable**. With FIDO, the Relying Party that creates
 FIDO credentials is the only origin that can authenticate the user
 with those credentials. With SPC, any origin can authenticate the user
 using another Relying Party's credentials, provided that the

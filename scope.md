@@ -123,6 +123,11 @@ the payment handler may invoke SPC. In this case, the user journey is the
 same, but the SPC Assertion is returned to the payment handler, not the
 merchant.
 
+### Specific user journeys
+
+* [Stripe pliot mockups](https://docs.google.com/presentation/d/1kZEv2Cf9W5kqG1fCGtP2CNQc9sVeZNuSlbRJvx_irHo/edit#slide=id.gc60d028daa_0_19)
+* [Visa SRC (Oct 2020)](http://www.w3.org/2020/Talks/visa-spc-20201020.pdf)
+
 ## Browser Behaviors
 
 ### Enrollment

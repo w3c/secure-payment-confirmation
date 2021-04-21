@@ -116,6 +116,13 @@ authentication method. For example, the user experience may involve a
 multi-factor biometric authentication. Or it may involve less friction
 if the user previously consented to such an experience.
 
+### Role of Payment Handlers
+
+* If the user is responding to a Payment Request with a payment handler,
+the payment handler may invoke SPC. In this case, the user journey is the
+same, but the SPC Assertion is returned to the payment handler, not the
+merchant.
+
 ## Browser Behaviors
 
 ### Enrollment
@@ -141,6 +148,13 @@ if the user previously consented to such an experience.
 * After successful authentication, the API returns a standardized
   SPC Assertion. Unsuccessful authentication results in a different
   behavior (e.g., error).
+
+### Role of Payment Handlers
+
+* During Payment Request API a payment handler can invoke SPC
+  authentication.
+* After successful authentication, the API returns a standardized
+  SPC Assertion to the payment handler.
 
 ### Lifecycle management
 

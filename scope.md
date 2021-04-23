@@ -82,6 +82,7 @@ This list is the result of people joining the SPC task force:
 * EMV&reg; 3-D Secure (3DS)
 * EMV&reg; Secure Remote Commerce (SRC)
 * Open Banking APIs
+* Real time credit (see [issue 42](https://github.com/w3c/secure-payment-confirmation/issues/42)]).
 
 The following use cases may be of interest but are of distinctly lower
 priority:
@@ -99,7 +100,7 @@ There are two elements to the user journey:
 
 ### Enrollment
 
-Enrollment may happen outside of a transaction or during a transaction.
+Enrollment may happen outside of a transaction (see [issue 44](https://github.com/w3c/secure-payment-confirmation/issues/44)) or during a transaction.
 Enrollment considerations include:
 
 * It is desirable that previously enrolled authentication credentials (e.g., FIDO) can be "enhanced" to become SPC Credentials.
@@ -119,6 +120,12 @@ authentication method. For example, the user experience may involve a
 multi-factor biometric authentication. Or it may involve less friction
 if the user previously consented to such an experience.
 
+Related issues:
+
+ * [Issue 34](https://github.com/w3c/secure-payment-confirmation/issues/34) and [issue 29](https://github.com/w3c/secure-payment-confirmation/issues/29) on frictionless flows.
+ * [Issue 30](https://github.com/w3c/secure-payment-confirmation/issues/30) on out-of-band authentication to a secondary device.
+ * [Issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28) on flows where the RP is not invoked before payment.
+
 ### Role of Payment Handlers
 
 * If the user is responding to a Payment Request with a payment handler,
@@ -137,10 +144,12 @@ merchant.
 
 * The API will will support registration of a Payment Credential
   in the browser.
+* Enrollment will be possible during or outside of a transaction (see [issue 44](https://github.com/w3c/secure-payment-confirmation/issues/44)).
 * TBD whether we standardize Payment Credential enrollment UX.
 
 ### Transaction
 
+* See [issue 8](https://github.com/w3c/secure-payment-confirmation/issues/8) on whether SPC can be invoked before Payment Request, or only during.
 * Given an ordered list of SPC Credential Identifiers in the SPC
   Request, the browser picks the first SPC Credential that matches and
   uses that credential to authenticate the user. If the browser does
@@ -168,6 +177,7 @@ merchant.
 
 * Browsers need to enable users to manage (view, update, delete) SPC
   Credentials.
+* See [issue 14](https://github.com/w3c/secure-payment-confirmation/issues/14) on handling stale display information.
 
 ## Requirements and Design Considerations
 
@@ -181,7 +191,6 @@ and the SPC specification.
 ### General
 
 * It must be possible to determine programmatically whether a browser supports SPC.
-* Many authentication protocols include a source of randomness to ensure freshness. How does SPC support that (e.g., as input data?)? It may not always come from the RP.
 * It should be possible to trigger SPC from an iframe.
 * It should be possible to trigger SPC from a payment app (PH API).
 * The API should support different sources of preferences:
@@ -194,24 +203,42 @@ and the SPC specification.
 ### SPC Credential
 
 * SPC Credential Identifiers are opaque and origin bound to improve
-  privacy. The browser maps SPC Credential Identifiers to stored SPC Credentials. See [issue 49](https://github.com/w3c/secure-payment-confirmation/issues/49#issuecomment-817552203)
+  privacy. The browser maps SPC Credential Identifiers to stored SPC Credentials. See [issue 49](https://github.com/w3c/secure-payment-confirmation/issues/49) and [issue 10](https://github.com/w3c/secure-payment-confirmation/issues/10) on the nature of the Payment Credential Identifier
 * An SPC Credential is likely to include the following kind of data:
    * Displayable information about the instrument, provided by the Relying Party.
    * Authentication method-specific (private) data. For example, for FIDO, this structure might include a credential id and an rpid.
 * SPC Credentials need to be distinguishable from other types of credentials (e.g., SPC Credential recognized as different from a FIDO Credential).
+
+### Sources of Randomness
+
+Many authentication protocols include a source of randomness to ensure freshness. 
+
+* See [issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28) on any requirements for the nonce (e.g., random? secret?).
+* See [issue 26](https://github.com/w3c/secure-payment-confirmation/issues/26) on not constraining the source of randomness
 
 ### SPC Assertion
 
 * The SPC Assertion includes a version of the transaction details cryptographically signed after user confirmation. This data may be validated by the Relying Party or any other party with the appropriate key.
 * Transaction details include merchant origin/identifier, amount and currency, transaction id. 
 * Information about the user's journey (e.g., with or without user presence check. (Should this data be standardized or private?)
+* What is the nature of the signature? See [issue 40](https://github.com/w3c/secure-payment-confirmation/issues/40) and [issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28)
+
+### Transaction Confirmation Display
+
+* See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on merchant information display.
 
 ### FIDO-Specific Considerations
 
 * FIDO credentials should be "enhanceable" to SPC Credentials.
-* SPC should support both local and roaming authenticators.
+* SPC credentials should be usable in vanilla FIDO transactions (see [issue 39](https://github.com/w3c/secure-payment-confirmation/issues/39)).
+* SPC should support both local and roaming authenticators. See [issue 31](https://github.com/w3c/secure-payment-confirmation/issues/31) on discoverable credentials and [issue 12](https://github.com/w3c/secure-payment-confirmation/issues/12) on roaming authenticator behaviors.
 * Some authenticators may be capable of rendering the transaction confirmation dialog; the API should take this into account.
 * [Large Blob](https://www.w3.org/TR/webauthn-2/#sctn-large-blob-extension) (WebAuthn Level 2) may be used to create portable stored data to reduce enrollment costs. Use case: I enroll my authenticator via one browser, but stored data can be used in another browser.
+
+### Security and Privacy Considerations
+
+* See [issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28) on security properties.
+* See [issue 13](https://github.com/w3c/secure-payment-confirmation/issues/13) on cardinality between SPC Credential and instruments). Also see [issue 27](https://github.com/w3c/secure-payment-confirmation/issues/27) about allowing user to request that each instrument have its own credential.
 
 ## Out of Scope
 
@@ -220,6 +247,11 @@ and the SPC specification.
 ## Future Extensions
 
 * Support for non-payment transactions, such as confirmation to share sensitive medical data.
+
+### Instrument selection
+
+* See [issue 24](https://github.com/w3c/secure-payment-confirmation/issues/24) on instrument ID (when instrument selection is revisited).
+* See [issue 21](https://github.com/w3c/secure-payment-confirmation/issues/21) regarding routing information if instrument ID is opaque.
 
 ## Editors
 

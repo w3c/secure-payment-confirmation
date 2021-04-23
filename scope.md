@@ -82,7 +82,7 @@ This list is the result of people joining the SPC task force:
 * EMV&reg; 3-D Secure (3DS)
 * EMV&reg; Secure Remote Commerce (SRC)
 * Open Banking APIs
-* Real time credit (see [issue 42](https://github.com/w3c/secure-payment-confirmation/issues/42)]).
+* Real time credit (see [issue 42](https://github.com/w3c/secure-payment-confirmation/issues/42)).
 
 The following use cases may be of interest but are of distinctly lower
 priority:

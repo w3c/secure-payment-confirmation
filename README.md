@@ -200,6 +200,7 @@ dictionary SecurePaymentConfirmationRequest {
   // of the credential, `networkData` provides protection against replay attacks.
   required BufferSource networkData;
   unsigned long timeout;
+  // Deprecated: Unused by the user agent. This will be removed in future updates.
   required USVString fallbackUrl;
 };
 
@@ -231,7 +232,7 @@ const securePaymentConfirmationRequest = {
   credentialIds: [Uint8Array.from(atob('Q1J4AwSWD4Dx6q1DTo0MB21XDAV76'), c => c.charCodeAt(0))],
   networkData,
   timeout,
-  fallbackUrl: "https://fallback.example/url"
+  fallbackUrl: ""
 };
 
 const request = new PaymentRequest(
@@ -275,9 +276,7 @@ For example, in the sample response below, `challenge` is the browser-constructe
 
 #### Caveats
 
-If no payment instrument specified by `credentialIds` is available or if the user failed to authenticate, the desired long-term solution is for the user agent to open `fallbackUrl` inside the Secure Modal Window and somehow extract a response from that interaction. 🚧 **The exact mechanism for support this flow still needs to be designed.**
-
-🚨 As a hack for the [pilot], the user agent will simply resolve `request.show()` with an exception. The caller is responsible for constructing a second Payment Request to open `fallbackUrl` inside a Secure Modal Window by utilizing the Just-in-Time registration and skip-the-sheet features of Payment Handler API.
+The `fallbackUrl` parameter was originally intended to provide a fallback PaymentHandler if no payment instrument specified by `credentialIds` is available or if the user failed to authenticate. It did not prove useful in the initial [pilot] of SPC, and we intend to remove it in the future. The caller is instead expected to handle the rejected promise from `request.show()` with an appropriate fallback mechanism of their own.
 
 ## Security and Privacy Considerations
 

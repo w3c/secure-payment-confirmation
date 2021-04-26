@@ -1,12 +1,12 @@
-# Secure Payment Confirmation: Scope, Requirements, and Priorities
+Payment Confirmation: Scope, Requirements, and Priorities
 
 Status: This is a draft document without consensus.
 
 Secure Payment Confirmation is a Web API to support streamlined
-authentication during a payment transaction. It is designed for use
-within a wide range of authentication protocols and to produce
-cryptographic evidence that the user has confirmed transaction
-details.
+authentication during a payment transaction. It is designed to scale
+across merchants, to be used within a wide range of authentication
+protocols, and to produce cryptographic evidence that the user has
+confirmed transaction details.
 
 Though this document we seek to build consensus around the scope,
 requirements, and priorities of Secure Payment Confirmation (SPC).
@@ -31,21 +31,22 @@ compared to other approaches such as one-time passwords. A third goal
 is to create a consistent and trusted authentication experience across
 the Web.
 
-* **Scalable**. With FIDO, the Relying Party that creates
-FIDO credentials is the only origin that can authenticate the user
-with those credentials. With SPC, any origin can authenticate the user
-using another Relying Party's credentials, provided that the
-authentication takes place within a known payment context. This
-supports streamlined authentication across merchant sites without
-additional enrollments. At the current time, Payment Request API
-establishes the payment context. In practice, SPC can reduce the need
-to embed code provided by a Relying Party in a Web page, reducing
+* **Scalable and Ubiquitous**. SPC supports streamlined authentication
+across merchant sites without additional enrollment. Note that with
+FIDO, the Relying Party that creates FIDO credentials is the only
+origin that can authenticate the user with those credentials. With
+SPC, any origin can authenticate the user using another Relying
+Party's credentials, provided that the authentication takes place
+within a known payment context. At the current time, Payment Request
+API establishes the payment context. In addition, enabling payment
+service providers or others to authenticate the user can reduce the
+need to embed code provided by a Relying Party in a Web page, reducing
 security risks.
 
-* **Transaction Confirmation**. SPC generates cryptographic proof of the
-user's confirmation of transaction details. This is intended to help
-entities fulfill regulatory requirements (e.g., SCA for PSD2) or support
-other use-cases dependent of authentication of the consumer.
+* **Transaction Confirmation**. SPC generates cryptographic proof of
+the user's confirmation of transaction details. This is intended to
+help entities fulfill regulatory requirements (e.g., SCA for PSD2) or
+support other customer authentication use cases.
 
 * **Phishing-resistant**. Different entities may render the transaction
 details that the user confirms. In many cases the browser will display
@@ -53,10 +54,9 @@ the transaction details in native UI, but SPC also supports display by
 secure hardware. Because the browser or secure hardware controls the
 display of transaction details, SPC is phishing-resistant.
 
-* **Simpler Front-end Deployment**. Because the browser or secure hardware
-controls the display, the merchant site (or payment service provider)
-does not need to provide user experience for authentication.
-
+* **Simpler Front-end Deployment**. The browser (or secure hardware)
+manages the display of transaction confirmation, removing the need for
+other parties (e.g., issuing banks or payment apps) to do so.
 
 See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Payment-Confirmation#benefits).
 
@@ -75,7 +75,7 @@ SPC Credential Identifiers, sources of randomness, and other data.
 **SPC Assertion**
 : The output of a successful SPC API authentication.
 
-## Use Cases Helping to Guide Requirements
+## Protocols and Systems Helping to Guide Requirements
 
 This list is the result of people joining the SPC task force:
 
@@ -112,11 +112,11 @@ Enrollment considerations include:
 * At transaction time, if the SPC Request does not match any SPC
 Credentials stored in the browser, there is no user experience.  This
 enables the merchant to provide a seamless fallback experience that
-can leverage the modal brwsing window provided by the browser.
+can leverage the modal browsing window provided by the browser.
 
 * If the browser finds a match, the browser prompts the user to
 confirm the transaction details including amount, merchant identification
-and payment instrument meta-data. The browser determines the user
+and payment instrument metadata. The browser determines the user
 experience, but the required user gestures may vary according to the
 authentication method. For example, the user experience may involve a
 multi-factor biometric authentication. Or it may involve less friction
@@ -138,7 +138,7 @@ merchant.
 
 ### Specific user journeys
 
-* [Stripe pliot mockups](https://docs.google.com/presentation/d/1kZEv2Cf9W5kqG1fCGtP2CNQc9sVeZNuSlbRJvx_irHo/edit#slide=id.gc60d028daa_0_19)
+* [Stripe pilot mockups](https://docs.google.com/presentation/d/1kZEv2Cf9W5kqG1fCGtP2CNQc9sVeZNuSlbRJvx_irHo/edit#slide=id.gc60d028daa_0_19)
 * [Visa SRC (Oct 2020)](http://www.w3.org/2020/Talks/visa-spc-20201020.pdf)
 
 ## Browser Behaviors

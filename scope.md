@@ -44,8 +44,8 @@ security risks.
 
 * **Transaction Confirmation**. SPC generates cryptographic proof of the
 user's confirmation of transaction details. This is intended to help
-entities fulfill regulatory requirements (e.g., when used with 3DS2
-for PSD2).
+entities fulfill regulatory requirements (e.g., SCA for PSD2) or support
+other use-cases dependent of authentication of the consumer.
 
 * **Phishing-resistant**. Different entities may render the transaction
 details that the user confirms. In many cases the browser will display
@@ -111,10 +111,12 @@ Enrollment considerations include:
 
 * At transaction time, if the SPC Request does not match any SPC
 Credentials stored in the browser, there is no user experience.  This
-enables the merchant to provide a seamless fallback experience.
+enables the merchant to provide a seamless fallback experience that
+can leverage the modal brwsing window provided by the browser.
 
 * If the browser finds a match, the browser prompts the user to
-confirm the transaction details. The browser determines the user
+confirm the transaction details including amount, merchant identification
+and payment instrument meta-data. The browser determines the user
 experience, but the required user gestures may vary according to the
 authentication method. For example, the user experience may involve a
 multi-factor biometric authentication. Or it may involve less friction
@@ -125,6 +127,7 @@ Related issues:
  * [Issue 34](https://github.com/w3c/secure-payment-confirmation/issues/34) and [issue 29](https://github.com/w3c/secure-payment-confirmation/issues/29) on frictionless flows.
  * [Issue 30](https://github.com/w3c/secure-payment-confirmation/issues/30) on out-of-band authentication to a secondary device.
  * [Issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28) on flows where the RP is not invoked before payment.
+ * [Issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on the merchant details displayed in the payment confirmation dialog
 
 ### Role of Payment Handlers
 

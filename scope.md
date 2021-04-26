@@ -1,4 +1,4 @@
-Payment Confirmation: Scope, Requirements, and Priorities
+# Payment Confirmation: Scope, Requirements, and Priorities
 
 Status: This is a draft document without consensus.
 

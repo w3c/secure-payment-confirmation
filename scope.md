@@ -38,7 +38,7 @@ origin that can authenticate the user with those credentials. With
 SPC, any origin can authenticate the user using another Relying
 Party's credentials, provided that the authentication takes place
 within a known payment context. At the current time, Payment Request
-API establishes the payment context. In addition, enabling payment
+API establishes the payment context (but see [issue 56](https://github.com/w3c/secure-payment-confirmation/issues/56)). In addition, enabling payment
 service providers or others to authenticate the user can reduce the
 need to embed code provided by a Relying Party in a Web page, reducing
 security risks.

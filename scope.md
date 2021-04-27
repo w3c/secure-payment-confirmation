@@ -63,10 +63,10 @@ See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Paym
 ## Definitions
 
 **SPC Credential**
-: The data stored in the browser that represents the association between a payment instrument and some authentication credential(s). An SPC Credential includes one or more SPC Credential Identifiers.
+: The data stored in the browser that represents the association between a payment instrument and some authentication credential(s). An SPC Credential includes one or more SPC Credential Identifiers. It is a design goal for this data structure to support FIDO but also potentially other authentication "backends." It is also a design goal to enable multiple payment instruments to be associated with a common authentication credential (e.g., biometric).
 
 **SPC Credential Identifiers**
-: These identifiers are generated during enrollment and stored by the Relying Party in association with a payment instrument. 
+: These identifiers are generated during enrollment and stored by the Relying Party in association with a payment instrument.
 
 **SPC Request**
 : Information provided as input to the API. It is likely to include

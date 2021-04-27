@@ -205,12 +205,17 @@ and the SPC specification.
 
 ### SPC Credential
 
-* SPC Credential Identifiers are opaque and origin bound to improve
-  privacy. The browser maps SPC Credential Identifiers to stored SPC Credentials. See [issue 49](https://github.com/w3c/secure-payment-confirmation/issues/49) and [issue 10](https://github.com/w3c/secure-payment-confirmation/issues/10) on the nature of the Payment Credential Identifier
 * An SPC Credential is likely to include the following kind of data:
-   * Displayable information about the instrument, provided by the Relying Party.
-   * Authentication method-specific (private) data. For example, for FIDO, this structure might include a credential id and an rpid.
+  * One or more Payment Credential Identifiers. See [issue 13](https://github.com/w3c/secure-payment-confirmation/issues/13) on cardinality between SPC Credential and instruments). Also see [issue 27](https://github.com/w3c/secure-payment-confirmation/issues/27) about allowing user to request that each instrument have its own credential.
+  * Authentication-method specific data (e.g., rpid).
 * SPC Credentials need to be distinguishable from other types of credentials (e.g., SPC Credential recognized as different from a FIDO Credential).
+
+### SPC Credential Identifiers
+* If we allow more than one instrument per SPC Credential, then each
+  one would have its own SPC Credential Identifier, displayable information.
+* SPC Credential Identifiers are opaque and origin-bound (privacy).
+  The browser maps SPC Credential Identifiers to stored SPC Credentials.
+* See [issue 49](https://github.com/w3c/secure-payment-confirmation/issues/49) and [issue 10](https://github.com/w3c/secure-payment-confirmation/issues/10) on the nature of the Payment Credential Identifier.
 
 ### Sources of Randomness
 

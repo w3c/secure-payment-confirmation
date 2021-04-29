@@ -91,6 +91,51 @@ priority:
 * QR-code triggered payment. User points phone at QR code which represents a Web Page. In vanilla mode, Web Page includes "Buy" button to trigger Payment Request. But in streamlined mode, SPC transaction dialog is immediately displayed to the user for a default instrument associated with the payment method.
 * Tap-to-pay (NFC)
 
+## User Stories
+
+### Out of band enrollment
+
+* While mobile banking, Alice enroll her authenticator to be used with all her credit cards issued by this bank.
+* A few days later during checkout, Alice is prompted to confirm a transaction with one of those cards via her authenticator.
+
+### In-transaction enrollment, authentication same merchant
+
+* While checking out, Alice selects a payment instrument and is authenticated before being able to use it.
+* She is also prompted to enroll her authenticator with the bank in association with that instrument, to streamline future checkouts.
+* A few days later during checkout on the same merchant site, Alice is prompted to confirm a transaction with the same instrument by using the enrolled authenticator.
+
+### Authentication different merchant
+
+3) Having enrolled an authenticator previously (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
+site.
+* During checkout, Alice selects the same instrument and is prompted to authenticate by using the enrolled authenticator.
+
+### Enrollment for both payment authentication and account login
+
+* During a guest checkout experience, Alice provides information for payment
+and is given the option of creating a new user account with the merchant.
+* Alice is prompted to enroll her authenticator such that (1) it can be used to authenticate future payments with the instrument selected to make a payment and (2) it can be used to log into her new account with the merchant.
+* The following week Alice is prompted to log into the merchant account
+again using her authenticator. 
+* The following week Alice makes a payment on another site and is prompted to authenticate with the same authenticator.
+
+### Lower Friction
+
+* Alice is prompted to enroll her authenticator during a transaction on a merchant site.
+* In browser-native UX, Alice selects the "express checkout" option for this merchant. The browser does not share this user preference with any party.
+* During a future checkout on the same merchant site, the user clicks the "Buy" button. (This is the user's only user gesture in this flow.)
+* The merchant communicates a preference for express checkout for this transaction. The Payment Service Provider conveys this preference to the Relying Party
+when seeking SPC Payment Identifiers.
+* The Relying Party makes a decision whether to accept express checkout
+authentication for this transaction and communicates that 
+with any SPC Payment Identifiers.
+* The Payment Service Provider triggers SPC with this information.
+* The browser confirms the user's preference for express checkout on
+this merchant, and uses the authenticator to sign the transaction
+data. The transaction data includes a flag that the user did not
+view the transaction details in native browser (or authenticator)
+* The checkout completes with no further user gesture beyond clicking the "Buy" button.
+
 ## User Journeys
 
 There are two elements to the user journey:

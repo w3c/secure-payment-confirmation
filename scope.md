@@ -102,7 +102,7 @@ priority:
 
 * While checking out, Alice selects a payment instrument and is successfully authenticated via one-time password.
 * She is then prompted with the opportunity to speed up future checkouts by
-enrolling her FIDO authenticator with the bank in association with the same instrument.
+enrolling her authenticator with the bank in association with the same instrument.
 * A few days later during checkout on the same merchant site, Alice is prompted to confirm a transaction with the same instrument by using the enrolled authenticator.
 
 ### Authentication different merchant
@@ -113,29 +113,65 @@ site.
 
 ### Enrollment for both payment authentication and account login
 
-* During a guest checkout experience, Alice provides information for payment
-and is given the option of creating a new user account with the merchant.
-* Alice is prompted to enroll her authenticator such that (1) it can be used to authenticate future payments with the instrument selected to make a payment and (2) it can be used to log into her new account with the merchant.
-* The following week Alice is prompted to log into the merchant account
-again using her authenticator. 
-* The following week Alice makes a payment on another site and is prompted to authenticate with the same authenticator.
+* During a guest checkout experience, Alice selects a payment instrument. As part of authenticating, she enrolls her authenticator with the bank in association with the payment instrument.
+* In addition, Alice is prompted to set up a user account with this particular merchant, leveraging the same authentication credentials.
+* The goal is thus to enable Alice to use the same authentication credential to (1) make payments on multiple sites, and (2) log into this site.
 
-### Lower Friction
+Notes:
+
+* It has been pointed out that "sharing authentication credentials" may be closer to a FIDO topic than an SPC topic, but we include this use case to support that discussion.
+
+### Express Checkout (no user presence check)
+
+This use cases is like the previous authentication use cases (same merchant or different merchant) but removes the user presence check. Because doing so removes a security feature, we suggest native browser UX as a way to help ensure that the user has not been tricked into agreeing to less friction.
 
 * Alice is prompted to enroll her authenticator during a transaction on a merchant site.
 * In browser-native UX, Alice selects the "express checkout" option for this merchant. The browser does not share this user preference with any party.
-* During a future checkout on the same merchant site, the user clicks the "Buy" button. (This is the user's only user gesture in this flow.)
+* During a future checkout on the same merchant site, the user clicks the "Buy" button.
 * The merchant communicates a preference for express checkout for this transaction. The Payment Service Provider conveys this preference to the Relying Party
 when seeking SPC Payment Identifiers.
 * The Relying Party makes a decision whether to accept express checkout
-authentication for this transaction and communicates that 
+authentication for this transaction and communicates that along
+with any SPC Payment Identifiers. ***Note*** The SPC Payment Identifiers might themselves be the mechanism for communicating the preference for express checkout authentication.
+* The Payment Service Provider triggers SPC with this information.
+* The browser prompts the user confirm the transaction details (e.g., by clicking the "Verify" button).
+* Having confirmed the user's preference for express checkout on
+this merchant, the browser does not require a user presence check. The authenticator is used to sign the transaction details, with additional information
+that the transaction did not include a user presence check.
+
+Notes:
+
+* This is a "2 click" flow: buy button, then transaction confirmation dialog "verify".
+* Web Authentication requires the user presence check, but CTAP does not.
+* The Relying Party may make the decision for (or against) an express checkout flow based on a variety of information, including relationship to the
+customer, transaction amount, regulatory requirements, etc.
+* The Relying Party should be sure to provide enough information so
+  that if the user does not accept express checkout, there is a path
+  to complete authentication.
+
+### Frictionless Checkout (no user presence check or transaction confirmation dialog)
+
+This use cases is like the Express Checkout use case except that, in
+addition, there is no browser-supplied confirmation dialog.
+
+* Alice is prompted to enroll her authenticator during a transaction on a merchant site.
+* In browser-native UX, Alice selects the "frictionless checkout" option for this merchant. The browser does not share this user preference with any party.
+* During a future checkout on the same merchant site, the user clicks the "Buy" button.
+* The merchant communicates a preference for frictionless checkout for this transaction. The Payment Service Provider conveys this preference to the Relying Party when seeking SPC Payment Identifiers.
+* The Relying Party makes a decision whether to accept frictionless checkout
+authentication for this transaction and communicates that along
 with any SPC Payment Identifiers.
 * The Payment Service Provider triggers SPC with this information.
-* The browser confirms the user's preference for express checkout on
-this merchant, and uses the authenticator to sign the transaction
-data. The transaction data includes a flag that the user did not
-view the transaction details in native browser (or authenticator)
-* The checkout completes with no further user gesture beyond clicking the "Buy" button.
+* Having confirmed the user's preference for frictionless checkout on
+this merchant, the authenticator is used to sign the transaction details, with additional information that the transaction did not include a transaction
+confirmation dialog or user presence check.
+
+Notes:
+
+* This is a "1 click" flow: the "Buy" button.
+
+
+### No transaction confirmation dialog
 
 ## User Journeys
 

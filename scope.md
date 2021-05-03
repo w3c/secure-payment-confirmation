@@ -100,8 +100,9 @@ priority:
 
 ### In-transaction enrollment, authentication same merchant
 
-* While checking out, Alice selects a payment instrument and is authenticated before being able to use it.
-* She is also prompted to enroll her authenticator with the bank in association with that instrument, to streamline future checkouts.
+* While checking out, Alice selects a payment instrument and is successfully authenticated via one-time password.
+* She is then prompted with the opportunity to speed up future checkouts by
+enrolling her FIDO authenticator with the bank in association with the same instrument.
 * A few days later during checkout on the same merchant site, Alice is prompted to confirm a transaction with the same instrument by using the enrolled authenticator.
 
 ### Authentication different merchant

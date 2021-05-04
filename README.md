@@ -124,11 +124,11 @@ See the [Guide to Web Authentication](https://webauthn.guide/) for mode details 
 #### Creating a PaymentCredential in a cross-origin iframe
 
 Unlike normal WebAuthn credentials, a PaymentCredential is allowed to be created in a
-cross-origin iframe (for example, if `merchant.com` embeds an iframe from `bank.com`).
-This is intended to support the common enrollment flow of a bank enrolling the user
-during a step-up challenge (e.g. after proving their identity via OTP).
+cross-origin iframe (e.g. if `merchant.com` embeds an iframe from `bank.com`). This is
+intended to support the common enrollment flow of a bank enrolling the user during a
+step-up challenge (e.g. after proving their identity via OTP).
 
-To allow this, the cross-origin iframe must have `allow="payment"` set, e.g.:
+To allow this, the cross-origin iframe must have `allow="payment"` set:
 
 ```html
 <!-- Assume parent origin is merchant.com -->
@@ -203,8 +203,8 @@ Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-re
 
 Note that [per the Payment Request specification](https://www.w3.org/TR/payment-request/#using-with-cross-origin-iframes),
 if `PaymentRequest` is used within a cross-origin iframe (e.g. if `merchant.com`
-embeds an iframe from `psp.com`), that iframe must have an `allow` attribute with
-the `"payment"` keyword.
+embeds an iframe from `psp.com`, and `psp.com` wishes to use `PaymentRequest`),
+that iframe must have an `allow` attribute with the `"payment"` keyword.
 
 Proposed new `secure-payment-confirmation` payment method:
 

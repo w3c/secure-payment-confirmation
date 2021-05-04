@@ -121,6 +121,21 @@ const credential = await navigator.credentials.create({
 
 See the [Guide to Web Authentication](https://webauthn.guide/) for mode details about the `navigator.credentials` API.
 
+#### Creating a PaymentCredential in a cross-origin iframe
+
+Unlike normal WebAuthn credentials, a PaymentCredential is allowed to be created in a
+cross-origin iframe (for example, if `merchant.com` embeds an iframe from `bank.com`).
+This is intended to support the common enrollment flow of a bank enrolling the user
+during a step-up challenge (e.g. after proving their identity via OTP).
+
+To allow this, the cross-origin iframe must have `allow="payment"` set, e.g.:
+
+```html
+<!-- Assume parent origin is merchant.com -->
+<!-- Inside this cross-origin iframe, script would be allowed to create a PaymentCredential for example.org -->
+<iframe src="https://example.org" allow="payment">
+```
+
 #### [Future] Register an existing PublicKeyCredential for Secure Payment Confirmation
 
 The relying party of an existing `PublicKeyCredential` can bind it for use in Secure Payment Confirmation.
@@ -185,6 +200,11 @@ const credential = await navigator.credentials.get({
 ### Authenticating a payment
 
 Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-request/) with the `secure-payment-confirmation` payment method to prompt the user to verify a `PaymentCredential` created by any other origin. The `PaymentRequest.show()` method requires a user gesture. The browser will display a native user interface with the payment amount and the payee origin, which is taken to be the origin of the top-level context where the `PaymentRequest` API was invoked.
+
+Note that [per the Payment Request specification](https://www.w3.org/TR/payment-request/#using-with-cross-origin-iframes),
+if `PaymentRequest` is used within a cross-origin iframe (e.g. if `merchant.com`
+embeds an iframe from `psp.com`), that iframe must have an `allow` attribute with
+the `"payment"` keyword.
 
 Proposed new `secure-payment-confirmation` payment method:
 

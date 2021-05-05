@@ -170,9 +170,6 @@ Notes:
 
 * This is a "1 click" flow: the "Buy" button.
 
-
-### No transaction confirmation dialog
-
 ## User Journeys
 
 There are two elements to the user journey:

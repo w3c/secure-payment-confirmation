@@ -170,9 +170,15 @@ Notes:
 
 * This is a "1 click" flow: the "Buy" button.
 
-## User Journeys
+## Mockups of some user stories
 
-There are two elements to the user journey:
+* [Stripe pilot mockups](https://docs.google.com/presentation/d/1kZEv2Cf9W5kqG1fCGtP2CNQc9sVeZNuSlbRJvx_irHo/edit#slide=id.gc60d028daa_0_19)
+* [Visa SRC (Oct 2020)](http://www.w3.org/2020/Talks/visa-spc-20201020.pdf)
+* [Entersekt example re: tracking](https://github.com/w3c/secure-payment-confirmation/issues/49#issuecomment-817552203)
+
+## Assumptions and Requirements for User Journeys
+
+There are two elements to the user authentication journey:
 
 1) Enrollment
 2) Authentication (at transaction time)
@@ -214,12 +220,6 @@ Related issues:
 the payment handler may invoke SPC. In this case, the user journey is the
 same, but the SPC Assertion is returned to the payment handler, not the
 merchant.
-
-### Specific user journeys
-
-* [Stripe pilot mockups](https://docs.google.com/presentation/d/1kZEv2Cf9W5kqG1fCGtP2CNQc9sVeZNuSlbRJvx_irHo/edit#slide=id.gc60d028daa_0_19)
-* [Visa SRC (Oct 2020)](http://www.w3.org/2020/Talks/visa-spc-20201020.pdf)
-* [Entersekt example re: tracking](https://github.com/w3c/secure-payment-confirmation/issues/49#issuecomment-817552203)
 
 ## Browser Behaviors
 

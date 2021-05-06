@@ -261,6 +261,7 @@ merchant.
 * Browsers need to enable users to manage (view, update, delete) SPC
   Credentials.
 * See [issue 14](https://github.com/w3c/secure-payment-confirmation/issues/14) on handling stale display information.
+* See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63) about unenrollment.
 
 ## Requirements and Design Considerations
 

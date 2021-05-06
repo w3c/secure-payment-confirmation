@@ -14,7 +14,7 @@ requirements, and priorities of Secure Payment Confirmation (SPC).
 We have been discussing three steps in a payment flow where browser
 capabilities could help streamline the user experience:
 
-* Establish user identity (e.g., cookie, session, payment app)
+* Establish user identity (e.g., cookie, session, payment app). See also [issue 62](https://github.com/w3c/secure-payment-confirmation/issues/62).
 * Determine payment instruments for the user. When more than one is available, prompt the user to select one.
 * Authenticate the user for that instrument for this transaction.
 

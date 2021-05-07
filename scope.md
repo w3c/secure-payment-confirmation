@@ -107,7 +107,7 @@ enrolling her authenticator with the bank in association with the same instrumen
 
 ### Authentication different merchant
 
-3) Having enrolled an authenticator previously (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
+* Having enrolled an authenticator previously (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
 site.
 * During checkout, Alice selects the same instrument and is prompted to authenticate by using the enrolled authenticator.
 

@@ -128,7 +128,8 @@ cross-origin iframe (e.g. if `merchant.com` embeds an iframe from `bank.com`). T
 intended to support the common enrollment flow of a bank enrolling the user during a
 step-up challenge (e.g. after proving their identity via OTP).
 
-To allow this, the cross-origin iframe must have `allow="payment"` set:
+To allow this, the cross-origin iframe must have the ["payment" permission policy](
+https://w3c.github.io/payment-request/#permissions-policy) set. For example:
 
 ```html
 <!-- Assume parent origin is merchant.com -->
@@ -204,7 +205,8 @@ Any origin may invoke the [Payment Request API](https://w3c.github.io/payment-re
 Note that [per the Payment Request specification](https://www.w3.org/TR/payment-request/#using-with-cross-origin-iframes),
 if `PaymentRequest` is used within a cross-origin iframe (e.g. if `merchant.com`
 embeds an iframe from `psp.com`, and `psp.com` wishes to use `PaymentRequest`),
-that iframe must have an `allow` attribute with the `"payment"` keyword.
+that iframe must have  the ["payment" permission policy](
+https://w3c.github.io/payment-request/#permissions-policy) set.
 
 Proposed new `secure-payment-confirmation` payment method:
 

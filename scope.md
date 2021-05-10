@@ -189,6 +189,12 @@ Notes:
 
 * TBD
 
+### Authentication by bank after redirect
+
+* Alice has enrolled her authenticator with her bank.
+* While Alice is shopping on a merchant site, the merchant redirects her to her bank site to authenticate.
+* The bank invokes SPC using the previously enrolled authenticator.
+
 ## Mockups of some user stories
 
 * [Stripe pilot mockups](https://docs.google.com/presentation/d/1kZEv2Cf9W5kqG1fCGtP2CNQc9sVeZNuSlbRJvx_irHo/edit#slide=id.gc60d028daa_0_19)

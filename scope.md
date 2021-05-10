@@ -181,6 +181,14 @@ Notes:
 
 * This is a "1 click" flow: the "Buy" button.
 
+### Instrument unenrollment
+
+* TBD
+
+### Instrument detail update
+
+* TBD
+
 ## Mockups of some user stories
 
 * [Stripe pilot mockups](https://docs.google.com/presentation/d/1kZEv2Cf9W5kqG1fCGtP2CNQc9sVeZNuSlbRJvx_irHo/edit#slide=id.gc60d028daa_0_19)

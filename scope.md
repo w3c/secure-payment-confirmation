@@ -81,7 +81,7 @@ This list is the result of people joining the SPC task force:
 
 * EMV&reg; 3-D Secure (3DS)
 * EMV&reg; Secure Remote Commerce (SRC)
-* Open Banking APIs
+* Open Banking APIs, with a focus on PISP use cases.
 * Real time credit (see [issue 42](https://github.com/w3c/secure-payment-confirmation/issues/42)).
 
 The following use cases may be of interest but are of distinctly lower
@@ -106,6 +106,17 @@ enrolling her authenticator with the bank in association with the same instrumen
 * A few days later during checkout on the same merchant site, Alice is prompted to confirm a transaction with the same instrument by using the enrolled authenticator.
 
 ### Authentication different merchant
+
+3) Having enrolled an authenticator previously (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
+site.
+* During checkout, Alice selects the same instrument and is prompted to authenticate by using the enrolled authenticator.
+
+### Authentication with out-of-band authenticator
+
+* While mobile banking, Alice enrolls the authenticator in her phone to be used with all her credit cards issued by this bank.
+* While shopping on a desktop browser, Alice initiates a checkout.
+* She receives a push notification on her phone to authenticate with that device for the transaction.
+* Upon successful authentication, the checkout experience on her desktop successfully completes.
 
 3) Having enrolled an authenticator previously (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
 site.

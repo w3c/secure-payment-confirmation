@@ -20,45 +20,57 @@ capabilities could help streamline the user experience:
 
 SPC is a tool for this last step.
 
-## Unique Features of SPC
+## Benefits and Unique Features of SPC
 
-* **Streamlined UX**. FIDO authentication provides a very good user
-experience. Our expectation is that the SPC "happy path" provides an
-even more streamlined experience. One important goal is to remove the
-need to redirect an enrolled user during a payment
+### Benefits
+
+* **Faster Authentication**. FIDO authentication provides a very good
+user experience. Our expectation is that the SPC "happy path" further
+accelerates strong customer authentication compared to other
+approaches such as one-time passwords. An important goal is to remove
+the need to redirect an enrolled user during a payment
 transaction. Another important goal is to speed up authentication
 compared to other approaches such as one-time passwords. A third goal
 is to create a consistent and trusted authentication experience across
 the Web.
 
 * **Scalable and Ubiquitous**. SPC supports streamlined authentication
-across merchant sites without additional enrollment. Note that with
-FIDO, the Relying Party that creates FIDO credentials is the only
-origin that can authenticate the user with those credentials. With
-SPC, any origin can authenticate the user using another Relying
-Party's credentials, provided that the authentication takes place
-within a known payment context. At the current time, Payment Request
-API establishes the payment context (but see [issue 56](https://github.com/w3c/secure-payment-confirmation/issues/56)). In addition, enabling payment
-service providers or others to authenticate the user can reduce the
-need to embed code provided by a Relying Party in a Web page, reducing
-security risks.
+across merchant sites without additional enrollment.
 
-* **Transaction Confirmation**. SPC generates cryptographic proof of
-the user's confirmation of transaction details. This is intended to
-help entities fulfill regulatory requirements (e.g., SCA for PSD2) or
-support other customer authentication use cases.
+* **Designed to Meet Regulatory Requirements**. SPC helps entities
+fulfill regulatory requirements (e.g., strong customer authentication
+and transaction confirmation under PSD2) and other customer
+authentication use cases.
 
-* **Phishing-resistant**. Different entities may render the transaction
-details that the user confirms. In many cases the browser will display
-the transaction details in native UI, but SPC also supports display by
-secure hardware. Because the browser or secure hardware controls the
-display of transaction details, SPC is phishing-resistant.
-
-* **Simpler Front-end Deployment**. The browser (or secure hardware)
-manages the display of transaction confirmation, removing the need for
-other parties (e.g., issuing banks or payment apps) to do so.
+* **Simpler and more Secure Front-end Deployment**. The browser (or
+secure hardware) manages the display of transaction confirmation,
+removing the need for other parties (e.g., issuing banks or payment
+apps) to do so. In addition, enabling payment service providers or
+others to authenticate the user can reduce the need to embed code
+provided by a Relying Party in a Web page, reducing security risks.
+Because the browser (or secure hardware) controls the display of
+transaction details, SPC is phishing-resistant.
 
 See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Payment-Confirmation#benefits).
+
+### Unique Features
+
+The above benefits are grounded in a small number of unique API features:
+
+* **Browser-native UX for transaction confirmation**. The browser
+provides a consistent and efficient authentication UX across merchant
+sites. Note: The architecture should support display of transaction
+confirmation details by authenticators.
+
+* **Cryptographic evidence**. Transaction confirmation generates
+cryptographic evidence of the user's confirmation of transaction
+details.
+
+* **Cross-origin authentication**. With FIDO, the Relying Party that
+creates FIDO credentials is the only origin that can authenticate the
+user with those credentials. With SPC, any origin can authenticate the
+user during a transaction by leveraging another Relying Party's
+credentials.
 
 ## Definitions
 

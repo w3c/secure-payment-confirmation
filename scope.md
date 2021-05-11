@@ -93,6 +93,8 @@ priority:
 
 ## User Stories
 
+Our initial use cases focus consumer-to-business transactions, including eCommerce and bill pay. 
+
 ### Out of band enrollment
 
 * While mobile banking, Alice enroll her authenticator to be used with all her credit cards issued by this bank.
@@ -357,6 +359,7 @@ Many authentication protocols include a source of randomness to ensure freshness
 ## Out of Scope
 
 * ID & V to establish real world identity during enrollment.
+* Use cases for peer-to-peer payments or business-to-business transactions.
 
 ## Future Extensions
 

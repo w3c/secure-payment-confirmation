@@ -93,7 +93,8 @@ priority:
 
 ## User Stories
 
-Our initial use cases focus consumer-to-business transactions, including eCommerce and bill pay. 
+* Our initial use cases focus consumer-to-business transactions, including eCommerce and bill pay.
+* SPC should be usable with a variety of payment methods, including card pull, card push, and account push.
 
 ### Out of band enrollment
 

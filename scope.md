@@ -106,13 +106,13 @@ priority:
 * While checking out, Alice selects a payment instrument and is successfully authenticated via one-time password.
 * She is then prompted with the opportunity to speed up future checkouts by
 enrolling her authenticator with the bank in association with the same instrument.
-* A few days later during checkout on the same merchant site, Alice is prompted to confirm a transaction with the same instrument by using the enrolled authenticator.
+* A few days later during checkout on the same merchant site, Alice is prompted (e.g., during an EMV&reg; 3-D Secure step up) to confirm a transaction with the same instrument by using the enrolled authenticator.
 
 ### Authentication different merchant
 
 * Having enrolled an authenticator previously (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
 site.
-* During checkout, Alice selects the same instrument and is prompted to authenticate by using the enrolled authenticator.
+* During checkout, Alice selects the same instrument and is prompted (e.g., during an EMV&reg; 3-D Secure step up) to authenticate by using the enrolled authenticator.
 
 ### Authentication with out-of-band authenticator
 
@@ -184,9 +184,11 @@ Notes:
 
 * This is a "1 click" flow: the "Buy" button.
 
-### Instrument unenrollment
+### Authenticator unenrollment
 
-* TBD
+* Alice drops her phone in the river.
+* For housekeeping, she logs into her bank site and removes information about the authenticator. This causes the bank to remove any bindings between that authenticator and any payment instruments.
+* Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC Credentials that refer to that authenticator.
 
 ### Instrument detail update
 

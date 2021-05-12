@@ -97,7 +97,7 @@ priority:
 * Our initial use cases focus consumer-to-business transactions, including eCommerce and bill pay.
 * SPC should be usable with a variety of payment methods, including card pull, card push, and account push.
 
-### Out of band enrollment
+### Enrollment outside a transaction
 
 * While mobile banking, Alice enroll her authenticator to be used with all her credit cards issued by this bank.
 * A few days later during checkout, Alice is prompted to confirm a transaction with one of those cards via her authenticator.

@@ -25,9 +25,12 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 * It must be possible to enroll and SPC Credential during a transaction. This enrollment should not prevent timely completion of the transaction.
 * It must be possible to enroll and SPC Credential from code on a merchant site.
 * It must be possible to enroll and SPC Credential from a payment handler.
-* If the user enrolled an SPC Credential when using one instance of a browser, it should be possible to leverage that authentication from a different instance of the same browser (e.g., both browsers are Firefox)
-* If the user enrolled an SPC Credential when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome).
 * Each browser should natively support an SPC credential enrollment user experience.
+
+### Instrument Information
+
+* Enrollment must include display information for the associated instrument.
+* Because instrument display information is available to the relying party (e.g., provided by the relying party itself, the merchant, or some other party), it is not a requirement that this information be stored in the browser as part of the SPC Credential.
 
 ## Transaction Confirmation User Experience
 
@@ -35,7 +38,17 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 * Although we anticipate that in most cases the browser will render the transaction confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator).
 * See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on merchant information display.
 * For regulatory reasons, the party that invokes SPC must be able to specify a timeout for the user experience. See [issue 67](https://github.com/w3c/secure-payment-confirmation/issues/67).
-* The The transaction confirmation user experience should include the beneficiary name, and optionally the title and favicon of the page where it was called. See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48).
+* The transaction confirmation user experience should include the beneficiary name, and optionally the title and favicon of the page where it was called. See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48).
+
+### Sources of Instrument Information
+
+* The protocol should support multiple ways of accessing the instrument display information, including browser storage, authenticator storage, and merchant-provided data. Note that merchant data may not be trustworthy, but during subsequent
+authorization it can be validated against relying-party stored instrument display data.
+
+### Cross-Browser Support
+
+* If the user enrolled an SPC Credential when using one instance of a browser, it should be possible to leverage that authentication from a different instance of the same browser (e.g., both browsers are Firefox)
+* If the user enrolled an SPC Credential when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome).
 
 ### Low Friction Flows
 

@@ -2,14 +2,13 @@
 
 Status: This is a draft document without consensus.
 
-Secure Payment Confirmation is a Web API to support streamlined
+Secure Payment Confirmation (SPC) is a Web API to support streamlined
 authentication during a payment transaction. It is designed to scale
 authentication across merchants, to be used within a wide range of
 authentication protocols, and to produce cryptographic evidence that
 the user has confirmed transaction details.
 
-Though this document we seek to build consensus around the scope,
-requirements, and priorities of Secure Payment Confirmation (SPC).
+Though this document we seek to build consensus around the scope of SPC.
 
 We have been discussing three steps in a payment flow where browser
 capabilities could help streamline the user experience:

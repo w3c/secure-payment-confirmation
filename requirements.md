@@ -5,6 +5,8 @@ Status: This is a draft document without consensus.
 Though this document we seek to build consensus around requirements
 and design considerations for SPC.
 
+***Note:*** These requirements are not prioritized.
+
 See also: [SPC Scope](scope.md) for definitions and more information.
 
 ## Feature Detection

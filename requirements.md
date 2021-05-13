@@ -52,14 +52,17 @@ authorization it can be validated against relying-party stored instrument displa
 
 ### Low Friction Flows
 
-* The browser should support FIDO authentication without a user presence check when requested by the relying party.
+* The browser should support transaction confirmation without hardware
+  authentication (e.g., no FIDO user presence check) when requested by
+  the relying party.
 
-* For each transactoin, a merchant should be able to express to the relying party a preference for a low-friction flow (or not to use a low-friction flow).
+* For each transactoin, a merchant should be able to express to the
+  relying party a preference for a low-friction flow (or not to use a
+  low-friction flow).
 
-* If the browser supports FIDO authentication without a user presence
-  check (requested by the RP), the browser must support a user
-  preference to override the RP preference and to maintain the user
-  presence check.
+* If the browser supports a low-friction flow option, the browser must
+  support a user preference to override that option and maintain the
+  full hardware-supported (e.g., biometric) flow.
 
 ### Zero Friction Flows
 

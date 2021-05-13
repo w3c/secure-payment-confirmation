@@ -21,10 +21,10 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 
 ## Enrollment
 
-* It must be possible to enroll and SPC Credential outside of a transaction.
-* It must be possible to enroll and SPC Credential during a transaction. This enrollment should not prevent timely completion of the transaction.
-* It must be possible to enroll and SPC Credential from code on a merchant site.
-* It must be possible to enroll and SPC Credential from a payment handler.
+* It must be possible to enroll an SPC Credential outside of a transaction.
+* It must be possible to enroll an SPC Credential during a transaction. This enrollment should not prevent timely completion of the transaction.
+* It must be possible to enroll an SPC Credential from code on a merchant site.
+* It must be possible to enroll an SPC Credential from a payment handler.
 * Each browser should natively support an SPC credential enrollment user experience.
 
 ### Instrument Information
@@ -56,9 +56,7 @@ authorization it can be validated against relying-party stored instrument displa
   authentication (e.g., no FIDO user presence check) when requested by
   the relying party.
 
-* For each transactoin, a merchant should be able to express to the
-  relying party a preference for a low-friction flow (or not to use a
-  low-friction flow).
+* For each transaction, a merchant should be able to express to the relying party a preference for a low-friction flow (or not to use a low-friction flow).
 
 * If the browser supports a low-friction flow option, the browser must
   support a user preference to override that option and maintain the
@@ -70,7 +68,7 @@ authorization it can be validated against relying-party stored instrument displa
 
 ## Unenrollment
 
-* The ecocystem should enable the user to communicate to the relying party to forget SPC Credential Identifiers. This might happen in a variety of ways (e.g., forget this authenticator and all associated instruments; forget any authenticators associated with this instrument, etc.). See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63).
+* The ecosystem should enable the user to communicate to the relying party to forget SPC Credential Identifiers. This might happen in a variety of ways (e.g., forget this authenticator and all associated instruments; forget any authenticators associated with this instrument, etc.). See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63).
 
 ## SPC Credentials
 

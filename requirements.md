@@ -5,7 +5,10 @@ Status: This is a draft document without consensus.
 Though this document we seek to build consensus around requirements
 and design considerations for SPC.
 
-***Note:*** These requirements are not prioritized.
+***Notes:***
+
+* These requirements are not prioritized.
+* "MUST", "SHOULD", and "MAY" are used per [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119).
 
 See also: [SPC Scope](scope.md) for definitions and more information.
 

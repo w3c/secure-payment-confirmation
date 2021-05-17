@@ -70,7 +70,7 @@ See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Paym
 : Data that represents the association between an instrument and an authentication credential. Note: Management of multiple relationships is an implementation detail (e.g., multiple authentications corresponding to a single instrument, or multiple instruments enrolled for a given authentication).
 
 **SPC Credential Identifiers**
-: Each SPC Credential Identifier refers to one SPC Credential. These identifiers are generated during enrollment and stored by the Relying Party in association with an instrument.
+: Each SPC Credential Identifier refers to one SPC Credential. These identifiers are generated during enrollment and stored by the Relying Party in association with an instrument. An instrument may be addressable by more than one SPC Credential Identifier (e.g., when the user has authenticated through different devices for that instrument).
 
 **SPC Request**
 : Information provided as input to the API. It is likely to include

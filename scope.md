@@ -67,10 +67,10 @@ See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Paym
 : A mechanism used to transfer value from a payer to a payee.
 
 **SPC Credential**
-: The data stored in the browser that represents the association between a payment instrument and some authentication credential(s). An SPC Credential includes one or more SPC Credential Identifiers. It is a design goal for this data structure to support FIDO but also potentially other authentication "backends." It is also a design goal to enable multiple payment instruments to be associated with a common authentication credential (e.g., biometric).
+: Data that represents the association between an instrument and an authentication credential. Note: Management of multiple relationships is an implementation detail (e.g., multiple authentications corresponding to a single instrument, or multiple instruments enrolled for a given authentication).
 
 **SPC Credential Identifiers**
-: These identifiers are generated during enrollment and stored by the Relying Party in association with a payment instrument.
+: Each SPC Credential Identifier refers to one SPC Credential. These identifiers are generated during enrollment and stored by the Relying Party in association with an instrument.
 
 **SPC Request**
 : Information provided as input to the API. It is likely to include
@@ -107,7 +107,7 @@ priority:
 
 ### In-transaction enrollment, authentication same merchant
 
-* While checking out, Alice selects a payment instrument and is successfully authenticated via one-time password.
+* While checking out, Alice selects an instrument and is successfully authenticated via one-time password.
 * She is then prompted with the opportunity to speed up future checkouts by
 enrolling her authenticator with the bank in association with the same instrument.
 * A few days later during checkout on the same merchant site, Alice is prompted (e.g., during an EMV&reg; 3-D Secure step up) to confirm a transaction with the same instrument by using the enrolled authenticator.
@@ -131,7 +131,7 @@ site.
 
 ### Enrollment for both payment authentication and account login
 
-* During a guest checkout experience, Alice selects a payment instrument. As part of authenticating, she enrolls her authenticator with the bank in association with the payment instrument.
+* During a guest checkout experience, Alice selects an instrument. As part of authenticating, she enrolls her authenticator with the bank in association with the instrument.
 * In addition, Alice is prompted to set up a user account with this particular merchant, leveraging the same authentication credentials.
 * The goal is thus to enable Alice to use the same authentication credential to (1) make payments on multiple sites, and (2) log into this site.
 
@@ -191,7 +191,7 @@ Notes:
 ### Authenticator unenrollment
 
 * Alice drops her phone in the river.
-* For housekeeping, she logs into her bank site and removes information about the authenticator. This causes the bank to remove any bindings between that authenticator and any payment instruments.
+* For housekeeping, she logs into her bank site and removes information about the authenticator. This causes the bank to remove any bindings between that authenticator and any instruments.
 * Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC Credentials that refer to that authenticator.
 
 ### Instrument detail update
@@ -235,7 +235,7 @@ can leverage the modal browsing window provided by the browser.
 
 * If the browser finds a match, the browser prompts the user to
 confirm the transaction details including amount, merchant identification
-and payment instrument metadata. The browser determines the user
+and instrument information. The browser determines the user
 experience, but the required user gestures may vary according to the
 authentication method. For example, the user experience may involve a
 multi-factor biometric authentication. Or it may involve less friction
@@ -273,9 +273,9 @@ merchant.
   not have any matching SPC Credentials, the API returns null without
   any user experience.
 * The browser (or delegated secure hardware) displays transaction
-  details to the user: amount, beneficiary, and payment instrument.
+  details to the user: amount, beneficiary, and instrument.
   The Payment Credential includes displayable information about
-  the payment instrument.
+  the instrument.
 * The browser prompts the user to confirm the transaction details.
   The extent of the user experience depends on the authentication
   method.

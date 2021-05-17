@@ -19,7 +19,7 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 ## Web Context Support
 
 * It must possible to invoke SPC from an iframe. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
-* It must possible to invoke SPC from during a Payment Request API call (e.g., via a new method).
+* It must possible to invoke SPC during a Payment Request API call (e.g., via a new method). See [issue 65](https://github.com/w3c/secure-payment-confirmation/issues/65)
 * It must possible to invoke SPC from within a Payment Handler.
 
 ## Enrollment

@@ -88,9 +88,8 @@ authorization it can be validated against relying-party stored instrument displa
 
 ## SPC Credentials
 
-* See [issue 69](https://github.com/w3c/secure-payment-confirmation/issues/69) for discussion of requirements When more than one SPC Credential matches input data.
+* See [issue 69](https://github.com/w3c/secure-payment-confirmation/issues/69) for discussion of requirements when more than one SPC Credential matches input data.
 * When no SPC Credential matches input data, the protocol should terminate without any user experience to allow for seamless fallback behaviors.
-* If the protocol supports more than one instrument per authentication (e.g., within the same SPC Credential), then each instrument must be uniquely addressable and have unique display information.
 
 ### Lifecycle Management
 

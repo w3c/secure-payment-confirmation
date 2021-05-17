@@ -222,8 +222,6 @@ There are two elements to the user authentication journey:
 Enrollment may happen outside of a transaction (see [issue 44](https://github.com/w3c/secure-payment-confirmation/issues/44)) or during a transaction.
 Enrollment considerations include:
 
-* It is desirable that previously enrolled authentication credentials (e.g., FIDO) can be "enhanced" to become SPC Credentials.
-
 * In some cases the user may consent to a particular (future) authentication flow. For example, the user might agree to a lower friction flow for some types of transactions or some merchants.
 
 ### Authentication

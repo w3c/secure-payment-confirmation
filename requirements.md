@@ -16,14 +16,14 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 ## Web Context Support
 
 * It must possible to invoke SPC from an iframe. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
-* It must possible to invoke SPC from within Payment Request API.
+* It must possible to invoke SPC from during a Payment Request API call (e.g., via a new method).
 * It must possible to invoke SPC from within a Payment Handler.
 
 ## Enrollment
 
 * It must be possible to enroll an SPC Credential outside of a transaction.
-* It must be possible to enroll an SPC Credential during a transaction. This enrollment should not prevent timely completion of the transaction.
-* It must be possible to enroll an SPC Credential from code on a merchant site.
+* It must be possible to enroll an SPC Credential following a prior (non-SPC) authentication during a transaction. This enrollment should not prevent timely completion of the transaction.
+* It is not a requirement that the relying party be able to enroll an SPC Credential in a third-party context.
 * It must be possible to enroll an SPC Credential from a payment handler.
 * Each browser should natively support an SPC credential enrollment user experience.
 
@@ -31,11 +31,15 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 
 * Enrollment must include display information for the associated instrument.
 * Because instrument display information is available to the relying party (e.g., provided by the relying party itself, the merchant, or some other party), it is not a requirement that this information be stored in the browser as part of the SPC Credential.
+* The relying party should be able to update the instrument information of an enrolled SPC Credential (e.g., for new card art).
 
 ## Transaction Confirmation User Experience
 
+
 * Each browser must natively support a transaction confirmation user experience.
 * Although we anticipate that in most cases the browser will render the transaction confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator).
+* The transaction confirmation user experience must display instrument information such as label and icon.
+* The transaction confirmation user experience must display amount and currency of the payment.
 * See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on merchant information display.
 * For regulatory reasons, the party that invokes SPC must be able to specify a timeout for the user experience. See [issue 67](https://github.com/w3c/secure-payment-confirmation/issues/67).
 * The transaction confirmation user experience should include the beneficiary name, and optionally the title and favicon of the page where it was called. See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48).
@@ -72,7 +76,7 @@ authorization it can be validated against relying-party stored instrument displa
 
 ## SPC Credentials
 
-* When more than one SPC Credential matches input data, the browser must choose the authenticator in the order of the input SPC Credential Identifiers.
+* See [issue 69](https://github.com/w3c/secure-payment-confirmation/issues/69) for discussion of requirements When more than one SPC Credential matches input data.
 * When no SPC Credential matches input data, the protocol should terminate without any user experience to allow for seamless fallback behaviors.
 * If the protocol supports more than one instrument per authenticator (e.g., within the same SPC Credential), then each instrument must be uniquely addressable and have unique display information.
 
@@ -83,13 +87,12 @@ authorization it can be validated against relying-party stored instrument displa
 ## SPC Assertions
 
 * The SPC Assertion must include at least: a merchant origin/identifier, amount and currency, transaction id.
+The SPC Assertion must include the cryptographic nonce / challange if provided within the SPC request.
 * The SPC Assertion must also include information about the user's journey. This information may be part of the authenticator's own assertion. For example, the assertion must indicate whether the user completed the transaction without a user presence check.
 * The SPC Assertion must also include information about which entity displayed the transaction confirmation user experience (browser, OS, or authenticator).
 * The SPC Assertion must include a signature over that data (based on the associated authenticator). This signature may be validated by the Relying Party or any other party with the appropriate key.
 
 ## Security and Privacy Considerations
-
-* For privacy, the protocol must enable the user to require that two payment instruments NOT be associated with the same authenticator.
 
 * SPC Credential Identifiers must be origin-bound to reduce the risk
   of cross-site tracking through the protocol. This implies that the
@@ -116,7 +119,7 @@ once that becomes available.
 ### SPC Credential
 
 * An SPC Credential is likely to include the following kind of data:
-* One or more Payment Credential Identifiers. See [issue 13](https://github.com/w3c/secure-payment-confirmation/issues/13) on cardinality between SPC Credential and instruments). Also see [issue 27](https://github.com/w3c/secure-payment-confirmation/issues/27) about allowing user to request that each instrument have its own credential.
+* One or more Payment Credential Identifiers. See [issue 13](https://github.com/w3c/secure-payment-confirmation/issues/13) on cardinality between SPC Credential and instruments). 
 * Authentication-method specific data (e.g., rpid).
 * See [issue 62](https://github.com/w3c/secure-payment-confirmation/issues/62) about associating a credential with a user profile. This issue discusses the idea of making that profile information available prior to instrument selection, which could support additional selection use cases.
 
@@ -137,7 +140,7 @@ Many authentication protocols include a source of randomness to ensure freshness
 ### Security and Privacy Considerations
 
 * See [issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28) on security properties.
-* See [issue 13](https://github.com/w3c/secure-payment-confirmation/issues/13) on cardinality between SPC Credential and instruments). Also see [issue 27](https://github.com/w3c/secure-payment-confirmation/issues/27) about allowing user to request that each instrument have its own credential.
+* See [issue 13](https://github.com/w3c/secure-payment-confirmation/issues/13) on cardinality between SPC Credential and instruments). 
 
 ## Editors
 

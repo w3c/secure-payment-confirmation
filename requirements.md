@@ -12,15 +12,23 @@ and design considerations for SPC.
 
 See also: [SPC Scope](scope.md) for definitions and more information.
 
+## Assumptions
+
+* Many checkout experiences are provided in practice via iframes.
+
+## API Independence
+* We endeavor to describe requirements independently of specific APIs, in particular Web Authentication and Payment Request. See [issue 65](https://github.com/w3c/secure-payment-confirmation/issues/65)
+* Where requirements have been suggested that are specific to an API, we list those in self-contained sections.
+
 ## Feature Detection
 
 * It must be possible to determine programmatically whether a browser supports SPC.
 
 ## Web Context Support
 
-* It must possible to invoke SPC from an iframe. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
-* It must possible to invoke SPC during a Payment Request API call (e.g., via a new method). See [issue 65](https://github.com/w3c/secure-payment-confirmation/issues/65)
-* It must possible to invoke SPC from within a Payment Handler.
+* It must possible to call SPC from a Web site or a payment handler.
+* It must possible to call SPC from an iframe. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
+
 
 ## Enrollment
 
@@ -38,7 +46,7 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 
 ## Transaction Confirmation User Experience
 
-
+* To add: user activation gesture requirement.
 * Each browser must natively support a transaction confirmation user experience.
 * Although we anticipate that in most cases the browser will render the transaction confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator).
 * The transaction confirmation user experience must display instrument information such as label and icon.

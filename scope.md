@@ -63,6 +63,9 @@ See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Paym
 
 ## Definitions
 
+**Instrument**
+: A mechanism used to transfer value from a payer to a payee.
+
 **SPC Credential**
 : The data stored in the browser that represents the association between a payment instrument and some authentication credential(s). An SPC Credential includes one or more SPC Credential Identifiers. It is a design goal for this data structure to support FIDO but also potentially other authentication "backends." It is also a design goal to enable multiple payment instruments to be associated with a common authentication credential (e.g., biometric).
 

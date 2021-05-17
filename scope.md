@@ -105,7 +105,7 @@ priority:
 * While mobile banking, Alice enroll her authenticator to be used with all her credit cards issued by this bank.
 * A few days later during checkout, Alice is prompted to confirm a transaction with one of those cards via her authenticator.
 
-### In-transaction enrollment, authentication same merchant
+### In-transaction enrollment, later authentication same merchant
 
 * While checking out, Alice selects an instrument and is successfully authenticated via one-time password.
 * She is then prompted with the opportunity to speed up future checkouts by

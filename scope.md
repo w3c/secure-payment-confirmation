@@ -200,6 +200,14 @@ Notes:
 * While Alice is shopping on a merchant site, the merchant redirects her to her bank site to authenticate.
 * The bank invokes SPC using the previously enrolled authenticator.
 
+### Web Authentication enrollment
+
+* Alice has received a roaming FIDO authenticator from her bank which has pre-enrolled credentials for her online banking account.
+* Alice visits the bank with her desktop browser and authenticates with her roaming FIDO authenticator. The bank prompts Alice to use her platform authenticator for re-authentication and to use her platform authenticator for streamlined checkout.
+* Alice thus uses her roaming FIDO authenticator to provision her platform authenticator for SPC.
+* A month later Alice drops her phone in the river. She uses her roaming authenticator to log into the bank from her phone and repeats the same process to provision the platform authenticator in her phone.
+
+
 ## Mockups of some user stories
 
 * [Stripe pilot mockups](https://docs.google.com/presentation/d/1kZEv2Cf9W5kqG1fCGtP2CNQc9sVeZNuSlbRJvx_irHo/edit#slide=id.gc60d028daa_0_19)

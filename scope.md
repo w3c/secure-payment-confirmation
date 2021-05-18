@@ -124,9 +124,6 @@ site.
 * While shopping on a desktop browser, Alice initiates a checkout.
 * She receives a push notification on her phone to authenticate with that device for the transaction.
 * Upon successful authentication, the checkout experience on her desktop successfully completes.
-* Having enrolled an authenticator previously (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
-site.
-* During checkout, Alice selects the same instrument and is prompted to authenticate by using the enrolled authenticator.
 
 ### Enrollment for both payment authentication and account login
 

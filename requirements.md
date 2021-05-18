@@ -38,6 +38,7 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 * It is not a requirement that the relying party be able to enroll an SPC Credential in a third-party context.
 * It must be possible to enroll an SPC Credential from a payment handler.
 * Each browser should natively support an SPC credential enrollment user experience.
+* One of the authentication methods for enrolling an SPC Credential should be Web Authentication.
 
 ### Instrument Information
 

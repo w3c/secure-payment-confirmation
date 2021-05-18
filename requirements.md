@@ -28,7 +28,7 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 
 * It must be possible to call SPC from a Web site or a payment handler.
 * It must be possible to call SPC from an iframe. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
-
+* Calling SPC must [require and consume transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api). That is, the user must have interacted with the page before SPC is called.
 
 ## Enrollment
 

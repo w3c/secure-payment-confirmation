@@ -12,10 +12,6 @@ and design considerations for SPC.
 
 See also: [SPC Scope](scope.md) for definitions and more information.
 
-## Assumptions
-
-* Many checkout experiences are provided in practice via iframes.
-
 ## API Independence
 * We endeavor to describe requirements independently of specific APIs, in particular Web Authentication and Payment Request. See [issue 65](https://github.com/w3c/secure-payment-confirmation/issues/65)
 * Where requirements have been suggested that are specific to an API, we list those in self-contained sections.
@@ -27,8 +23,7 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 ## Web Context Support
 
 * It must be possible to call SPC from a Web site or a payment handler. Note: This implies changes to the Payment Handler API are likely.
-* It must be possible to call SPC from an iframe. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
-
+* Because many checkout experiences are offered through iframes, it must be possible to call SPC from an iframe. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
 
 ## Enrollment
 

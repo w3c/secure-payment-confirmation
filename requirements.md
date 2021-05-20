@@ -12,6 +12,8 @@ and design considerations for SPC.
 
 See also: [SPC Scope](scope.md) for use cases.
 
+<!-- toc -->
+
 ## Definitions
 
 **Instrument** <a name="dfn-instrument"></a>

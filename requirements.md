@@ -26,7 +26,7 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 
 ## Web Context Support
 
-* It must be possible to call SPC from a Web site or a payment handler.
+* It must be possible to call SPC from a Web site or a payment handler. Note: This implies changes to the Payment Handler API are likely.
 * It must be possible to call SPC from an iframe. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
 
 

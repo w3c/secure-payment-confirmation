@@ -53,9 +53,8 @@ See also: [SPC Scope](scope.md) for definitions and more information.
 * Although we anticipate that in most cases the browser will render the transaction confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator).
 * The transaction confirmation user experience must display instrument information such as label and icon.
 * The transaction confirmation user experience must display amount and currency of the payment.
-* See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on merchant information display.
 * For regulatory reasons, the party that invokes SPC must be able to specify a timeout for the user experience. See [issue 67](https://github.com/w3c/secure-payment-confirmation/issues/67).
-* The transaction confirmation user experience should include the beneficiary name, and optionally the title and favicon of the page where it was called. See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48).
+* The transaction confirmation user experience should include the beneficiary name, and optionally the title and favicon of the page where it was called. See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on merchant information display.
 
 ### Sources of Instrument Information
 

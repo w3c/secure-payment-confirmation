@@ -10,7 +10,7 @@ and design considerations for SPC.
 * These requirements are not prioritized.
 * "MUST", "SHOULD", and "MAY" are used per [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119).
 
-See also: [SPC Scope](scope.md) for use cases.
+See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https://github.com/w3c/secure-payment-confirmation/issues).
 
 ## Definitions
 
@@ -133,39 +133,7 @@ The [SPC Assertion](#dfn-spc-assertion) must include the cryptographic nonce / c
 * SPC should support both local and roaming authenticators. See [issue 31](https://github.com/w3c/secure-payment-confirmation/issues/31) on discoverable credentials and [issue 12](https://github.com/w3c/secure-payment-confirmation/issues/12) on roaming authenticator behaviors.
 * [Large Blob](https://www.w3.org/TR/webauthn-2/#sctn-large-blob-extension) (WebAuthn Level 2) may be used to create portable stored data to reduce enrollment costs. Use case: I enroll my authenticator via one browser, but stored data can be used in another browser.
 
-## Detailed Considerations
-
-Note: Ideally this level of detail would not be part of the scope
-document. These musings are likely to migrate to a specification
-once that becomes available.
-
-### SPC Credential
-
-* An [SPC Credential](#dfn-spc-credential) is likely to include the following kind of data:
-* See [issue 13](https://github.com/w3c/secure-payment-confirmation/issues/13) on cardinality between [SPC Credential](#dfn-spc-credential) and instruments). 
-* Authentication-method specific data (e.g., rpid).
-* See [issue 62](https://github.com/w3c/secure-payment-confirmation/issues/62) about associating a credential with a user profile. This issue discusses the idea of making that profile information available prior to instrument selection, which could support additional selection use cases.
-
-### SPC Credential Identifiers
-* See [issue 49](https://github.com/w3c/secure-payment-confirmation/issues/49) and [issue 10](https://github.com/w3c/secure-payment-confirmation/issues/10) on the nature of the SPC Credential Identifier.
-
-### Sources of Randomness
-
-Many authentication protocols include a source of randomness to ensure freshness. 
-
-* See [issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28) on any requirements for the nonce (e.g., random? secret?).
-* See [issue 26](https://github.com/w3c/secure-payment-confirmation/issues/26) on not constraining the source of randomness
-
-### SPC Assertion
-
-* What is the nature of the signature? See [issue 40](https://github.com/w3c/secure-payment-confirmation/issues/40) and [issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28)
-
-### Security and Privacy Considerations
-
-* See [issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28) on security properties.
-* See [issue 13](https://github.com/w3c/secure-payment-confirmation/issues/13) on cardinality between [SPC Credential](#dfn-spc-credential) and instruments). 
-
-## Editors
+## Editor
 
 * Ian Jacobs
 

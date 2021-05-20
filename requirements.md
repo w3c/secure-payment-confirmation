@@ -62,7 +62,6 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 
 ### Transaction Confirmation User Experience
 
-* To add: user activation gesture requirement.
 * Each browser must natively support a transaction confirmation user experience.
 * Although we anticipate that in most cases the browser will render the transaction confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator).
 * The transaction confirmation user experience must display instrument information such as label and icon.

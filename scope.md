@@ -257,48 +257,6 @@ the payment handler may invoke SPC. In this case, the user journey is the
 same, but the SPC Assertion is returned to the payment handler, not the
 merchant.
 
-## Browser Behaviors
-
-### Enrollment
-
-* The API will will support registration of a Payment Credential
-  in the browser.
-* Enrollment will be possible during or outside of a transaction (see [issue 44](https://github.com/w3c/secure-payment-confirmation/issues/44)).
-* TBD whether we standardize Payment Credential enrollment UX.
-
-### Transaction
-
-* See [issue 8](https://github.com/w3c/secure-payment-confirmation/issues/8) on whether SPC can be invoked before Payment Request, or only during.
-* Given an ordered list of SPC Credential Identifiers in the SPC
-  Request, the browser picks the first SPC Credential that matches and
-  uses that credential to authenticate the user. If the browser does
-  not have any matching SPC Credentials, the API returns null without
-  any user experience.
-* The browser (or delegated secure hardware) displays transaction
-  details to the user: amount, beneficiary, and instrument.
-  The Payment Credential includes displayable information about
-  the instrument.
-* The browser prompts the user to confirm the transaction details.
-  The extent of the user experience depends on the authentication
-  method.
-* After successful authentication, the API returns a standardized
-  SPC Assertion. Unsuccessful authentication results in a different
-  behavior (e.g., error).
-
-### Role of Payment Handlers
-
-* During Payment Request API a payment handler can invoke SPC
-  authentication.
-* After successful authentication, the API returns a standardized
-  SPC Assertion to the payment handler.
-
-### Lifecycle management
-
-* Browsers need to enable users to manage (view, update, delete) SPC
-  Credentials.
-* See [issue 14](https://github.com/w3c/secure-payment-confirmation/issues/14) on handling stale display information.
-* See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63) about unenrollment.
-
 ## Out of Scope
 
 * ID & V to establish real world identity during enrollment.

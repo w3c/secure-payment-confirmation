@@ -84,9 +84,7 @@ authorization it can be validated against relying-party stored instrument displa
 * The browser should support transaction confirmation without hardware
   authentication (e.g., no FIDO user presence check) when requested by
   the relying party.
-
 * For each transaction, a merchant should be able to express to the relying party a preference for a low-friction flow (or not to use a low-friction flow).
-
 * If the browser supports a low-friction flow option, the browser must
   support a user preference to override that option and maintain the
   full hardware-supported (e.g., biometric) flow.
@@ -119,7 +117,6 @@ The [SPC Assertion](#dfn-spc-assertion) must include the cryptographic nonce / c
   of cross-site tracking through the protocol. This implies that the
   RP generates new [SPC Credential Identifiers](#dfn-credential-id) across merchants. The
   browser maps [SPC Credential Identifiers](#dfn-credential-id) to stored [SPC Credentials](#dfn-spc-credential).
-
 * It is not a requirement to obfuscate [SPC Credential Identifiers](#dfn-credential-id) used
   as input to SPC.
 

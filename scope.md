@@ -61,24 +61,6 @@ other parties (e.g., issuing banks or payment apps) to do so.
 
 See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Payment-Confirmation#benefits).
 
-## Definitions
-
-**Instrument** <a name="dfn-instrument"></a>
-: A mechanism used to transfer value from a payer to a payee.
-
-**SPC Credential** <a name="dfn-spc-credential"></a>
-: Data that represents the association between an instrument and an authentication credential. Note: Management of multiple relationships is an implementation detail (e.g., multiple authentications corresponding to a single instrument, or multiple instruments enrolled for a given authentication).
-
-**SPC Credential Identifiers** <a name="dfn-credential-id"></a>
-: Each SPC Credential Identifier refers to one SPC Credential. These identifiers are generated during enrollment and stored by the Relying Party in association with an instrument. An instrument may be addressable by more than one SPC Credential Identifier (e.g., when the user has authenticated through different devices for that instrument).
-
-**SPC Request** <a name="dfn-spc-request"></a>
-: Information provided as input to the API. It is likely to include
-SPC Credential Identifiers, sources of randomness, and other data.
-
-**SPC Assertion** <a name="dfn-spc-assertion"></a>
-: The output of a successful SPC API authentication.
-
 ## Protocols and Systems Helping to Guide Requirements
 
 This list is the result of people joining the SPC task force:
@@ -188,7 +170,7 @@ Notes:
 
 * Alice drops her phone in the river.
 * For housekeeping, she logs into her bank site and removes information about the authenticator. This causes the bank to remove any bindings between that authenticator and any instruments.
-* Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC Credentials that refer to that authenticator.
+* Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC-related information related to that authenticator.
 
 ### Instrument detail update
 
@@ -230,8 +212,8 @@ Enrollment considerations include:
 
 ### Authentication
 
-* At transaction time, if the SPC Request does not match any SPC
-Credentials stored in the browser, there is no user experience.  This
+* At transaction time, if the SPC input data does not match any previously
+enrolled information known to the browser, there is no user experience.  This
 enables the merchant to provide a seamless fallback experience that
 can leverage the modal browsing window provided by the browser.
 
@@ -254,7 +236,7 @@ Related issues:
 
 * If the user is responding to a Payment Request with a payment handler,
 the payment handler may invoke SPC. In this case, the user journey is the
-same, but the SPC Assertion is returned to the payment handler, not the
+same, but the authentication results are returned to the payment handler, not the
 merchant.
 
 ## Out of Scope

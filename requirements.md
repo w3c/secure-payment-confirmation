@@ -12,8 +12,6 @@ and design considerations for SPC.
 
 See also: [SPC Scope](scope.md) for use cases.
 
-<!-- toc -->
-
 ## Definitions
 
 **Instrument** <a name="dfn-instrument"></a>
@@ -99,18 +97,10 @@ authorization it can be validated against relying-party stored instrument displa
 
 * TBD
 
-### Unenrollment
-
-* The ecosystem should enable the user to communicate to the relying party to forget [SPC Credential Identifiers](#dfn-credential-id). This might happen in a variety of ways (e.g., forget this authenticator and all associated instruments; forget any authenticators associated with this instrument, etc.). See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63).
-
 ### SPC Credentials
 
 * See [issue 69](https://github.com/w3c/secure-payment-confirmation/issues/69) for discussion of requirements when more than one [SPC Credential](#dfn-spc-credential) matches input data.
 * When no [SPC Credential](#dfn-spc-credential) matches input data, the protocol should terminate without any user experience to allow for seamless fallback behaviors.
-
-#### Lifecycle Management
-
-* The user must be able to remove individual [SPC Credentials](#dfn-spc-credential) from a browser instance.
 
 ### SPC Assertions
 
@@ -120,7 +110,12 @@ The [SPC Assertion](#dfn-spc-assertion) must include the cryptographic nonce / c
 * The [SPC Assertion](#dfn-spc-assertion) must also include information about which entity displayed the transaction confirmation user experience (browser, OS, or authenticator).
 * The [SPC Assertion](#dfn-spc-assertion) must include a signature over that data (based on the associated authenticator). This signature may be validated by the Relying Party or any other party with the appropriate key.
 
-## Security and Privacy Considerations
+### Lifecycle Management
+
+* The user must be able to remove individual [SPC Credentials](#dfn-spc-credential) from a browser instance.
+* The ecosystem should enable the user to communicate to the relying party to forget [SPC Credential Identifiers](#dfn-credential-id). This might happen in a variety of ways (e.g., forget this authenticator and all associated instruments; forget any authenticators associated with this instrument, etc.). See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63).
+
+### Security and Privacy Considerations
 
 * [SPC Credential Identifiers](#dfn-credential-id) must be origin-bound to reduce the risk
   of cross-site tracking through the protocol. This implies that the

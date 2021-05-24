@@ -79,19 +79,16 @@ authorization it can be validated against relying-party stored instrument displa
 * If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from a different instance of the same browser (e.g., both browsers are Firefox)
 * If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome).
 
-#### Low Friction Flows
+#### Levels of User Interaction during Authentication
 
-* The browser should support transaction confirmation without hardware
-  authentication (e.g., no FIDO user presence check) when requested by
-  the relying party.
-* For each transaction, a merchant should be able to express to the relying party a preference for a low-friction flow (or not to use a low-friction flow).
-* If the browser supports a low-friction flow option, the browser must
-  support a user preference to override that option and maintain the
-  full hardware-supported (e.g., biometric) flow.
-
-#### Zero Friction Flows
-
-* TBD
+* The API must support two factor authentication (e.g., with FIDO user verification check).
+* The API must support one factor authentication (e.g., with FIDO user presence check).
+* The API should support zero factor transaction confirmation (that is, with a confirmation dialog but without a user presence check).
+* TBD: Whether the API should support a flow without a confirmation dialog and without a user presence check, but only after prior consent.
+* The API must allow the relying party to express a preference for any of the supported levels of user interaction.
+* For each transaction, a merchant should be able to express to the relying
+party a preference to use (or not use) any of the supported levels of user interaction.
+* If the browser supports a low-friction flow option, the browser must support a user preference to override that option and maintain authentication with more user interaction.
 
 ### SPC Credentials
 

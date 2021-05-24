@@ -40,6 +40,8 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 
 * It must be possible to determine programmatically whether a browser supports SPC.
 
+Q: Current implementation requires constructing a PaymentRequest to check whether the user could do SPC. It would be good to have a simpler way to perform the check similiar to `PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()`. Maybe `PaymentRequest.isSecurePaymentConfirmationAvailable()`.
+
 ### Web Context Support
 
 * It must be possible to call SPC from a Web site or a payment handler. Note: This implies changes to the Payment Handler API are likely.

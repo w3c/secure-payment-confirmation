@@ -79,12 +79,12 @@ authorization it can be validated against relying-party stored instrument displa
 * If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from a different instance of the same browser (e.g., both browsers are Firefox)
 * If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome).
 
-#### Levels of User Interaction during Authentication
+#### Levels of User Interaction during Transaction Confirmation
 
-* The API must support two factor authentication (e.g., with FIDO user verification check).
-* The API must support one factor authentication (e.g., with FIDO user presence check).
-* The API should support zero factor transaction confirmation (that is, with a confirmation dialog but without a user presence check).
-* TBD: Whether the API should support a flow without a confirmation dialog and without a user presence check, but only after prior consent.
+* The API must support transaction confirmation with two factor authentication (e.g., with FIDO user verification check).
+* The API must support transaction confirmation with one factor authentication with user presence check.
+* The API should support transaction confirmation with one factor authentication (possession) without user presence check.
+* TBD: The API should support transaction confirmation with one factor authentication (possession) but without a visible dialog and without a user presence check.
 * The API must allow the relying party to express a preference for any of the supported levels of user interaction.
 * For each transaction, a merchant should be able to express to the relying
 party a preference to use (or not use) any of the supported levels of user interaction.

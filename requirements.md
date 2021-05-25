@@ -1,7 +1,3 @@
-Q: Meta-question; are the uses of 'must', 'should' etc here to be interpreted per [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119) ?
-
-Q: Meta-question; these requirements encompass a fairly large scope. I believe that we can spec and ship SPC in 'chunks' towards this goal, where each stage might add a few more capabilities meeting these requirements, but not have every single requirement in v1. Do others agree?
-
 # Secure Payment Confirmation: Requirements and Design Considerations
 
 Status: This is a draft document without consensus.

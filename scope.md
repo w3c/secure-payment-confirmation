@@ -61,24 +61,6 @@ other parties (e.g., issuing banks or payment apps) to do so.
 
 See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Payment-Confirmation#benefits).
 
-## Definitions
-
-**Instrument**
-: A mechanism used to transfer value from a payer to a payee.
-
-**SPC Credential**
-: Data that represents the association between an instrument and an authentication credential. Note: Management of multiple relationships is an implementation detail (e.g., multiple authentications corresponding to a single instrument, or multiple instruments enrolled for a given authentication).
-
-**SPC Credential Identifiers**
-: Each SPC Credential Identifier refers to one SPC Credential. These identifiers are generated during enrollment and stored by the Relying Party in association with an instrument. An instrument may be addressable by more than one SPC Credential Identifier (e.g., when the user has authenticated through different devices for that instrument).
-
-**SPC Request**
-: Information provided as input to the API. It is likely to include
-SPC Credential Identifiers, sources of randomness, and other data.
-
-**SPC Assertion**
-: The output of a successful SPC API authentication.
-
 ## Protocols and Systems Helping to Guide Requirements
 
 This list is the result of people joining the SPC task force:
@@ -124,10 +106,6 @@ site.
 * While shopping on a desktop browser, Alice initiates a checkout.
 * She receives a push notification on her phone to authenticate with that device for the transaction.
 * Upon successful authentication, the checkout experience on her desktop successfully completes.
-
-3) Having enrolled an authenticator previously (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
-site.
-* During checkout, Alice selects the same instrument and is prompted to authenticate by using the enrolled authenticator.
 
 ### Enrollment for both payment authentication and account login
 
@@ -192,7 +170,7 @@ Notes:
 
 * Alice drops her phone in the river.
 * For housekeeping, she logs into her bank site and removes information about the authenticator. This causes the bank to remove any bindings between that authenticator and any instruments.
-* Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC Credentials that refer to that authenticator.
+* Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC-related information related to that authenticator.
 
 ### Instrument detail update
 
@@ -203,6 +181,14 @@ Notes:
 * Alice has enrolled her authenticator with her bank.
 * While Alice is shopping on a merchant site, the merchant redirects her to her bank site to authenticate.
 * The bank invokes SPC using the previously enrolled authenticator.
+
+### Web Authentication enrollment
+
+* Alice has received a roaming FIDO authenticator from her bank which has pre-enrolled credentials for her online banking account.
+* Alice visits the bank with her desktop browser and authenticates with her roaming FIDO authenticator. The bank prompts Alice to use her platform authenticator for re-authentication and to use her platform authenticator for streamlined checkout.
+* Alice thus uses her roaming FIDO authenticator to provision her platform authenticator for SPC.
+* A month later Alice drops her phone in the river. She uses her roaming authenticator to log into the bank from her phone and repeats the same process to provision the platform authenticator in her phone.
+
 
 ## Mockups of some user stories
 
@@ -226,8 +212,8 @@ Enrollment considerations include:
 
 ### Authentication
 
-* At transaction time, if the SPC Request does not match any SPC
-Credentials stored in the browser, there is no user experience.  This
+* At transaction time, if the SPC input data does not match any previously
+enrolled information known to the browser, there is no user experience.  This
 enables the merchant to provide a seamless fallback experience that
 can leverage the modal browsing window provided by the browser.
 
@@ -250,50 +236,8 @@ Related issues:
 
 * If the user is responding to a Payment Request with a payment handler,
 the payment handler may invoke SPC. In this case, the user journey is the
-same, but the SPC Assertion is returned to the payment handler, not the
+same, but the authentication results are returned to the payment handler, not the
 merchant.
-
-## Browser Behaviors
-
-### Enrollment
-
-* The API will will support registration of a Payment Credential
-  in the browser.
-* Enrollment will be possible during or outside of a transaction (see [issue 44](https://github.com/w3c/secure-payment-confirmation/issues/44)).
-* TBD whether we standardize Payment Credential enrollment UX.
-
-### Transaction
-
-* See [issue 8](https://github.com/w3c/secure-payment-confirmation/issues/8) on whether SPC can be invoked before Payment Request, or only during.
-* Given an ordered list of SPC Credential Identifiers in the SPC
-  Request, the browser picks the first SPC Credential that matches and
-  uses that credential to authenticate the user. If the browser does
-  not have any matching SPC Credentials, the API returns null without
-  any user experience.
-* The browser (or delegated secure hardware) displays transaction
-  details to the user: amount, beneficiary, and instrument.
-  The Payment Credential includes displayable information about
-  the instrument.
-* The browser prompts the user to confirm the transaction details.
-  The extent of the user experience depends on the authentication
-  method.
-* After successful authentication, the API returns a standardized
-  SPC Assertion. Unsuccessful authentication results in a different
-  behavior (e.g., error).
-
-### Role of Payment Handlers
-
-* During Payment Request API a payment handler can invoke SPC
-  authentication.
-* After successful authentication, the API returns a standardized
-  SPC Assertion to the payment handler.
-
-### Lifecycle management
-
-* Browsers need to enable users to manage (view, update, delete) SPC
-  Credentials.
-* See [issue 14](https://github.com/w3c/secure-payment-confirmation/issues/14) on handling stale display information.
-* See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63) about unenrollment.
 
 ## Out of Scope
 

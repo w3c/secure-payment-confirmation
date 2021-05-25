@@ -124,12 +124,12 @@ Note: Whilst I'm not saying this will or won't be a challenge for SPC, please no
 
 * [SPC Credential Identifiers](#dfn-credential-id) must be origin-bound to reduce the risk
   of cross-site tracking through the protocol. This implies that the
-  RP generates new SPC Credential Identifiers across merchants. The
-  browser maps SPC Credential Identifiers to stored SPC Credentials.
+  RP generates new [SPC Credential Identifiers](#dfn-credential-id) across merchants. The
+  browser maps [SPC Credential Identifiers](#dfn-credential-id) to stored [SPC Credentials](#dfn-spc-credential).
 
 Q: I'm very unclear on this requirement. It seems very far from everything we've discussed on SPC so far, and is introducing a redirection layer?
 
-* It is not a requirement to obfuscate SPC Credential Identifiers used
+* It is not a requirement to obfuscate [SPC Credential Identifiers](#dfn-credential-id) used
   as input to SPC.
 
 ### FIDO Considerations

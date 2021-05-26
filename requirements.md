@@ -38,22 +38,25 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 
 ### Feature Detection
 
-* It must be possible to determine programmatically whether a browser supports SPC.
+* It must be possible to determine through JavaScript feature detection whether a user agent supports SPC.
 
 ### Web Context Support
 
 * It must be possible to call SPC from a Web site or a payment handler. Note: This implies changes to the Payment Handler API are likely.
-* Because many checkout experiences are offered through iframes, it must be possible to call SPC from an iframe. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
-* Calling SPC must [require and consume transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api). That is, the user must have interacted with the page before SPC is called.
+* Because many checkout experiences are offered through iframes, it must be possible to call SPC from an iframe. SPC usage within an iframe must be enabled through a permission policy. See [issue 68](https://github.com/w3c/secure-payment-confirmation/issues/68).
 
 ### Enrollment
 
 * It must be possible to enroll an [SPC Credential](#dfn-spc-credential) outside of a transaction.
 * It must be possible to enroll an [SPC Credential](#dfn-spc-credential) following a prior (non-SPC) authentication during a transaction. This enrollment should not prevent timely completion of the transaction.
-* It must be possible to enroll multiple instruments for a single authentication. Each resulting [SPC Credential](#dfn-spc-credential) (that is: each instrument/authentication credential binding) must be independently addressable.
-* It is not a requirement that the relying party be able to enroll an [SPC Credential](#dfn-spc-credential) in a third-party context.
+* It is not a requirement that the relying party be able to enroll an [SPC Credential](#dfn-spc-credential) in a third-party context. However, it could improve common payment flows if the relying party could enroll an SPC credential from a cross-origin iframe.
 * It must be possible to enroll an [SPC Credential](#dfn-spc-credential) from a payment handler.
+
+#### Enrollment User Experience
+
 * Each browser should natively support an SPC credential enrollment user experience.
+* The user agent should [require and consume at least one transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api) in order to display an SPC enrollment user experience.
+* The user should support a user experience of enrollment of multiple instruments for a single authentication. Each resulting [SPC Credential](#dfn-spc-credential) (that is: each instrument/authentication credential binding) must be independently addressable.
 
 #### Instrument Information
 
@@ -64,6 +67,7 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 ### Transaction Confirmation User Experience
 
 * Each browser must natively support a transaction confirmation user experience.
+* The user agent must [require and consume at least one transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api) in order to display an SPC user experience.
 * Although we anticipate that in most cases the browser will render the transaction confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator).
 * The transaction confirmation user experience must display instrument information such as label and icon.
 * The transaction confirmation user experience must display amount and currency of the payment.
@@ -112,7 +116,7 @@ The [SPC Assertion](#dfn-spc-assertion) must include the cryptographic nonce / c
 ### Security and Privacy Considerations
 
 * [SPC Credentials](#dfn-credential) must be origin-bound. All [SPC Credential Identifiers](#dfn-credential-id) on the same origin are expected be distinct.
-* The API should allow relying parties to reduce the risk of cross-site tracking that might arise through the reuse of [SPC Credential Identifiers](#dfn-credential-id). For example, each SPC Credential could optionally include a public key provided by the relying party at enrollment. At transaction time, the relying party would use the corresponding private key to encrypt a hash of a [SPC Credential Identifier](#dfn-credential-id) and time stamp. The result would be input to the API along with the relying party ID. The browser would then use the relying party ID to select relevant SPC Credentials, and attempt to decrypt the input using the public key of each SPC Credential. If successful, the browser would proceed with the matching SPC Credential.
+* The API should allow relying parties to reduce the risk of cross-site tracking that might arise through the reuse of [SPC Credential Identifiers](#dfn-credential-id). See [issue 77](https://github.com/w3c/secure-payment-confirmation/issues/77).
 
 ### FIDO Considerations
 

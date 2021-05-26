@@ -111,12 +111,8 @@ The [SPC Assertion](#dfn-spc-assertion) must include the cryptographic nonce / c
 
 ### Security and Privacy Considerations
 
-* [SPC Credential Identifiers](#dfn-credential-id) must be origin-bound to reduce the risk
-  of cross-site tracking through the protocol. This implies that the
-  RP generates new [SPC Credential Identifiers](#dfn-credential-id) across merchants. The
-  browser maps [SPC Credential Identifiers](#dfn-credential-id) to stored [SPC Credentials](#dfn-spc-credential).
-* It is not a requirement to obfuscate [SPC Credential Identifiers](#dfn-credential-id) used
-  as input to SPC.
+* [SPC Credentials](#dfn-credential) must be origin-bound. All [SPC Credential Identifiers](#dfn-credential-id) on the same origin are expected be distinct.
+* The API should allow relying parties to reduce the risk of cross-site tracking that might arise through the reuse of [SPC Credential Identifiers](#dfn-credential-id). For example, each SPC Credential could optionally include a public key provided by the relying party at enrollment. At transaction time, the relying party would use the corresponding private key to encrypt a hash of a [SPC Credential Identifier](#dfn-credential-id) and time stamp. The result would be input to the API along with the relying party ID. The browser would then use the relying party ID to select relevant SPC Credentials, and attempt to decrypt the input using the public key of each SPC Credential. If successful, the browser would proceed with the matching SPC Credential.
 
 ### FIDO Considerations
 

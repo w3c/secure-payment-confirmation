@@ -25,32 +25,29 @@ SPC is a tool for this last step.
 
 ### Benefits
 
-* **Faster Authentication**. FIDO authentication provides a very good
-user experience. Our expectation is that the SPC "happy path" further
-accelerates strong customer authentication compared to other
-approaches such as one-time passwords. An important goal is to remove
-the need to redirect an enrolled user during a payment
-transaction. Another important goal is to speed up authentication
-compared to other approaches such as one-time passwords. A third goal
-is to create a consistent and trusted authentication experience across
-the Web.
+* **Authentication Streamlined for Payment**. FIDO authentication
+provides a very good user experience. We expect SPC to build on that
+experience in several ways, by further accelerating authentication
+(compared to one-time passcodes), requiring fewer user gestures,
+offering a predictable user experience across sites, and avoiding
+redirects.
 
 * **Scalable and Ubiquitous**. SPC supports streamlined authentication
 across merchant sites without additional enrollment.
 
-* **Designed to Meet Regulatory Requirements**. SPC helps entities
+* **Designed to Meet Regulatory Requirements**. The standardized
+payment confirmation user experience is designed to help entities
 fulfill regulatory requirements (e.g., strong customer authentication
-and transaction confirmation under PSD2) and other customer
+and dynamic linking under PSD2) and other customer
 authentication use cases.
 
 * **Simpler and more Secure Front-end Deployment**. The browser (or
-secure hardware) manages the display of transaction confirmation,
+secure hardware) manages the display of the payment confirmation experience,
 removing the need for other parties (e.g., issuing banks or payment
 apps) to do so. In addition, enabling payment service providers or
 others to authenticate the user can reduce the need to embed code
 provided by a Relying Party in a Web page, reducing security risks.
-Because the browser (or secure hardware) controls the display of
-transaction details, SPC is phishing-resistant.
+Reducing the need for redirects should also simplify solutions.
 
 See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Payment-Confirmation#benefits).
 
@@ -58,13 +55,12 @@ See also [more SPC benefits](https://github.com/w3c/webpayments/wiki/Secure-Paym
 
 The above benefits are grounded in a small number of unique API features:
 
-* **Browser-native UX for transaction confirmation**. The browser
-provides a consistent and efficient authentication UX across merchant
-sites. Note: The architecture should support display of transaction
-confirmation details by authenticators.
+* **Browser-native UX for payment confirmation**. The browser (or
+secure hardware) provides a consistent and efficient authentication UX
+across merchant sites.
 
-* **Cryptographic evidence**. Transaction confirmation generates
-cryptographic evidence of the user's confirmation of transaction
+* **Cryptographic evidence**. Payment confirmation generates
+cryptographic evidence of the user's confirmation of payment
 details.
 
 * **Cross-origin authentication**. With FIDO, the Relying Party that
@@ -86,7 +82,7 @@ The following use cases may be of interest but are of distinctly lower
 priority:
 
 * Delegation to the merchant as Relying Party.
-* QR-code triggered payment. User points phone at QR code which represents a Web Page. In vanilla mode, Web Page includes "Buy" button to trigger Payment Request. But in streamlined mode, SPC transaction dialog is immediately displayed to the user for a default instrument associated with the payment method.
+* QR-code triggered payment. User points phone at QR code which represents a Web Page. In vanilla mode, Web Page includes "Buy" button to trigger Payment Request. But in streamlined mode, SPC payment confirmation dialog is immediately displayed to the user for a default instrument associated with the payment method.
 * Tap-to-pay (NFC)
 
 ## User Stories
@@ -104,7 +100,7 @@ priority:
 * While checking out, Alice selects an instrument and is successfully authenticated via one-time password.
 * She is then prompted with the opportunity to speed up future checkouts by
 enrolling her authenticator with the bank in association with the same instrument.
-* A few days later during checkout on the same merchant site, Alice is prompted (e.g., during an EMV&reg; 3-D Secure step up) to confirm a transaction with the same instrument by using the enrolled authenticator.
+* A few days later during checkout on the same merchant site, Alice is prompted (e.g., during an EMV&reg; 3-D Secure step up) to confirm a payment with the same instrument by using the enrolled authenticator.
 
 ### Authentication different merchant
 
@@ -142,22 +138,22 @@ when seeking SPC Payment Identifiers.
 authentication for this transaction and communicates that along
 with any SPC Payment Identifiers. ***Note*** The SPC Payment Identifiers might themselves be the mechanism for communicating the preference for express checkout authentication.
 * The Payment Service Provider triggers SPC with this information.
-* The browser prompts the user confirm the transaction details (e.g., by clicking the "Verify" button).
+* The browser prompts the user confirm the payment details (e.g., by clicking the "Verify" button).
 * Having confirmed the user's preference for express checkout on
-this merchant, the browser does not require a user presence check. The authenticator is used to sign the transaction details, with additional information
-that the transaction did not include a user presence check.
+this merchant, the browser does not require a user presence check. The authenticator is used to sign the payment details, with additional information
+that the confirmation did not include a user presence check.
 
 Notes:
 
-* This is a "2 click" flow: buy button, then transaction confirmation dialog "verify".
+* This is a "2 click" flow: buy button, then payment confirmation dialog "verify".
 * Web Authentication requires the user presence check, but CTAP does not.
 * The Relying Party may make the decision for (or against) an express checkout flow based on a variety of information, including relationship to the
-customer, transaction amount, regulatory requirements, etc.
+customer, payment amount, regulatory requirements, etc.
 * The Relying Party should be sure to provide enough information so
   that if the user does not accept express checkout, there is a path
   to complete authentication.
 
-### Frictionless Checkout (no user presence check or transaction confirmation dialog)
+### Frictionless Checkout (no user presence check or payment confirmation dialog)
 
 This use cases is like the Express Checkout use case except that, in
 addition, there is no browser-supplied confirmation dialog.
@@ -171,7 +167,7 @@ authentication for this transaction and communicates that along
 with any SPC Payment Identifiers.
 * The Payment Service Provider triggers SPC with this information.
 * Having confirmed the user's preference for frictionless checkout on
-this merchant, the authenticator is used to sign the transaction details, with additional information that the transaction did not include a transaction
+this merchant, the authenticator is used to sign the payment details, with additional information that the transaction did not include a payment
 confirmation dialog or user presence check.
 
 Notes:
@@ -207,49 +203,6 @@ Notes:
 * [Stripe pilot mockups](https://docs.google.com/presentation/d/1kZEv2Cf9W5kqG1fCGtP2CNQc9sVeZNuSlbRJvx_irHo/edit#slide=id.gc60d028daa_0_19)
 * [Visa SRC (Oct 2020)](http://www.w3.org/2020/Talks/visa-spc-20201020.pdf)
 * [Entersekt example re: tracking](https://github.com/w3c/secure-payment-confirmation/issues/49#issuecomment-817552203)
-
-## Assumptions and Requirements for User Journeys
-
-There are two elements to the user authentication journey:
-
-1) Enrollment
-2) Authentication (at transaction time)
-
-### Enrollment
-
-Enrollment may happen outside of a transaction (see [issue 44](https://github.com/w3c/secure-payment-confirmation/issues/44)) or during a transaction.
-Enrollment considerations include:
-
-* In some cases the user may consent to a particular (future) authentication flow. For example, the user might agree to a lower friction flow for some types of transactions or some merchants.
-
-### Authentication
-
-* At transaction time, if the SPC input data does not match any previously
-enrolled information known to the browser, there is no user experience.  This
-enables the merchant to provide a seamless fallback experience that
-can leverage the modal browsing window provided by the browser.
-
-* If the browser finds a match, the browser prompts the user to
-confirm the transaction details including amount, merchant identification
-and instrument information. The browser determines the user
-experience, but the required user gestures may vary according to the
-authentication method. For example, the user experience may involve a
-multi-factor biometric authentication. Or it may involve less friction
-if the user previously consented to such an experience.
-
-Related issues:
-
- * [Issue 34](https://github.com/w3c/secure-payment-confirmation/issues/34) and [issue 29](https://github.com/w3c/secure-payment-confirmation/issues/29) on frictionless flows.
- * [Issue 30](https://github.com/w3c/secure-payment-confirmation/issues/30) on out-of-band authentication to a secondary device.
- * [Issue 28](https://github.com/w3c/secure-payment-confirmation/issues/28) on flows where the RP is not invoked before payment.
- * [Issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on the merchant details displayed in the payment confirmation dialog
-
-### Role of Payment Handlers
-
-* If the user is responding to a Payment Request with a payment handler,
-the payment handler may invoke SPC. In this case, the user journey is the
-same, but the authentication results are returned to the payment handler, not the
-merchant.
 
 ## Out of Scope
 

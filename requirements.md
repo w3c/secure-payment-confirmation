@@ -64,15 +64,15 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 * Because instrument display information is available to the relying party (e.g., provided by the relying party itself, the merchant, or some other party), it is not a requirement that this information be stored in the browser as part of the [SPC Credential](#dfn-spc-credential).
 * The relying party should be able to update the instrument information of an enrolled [SPC Credential](#dfn-spc-credential) (e.g., for new card art).
 
-### Transaction Confirmation User Experience
+### Payment Confirmation User Experience
 
-* Each browser must natively support a transaction confirmation user experience.
+* Each browser must natively support a payment confirmation user experience.
 * The user agent must [require and consume at least one transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api) in order to display an SPC user experience.
-* Although we anticipate that in most cases the browser will render the transaction confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator).
-* The transaction confirmation user experience must display instrument information such as label and icon.
-* The transaction confirmation user experience must display amount and currency of the payment.
+* Although we anticipate that in most cases the browser will render the payment confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator).
+* The payment confirmation user experience must display instrument information such as label and icon.
+* The payment confirmation user experience must display amount and currency of the payment.
 * For regulatory reasons, the party that invokes SPC must be able to specify a timeout for the user experience. See [issue 67](https://github.com/w3c/secure-payment-confirmation/issues/67).
-* The transaction confirmation user experience should include the beneficiary name, and optionally the title and favicon of the page where it was called. See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on merchant information display.
+* The payment confirmation user experience should include the beneficiary name, and optionally the title and favicon of the page where it was called. See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on merchant information display.
 
 #### Sources of Instrument Information
 
@@ -84,12 +84,12 @@ authorization it can be validated against relying-party stored instrument displa
 * If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from a different instance of the same browser (e.g., both browsers are Firefox)
 * If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome).
 
-#### Levels of User Interaction during Transaction Confirmation
+#### Levels of User Interaction during Payment Confirmation
 
-* The API must support transaction confirmation with two factor authentication (e.g., with FIDO user verification check).
-* The API must support transaction confirmation with one factor authentication with user presence check.
-* The API should support transaction confirmation with one factor authentication (possession) without user presence check.
-* TBD: The API should support transaction confirmation with one factor authentication (possession) but without a visible dialog and without a user presence check.
+* The API must support payment confirmation with two factor authentication (e.g., with FIDO user verification check).
+* The API must support payment confirmation with one factor authentication with user presence check.
+* The API should support payment confirmation with one factor authentication (possession) without user presence check.
+* TBD: The API should support payment confirmation with one factor authentication (possession) but without a visible dialog and without a user presence check.
 * The API must allow the relying party to express a preference for any of the supported levels of user interaction.
 * For each transaction, a merchant should be able to express to the relying
 party a preference to use (or not use) any of the supported levels of user interaction.
@@ -105,7 +105,7 @@ party a preference to use (or not use) any of the supported levels of user inter
 * The [SPC Assertion](#dfn-spc-assertion) must include at least: a merchant origin/identifier, amount and currency, transaction id.
 The [SPC Assertion](#dfn-spc-assertion) must include the cryptographic nonce / challange if provided within the SPC request.
 * The [SPC Assertion](#dfn-spc-assertion) must also include information about the user's journey. This information may be part of the authenticator's own assertion. For example, the assertion must indicate whether the user completed the transaction without a user presence check.
-* The [SPC Assertion](#dfn-spc-assertion) must also include information about which entity displayed the transaction confirmation user experience (browser, OS, or authenticator).
+* The [SPC Assertion](#dfn-spc-assertion) must also include information about which entity displayed the payment confirmation user experience (browser, OS, or authenticator).
 * The [SPC Assertion](#dfn-spc-assertion) must include a signature over that data (based on the associated authenticator). This signature may be validated by the Relying Party or any other party with the appropriate key.
 
 ### Lifecycle Management

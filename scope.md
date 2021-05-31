@@ -112,7 +112,8 @@ site.
 
 * While mobile banking, Alice enrolls the authenticator in her phone to be used with all her credit cards issued by this bank.
 * While shopping on a desktop browser, Alice initiates a checkout.
-* She receives a push notification on her phone to authenticate with that device for the transaction.
+* She receives a push notification on her phone to authenticate with that device for the transaction. At the same time, on her desktop she sees a message informing her to authenticate via her phone.
+* She opens up the bank Web site on the browser on her phone, which displays the payment confirmation user experience.
 * Upon successful authentication, the checkout experience on her desktop successfully completes.
 
 ### Enrollment for both payment authentication and account login

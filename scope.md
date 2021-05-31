@@ -198,6 +198,7 @@ Notes:
 * Alice thus uses her roaming FIDO authenticator to provision her platform authenticator for SPC.
 * A month later Alice drops her phone in the river. She uses her roaming authenticator to log into the bank from her phone and repeats the same process to provision the platform authenticator in her phone.
 
+Note: See related FIDO discussions on session binding assurances.
 
 ## Mockups of some user stories
 

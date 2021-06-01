@@ -123,7 +123,7 @@ The [SPC Assertion](#dfn-spc-assertion) must include the cryptographic nonce / c
 
 ### Lifecycle Management
 
-* The relying party should be able to update the instrument information of an enrolled [SPC Credential](#dfn-spc-credential) (e.g., for new card art).
+* The relying party should be able to update the instrument information of an enrolled [SPC Credential](#dfn-spc-credential) (e.g., for a new expiry date).
 * The user must be able to remove individual [SPC Credentials](#dfn-spc-credential) from a browser instance.
 * The ecosystem should enable the user to communicate to the relying party to forget [SPC Credential Identifiers](#dfn-credential-id). This might happen in a variety of ways (e.g., forget this authenticator and all associated instruments; forget any authenticators associated with this instrument, etc.). See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63).
 

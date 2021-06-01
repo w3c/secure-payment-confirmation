@@ -134,7 +134,7 @@ The [SPC Assertion](#dfn-spc-assertion) must include the cryptographic nonce / c
 
 ### FIDO Considerations
 
-* FIDO credentials should be "enhanceable" to [SPC Credentials](#dfn-spc-credential).
+* FIDO credentials should be "enhanceable" to [SPC Credentials](#dfn-spc-credential). See [issue 79](https://github.com/w3c/secure-payment-confirmation/issues/79).
 * SPC credentials should also usable as ordinary FIDO credentials. See [issue 39](https://github.com/w3c/secure-payment-confirmation/issues/39).
 * SPC credentials must be programmatically distinguishable from FIDO credentials.
 * SPC should support both local and roaming authenticators. See [issue 31](https://github.com/w3c/secure-payment-confirmation/issues/31) on discoverable credentials and [issue 12](https://github.com/w3c/secure-payment-confirmation/issues/12) on roaming authenticator behaviors.

@@ -175,12 +175,6 @@ Notes:
 
 * This is a "1 click" flow: the "Buy" button.
 
-### Authenticator unenrollment
-
-* Alice drops her phone in the river.
-* For housekeeping, she logs into her bank site and removes information about the authenticator. This causes the bank to remove any bindings between that authenticator and any instruments.
-* Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC-related information related to that authenticator.
-
 ### Authentication by bank after redirect
 
 * Alice has enrolled her authenticator with her bank.
@@ -195,6 +189,12 @@ Notes:
 * A month later Alice drops her phone in the river. She uses her roaming authenticator to log into the bank from her phone and repeats the same process to provision the platform authenticator in her phone.
 
 Note: See related FIDO discussions on session binding assurances.
+
+### Authenticator unenrollment
+
+* Alice drops her phone in the river.
+* For housekeeping, she logs into her bank site and removes information about the authenticator. This causes the bank to remove any bindings between that authenticator and any instruments.
+* Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC-related information related to that authenticator.
 
 ## Mockups of some user stories
 

@@ -181,10 +181,6 @@ Notes:
 * For housekeeping, she logs into her bank site and removes information about the authenticator. This causes the bank to remove any bindings between that authenticator and any instruments.
 * Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC-related information related to that authenticator.
 
-### Instrument detail update
-
-* TBD
-
 ### Authentication by bank after redirect
 
 * Alice has enrolled her authenticator with her bank.

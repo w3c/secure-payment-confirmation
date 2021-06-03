@@ -86,7 +86,7 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 
 * Each browser must natively support a payment confirmation user experience.
 * The user agent must [require and consume at least one transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api) in order to display an SPC user experience.
-* Although we anticipate that in most cases the browser will render the payment confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator).
+* Although we anticipate that in most cases the browser will render the payment confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator or for out-of-band authentication).
 * The payment confirmation user experience must display instrument information such as label and icon.
 * The payment confirmation user experience must display amount and currency of the payment.
 * For regulatory reasons, the party that invokes SPC must be able to specify a timeout for the payment confirmation user experience. See [issue 67](https://github.com/w3c/secure-payment-confirmation/issues/67).

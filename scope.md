@@ -8,14 +8,14 @@ authentication across merchants, to be used within a wide range of
 authentication protocols, and to produce cryptographic evidence that
 the user has confirmed transaction details.
 
-Though this document we seek to build consensus around the scope of SPC.
+Through this document we seek to build consensus around the scope of SPC.
 
 See also: [SPC Requirements and Design Considerations](requirements.md) for discussion about concrete requirements.
 
 We have been discussing three steps in a payment flow where browser
 capabilities could help streamline the user experience:
 
-* Establish user identity (e.g., cookie, session, payment app). See also [issue 62](https://github.com/w3c/secure-payment-confirmation/issues/62).
+* Identify the User (e.g., cookie, session, installed payment app). See also [issue 62](https://github.com/w3c/secure-payment-confirmation/issues/62).
 * Determine payment instruments for the user. When more than one is available, prompt the user to select one.
 * Authenticate the user for that instrument for this transaction.
 
@@ -33,7 +33,7 @@ offering a predictable user experience across sites, and avoiding
 redirects.
 
 * **Scalable and Ubiquitous**. SPC supports streamlined authentication
-across merchant sites without additional enrollment.
+across multiple merchant sites following a single enrollment.
 
 * **Designed to Meet Regulatory Requirements**. The standardized
 payment confirmation user experience is designed to help entities
@@ -57,17 +57,17 @@ The above benefits are grounded in a small number of unique API features:
 
 * **Browser-native UX for payment confirmation**. The browser (or
 secure hardware) provides a consistent and efficient authentication UX
-across merchant sites.
+across merchant sites and relying parties.
 
 * **Cryptographic evidence**. Payment confirmation generates
 cryptographic evidence of the user's confirmation of payment
 details.
 
 * **Cross-origin authentication**. With FIDO, the Relying Party that
-creates FIDO credentials is the only origin that can authenticate the
-user with those credentials. With SPC, any origin can authenticate the
-user during a transaction by leveraging another Relying Party's
-credentials.
+creates FIDO credentials is the only origin that can generate an assertion 
+with those credentials to authenticate the
+user. With SPC, any origin can generate an assertion during a transaction 
+even by leveraging another Relying Party's credentials.
 
 ## Protocols and Systems Helping to Guide Requirements
 
@@ -87,19 +87,19 @@ priority:
 
 ## User Stories
 
-* Our initial use cases focus consumer-to-business transactions, including eCommerce and bill pay.
+* Our initial use cases focus on consumer-to-business transactions, including eCommerce and bill pay.
 * SPC should be usable with a variety of payment methods, including card pull, card push, and account push.
 
 ### Enrollment of multiple instruments with one authentication
 
-* While mobile banking, Alice enroll her authenticator to be used with all her credit cards issued by this bank.
+* While mobile banking, Alice enrolls her authenticator to be used with all her credit cards issued by this bank.
 * A few days later during checkout, Alice is prompted to confirm a transaction with one of those cards via her authenticator.
 
 ### In-transaction enrollment, later authentication same merchant
 
-* While checking out, Alice selects an instrument and is successfully authenticated via one-time password.
+* While checking out, Alice selects an instrument and is successfully authenticated by her bank via one-time password.
 * She is then prompted with the opportunity to speed up future checkouts by
-enrolling her authenticator with the bank in association with the same instrument.
+enrolling her authenticator with her bank and associating it with the same instrument.
 * A few days later during checkout on the same merchant site, Alice is prompted (e.g., during an EMV&reg; 3-D Secure step up) to confirm a payment with the same instrument by using the enrolled authenticator.
 
 ### Authentication different merchant
@@ -118,7 +118,7 @@ site.
 
 ### Enrollment for both payment authentication and account login
 
-* During a guest checkout experience, Alice selects an instrument. As part of authenticating, she enrolls her authenticator with the bank in association with the instrument.
+* During a guest checkout experience, Alice selects an instrument. As part of authenticating, she enrolls her authenticator with her bank in association with the instrument.
 * In addition, Alice is prompted to set up a user account with this particular merchant, leveraging the same authentication credentials.
 * The goal is thus to enable Alice to use the same authentication credential to (1) make payments on multiple sites, and (2) log into this site.
 
@@ -131,17 +131,18 @@ Notes:
 This use cases is like the previous authentication use cases (same merchant or different merchant) but removes the user presence check. Because doing so removes a security feature, we suggest native browser UX as a way to help ensure that the user has not been tricked into agreeing to less friction.
 
 * Alice is prompted to enroll her authenticator during a transaction on a merchant site.
-* In browser-native UX, Alice selects the "express checkout" option for this merchant. The browser does not share this user preference with any party.
-* During a future checkout on the same merchant site, the user clicks the "Buy" button.
+* Through a browser-native UX, Alice selects the "express checkout" option for this merchant. The browser does not share this user preference with any party.
+* During a future checkout on the same merchant site, the Alice clicks the "Buy" button.
 * The merchant communicates a preference for express checkout for this transaction. The Payment Service Provider conveys this preference to the Relying Party
 when seeking SPC Payment Identifiers.
 * The Relying Party makes a decision whether to accept express checkout
 authentication for this transaction and communicates that along
 with any SPC Payment Identifiers. ***Note*** The SPC Payment Identifiers might themselves be the mechanism for communicating the preference for express checkout authentication.
 * The Payment Service Provider triggers SPC with this information.
-* The browser prompts the user confirm the payment details (e.g., by clicking the "Verify" button).
 * Having confirmed the user's preference for express checkout on
-this merchant, the browser does not require a user presence check. The authenticator is used to sign the payment details, with additional information
+this merchant, the browser does not require a user presence check.
+* The browser prompts the user confirm the payment details (e.g., by clicking the "Verify" button).
+* The authenticator is used to sign the payment details, with additional information
 that the confirmation did not include a user presence check.
 
 Notes:
@@ -160,7 +161,7 @@ This use cases is like the Express Checkout use case except that, in
 addition, there is no browser-supplied confirmation dialog.
 
 * Alice is prompted to enroll her authenticator during a transaction on a merchant site.
-* In browser-native UX, Alice selects the "frictionless checkout" option for this merchant. The browser does not share this user preference with any party.
+* Through a browser-native UX, Alice selects the "frictionless checkout" option for this merchant. The browser does not share this user preference with any party.
 * During a future checkout on the same merchant site, the user clicks the "Buy" button.
 * The merchant communicates a preference for frictionless checkout for this transaction. The Payment Service Provider conveys this preference to the Relying Party when seeking SPC Payment Identifiers.
 * The Relying Party makes a decision whether to accept frictionless checkout
@@ -175,18 +176,18 @@ Notes:
 
 * This is a "1 click" flow: the "Buy" button.
 
-### Authentication by bank after redirect
+### Authentication by Relying Party after redirect
 
-* Alice has enrolled her authenticator with her bank.
-* While Alice is shopping on a merchant site, the merchant redirects her to her bank site to authenticate.
-* The bank invokes SPC using the previously enrolled authenticator.
+* Alice has enrolled her authenticator with a Relying Party (e.g. her bank)
+* While Alice is shopping on a merchant site, the merchant redirects her to the Relying Party site to authenticate.
+* The Relying Party invokes SPC using the previously enrolled authenticator.
 
 ### Web Authentication enrollment
 
 * Alice has received a roaming FIDO authenticator from her bank which has pre-enrolled credentials for her online banking account.
 * Alice visits the bank with her desktop browser and authenticates with her roaming FIDO authenticator. The bank prompts Alice to use her platform authenticator for re-authentication and to use her platform authenticator for streamlined checkout.
 * Alice thus uses her roaming FIDO authenticator to provision her platform authenticator for SPC.
-* A month later Alice drops her phone in the river. She uses her roaming authenticator to log into the bank from her phone and repeats the same process to provision the platform authenticator in her phone.
+* A month later Alice drops her phone in the river. She uses her roaming authenticator to log into the bank from her phone and repeats the same process to provision the platform authenticator in her new phone.
 
 Note: See related FIDO discussions on session binding assurances.
 

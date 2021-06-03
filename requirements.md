@@ -67,7 +67,6 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 
 * Each browser should natively support an [SPC Credential](#dfn-spc-credential) enrollment user experience.
 * The user agent should [require and consume at least one transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api) in order to display an SPC enrollment user experience.
-* The user should support a user experience of enrollment of multiple instruments for a single authentication. Each resulting [SPC Credential](#dfn-spc-credential) (that is: each instrument/authentication credential binding) must be independently addressable.
 
 ### Payment Confirmation
 
@@ -113,6 +112,8 @@ party a preference to use (or not use) any of the supported levels of user inter
 
 * See [issue 69](https://github.com/w3c/secure-payment-confirmation/issues/69) for discussion of requirements when more than one [SPC Credential](#dfn-spc-credential) matches input data.
 * When no [SPC Credential](#dfn-spc-credential) matches input data, the protocol should terminate without any user experience to allow for seamless fallback behaviors.
+* The user agent should support a user experience of leveraging multiple instruments for a single authentication. Each SPC Credential must be independently addressable. Note: This binding might take place at either enrollment or authentication time.
+
 
 ### SPC Assertions
 

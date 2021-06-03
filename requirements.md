@@ -67,6 +67,8 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 
 * Each browser should natively support an [SPC Credential](#dfn-spc-credential) enrollment user experience.
 * The user agent should [require and consume at least one transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api) in order to display an SPC enrollment user experience.
+* The party that invokes SPC enrollment must be able to specify a timeout for the enrollment user experience.
+
 
 ### Payment Confirmation
 
@@ -89,7 +91,7 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 * Although we anticipate that in most cases the browser will render the payment confirmation user experience, the protocol must support rendering by other entities (e.g., the operating system or authenticator or for out-of-band authentication). Note: This feature would address use cases that require particularly secure display of information.
 * The payment confirmation user experience must display instrument information such as label and icon.
 * The payment confirmation user experience must display amount and currency of the payment.
-* For regulatory reasons, the party that invokes SPC must be able to specify a timeout for the payment confirmation user experience. See [issue 67](https://github.com/w3c/secure-payment-confirmation/issues/67).
+* The party that invokes SPC must be able to specify a timeout for the payment confirmation user experience. See [issue 67](https://github.com/w3c/secure-payment-confirmation/issues/67).
 * The payment confirmation user experience should include the beneficiary name, and optionally the title and favicon of the page where it was called. See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on merchant information display.
 
 #### Levels of User Interaction during Payment Confirmation

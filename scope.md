@@ -104,7 +104,7 @@ enrolling her authenticator with her bank and associating it with the same instr
 
 ### Authentication different merchant
 
-* Having enrolled an authenticator previously (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
+* Having enrolled an authenticator previously with her bank (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
 site.
 * During checkout, Alice selects the same instrument and is prompted (e.g., during an EMV&reg; 3-D Secure step up) to authenticate by using the enrolled authenticator.
 

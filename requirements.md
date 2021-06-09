@@ -110,7 +110,7 @@ party a preference to use (or not use) any of the supported levels of user inter
 #### Cross-Browser Support
 
 * If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from a different instance of the same browser (e.g., both browsers are Firefox)
-* If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome). Note: This might be accomplished through authenticator storage.
+* If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome). Note:  [Large Blob](https://www.w3.org/TR/webauthn-2/#sctn-large-blob-extension) (WebAuthn Level 2) may be used to create portable stored data to reduce the total number of enrollments.
 
 ### SPC Credentials
 
@@ -137,9 +137,8 @@ party a preference to use (or not use) any of the supported levels of user inter
 
 * FIDO credentials should be "enhanceable" to [SPC Credentials](#dfn-spc-credential). See [issue 79](https://github.com/w3c/secure-payment-confirmation/issues/79).
 * SPC credentials should also usable as ordinary FIDO credentials. See [issue 39](https://github.com/w3c/secure-payment-confirmation/issues/39).
-* SPC credentials must be programmatically distinguishable from FIDO credentials.
+* SPC credentials should be programmatically distinguishable from FIDO credentials.
 * SPC should support both platform and roaming authenticators. See [issue 31](https://github.com/w3c/secure-payment-confirmation/issues/31) on discoverable credentials and [issue 12](https://github.com/w3c/secure-payment-confirmation/issues/12) on roaming authenticator behaviors.
-* [Large Blob](https://www.w3.org/TR/webauthn-2/#sctn-large-blob-extension) (WebAuthn Level 2) may be used to create portable stored data to reduce enrollment costs. Use case: I enroll my authenticator via one browser, but stored data can be used in another browser.
 
 ## Editor
 

@@ -93,38 +93,34 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 * The payment confirmation user experience must display instrument information such as label and icon.
 * The payment confirmation user experience must display amount and currency of the payment.
 * The party that invokes SPC must be able to specify a timeout for the payment confirmation user experience. See [issue 67](https://github.com/w3c/secure-payment-confirmation/issues/67).
-* The payment confirmation user experience must include the origin of the beneficiary.
+* The payment confirmation user experience must include the origin of the top level where the API is called.
 * The payment confirmation user experience should include the title and favicon of the page where it was called. See [issue 48](https://github.com/w3c/secure-payment-confirmation/issues/48) on merchant information display.
 
 #### Levels of User Interaction during Payment Confirmation
 
 * The API must support payment confirmation with two factor authentication (e.g., with FIDO user verification check).
-* The API must support payment confirmation with one factor authentication with user presence check.
+* The API should support payment confirmation with one factor authentication with user presence check.
 * The API should support payment confirmation with one factor authentication (possession) without user presence check.
-* TBD: The API should support payment confirmation with one factor authentication (possession) but without a visible dialog and without a user presence check.
-* The API must allow the relying party to express a preference for any of the supported levels of user interaction.
+* The API might at some point support payment confirmation with one factor authentication (possession) but without a visible dialog and without a user presence check.
+* The API should allow the relying party to express a preference for any of the supported levels of user interaction.
 * For each transaction, a merchant should be able to express to the relying
 party a preference to use (or not use) any of the supported levels of user interaction.
-* If the browser supports a low-friction flow option, the browser must support a user preference to override that option and maintain authentication with more user interaction.
+* If the browser supports any relying party option less secure than two-factor, the browser must support a user preference to override that option and maintain two-factor authentication.
 
 #### Cross-Browser Support
 
 * If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from a different instance of the same browser (e.g., both browsers are Firefox)
-* If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome).
+* If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome). Note: This might be accomplished through authenticator storage.
 
 ### SPC Credentials
 
-* See [issue 69](https://github.com/w3c/secure-payment-confirmation/issues/69) for discussion of requirements when more than one [SPC Credential](#dfn-spc-credential) matches input data.
-* When no [SPC Credential](#dfn-spc-credential) matches input data, the protocol should terminate without any user experience to allow for seamless fallback behaviors.
-* The user agent should support a user experience of leveraging multiple instruments for a single authentication. Each SPC Credential must be independently addressable. Note: This binding might take place at either enrollment or authentication time.
-
+* It it left to the user agent how an SPC Credential is selected when more than one matches the input. See [issue 69](https://github.com/w3c/secure-payment-confirmation/issues/69) for discussion of requirements when more than one [SPC Credential](#dfn-spc-credential) matches input data.
+* When no [SPC Credential](#dfn-spc-credential) matches input data, for privacy reasons the browser may inform the user that the API has been invoked but failed. Note: Whoever might call the API can determine in advance that the user has never enrolled any SPC Credential, and choose not to call the API.
 
 ### SPC Assertions
 
-* The [SPC Assertion](#dfn-spc-assertion) must include at least: a merchant origin/identifier, amount and currency, transaction id.
-The [SPC Assertion](#dfn-spc-assertion) must include the cryptographic nonce / challange if provided within the SPC request.
-* The [SPC Assertion](#dfn-spc-assertion) must also include information about the user's journey. This information may be part of the authenticator's own assertion. For example, the assertion must indicate whether the user completed the transaction without a user presence check.
-* The [SPC Assertion](#dfn-spc-assertion) must also include information about which entity displayed the payment confirmation user experience (browser, OS, or authenticator).
+* The [SPC Assertion](#dfn-spc-assertion) must include at least: top level origin, caller origin, relying party origin (rpid), one-time challenge, instrument information, transaction amount and currency.
+* If different user journeys are possible for a given authenticator (e.g., a low friction option), the [SPC Assertion](#dfn-spc-assertion) must also include information about the user's journey. This information may be part of the authenticator's own assertion. For example, the assertion must indicate whether the user completed the transaction without a user presence check.
 * The [SPC Assertion](#dfn-spc-assertion) must include a signature over that data (based on the associated authenticator). This signature may be validated by the Relying Party or any other party with the appropriate key.
 
 ### Lifecycle Management

@@ -125,8 +125,8 @@ party a preference to use (or not use) any of the supported levels of user inter
 
 ### Lifecycle Management
 
-* The user must be able to remove individual [SPC Credentials](#dfn-spc-credential) from a browser instance.
-* The ecosystem should enable the user to communicate to the relying party to forget [SPC Credential Identifiers](#dfn-credential-id). This might happen in a variety of ways (e.g., forget this authenticator and all associated instruments; forget any authenticators associated with this instrument, etc.). See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63).
+* If the browser stores SPC Credentials, the user must be able to remove individual [SPC Credentials](#dfn-spc-credential) from a browser instance.
+* The API should not make it impossible for the user to communicate to the relying party to forget [SPC Credential Identifiers](#dfn-credential-id). This might happen in a variety of ways (e.g., forget this authenticator and all associated instruments; forget any authenticators associated with this instrument, etc.). See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63).
 
 ### Security and Privacy Considerations
 

@@ -59,6 +59,7 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
   words, the API supports dynamic binding to a specific instrument at
   authentication time. This feature renders unnecessary additional
   functionality to update stored instrument information.
+* At enrollment, the Relying Party should be able to provide information about zero, one, or more than one instruments, and the browser should support verbiage in the user experience that communicates what the user is consenting to.
 * It is not a requirement that instrument information be stored in the
   browser as part of the [SPC Credential](#dfn-spc-credential).
 * The protocol should support multiple ways of accessing the instrument display information, including browser storage and authenticator storage.

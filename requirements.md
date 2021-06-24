@@ -17,18 +17,19 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 **Instrument** <a name="dfn-instrument"></a>
 : A mechanism used to transfer value from a payer to a payee.
 
-**SPC Credential** <a name="dfn-spc-credential"></a>
-: Data that represents the association between an instrument and an authentication credential. Note: Representation of multiple relationships is an implementation detail (e.g., multiple authentications corresponding to a single instrument, or multiple instruments enrolled for a given authentication).
-
 **SPC Credential Identifiers** <a name="dfn-credential-id"></a>
-: Each SPC Credential Identifier refers to one SPC Credential. These identifiers are generated during enrollment and returned by the API to the Relying Party.
+: These identifiers are generated during enrollment and returned by the API to the Relying Party. The Relying Party is the authoritative source for the meaning of each identifier (e.g., whether it refers to a user account, a specific instrument, or something else). It is the responsibility of the Relying Party to
+communicate clearly to the user what the user is consenting to during
+an [SPC Enrollment](#dfn-spc-enrollment). The Relying Party determines whether it is satisfied with a given [SPC Assertion](#dfn-spc-assertion) for a given use case.
+
+**SPC Enrollment** <a name="dfn-spc-enrollment"></a>
+: The process of generating an SPC Credential Identifier for a Relying party. Enrollment may optionally involve other activities (e.g., browsers may choose to store other information in conjunction with the SPC Credential Identifier).
 
 **SPC Request** <a name="dfn-spc-request"></a>
-: Information provided as input to the API. It is likely to include
-[SPC Credential Identifiers](#dfn-credential-id), sources of randomness, and other data.
+: Information provided as input to the API to generate an SPC Assertion. It is likely to include [SPC Credential Identifiers](#dfn-credential-id), instrument information such as a string and icon, sources of randomness, and other data.
 
 **SPC Assertion** <a name="dfn-spc-assertion"></a>
-: The output of a successful SPC API authentication.
+: The output of a successful SPC API authentication. The SPC Assertion includes a signature over the data presented to the user during the [Payment Confirmation User Experience](#payment-confirmation-user-experience).
 
 ## Design Goals
 * We endeavor to describe requirements independently of specific APIs, in particular Web Authentication and Payment Request. See [issue 65](https://github.com/w3c/secure-payment-confirmation/issues/65)
@@ -47,10 +48,10 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 
 ### Enrollment
 
-* It must be possible to enroll an [SPC Credential](#dfn-spc-credential) outside of a transaction.
-* It must be possible to enroll an [SPC Credential](#dfn-spc-credential) following a prior (non-SPC) authentication during a transaction. This enrollment should not prevent timely completion of the transaction.
-* It is not a requirement that the relying party be able to enroll an [SPC Credential](#dfn-spc-credential) in a third-party context. However, it could improve common payment flows if the relying party could enroll an SPC credential from a cross-origin iframe.
-* It must be possible to enroll an [SPC Credential](#dfn-spc-credential) from a payment handler.
+* It must be possible to do an [SPC Enrollment](#dfn-spc-enrollment) outside of a transaction.
+* It must be possible to do an [SPC Enrollment](#dfn-spc-enrollment) following a prior (non-SPC) authentication during a transaction. This enrollment should not prevent timely completion of the transaction.
+* It is not a requirement that the relying party be able to do an [SPC Enrollment](#dfn-spc-enrollment) in a third-party context. However, it could improve common payment flows if the relying party could enroll from a cross-origin iframe.
+* It must be possible to do an [SPC Enrollment](#dfn-spc-enrollment) from a payment handler.
 
 #### Instrument Information at Enrollment
 
@@ -58,15 +59,14 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
   information about a specific instrument at enrollment time. In other
   words, the API supports dynamic binding to a specific instrument at
   authentication time. This feature renders unnecessary additional
-  functionality to update stored instrument information.
-* At enrollment, the Relying Party should be able to provide information about zero, one, or more than one instruments, and the browser should support verbiage in the user experience that communicates what the user is consenting to.
+  functionality to update browser-stored instrument information.
 * It is not a requirement that instrument information be stored in the
-  browser as part of the [SPC Credential](#dfn-spc-credential).
+  browser as part of an [SPC Enrollment](#dfn-spc-enrollment).
 * The protocol should support multiple ways of accessing the instrument display information, including browser storage and authenticator storage.
 
 #### Enrollment User Experience
 
-* Each browser should natively support an [SPC Credential](#dfn-spc-credential) enrollment user experience.
+* Each browser should natively support an [SPC Enrollment](#dfn-spc-enrollment)  user experience.
 * The user agent should [require and consume at least one transient user activation](https://html.spec.whatwg.org/multipage/interaction.html#activation-consuming-api) in order to display an SPC enrollment user experience.
 * The party that invokes SPC enrollment must be able to specify a timeout for the enrollment user experience.
 
@@ -75,11 +75,10 @@ See also: [SPC Scope](scope.md) for use cases as well as the [issues list](https
 
 #### Instrument Information at Payment Confirmation
 
-* For each [SPC Credential](#dfn-spc-credential), instrument
-  information (e.g., a display string and icon) must be available for
+* Instrument information (e.g., a display string and icon) must be available for
   use within the payment confirmation user experience.
 * The party that calls the API must be able to provide instrument
-  information for each input SPC Credential Identifier. Note: The
+  information as input. Note: The
   Relying Party is the authoritative source of instrument information.
   If another party provides conflicting instrument information as
   input to the API, the Relying Party can detect this during
@@ -109,13 +108,13 @@ party a preference to use (or not use) any of the supported levels of user inter
 
 #### Cross-Browser Support
 
-* If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from a different instance of the same browser (e.g., both browsers are Firefox)
-* If the user enrolled an [SPC Credential](#dfn-spc-credential) when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome). Note:  [Large Blob](https://www.w3.org/TR/webauthn-2/#sctn-large-blob-extension) (WebAuthn Level 2) may be used to create portable stored data to reduce the total number of enrollments.
+* If the user did an [SPC Enrollment](#dfn-spc-enrollment) when using one instance of a browser, it should be possible to leverage that authentication from a different instance of the same browser (e.g., both browsers are Firefox)
+*If the user did an [SPC Enrollment](#dfn-spc-enrollment) when using one instance of a browser, it should be possible to leverage that authentication from any browser (e.g., one browser is Firefox and the other is Chrome). Note:  [Large Blob](https://www.w3.org/TR/webauthn-2/#sctn-large-blob-extension) (WebAuthn Level 2) may be used to create portable stored data to reduce the total number of enrollments.
 
-### SPC Credentials
+### SPC Credential Identifiers and Matching
 
-* It it left to the user agent how an SPC Credential is selected when more than one matches the input. See [issue 69](https://github.com/w3c/secure-payment-confirmation/issues/69) for discussion of requirements when more than one [SPC Credential](#dfn-spc-credential) matches input data.
-* When no [SPC Credential](#dfn-spc-credential) matches input data, for privacy reasons the browser may inform the user that the API has been invoked but failed. Note: Whoever might call the API can determine in advance that the user has never enrolled any SPC Credential, and choose not to call the API.
+* It it left to the user agent how the user selects an authentication path when more than one matches the [SPC Request](#dfn-spc-request). See [issue 69](https://github.com/w3c/secure-payment-confirmation/issues/69) for discussion.
+* When the user agent has no information matching the [SPC Request](#dfn-spc-request), for privacy reasons the browser may inform the user that the API has been invoked but failed. Note: Whoever might call the API can determine in advance that the user has never done an [SPC Enrollment](#dfn-spc-enrollment), and choose not to call the API.
 
 ### SPC Assertions
 
@@ -125,19 +124,17 @@ party a preference to use (or not use) any of the supported levels of user inter
 
 ### Lifecycle Management
 
-* If the browser stores SPC Credentials, the user must be able to remove individual [SPC Credentials](#dfn-spc-credential) from a browser instance.
+* If the user agent stores [SPC Credential Identifiers](#dfn-credential-id) (and any associated information), the user must be able to remove individual [SPC Credential Identifiers](#dfn-credential-id) from the user agent.
 * The API should not make it impossible for the user to communicate to the relying party to forget [SPC Credential Identifiers](#dfn-credential-id). This might happen in a variety of ways (e.g., forget this authenticator and all associated instruments; forget any authenticators associated with this instrument, etc.). See [issue 63](https://github.com/w3c/secure-payment-confirmation/issues/63).
 
 ### Security and Privacy Considerations
 
-* [SPC Credentials](#dfn-credential) must be origin-bound. All [SPC Credential Identifiers](#dfn-credential-id) on the same origin are expected be distinct.
+* [SPC Credential Identifiers](#dfn-credential-id) must be origin-bound. All [SPC Credential Identifiers](#dfn-credential-id) on the same origin are expected be distinct.
 * The API should allow relying parties to reduce the risk of cross-site tracking that might arise through the reuse of [SPC Credential Identifiers](#dfn-credential-id). See [issue 77](https://github.com/w3c/secure-payment-confirmation/issues/77).
 
 ### FIDO Considerations
 
-* FIDO credentials should be "enhanceable" to [SPC Credentials](#dfn-spc-credential). See [issue 79](https://github.com/w3c/secure-payment-confirmation/issues/79).
-* SPC credentials should also usable as ordinary FIDO credentials. See [issue 39](https://github.com/w3c/secure-payment-confirmation/issues/39).
-* SPC credentials should be programmatically distinguishable from FIDO credentials.
+* FIDO credentials should be usable for SPC activities and vice-versa, but the user agent must clearly communicate to the user how credentials are being used. See [issue 79](https://github.com/w3c/secure-payment-confirmation/issues/79) and  [issue 39](https://github.com/w3c/secure-payment-confirmation/issues/39).
 * SPC should support both platform and roaming authenticators. See [issue 31](https://github.com/w3c/secure-payment-confirmation/issues/31) on discoverable credentials and [issue 12](https://github.com/w3c/secure-payment-confirmation/issues/12) on roaming authenticator behaviors.
 
 ## Editor

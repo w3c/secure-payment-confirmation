@@ -196,6 +196,12 @@ Notes:
 * While Alice is shopping on a merchant site, the merchant redirects her to the Relying Party site to authenticate.
 * The Relying Party invokes SPC using the previously enrolled authenticator.
 
+### EMV&reg; Secure Remote Commerce (SRC) System as Relying Party
+
+* Alice checkouts on a merchant web site with SRC, which triggers the SRC Digital Card Facilitator (DCF) to be displayed. The SRC DCF asks whether she wants to use biometric authentication to streamline payment. She agrees and SRC DCF redirects her to her bank where she goes through an ID&amp;V process with her bank for the credit card she wishes to use.
+* As an alternative, Alice visits her bank, authenticates to her bank, enrolls into biometric authentication, and selects card(s) that she wants to make available to SRC. The bank (the Relying Party) shares the authentication credential with the SRC System.
+* The following week Alice checkouts with a merchant enabled with SRC. The SRCi/DCF prompts Alice to do biometric authentication. The SRC System reviews the authentication results, and the bank authorizes the transaction.
+
 ### Authenticator unenrollment
 
 * Alice drops her phone in the river.

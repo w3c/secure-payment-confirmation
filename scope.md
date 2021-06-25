@@ -102,7 +102,7 @@ priority:
 
 ### In-transaction enrollment, later authentication same merchant
 
-* While checking out, Alice selects an instrument and is successfully authenticated by her bank via one-time password.
+* While checking out, Alice selects an instrument and is successfully authenticated by her bank via one-time password, Web Authentication, or other means.
 * She is then prompted with the opportunity to speed up future checkouts by
 enrolling her authenticator with her bank and associating it with the same instrument.
 * A few days later during checkout on the same merchant site, Alice is prompted (e.g., during an EMV&reg; 3-D Secure step up) to confirm a payment with the same instrument by using the enrolled authenticator.
@@ -188,15 +188,6 @@ Notes:
 * Alice has enrolled her authenticator with a Relying Party (e.g. her bank)
 * While Alice is shopping on a merchant site, the merchant redirects her to the Relying Party site to authenticate.
 * The Relying Party invokes SPC using the previously enrolled authenticator.
-
-### Web Authentication enrollment
-
-* Alice has received a roaming FIDO authenticator from her bank which has pre-enrolled credentials for her online banking account.
-* Alice visits the bank with her desktop browser and authenticates with her roaming FIDO authenticator. The bank prompts Alice to use her platform authenticator for re-authentication and to use her platform authenticator for streamlined checkout.
-* Alice thus uses her roaming FIDO authenticator to provision her platform authenticator for SPC.
-* A month later Alice drops her phone in the river. She uses her roaming authenticator to log into the bank from her phone and repeats the same process to provision the platform authenticator in her new phone.
-
-Note: See related FIDO discussions on session binding assurances.
 
 ### Authenticator unenrollment
 

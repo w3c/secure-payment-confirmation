@@ -95,12 +95,19 @@ priority:
 * While mobile banking, Alice enrolls her authenticator to be used with all her credit cards issued by this bank.
 * A few days later during checkout, Alice is prompted to confirm a transaction with one of those cards via her authenticator.
 
+### Association of new instrument with existing authentication credential
+
+* While visiting her bank site, Alice enrolls her authenticator in association with two instruments.
+* The following week she associates a third instrument with the same authentication credential.
+
 ### In-transaction enrollment, later authentication same merchant
 
 * While checking out, Alice selects an instrument and is successfully authenticated by her bank via one-time password.
 * She is then prompted with the opportunity to speed up future checkouts by
 enrolling her authenticator with her bank and associating it with the same instrument.
 * A few days later during checkout on the same merchant site, Alice is prompted (e.g., during an EMV&reg; 3-D Secure step up) to confirm a payment with the same instrument by using the enrolled authenticator.
+
+Note: This use case intends to capture the "in-transaction enrollment" use case. We also expect to support enrollment independent of a transaction.
 
 ### Authentication different merchant
 

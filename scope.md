@@ -183,6 +183,13 @@ Notes:
 
 * This is a "1 click" flow: the "Buy" button.
 
+### Merchant as Relying Party
+
+* Alice logs into her favorite merchant using a merchant proprietary mechanism or using biometric authentication.   
+* The merchant asks Alice if she wants to use biometric authentication to streamline payment. She agrees and goes through an ID&amp;V process with her bank for the credit card she wishes to use. (The merchant may decide to perform IDamp;&V during the checkout or outside of the checkout.)
+* The merchant is the relying party for this authentication credential, and shares authentication data with Alice’s bank and/or payment network to allow for partial or full validation of authentication results in subsequent checkouts.
+* The following week Alice checks out on the merchant site and is prompted by the merchant to do biometric authentication. The merchant uses SPC then shares authentication results with Alice’s bank and/or payment network, which reviews the data. The bank authorizes the transaction.
+
 ### Authentication by Relying Party after redirect
 
 * Alice has enrolled her authenticator with a Relying Party (e.g. her bank)

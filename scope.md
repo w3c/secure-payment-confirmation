@@ -82,6 +82,7 @@ The following use cases may be of interest but are of distinctly lower
 priority:
 
 * Delegation to the merchant as Relying Party.
+* Authentication with out-of-band authenticator. See [issue 30](https://github.com/w3c/secure-payment-confirmation/issues/30).
 * QR-code triggered payment. User points phone at QR code which represents a Web Page. In vanilla mode, Web Page includes "Buy" button to trigger Payment Request. But in streamlined mode, SPC payment confirmation dialog is immediately displayed to the user for a default instrument associated with the payment method.
 * Tap-to-pay (NFC)
 
@@ -111,17 +112,9 @@ Note: This use case intends to capture the "in-transaction enrollment" use case.
 
 ### Authentication different merchant
 
-* Having enrolled an authenticator previously with her bank (either out-of-band or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
+* Having enrolled an authenticator previously with her bank (e.g., while mobile banking or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
 site.
 * During checkout, Alice selects the same instrument and is prompted (e.g., during an EMV&reg; 3-D Secure step up) to authenticate by using the enrolled authenticator.
-
-### Authentication with out-of-band authenticator
-
-* While mobile banking, Alice enrolls the authenticator in her phone to be used with all her credit cards issued by this bank.
-* While shopping on a desktop browser, Alice initiates a checkout.
-* She receives a push notification on her phone to authenticate with that device for the transaction. At the same time, on her desktop she sees a message informing her to authenticate via her phone.
-* She opens up the bank Web site on the browser on her phone, which displays the payment confirmation user experience.
-* Upon successful authentication, the checkout experience on her desktop successfully completes.
 
 ### Enrollment for both payment authentication and account login
 

@@ -78,30 +78,20 @@ This list is the result of people joining the SPC task force:
 * Open Banking APIs, with a focus on PISP use cases.
 * Real time credit (see [issue 42](https://github.com/w3c/secure-payment-confirmation/issues/42)).
 
-The following use cases may be of interest but are of distinctly lower
-priority:
-
-* Delegation to the merchant as Relying Party.
-* Authentication with out-of-band authenticator. See [issue 30](https://github.com/w3c/secure-payment-confirmation/issues/30).
-* QR-code triggered payment. User points phone at QR code which represents a Web Page. In vanilla mode, Web Page includes "Buy" button to trigger Payment Request. But in streamlined mode, SPC payment confirmation dialog is immediately displayed to the user for a default instrument associated with the payment method.
-* Tap-to-pay (NFC)
-
 ## User Stories
 
 * Our initial use cases focus on consumer-to-business transactions, including eCommerce and bill pay.
 * SPC should be usable with a variety of payment methods, including card pull, card push, and account push.
 
-### Enrollment of multiple instruments with one authentication
+### Priority
 
-* While mobile banking, Alice enrolls her authenticator to be used with all her credit cards issued by this bank.
-* A few days later during checkout, Alice is prompted to confirm a transaction with one of those cards via her authenticator.
+#### Authentication different merchant
 
-### Association of new instrument with existing authentication credential
+* Having enrolled an authenticator previously with her bank (e.g., while mobile banking or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
+site.
+* During checkout, Alice selects the same instrument and is prompted (e.g., during an EMV&reg; 3-D Secure step up) to authenticate by using the enrolled authenticator.
 
-* While visiting her bank site, Alice enrolls her authenticator in association with two instruments.
-* The following week she associates a third instrument with the same authentication credential.
-
-### In-transaction enrollment, later authentication same merchant
+#### In-transaction enrollment, later authentication same merchant
 
 * While checking out, Alice selects an instrument and is successfully authenticated by her bank via one-time password, Web Authentication, or other means.
 * She is then prompted with the opportunity to speed up future checkouts by
@@ -110,13 +100,27 @@ enrolling her authenticator with her bank and associating it with the same instr
 
 Note: This use case intends to capture the "in-transaction enrollment" use case. We also expect to support enrollment independent of a transaction.
 
-### Authentication different merchant
+#### Enrollment of multiple instruments with one authentication
 
-* Having enrolled an authenticator previously with her bank (e.g., while mobile banking or during a transaction on any merchant site), Alice is shopping on an unrelated merchant
-site.
-* During checkout, Alice selects the same instrument and is prompted (e.g., during an EMV&reg; 3-D Secure step up) to authenticate by using the enrolled authenticator.
+* While mobile banking, Alice enrolls her authenticator to be used with all her credit cards issued by this bank.
+* A few days later during checkout, Alice is prompted to confirm a transaction with one of those cards via her authenticator.
 
-### Enrollment for both payment authentication and account login
+#### Association of new instrument with existing authentication credential
+
+* While visiting her bank site, Alice enrolls her authenticator in association with two instruments.
+* The following week she associates a third instrument with the same authentication credential.
+
+#### EMV&reg; Secure Remote Commerce (SRC) System as Relying Party
+
+* Alice checkouts on a merchant web site with SRC, which triggers the SRC Digital Card Facilitator (DCF) to be displayed. The SRC DCF asks whether she wants to use biometric authentication to streamline payment. She agrees and SRC DCF redirects her to her bank where she goes through an ID&V process with her bank for the credit card she wishes to use.
+* As an alternative, Alice visits her bank, authenticates to her bank, enrolls into biometric authentication, and selects card(s) that she wants to make available to SRC. The bank (the Relying Party) shares the authentication credential with the SRC System.
+* The following week Alice checkouts with a merchant enabled with SRC. The SRCi/DCF prompts Alice to do biometric authentication. The SRC System reviews the authentication results, and the bank authorizes the transaction.
+
+Note: We anticipate that flows of "SPC with 3DS" and "SPC with SRC" will be similar, but with different entities as Relying Party.
+
+### Lower Priority
+
+#### Enrollment for both payment authentication and account login
 
 * During a guest checkout experience, Alice selects an instrument. As part of authenticating, she enrolls her authenticator with her bank in association with the instrument.
 * In addition, Alice is prompted to set up a user account with this particular merchant, leveraging the same authentication credentials.
@@ -126,7 +130,7 @@ Notes:
 
 * It has been pointed out that "sharing authentication credentials" may be closer to a FIDO topic than an SPC topic, but we include this use case to support that discussion.
 
-### Express Checkout (no user presence check)
+#### Express Checkout (no user presence check)
 
 This use cases is like the previous authentication use cases (same merchant or different merchant) but removes the user presence check. Because doing so removes a security feature, we suggest native browser UX as a way to help ensure that the user has not been tricked into agreeing to less friction.
 
@@ -155,7 +159,7 @@ customer, payment amount, regulatory requirements, etc.
   that if the user does not accept express checkout, there is a path
   to complete authentication.
 
-### Frictionless Checkout (no user presence check or payment confirmation dialog)
+#### Frictionless Checkout (no user presence check or payment confirmation dialog)
 
 This use cases is like the Express Checkout use case except that, in
 addition, there is no browser-supplied confirmation dialog.
@@ -176,30 +180,37 @@ Notes:
 
 * This is a "1 click" flow: the "Buy" button.
 
-### Merchant as Relying Party
+### Additional Considerations
+
+These use cases represent additional considerations, some of which (e.g., unenrollment) may be orthogonal to the primary flows above. 
+
+#### Merchant as Relying Party
 
 * Alice logs into her favorite merchant using a merchant proprietary mechanism or using biometric authentication.   
 * The merchant asks Alice if she wants to use biometric authentication to streamline payment. She agrees and goes through an ID&V process with her bank for the credit card she wishes to use. (The merchant may decide to perform IDamp;&V during the checkout or outside of the checkout.)
 * The merchant is the relying party for this authentication credential, and shares authentication data with Alice’s bank and/or payment network to allow for partial or full validation of authentication results in subsequent checkouts.
 * The following week Alice checks out on the merchant site and is prompted by the merchant to do biometric authentication. The merchant uses SPC then shares authentication results with Alice’s bank and/or payment network, which reviews the data. The bank authorizes the transaction.
 
-### Authentication by Relying Party after redirect
+#### Authentication by Relying Party after redirect
 
 * Alice has enrolled her authenticator with a Relying Party (e.g. her bank)
 * While Alice is shopping on a merchant site, the merchant redirects her to the Relying Party site to authenticate.
 * The Relying Party invokes SPC using the previously enrolled authenticator.
 
-### EMV&reg; Secure Remote Commerce (SRC) System as Relying Party
-
-* Alice checkouts on a merchant web site with SRC, which triggers the SRC Digital Card Facilitator (DCF) to be displayed. The SRC DCF asks whether she wants to use biometric authentication to streamline payment. She agrees and SRC DCF redirects her to her bank where she goes through an ID&V process with her bank for the credit card she wishes to use.
-* As an alternative, Alice visits her bank, authenticates to her bank, enrolls into biometric authentication, and selects card(s) that she wants to make available to SRC. The bank (the Relying Party) shares the authentication credential with the SRC System.
-* The following week Alice checkouts with a merchant enabled with SRC. The SRCi/DCF prompts Alice to do biometric authentication. The SRC System reviews the authentication results, and the bank authorizes the transaction.
-
-### Authenticator unenrollment
+#### Authenticator unenrollment
 
 * Alice drops her phone in the river.
 * For housekeeping, she logs into her bank site and removes information about the authenticator. This causes the bank to remove any bindings between that authenticator and any instruments.
 * Through her operating system or browser settings, Alice removes references to her authenticator. This causes the browser to remove any SPC-related information related to that authenticator.
+
+### Low Priority
+
+The following use cases may be of interest but are of distinctly lower
+priority:
+
+* Authentication with out-of-band authenticator. See [issue 30](https://github.com/w3c/secure-payment-confirmation/issues/30).
+* QR-code triggered payment. User points phone at QR code which represents a Web Page. In vanilla mode, Web Page includes "Buy" button to trigger Payment Request. But in streamlined mode, SPC payment confirmation dialog is immediately displayed to the user for a default instrument associated with the payment method.
+* Tap-to-pay (NFC)
 
 ## Mockups of some user stories
 

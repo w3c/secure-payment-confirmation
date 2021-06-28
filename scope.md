@@ -186,7 +186,7 @@ Notes:
 ### Merchant as Relying Party
 
 * Alice logs into her favorite merchant using a merchant proprietary mechanism or using biometric authentication.   
-* The merchant asks Alice if she wants to use biometric authentication to streamline payment. She agrees and goes through an ID&amp;V process with her bank for the credit card she wishes to use. (The merchant may decide to perform IDamp;&V during the checkout or outside of the checkout.)
+* The merchant asks Alice if she wants to use biometric authentication to streamline payment. She agrees and goes through an ID&V process with her bank for the credit card she wishes to use. (The merchant may decide to perform IDamp;&V during the checkout or outside of the checkout.)
 * The merchant is the relying party for this authentication credential, and shares authentication data with Alice’s bank and/or payment network to allow for partial or full validation of authentication results in subsequent checkouts.
 * The following week Alice checks out on the merchant site and is prompted by the merchant to do biometric authentication. The merchant uses SPC then shares authentication results with Alice’s bank and/or payment network, which reviews the data. The bank authorizes the transaction.
 
@@ -198,7 +198,7 @@ Notes:
 
 ### EMV&reg; Secure Remote Commerce (SRC) System as Relying Party
 
-* Alice checkouts on a merchant web site with SRC, which triggers the SRC Digital Card Facilitator (DCF) to be displayed. The SRC DCF asks whether she wants to use biometric authentication to streamline payment. She agrees and SRC DCF redirects her to her bank where she goes through an ID&amp;V process with her bank for the credit card she wishes to use.
+* Alice checkouts on a merchant web site with SRC, which triggers the SRC Digital Card Facilitator (DCF) to be displayed. The SRC DCF asks whether she wants to use biometric authentication to streamline payment. She agrees and SRC DCF redirects her to her bank where she goes through an ID&V process with her bank for the credit card she wishes to use.
 * As an alternative, Alice visits her bank, authenticates to her bank, enrolls into biometric authentication, and selects card(s) that she wants to make available to SRC. The bank (the Relying Party) shares the authentication credential with the SRC System.
 * The following week Alice checkouts with a merchant enabled with SRC. The SRCi/DCF prompts Alice to do biometric authentication. The SRC System reviews the authentication results, and the bank authorizes the transaction.
 

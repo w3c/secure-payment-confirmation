@@ -24,7 +24,7 @@ Stripe and Chrome collaborated on a first Origin Trial in Q4, 2020 which showed
 that SPC provided a higher conversion rate and faster authentication time than
 3DS2 step-up flows.
 
-- [API explainer](https://github.com/w3c/secure-payment-confirmation/blob/gh-pages/README.md)
+- [API explainer](https://github.com/w3c/secure-payment-confirmation/blob/main/README.md)
 - [WPWG blog post](https://www.w3.org/blog/wpwg/2021/03/26/secure-payment-confirmation-stripe-experiment-and-next-steps/)
 - [Experiment results](https://www.w3.org/2021/Talks/spc-pilot-202103.pdf)
 
@@ -88,7 +88,7 @@ To enroll your website in the SPC v0.2 Origin Trial, register your origin for
 the trial
 [here](https://developer.chrome.com/origintrials/#/view_trial/2735936773627576321).
 The [Origin Trial Developer
-Guide](https://github.com/GoogleChrome/OriginTrials/blob/gh-pages/developer-guide.md)
+Guide](https://github.com/GoogleChrome/OriginTrials/blob/main/developer-guide.md)
 explains how to enable the feature on your website once registered.
 
 ## Frequently Asked Questions

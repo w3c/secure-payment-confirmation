@@ -1,0 +1,3 @@
+# Temporary directories created when working on the spec locally.
+out/
+spec.html

@@ -1,0 +1,20 @@
+Date:   Wed Jul 7 11:24:50 2021 -0400
+<pre class="metadata">
+Title: Secure Payment Confirmation
+Shortname: secure-payment-confirmation
+Repository: w3c/secure-payment-confirmation
+TR: https://www.w3.org/TR/secure-payment-confirmation/
+ED: https://w3c.github.io/secure-payment-confirmation/
+Prepare for TR: true
+Inline Github Issues: true
+Group: web-payments
+Status: w3c/ED
+Level: 1
+URL: https://w3c.github.io/secure-payment-confirmation
+Editor: Rouslan Solomakhin, Google https://www.google.com/, rouslan@chromium.org
+Editor: Stephen McGruer, Google https://www.google.com/, smcgruer@chromium.org
+Abstract: This specification describes data structures, formats, algorithms, and
+  processing models to facilitate [[webauthn-3]] based payments on the Web.
+Complain About: missing-example-ids true
+Markup Shorthands: markdown yes
+</pre>

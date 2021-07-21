@@ -283,8 +283,8 @@ Payment Confirmation.
     not just the merchant origin where the user first registered for SPC.
 
 1. The merchant communicates out-of-band
-   with the issuing bank of the payment instrument
-   (e.g., using another protocol).
+    with the issuing bank of the payment instrument
+    (e.g., using another protocol).
     The issuing bank requests verification of the user,
     and at the same time informs the merchant that it accepts SPC by
     providing the information necessary to use the API. This

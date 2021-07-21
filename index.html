@@ -267,7 +267,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-07-13">13 July 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-07-21">21 July 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -287,9 +287,11 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This specification describes data structures, formats, algorithms, and
+   <p>Secure Payment Confirmation (SPC) is a Web API to support streamlined
 
-  processing models to facilitate <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> based payments on the Web.</p>
+  authentication during a payment transaction. It is designed to scale authentication
+  across merchants, to be used within a wide range of authentication protocols, and
+  to produce cryptographic evidence that the user has confirmed transaction details.</p>
   </div>
   <h2 class="no-num no-toc no-ref heading settled" id="status"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
@@ -305,9 +307,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       <li>
        <a href="#sctn-use-cases"><span class="secno">1.1</span> <span class="content">Use Cases</span></a>
        <ol class="toc">
-        <li><a href="#sctn-use-case-verifying-payment"><span class="secno">1.1.1</span> <span class="content">Verifying an authenticated payment</span></a>
-        <li><a href="#sctn-use-case-iframe-registration"><span class="secno">1.1.2</span> <span class="content">Registration in a bank iframe</span></a>
-        <li><a href="#sctn-use-case-merchant-authentication"><span class="secno">1.1.3</span> <span class="content">Authentication on a merchant website</span></a>
+        <li><a href="#sctn-use-case-verifying-payment"><span class="secno">1.1.1</span> <span class="content">Cryptographic evidence of transaction confirmation</span></a>
+        <li><a href="#sctn-use-case-iframe-enrollment"><span class="secno">1.1.2</span> <span class="content">Enrollment in a third-party iframe</span></a>
+        <li><a href="#sctn-use-case-merchant-authentication"><span class="secno">1.1.3</span> <span class="content">Merchant control of authentication</span></a>
        </ol>
       <li>
        <a href="#sctn-sample-scenarios"><span class="secno">1.2</span> <span class="content">Sample API Usage Scenarios</span></a>
@@ -367,125 +369,135 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <p><em>This section and its sub-sections are non-normative.</em></p>
     <p>This specification defines an API that enables the use of strong authentication
 methods in payment flows on the web. It aims to provide the same authentication
-benefits and user privacy focus as <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, whilst relaxing certain
-constraints to meet the needs of payment processing.</p>
-    <p>Similarly to <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, this specification defines two related processes
-involving a user. The first is <a href="#sctn-enrollment">§ 3 Enrollment</a>, where a relationship is
-created between the user and the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party">Relying Party</a>. The second is <a href="#sctn-authentication">§ 4 Authentication</a>, where a specific payment from the user to a
-recipient (possibly via an intermediary payment service provider) is
-authenticated for the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①">Relying Party</a>. An important concept in Secure Payment
-Confirmation is that with the permission of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②">Relying Party</a>, the
-merchant or another entity may initiate an authentication ceremony on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③">Relying Party’s</a> behalf.</p>
+benefits and user privacy focus as <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> with enhancements to meet the needs of payment processing.</p>
+    <p>Similarly to <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, this specification defines two related
+processes involving a user. The first is <a href="#sctn-enrollment">§ 3 Enrollment</a>, where a
+relationship is created between the user and the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party">Relying
+Party</a>. The second is <a href="#sctn-authentication">§ 4 Authentication</a>, where the user
+responds to a challenge from the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①">Relying Party</a> (possibly via an
+intermediary payment service provider) to consent to a specific
+payment. An important feature of Secure Payment Confirmation is that
+the merchant (or another entity) may initiate the authentication
+ceremony on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②">Relying Party’s</a> behalf.</p>
     <p>Functionally, this specification defines a new <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-method" id="ref-for-dfn-payment-method">payment method</a> for the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest">PaymentRequest</a></code> API, and adds a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions">WebAuthn Extension</a> to extend <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> with payment-specific datastructures and to relax assumptions to
 allow the API to be called in payment contexts.</p>
     <h3 class="heading settled" data-level="1.1" id="sctn-use-cases"><span class="secno">1.1. </span><span class="content">Use Cases</span><a class="self-link" href="#sctn-use-cases"></a></h3>
-    <p>The below use case scenarios illustrate the need for a payment-specific
-extension to <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, rather than just asking web developers to build
-their own flows on-top of <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> registration and authentication.
-We presume that the general use case of cryptographic-based authentication for
-online transactions is well established.</p>
+    <p>Although <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> provides general authentication capabilities
+for the Web, the following use cases illustrate the value of the
+payment-specific extension defined in this specification.</p>
+    <p>We presume that the general use case of cryptographic-based
+authentication for online transactions is well established.</p>
     <p class="note" role="note"><span>Note:</span> These sections are still a WIP.</p>
-    <h4 class="heading settled" data-level="1.1.1" id="sctn-use-case-verifying-payment"><span class="secno">1.1.1. </span><span class="content">Verifying an authenticated payment</span><a class="self-link" href="#sctn-use-case-verifying-payment"></a></h4>
-    <p>A user is performing an online transaction based on cryptographic
-authentication (i.e. either WebAuthn or this specification). The user completes
-the authentication and the issuing bank now wishes to verify the signed
-cryptogram that they received.</p>
-    <p>If the bank or merchant site is using WebAuthn, the payment-specific
-information must be placed in the WebAuthn <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge" id="ref-for-dom-publickeycredentialrequestoptions-challenge">challenge</a></code>. This has several issues:</p>
+    <h4 class="heading settled" data-level="1.1.1" id="sctn-use-case-verifying-payment"><span class="secno">1.1.1. </span><span class="content">Cryptographic evidence of transaction confirmation</span><a class="self-link" href="#sctn-use-case-verifying-payment"></a></h4>
+    <p>In many online payment systems, it is common for the entity (e.g.,
+bank) that issues a payment instrument to seek to reduce fraud through
+authentication. <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> and this specification make it possible
+to use authenticators to cryptographically sign important payment-specific
+information such as the origin of the merchant and the transaction
+amount and currency. The bank, as the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③">Relying Party</a>, can then verify
+the signed payment-specific information as part of the decision to authorize
+the payment.</p>
+    <p>If the bank uses plain <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, the payment-specific
+information to be verified must be stored in the WebAuthn <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge" id="ref-for-dom-publickeycredentialrequestoptions-challenge">challenge</a></code>. This raises several
+issues:</p>
     <ol>
      <li data-md>
       <p>It is a misuse of the <code>challenge</code> field (which is intended to defeat replay
 attacks).</p>
      <li data-md>
-      <p>There is no specification for this, so each issuing bank may come up with
-their own format for how payment information should be formatted and encoded
-in the challenge - which causes fragmentation and confusion.</p>
+      <p>There is no specification for this, so each bank is likely to have
+to devise its own format for how payment-specific information should be formatted and encoded in the challenge, complicating deployment and increasing fragmentation.</p>
      <li data-md>
-      <p>Regulations may require that the user was shown the transaction amount.
-The <code>challenge</code> field cannot be used to verify that, as information included
-there has no behavior impact on WebAuthn.</p>
+      <p>Regulations may require evidence that the user was shown and agreed to the payment-specific information. Plain <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> does not provide for this display: there is no specified UX associated with information stored in the <code>challenge</code> field.</p>
     </ol>
-    <p>Secure Payment Confirmation, on the other hand:</p>
+    <p>These limitations motivate the following Secure Payment Confirmation behaviors:</p>
     <ol>
      <li data-md>
-      <p>Uses the <code>challenge</code> field only to defeat replay attacks, as with normal
-WebAuthn.</p>
+      <p>The <code>challenge</code> field is only used to defeat replay attacks, as with plain <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>.</p>
      <li data-md>
-      <p>Provides a specified format for transaction data, which will e.g. allow
-generic verification code and test suites to be developed and shared as
-appropriate.</p>
+      <p>SPC specifies a format for payment-specific information.
+This will enable development
+of generic verification code and test suites.</p>
      <li data-md>
-      <p>Guarantees that the user agent has presented the transaction information to
-the user, in a way that a malicious website (or maliciously introduced
+      <p>SPC guarantees that the user agent has presented the
+payment-specific information to the user in a way
+that a malicious website (or maliciously introduced
 JavaScript code on a trusted website) cannot bypass.</p>
       <ul>
        <li data-md>
-        <p>The transaction information is included in the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata">CollectedClientData</a></code> dictionary, which is not influencable by JavaScript code.</p>
+        <p>The payment-specific information is included in the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata">CollectedClientData</a></code> dictionary, which cannot be tampered with via JavaScript.</p>
       </ul>
-      <p class="note" role="note"><span>NOTE:</span> This does assume the issuing bank trusts the user agent, but that
-is already required in payment flows today.</p>
+      <p class="note" role="note"><span>NOTE:</span> Banks and other stakeholders in the payments ecosystem trust
+payments via browsers sufficiently today using TLS, iframes, and
+other Web features. The current specification is designed to
+increase the security and usability of Web payments.</p>
     </ol>
-    <h4 class="heading settled" data-level="1.1.2" id="sctn-use-case-iframe-registration"><span class="secno">1.1.2. </span><span class="content">Registration in a bank iframe</span><a class="self-link" href="#sctn-use-case-iframe-registration"></a></h4>
+    <h4 class="heading settled" data-level="1.1.2" id="sctn-use-case-iframe-enrollment"><span class="secno">1.1.2. </span><span class="content">Enrollment in a third-party iframe</span><a class="self-link" href="#sctn-use-case-iframe-enrollment"></a></h4>
+    <p>If a bank wishes to use <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> as the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④">Relying Party</a>, that
+specification requires the bank to register the user in a first party
+context. Registration can happen outside of a transaction while the user
+is visiting the bank’s site. It is also useful to be able to register
+the user during a transaction, but any registration that interrupts the
+payment journey creates a risk of transaction abandonment.</p>
+    <p>This limitation motivates the following Secure Payment Confirmation behavior:</p>
+    <ol>
+     <li data-md>
+      <p>SPC supports cross-origin enrollment from an iframe in a third-party context. For instance, this enrollment might take place following some other ID&amp;V flow (e.g., SMS OTP).</p>
+    </ol>
     <ul>
      <li data-md>
-      <p>It is very common in payment flows on the web to open an iframe to a bank for
-ID&amp;V (e.g. via an SMS OTP step-up flow). This is the highest traffic <em>authenticated</em> touchpoint that the bank has with the user, and is an ideal
-point for an enrollment flow.</p>
-      <ul>
-       <li data-md>
-        <p>It is expected that requiring out-of-flow enrollment (e.g. on a bank
-website, outside of a payment flow), would lead to far lower enrollment
-rates for SPC.</p>
-      </ul>
-     <li data-md>
-      <p>See https://github.com/w3c/webauthn/issues/1336#issuecomment-554170183</p>
+      <p>See <a href="https://github.com/w3c/webauthn/issues/1336#issuecomment-554170183">discussion on WebAuthn issue 1336</a>.</p>
     </ul>
-    <h4 class="heading settled" data-level="1.1.3" id="sctn-use-case-merchant-authentication"><span class="secno">1.1.3. </span><span class="content">Authentication on a merchant website</span><a class="self-link" href="#sctn-use-case-merchant-authentication"></a></h4>
+    <h4 class="heading settled" data-level="1.1.3" id="sctn-use-case-merchant-authentication"><span class="secno">1.1.3. </span><span class="content">Merchant control of authentication</span><a class="self-link" href="#sctn-use-case-merchant-authentication"></a></h4>
+    <p>Merchants seek to avoid user drop-off during checkout, in particular by
+reducing authentication friction. A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤">Relying Party</a> (e.g., a bank)
+that wishes to use <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> to authenticate the user typically
+does so from an iframe. However, merchants would prefer to manage
+the user experience of authenticating the user while still enabling
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑥">Relying Party</a> to verify the results of authentication.</p>
+    <p>This limitation motivates the following Secure Payment Confirmation behavior:</p>
     <ul>
      <li data-md>
-      <p>A prime concern for merchants on the web is to prevent user drop-off during
-authentication. Reducing friction as much as possible is key, so instead of
-opening a bank iframe (the relying party) and letting them do SPC
-authentication, merchants strongly want to perform the auth themselves <em>on behalf of the bank</em>.</p>
-     <li data-md>
-      <p>This also means the banks don’t need to build their own SPC front-end flows
-for authentication; the merchants (or the payment service processors who
-they use) can do so.</p>
-     <li data-md>
-      <p>Of course its ultimately up to the relying party to allow this usage, so they
-don’t have to if they don’t like it. They could use SPC in a normal
-challenge flow inside their own iframe if they wanted.</p>
+      <p>With SPC, other parties than the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑦">Relying Party</a> can use authentication credentials <em>on behalf of</em> the Relying Party. The Relying Party can then verify the authentication results.</p>
     </ul>
+    <p>An additional benefit of this feature to Relying Parties is that they
+no longer need to build their own front-end experiences for
+authentication. Instead, payment service providers are likely to build
+them on behalf of merchants.</p>
+    <p class="note" role="note"><span>NOTE:</span> Relying Parties that wish to provide the authentication user
+experience may still do so using SPC from an iframe.</p>
     <h3 class="heading settled" data-level="1.2" id="sctn-sample-scenarios"><span class="secno">1.2. </span><span class="content">Sample API Usage Scenarios</span><a class="self-link" href="#sctn-sample-scenarios"></a></h3>
     <p>In this section, we walk through some scenarios for Secure Payment Confirmation
 and the corresponding sample code for using this API. Note that these are
 example flows and do not limit the scope of how the API can be used.</p>
     <h4 class="heading settled" data-level="1.2.1" id="sctn-sample-enrollment"><span class="secno">1.2.1. </span><span class="content">Enrollment</span><a class="self-link" href="#sctn-sample-enrollment"></a></h4>
     <p>This is the first-time flow, in which a new credential is created and stored by
-the issuing bank.</p>
+an issuing bank.</p>
     <ol>
      <li data-md>
       <p>The user visits <code>merchant.com</code>, selects an item to purchase, and proceeds
 to the checkout flow. They enter their payment instrument details, and
-indicate that they wish to pay (e.g. by pressing a "Pay" button).</p>
+indicate that they wish to pay (e.g., by pressing a "Pay" button).</p>
      <li data-md>
-      <p>The merchant communicates with the issuing bank of the payment instrument
-over a backchannel. The issuing bank requests verification of the user,
-and provides a bank-owned URL for the merchant to open in an iframe.</p>
+      <p>The merchant communicates out-of-band (e.g., using another protocol)
+with the bank that issued the payment instrument.
+The issuing bank requests verification of the user,
+and provides a bank-controlled URL for the merchant to open in an iframe.</p>
      <li data-md>
       <p>The merchant opens an iframe to <code>bank.com</code>, with the <code>allow</code> attribute set
 to "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission">payment</a>".</p>
      <li data-md>
       <p>In the iframe, the issuing bank confirms the user’s identity via a
-traditional means (e.g. SMS OTP). After confirming, they offer the user
-the ability to enroll in SPC authentication for future payments.</p>
+traditional means (e.g., SMS OTP). After confirmation, the
+bank invites the user to enroll in SPC authentication for future payments.</p>
      <li data-md>
-      <p>The user consents (e.g. by clicking an "Enroll" button in the bank UX), and
-the bank runs the below example code in the iframe.</p>
+      <p>The user consents (e.g., by clicking an "Enroll" button in the bank UX), and
+the bank runs code in the iframe (see example below).</p>
      <li data-md>
-      <p>The user goes through a WebAuthn registration flow. A new credential is
-created for the user and the public key is returned to the issuing bank
-who stores it in their server-side database associated with the user.</p>
+      <p>The user goes through a WebAuthn registration flow. A new
+credential is created and returned to the issuing bank who stores
+it in their server-side database associated with the user and
+payment instrument(s).</p>
      <li data-md>
       <p>The verification completes; the bank iframe closes and the merchant finishes
 the checkout process for the user.</p>
@@ -560,26 +572,32 @@ Payment Confirmation.</p>
     <li data-md>
      <p>The user visits <code>merchant.com</code>, selects an item to purchase, and proceeds
 to the checkout flow. They enter their payment instrument details, and
-indicate that they wish to pay (e.g. by pressing a "Pay" button).</p>
-     <p class="note" role="note"><span>Note:</span> This may or may not be the merchant website the user was originally
-      on when they registered this device; it is irrelevant here.</p>
+indicate that they wish to pay (e.g., by pressing a "Pay" button).</p>
+     <p class="note" role="note"><span>Note:</span> The cross-origin use of SPC credentials makes it possible for
+the user to "enroll once" and authenticate on any merchant origin,
+not just the merchant origin where the user first registered for SPC.</p>
     <li data-md>
-     <p>The merchant communicates with the issuing bank of the payment instrument
-over a backchannel. The issuing bank requests verification of the user,
-but notes that it accepts SPC and provides a list of known credential
-IDs for this payment instrument.</p>
+     <p>The merchant communicates out-of-band
+with the issuing bank of the payment instrument
+(e.g., using another protocol).
+The issuing bank requests verification of the user,
+and at the same time informs the merchant that it accepts SPC by
+providing the information necessary to use the API. This
+information includes a challenge and any credential IDs
+associated with this user and payment instrument(s).</p>
     <li data-md>
-     <p>The merchant runs the below example code.</p>
+     <p>The merchant runs the example code shown below.</p>
     <li data-md>
-     <p>The user accepts the transaction in the SPC UX, and performs a subsequent
-WebAuthn authentication ceremony. The signed cryptogram is returned to
-the merchant.</p>
+     <p>The user agrees to the payment-specific information displayed in the
+SPC UX, and performs a subsequent WebAuthn authentication
+ceremony. The signed cryptogram is returned to the merchant.</p>
     <li data-md>
-     <p>The merchant sends the signed cryptogram to the issuing bank via the
-backchannel. The issuing bank verifies the cryptogram, and knows that
-the user is both valid and has consented to the transaction. The issuing
-bank authorizes the transaction and the merchant finishes the checkout
-process for the user.</p>
+     <p>The merchant communicates the signed cryptogram to the issuing bank
+out-of-band. The issuing bank verifies the cryptogram, and knows
+that the user is valid, what payment-specific information has been
+displayed, and that the user has consented to the transaction. The
+issuing bank authorizes the transaction and the merchant finishes
+the checkout process for the user.</p>
    </ol>
    <p>The sample code for authenticating the user follows. Note that the example code
 presumes access to await/async, for easier to read promise handling.</p>
@@ -654,8 +672,8 @@ payment method confirms the transaction with the user and then performs an <a da
 representing the transaction.</p>
    <p>At a high level, authentication for Secure Payment Confirmation is similar to <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, with one major conceptual shift. Secure Payment Confirmation
 allows a third-party (e.g. the merchant) to trigger an authentication ceremony
-on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④">Relying Party</a>, passing in credentials that it has obtained
-from the Relying Party on some other unspecified channel. See <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Authentication on a merchant website</a>.</p>
+on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑧">Relying Party</a>, passing in credentials that it has obtained
+from the Relying Party on some other unspecified channel. See <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
    <h3 class="heading settled" data-level="4.1" id="sctn-payment-method-spc"><span class="secno">4.1. </span><span class="content">Payment Method: Secure Payment Confirmation</span><a class="self-link" href="#sctn-payment-method-spc"></a></h3>
    <div class="note" role="note"> <strong>TODO</strong>: This specification also needs to monkey-patch step 12 of <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-constructor" id="ref-for-dom-paymentrequest-constructor">PaymentRequest’s constructor</a></code> somehow, to enforce
 that when "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation①">secure-payment-confirmation</a>" is used, exactly one method is
@@ -781,7 +799,7 @@ created for or used for Secure Payment Confirmation, respectively.</p>
 credential creation in a cross-origin iframe, and also allows the browser to
 identify and cache Secure Payment Confirmation credentials. For authentication,
 this extension allows a third-party to perform an authentication ceremony on
-behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤">Relying Party</a>, and also adds transaction information to the
+behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑨">Relying Party</a>, and also adds transaction information to the
 signed cryptogram.</p>
    <p>Notably, a website should not call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get" id="ref-for-dom-credentialscontainer-get①">navigator.credentials.get()</a></code> with this extension
 directly; for authentication the extension can only be accessed via <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest①">PaymentRequest</a></code> with a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation②">secure-payment-confirmation</a>" payment method.</p>
@@ -815,7 +833,7 @@ directly; for authentication the extension can only be accessed via <code class=
        <div class="note" role="note"><strong>TODO</strong>: Find a better way to do this. Needed currently because other members are auth-time only.</div>
       <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-rporigin"><code>rpOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString②">USVString</a></span>
       <dd data-md>
-       <p>The <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑥">Relying Party</a> origin of the credential(s) being used. Only valid at authentication time.</p>
+       <p>The <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⓪">Relying Party</a> origin of the credential(s) being used. Only valid at authentication time.</p>
       <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString③">USVString</a></span>
       <dd data-md>
        <p>The origin of the top-level frame. Only valid at authentication time.</p>
@@ -858,7 +876,7 @@ SPC without going through the browser UX.</p>
        <ol>
         <li data-md>
          <p>Skip step 6.1, which compares <em>options.rpId</em> to <em>effectiveDomain</em></p>
-         <p class="note" role="note"><span>Note:</span> This enables cross-domain authentication ceremonies; see <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Authentication on a merchant website</a>.</p>
+         <p class="note" role="note"><span>Note:</span> This enables cross-domain authentication ceremonies; see <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
         <li data-md>
          <p>In step 9, instead of creating a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata①">CollectedClientData</a></code>, instead create a <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a></code> with:</p>
          <ol>
@@ -1193,9 +1211,12 @@ very clear payments UX when a match is found (though that may be too late).</p>
   <aside class="dfn-panel" data-for="term-for-relying-party">
    <a href="https://w3c.github.io/webauthn/#relying-party">https://w3c.github.io/webauthn/#relying-party</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-relying-party">1. Introduction</a> <a href="#ref-for-relying-party①">(2)</a> <a href="#ref-for-relying-party②">(3)</a> <a href="#ref-for-relying-party③">(4)</a>
-    <li><a href="#ref-for-relying-party④">4. Authentication</a>
-    <li><a href="#ref-for-relying-party⑤">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-relying-party⑥">(2)</a>
+    <li><a href="#ref-for-relying-party">1. Introduction</a> <a href="#ref-for-relying-party①">(2)</a> <a href="#ref-for-relying-party②">(3)</a>
+    <li><a href="#ref-for-relying-party③">1.1.1. Cryptographic evidence of transaction confirmation</a>
+    <li><a href="#ref-for-relying-party④">1.1.2. Enrollment in a third-party iframe</a>
+    <li><a href="#ref-for-relying-party⑤">1.1.3. Merchant control of authentication</a> <a href="#ref-for-relying-party⑥">(2)</a> <a href="#ref-for-relying-party⑦">(3)</a>
+    <li><a href="#ref-for-relying-party⑧">4. Authentication</a>
+    <li><a href="#ref-for-relying-party⑨">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-relying-party①⓪">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-webauthn-extensions">
@@ -1217,7 +1238,7 @@ very clear payments UX when a match is found (though that may be too late).</p>
   <aside class="dfn-panel" data-for="term-for-dictdef-collectedclientdata">
    <a href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata">https://w3c.github.io/webauthn/#dictdef-collectedclientdata</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-collectedclientdata">1.1.1. Verifying an authenticated payment</a>
+    <li><a href="#ref-for-dictdef-collectedclientdata">1.1.1. Cryptographic evidence of transaction confirmation</a>
     <li><a href="#ref-for-dictdef-collectedclientdata①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dictdef-collectedclientdata②">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientdata③">(2)</a>
     <li><a href="#ref-for-dictdef-collectedclientdata④">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
@@ -1251,7 +1272,7 @@ very clear payments UX when a match is found (though that may be too late).</p>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-challenge">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-challenge">1.1.1. Verifying an authenticated payment</a>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-challenge">1.1.1. Cryptographic evidence of transaction confirmation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-authenticatortransport-internal">

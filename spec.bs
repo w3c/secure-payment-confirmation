@@ -376,10 +376,11 @@ To enroll a user for Secure Payment Confirmation, relying parties should call
 {{AuthenticationExtensionsClientInputs/payment}} [=WebAuthn Extension=]
 specified.
 
-Note: We currently require an extension in order to allow credential creation
-      in an iframe and to allow the browser to cache SPC credentials in the
-      absence of [=WebAuthn Conditional UI=]. Future versions of this
-      specification may remove the requirement for the extension.
+Note: We currently require an extension in order to allow cross-origin
+      credential creation in an iframe and to allow the browser to cache
+      SPC credentials in the absence of [=WebAuthn Conditional UI=].
+      Future versions of this specification may remove the requirement
+      for the extension.
 
 # Authentication # {#sctn-authentication}
 
@@ -387,11 +388,11 @@ To authenticate a payment via Secure Payment Confirmation, this specification
 defines a new [=payment method=], "[=secure-payment-confirmation=]". This
 payment method confirms the transaction with the user and then performs an
 [=authentication ceremony=] to authenticate the user and create a signed blob
-representing the transaction.
+representing the payment-specific information.
 
 At a high level, authentication for Secure Payment Confirmation is similar to
 [[webauthn-3]], with one major conceptual shift. Secure Payment Confirmation
-allows a third-party (e.g. the merchant) to trigger an authentication ceremony
+allows a third-party (e.g., the merchant) to trigger an authentication ceremony
 on behalf of the [=Relying Party=], passing in credentials that it has obtained
 from the Relying Party on some other unspecified channel. See
 [[#sctn-use-case-merchant-authentication]].
@@ -427,7 +428,7 @@ members:
 
 <dl dfn-type="dict-member" dfn-for="SecurePaymentConfirmationRequest">
     :  <dfn>challenge</dfn> member
-    :: A random one-time challenge that the relying party generates on the server side to prevent replay attacks.
+    :: A random challenge that the relying party generates on the server side to prevent replay attacks.
 
     :  <dfn>credentialIds</dfn> member
     :: The list of credential identifiers for the given instrument.
@@ -670,7 +671,7 @@ fields:
     :: The relying party that created the credential.
 
     :  <dfn>topOrigin</dfn> member
-    :: The origin of the top level context that requested to sign the transaction details. Typically this would be called a merchant.
+    :: The origin of the top level context that requested to sign the transaction details. Typically this would a merchant origin.
 
     :  <dfn>total</dfn> member
     :: The {{PaymentCurrencyAmount}} of the [[payment-request]] `total` field.
@@ -729,9 +730,9 @@ Main considerations (on top of WebAuthn itself):
     require two things: the user to provide consent and the Relying Party
     to accept the signed cryptogram. As such, even if a malicious party obtains
     the credential list from the Relying Party, it is unlikely for fraud to
-    occur:
+    occur because:
 
-    * First, the user must provide their consent (and verification) to the
+    * The user must provide their consent (and verification) to the
         website - with either browser and/or authenticator UX that shows the
         transaction details.
 
@@ -739,9 +740,9 @@ Main considerations (on top of WebAuthn itself):
         Relying Party must still be expecting the payment, otherwise the
         cryptogram is useless.
 
-* The same argument is used against the concern that a third party (the
+* The same argument is used against the concern that a third party (e.g., the
     merchant) provides many of the input values for SPC authentication
-    (e.g. the card icon, name, etc). Whilst this may be confusing to the
+    (e.g., the card icon, name, etc). Whilst this may be confusing to the
     user if the merchant is malicious, the cryptogram is ultimately useless
     unless the Relying Party accepts it - and they are able to
     cryptographically verify what was shown to the user.
@@ -749,12 +750,11 @@ Main considerations (on top of WebAuthn itself):
 * Allowing \[[Create]] in an iframe; see https://github.com/w3c/webauthn/issues/1336
     from WebAuthn.
 
-    * Currently this is mostly amerliorated by the fact that we show a
-        payments-focused browser UX on SPC enrollment.
+    * Implementations can address this concern by providing native 
+        payments-focused browser UX during SPC enrollment.
 
-    * If we got rid of that UX (under consideration), then we could require a
-        user gesture for calling it. This would be fine for the bank iframe
-        enrollment case.
+    * In the absence of such as UX, a browser can require a
+        user gesture as part of initiating the API.
 
 # Privacy Considerations # {#sctn-privacy-considerations}
 
@@ -777,7 +777,7 @@ that model in significant ways that should be considered.
      * If the relying party uses the same credentials for a given user across
          multiple payment instruments, this could expose that linkage to the
          merchant (as they could track what sets of credentials they see for
-         each credit card they ask about on the backend).
+         each instrument they ask about on the backend). See https://github.com/w3c/secure-payment-confirmation/issues/77
 
 * Credential ID(s) as a tracking vector
 

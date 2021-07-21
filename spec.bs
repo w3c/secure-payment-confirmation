@@ -12,7 +12,10 @@ Level: 1
 URL: https://w3c.github.io/secure-payment-confirmation
 Editor: Rouslan Solomakhin, Google https://www.google.com/, rouslan@chromium.org
 Editor: Stephen McGruer, Google https://www.google.com/, smcgruer@chromium.org
-Abstract: Secure Payment Confirmation (SPC) is a Web API to support streamlined authentication during a payment transaction. It is designed to scale authentication across merchants, to be used within a wide range of authentication protocols, and to produce cryptographic evidence that the user has confirmed transaction details.
+Abstract: Secure Payment Confirmation (SPC) is a Web API to support streamlined
+  authentication during a payment transaction. It is designed to scale authentication
+  across merchants, to be used within a wide range of authentication protocols, and
+  to produce cryptographic evidence that the user has confirmed transaction details.
 Complain About: missing-example-ids true
 Markup Shorthands: markdown yes
 </pre>

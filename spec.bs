@@ -93,7 +93,7 @@ bank) that issues a payment instrument to seek to reduce fraud through
 authentication. [[webauthn-3]] and this specification make it possible
 to use authenticators to cryptographically sign important payment-specific
 information such as the origin of the merchant and the transaction
-amount and currency. The bank, as the Relying Party, can then verify
+amount and currency. The bank, as the [=Relying Party=], can then verify
 the signed payment-specific information as part of the decision to authorize
 the payment.
 
@@ -130,7 +130,7 @@ These limitations motivate the following Secure Payment Confirmation behaviors:
 
 ### Enrollment in a third-party iframe ### {#sctn-use-case-iframe-enrollment}
 
-If a bank wishes to use [[webauthn-3]] as the Relying Party, that
+If a bank wishes to use [[webauthn-3]] as the [=Relying Party=], that
 specification requires the bank to register the user in a first party
 context. Registration can happen outside of a transaction while the user
 is visiting the bank's site. It is also useful to be able to register
@@ -148,15 +148,15 @@ following some other ID&V flow (e.g., SMS OTP).
 ### Merchant control of authentication ### {#sctn-use-case-merchant-authentication}
 
 Merchants seek to avoid user drop-off during checkout, in particular by
-reducing authentication friction. A Relying Party (e.g., a bank)
+reducing authentication friction. A [=Relying Party=] (e.g., a bank)
 that wishes to use [[webauthn-3]] to authenticate the user typically
 does so from an iframe. However, merchants would prefer to manage
 the user experience of authenticating the user while still enabling
-the Relying Party to verify the results of authentication.
+the [=Relying Party=] to verify the results of authentication.
 
 This limitation motivates the following Secure Payment Confirmation behavior:
 
-* With SPC, other parties than the Relying Party can use authentication credentials *on behalf of* the Relying Party. The Relying Party can then verify the authentication results.
+* With SPC, other parties than the [=Relying Party=] can use authentication credentials *on behalf of* the Relying Party. The Relying Party can then verify the authentication results.
 
 An additional benefit of this feature to Relying Parties is that they
 no longer need to build their own front-end experiences for

@@ -68,7 +68,7 @@ responds to a challenge from the [=Relying Party=] (possibly via an
 intermediary payment service provider) to consent to a specific
 payment. An important feature of Secure Payment Confirmation is that
 the merchant (or another entity) may initiate the authentication
-ceremony on the [=Relying Party's=] behalf and with their permission.
+ceremony on the [=Relying Party's=] behalf.
 
 Functionally, this specification defines a new [=payment method=] for the
 {{PaymentRequest}} API, and adds a [=WebAuthn Extension=] to extend

@@ -298,11 +298,11 @@ Payment Confirmation.
     ceremony. The signed cryptogram is returned to the merchant.
 
 1. The merchant communicates the signed cryptogram to the issuing bank
-   out-of-band. The issuing bank verifies the cryptogram, and knows
-   that the user is valid, what payment-specific information has been
-   displayed, and that the user has consented to the transaction. The
-   issuing bank authorizes the transaction and the merchant finishes
-   the checkout process for the user.
+    out-of-band. The issuing bank verifies the cryptogram, and knows
+    that the user is valid, what payment-specific information has been
+    displayed, and that the user has consented to the transaction. The
+    issuing bank authorizes the transaction and the merchant finishes
+    the checkout process for the user.
 
 The sample code for authenticating the user follows. Note that the example code
 presumes access to await/async, for easier to read promise handling.

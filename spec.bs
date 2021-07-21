@@ -139,9 +139,7 @@ payment journey creates a risk of transaction abandonment.
 
 This limitation motivates the following Secure Payment Confirmation behavior:
 
-1. SPC supports cross-origin enrollment from an iframe in a
-third-party context. For instance, this enrollment might take place
-following some other ID&V flow (e.g., SMS OTP).
+1. SPC supports cross-origin enrollment from an iframe in a third-party context. For instance, this enrollment might take place following some other ID&V flow (e.g., SMS OTP).
 
 * See <a href="https://github.com/w3c/webauthn/issues/1336#issuecomment-554170183">discussion on WebAuthn issue 1336</a>.
 

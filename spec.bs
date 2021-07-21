@@ -113,7 +113,7 @@ These limitations motivate the following Secure Payment Confirmation behaviors:
 1. The `challenge` field is only used to defeat replay attacks, as with plain
     [[webauthn-3]].
 1. SPC specifies a format for payment-specific information.
-   This will enable development
+    This will enable development
     of generic verification code and test suites.
 1. SPC guarantees that the user agent has presented the
     payment-specific information to the user in a way

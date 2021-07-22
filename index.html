@@ -267,7 +267,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-07-21">21 July 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-07-22">22 July 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -661,17 +661,17 @@ authentication.</p>
    </dl>
    <h2 class="heading settled" data-level="3" id="sctn-enrollment"><span class="secno">3. </span><span class="content">Enrollment</span><a class="self-link" href="#sctn-enrollment"></a></h2>
    <p>To enroll a user for Secure Payment Confirmation, relying parties should call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create">navigator.credentials.create()</a></code>, with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment">payment</a></code> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions①">WebAuthn Extension</a> specified.</p>
-   <p class="note" role="note"><span>Note:</span> We currently require an extension in order to allow credential creation
-      in an iframe and to allow the browser to cache SPC credentials in the
-      absence of <a data-link-type="dfn" href="#webauthn-conditional-ui" id="ref-for-webauthn-conditional-ui">WebAuthn Conditional UI</a>. Future versions of this
+   <p class="note" role="note"><span>Note:</span> We currently require an extension in order to allow
+      credential creation in a cross-origin iframe and to allow
+      the browser to cache SPC credentials in the absence of <a data-link-type="dfn" href="#webauthn-conditional-ui" id="ref-for-webauthn-conditional-ui">WebAuthn Conditional UI</a>. Future versions of this
       specification may remove the requirement for the extension.</p>
    <h2 class="heading settled" data-level="4" id="sctn-authentication"><span class="secno">4. </span><span class="content">Authentication</span><a class="self-link" href="#sctn-authentication"></a></h2>
    <p>To authenticate a payment via Secure Payment Confirmation, this specification
 defines a new <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-method" id="ref-for-dfn-payment-method①">payment method</a>, "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation">secure-payment-confirmation</a>". This
 payment method confirms the transaction with the user and then performs an <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-ceremony" id="ref-for-authentication-ceremony">authentication ceremony</a> to authenticate the user and create a signed blob
-representing the transaction.</p>
+representing the authentication ceremony.</p>
    <p>At a high level, authentication for Secure Payment Confirmation is similar to <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, with one major conceptual shift. Secure Payment Confirmation
-allows a third-party (e.g. the merchant) to trigger an authentication ceremony
+allows a third-party (e.g., the merchant) to trigger an authentication ceremony
 on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑧">Relying Party</a>, passing in credentials that it has obtained
 from the Relying Party on some other unspecified channel. See <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
    <h3 class="heading settled" data-level="4.1" id="sctn-payment-method-spc"><span class="secno">4.1. </span><span class="content">Payment Method: Secure Payment Confirmation</span><a class="self-link" href="#sctn-payment-method-spc"></a></h3>
@@ -695,7 +695,7 @@ members:</p>
    <dl>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-challenge"><code>challenge</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource②">BufferSource</a></span>
     <dd data-md>
-     <p>A random one-time challenge that the relying party generates on the server side to prevent replay attacks.</p>
+     <p>A random challenge that the relying party generates on the server side to prevent replay attacks.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-credentialids"><code>credentialIds</code></dfn> member, <span> of type FrozenArray&lt;<a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource③">BufferSource</a>></span>
     <dd data-md>
      <p>The list of credential identifiers for the given instrument.</p>
@@ -933,7 +933,7 @@ fields:</p>
      <p>The relying party that created the credential.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑦">USVString</a></span>
     <dd data-md>
-     <p>The origin of the top level context that requested to sign the transaction details. Typically this would be called a merchant.</p>
+     <p>The origin of the top level context that requested to sign the transaction details. Typically this would a merchant origin.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-total"><code>total</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount③">PaymentCurrencyAmount</a></span>
     <dd data-md>
      <p>The <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount④">PaymentCurrencyAmount</a></code> of the <a data-link-type="biblio" href="#biblio-payment-request">[payment-request]</a> <code>total</code> field.</p>
@@ -975,10 +975,10 @@ policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-r
 require two things: the user to provide consent and the Relying Party
 to accept the signed cryptogram. As such, even if a malicious party obtains
 the credential list from the Relying Party, it is unlikely for fraud to
-occur:</p>
+occur because:</p>
      <ul>
       <li data-md>
-       <p>First, the user must provide their consent (and verification) to the
+       <p>The user must provide their consent (and verification) to the
 website - with either browser and/or authenticator UX that shows the
 transaction details.</p>
       <li data-md>
@@ -987,9 +987,9 @@ Relying Party must still be expecting the payment, otherwise the
 cryptogram is useless.</p>
      </ul>
     <li data-md>
-     <p>The same argument is used against the concern that a third party (the
+     <p>The same argument is used against the concern that a third party (e.g., the
 merchant) provides many of the input values for SPC authentication
-(e.g. the card icon, name, etc). Whilst this may be confusing to the
+(e.g., the card icon, name, etc). Whilst this may be confusing to the
 user if the merchant is malicious, the cryptogram is ultimately useless
 unless the Relying Party accepts it - and they are able to
 cryptographically verify what was shown to the user.</p>
@@ -998,12 +998,11 @@ cryptographically verify what was shown to the user.</p>
 from WebAuthn.</p>
      <ul>
       <li data-md>
-       <p>Currently this is mostly amerliorated by the fact that we show a
-payments-focused browser UX on SPC enrollment.</p>
+       <p>Implementations can address this concern by providing native
+payments-focused browser UX during SPC enrollment.</p>
       <li data-md>
-       <p>If we got rid of that UX (under consideration), then we could require a
-user gesture for calling it. This would be fine for the bank iframe
-enrollment case.</p>
+       <p>In the absence of such as UX, a browser can require a
+user gesture as part of initiating the API.</p>
      </ul>
    </ul>
    <h2 class="heading settled" data-level="9" id="sctn-privacy-considerations"><span class="secno">9. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#sctn-privacy-considerations"></a></h2>
@@ -1028,7 +1027,7 @@ very clear payments UX when a match is found (though that may be too late).</p>
        <p>If the relying party uses the same credentials for a given user across
  multiple payment instruments, this could expose that linkage to the
  merchant (as they could track what sets of credentials they see for
- each credit card they ask about on the backend).</p>
+ each instrument they ask about on the backend). See https://github.com/w3c/secure-payment-confirmation/issues/77</p>
      </ul>
     <li data-md>
      <p>Credential ID(s) as a tracking vector</p>
@@ -1036,7 +1035,7 @@ very clear payments UX when a match is found (though that may be too late).</p>
       <li data-md>
        <p>The credential ID could be used as a tracking vector, but to obtain it
  from the Relying Party the merchant already needs an as-strong
- identifier to give to the Relying Party (e.g. the credit card number).</p>
+ identifier to give to the Relying Party (e.g., the credit card number).</p>
      </ul>
    </ul>
    <h2 class="heading settled" data-level="10" id="sctn-accessibility-considerations"><span class="secno">10. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>

@@ -376,11 +376,11 @@ To enroll a user for Secure Payment Confirmation, relying parties should call
 {{AuthenticationExtensionsClientInputs/payment}} [=WebAuthn Extension=]
 specified.
 
-Note: We currently require an extension in order to allow cross-origin
-      credential creation in an iframe and to allow the browser to cache
-      SPC credentials in the absence of [=WebAuthn Conditional UI=].
-      Future versions of this specification may remove the requirement
-      for the extension.
+Note: We currently require an extension in order to allow 
+      credential creation in a cross-origin iframe and to allow
+      the browser to cache SPC credentials in the absence of
+      [=WebAuthn Conditional UI=]. Future versions of this
+      specification may remove the requirement for the extension.
 
 # Authentication # {#sctn-authentication}
 
@@ -388,7 +388,7 @@ To authenticate a payment via Secure Payment Confirmation, this specification
 defines a new [=payment method=], "[=secure-payment-confirmation=]". This
 payment method confirms the transaction with the user and then performs an
 [=authentication ceremony=] to authenticate the user and create a signed blob
-representing the payment-specific information.
+representing the authentication ceremony.
 
 At a high level, authentication for Secure Payment Confirmation is similar to
 [[webauthn-3]], with one major conceptual shift. Secure Payment Confirmation
@@ -783,7 +783,7 @@ that model in significant ways that should be considered.
 
      * The credential ID could be used as a tracking vector, but to obtain it
          from the Relying Party the merchant already needs an as-strong
-         identifier to give to the Relying Party (e.g. the credit card number).
+         identifier to give to the Relying Party (e.g., the credit card number).
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 

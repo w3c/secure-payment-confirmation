@@ -222,8 +222,6 @@ dictionary SecurePaymentConfirmationRequest {
   // of the credential, `networkData` provides protection against replay attacks.
   required BufferSource networkData;
   unsigned long timeout;
-  // Deprecated: Unused by the user agent. This will be removed in future updates.
-  required USVString fallbackUrl;
 };
 
 dictionary SecurePaymentConfirmationResponse {
@@ -254,7 +252,6 @@ const securePaymentConfirmationRequest = {
   credentialIds: [Uint8Array.from(atob('Q1J4AwSWD4Dx6q1DTo0MB21XDAV76'), c => c.charCodeAt(0))],
   networkData,
   timeout,
-  fallbackUrl: ""
 };
 
 const request = new PaymentRequest(
@@ -295,10 +292,6 @@ For example, in the sample response below, `challenge` is the browser-constructe
     "user_handle": "qR72lDpOmub67MWJ1E+9TCqV7MLuJXWO5EAIauG6DHs="
   },
 ```
-
-#### Caveats
-
-The `fallbackUrl` parameter was originally intended to provide a fallback PaymentHandler if no payment instrument specified by `credentialIds` is available or if the user failed to authenticate. It did not prove useful in the initial [pilot] of SPC, and we intend to remove it in the future. The caller is instead expected to handle the rejected promise from `request.show()` with an appropriate fallback mechanism of their own.
 
 ## Security and Privacy Considerations
 

@@ -687,6 +687,7 @@ given. </div>
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-frozen-array" id="ref-for-idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource①"><c- n>BufferSource</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="FrozenArray<BufferSource> " href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids"><c- g>credentialIds</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument"><c- g>instrument</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-securepaymentconfirmationrequest-timeout" id="ref-for-dom-securepaymentconfirmationrequest-timeout"><c- g>timeout</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin"><c- g>payeeOrigin</c-></a>;
     <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs"><c- n>AuthenticationExtensionsClientInputs</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="AuthenticationExtensionsClientInputs " href="#dom-securepaymentconfirmationrequest-extensions" id="ref-for-dom-securepaymentconfirmationrequest-extensions"><c- g>extensions</c-></a>;
 };
 </pre>
@@ -705,6 +706,9 @@ members:</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-timeout"><code>timeout</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①">unsigned long</a></span>
     <dd data-md>
      <p>The number of milliseconds before the request to sign the transaction details times out. At most 1 hour.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①">USVString</a></span>
+    <dd data-md>
+     <p>The origin of the payee that this SPC call is for (e.g., the merchant).</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-extensions"><code>extensions</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs①">AuthenticationExtensionsClientInputs</a></span>
     <dd data-md>
      <p>Any <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions②">WebAuthn extensions</a> that should be used for the passed credential(s). The caller does not need to specify the <a href="#sctn-payment-extension-enrollment"> payment extension</a>; it is added automatically.</p>
@@ -750,6 +754,8 @@ input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconf
       <li data-md>
        <p><code>topOrigin</code> set to the origin of the top-level frame.</p>
        <div class="note" role="note"><strong>TODO</strong>: This is part of the PaymentRequestEvent, but it’s unclear how to access that in an inbuilt PaymentHandler.</div>
+      <li data-md>
+       <p><code>payeeOrigin</code> set to <code>request.payeeOrigin</code>.</p>
       <li data-md>
        <p><code>total</code> set to the <code>total</code> from the PaymentRequest.</p>
        <div class="note" role="note"><strong>TODO</strong>: This is part of the PaymentRequestEvent, but it’s unclear how to access that in an inbuilt PaymentHandler.</div>
@@ -820,8 +826,9 @@ directly; for authentication the extension can only be accessed via <code class=
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="boolean " href="#dom-authenticationextensionspaymentinputs-ispayment" id="ref-for-dom-authenticationextensionspaymentinputs-ispayment"><c- g>isPayment</c-></a>;
 
   // Only used for authentication.
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-rporigin" id="ref-for-dom-authenticationextensionspaymentinputs-rporigin"><c- g>rpOrigin</c-></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin"><c- g>topOrigin</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString②"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-rporigin" id="ref-for-dom-authenticationextensionspaymentinputs-rporigin"><c- g>rpOrigin</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString③"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin"><c- g>topOrigin</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin"><c- g>payeeOrigin</c-></a>;
   <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total"><c- g>total</c-></a>;
   <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument②"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument"><c- g>instrument</c-></a>;
 };
@@ -831,18 +838,21 @@ directly; for authentication the extension can only be accessed via <code class=
       <dd data-md>
        <p>Indicates that the extension is active.</p>
        <div class="note" role="note"><strong>TODO</strong>: Find a better way to do this. Needed currently because other members are auth-time only.</div>
-      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-rporigin"><code>rpOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString②">USVString</a></span>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-rporigin"><code>rpOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑤">USVString</a></span>
       <dd data-md>
        <p>The <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⓪">Relying Party</a> origin of the credential(s) being used. Only valid at authentication time.</p>
-      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString③">USVString</a></span>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑥">USVString</a></span>
       <dd data-md>
        <p>The origin of the top-level frame. Only valid at authentication time.</p>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑦">USVString</a></span>
+      <dd data-md>
+       <p>The payee origin that was displayed to the user. Only valid at authentication time.</p>
       <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-total"><code>total</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount①">PaymentCurrencyAmount</a></span>
       <dd data-md>
-       <p>The total amount the user is paying to the payee. Only valid at authentication time.</p>
+       <p>The transaction amount that was displayed to the user. Only valid at authentication time.</p>
       <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-instrument"><code>instrument</code></dfn> member, <span> of type <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument③">PaymentCredentialInstrument</a></span>
       <dd data-md>
-       <p>The instrument details to be displayed to the user. Only valid at authentication time.</p>
+       <p>The instrument details that were displayed to the user. Only valid at authentication time.</p>
      </dl>
     <dt data-md>Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension②">registration</a>)
     <dd data-md>
@@ -890,6 +900,8 @@ SPC without going through the browser UX.</p>
             <li data-md>
              <p><code>topOrigin</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin①">topOrigin</a></code>.</p>
             <li data-md>
+             <p><code>payeeOrigin</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin①">payeeOrigin</a></code>.</p>
+            <li data-md>
              <p><code>total</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total①">total</a></code>.</p>
             <li data-md>
              <p><code>instrument</code> set <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument①">instrument</a></code>.</p>
@@ -919,8 +931,9 @@ SPC without going through the browser UX.</p>
    </dl>
    <h3 class="heading settled" data-level="5.2" id="sctn-collectedclientadditionalpaymentdata-dictionary"><span class="secno">5.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientadditionalpaymentdata"><code>CollectedClientAdditionalPaymentData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientadditionalpaymentdata-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata③"><c- g>CollectedClientAdditionalPaymentData</c-></a> {
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rp" id="ref-for-dom-collectedclientadditionalpaymentdata-rp"><c- g>rp</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑤"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin"><c- g>topOrigin</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑧"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rp" id="ref-for-dom-collectedclientadditionalpaymentdata-rp"><c- g>rp</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑨"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin"><c- g>topOrigin</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①⓪"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin"><c- g>payeeOrigin</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount②"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total"><c- g>total</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument④"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument"><c- g>instrument</c-></a>;
 };
@@ -928,12 +941,15 @@ SPC without going through the browser UX.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata④">CollectedClientAdditionalPaymentData</a></code> dictionary contains the following
 fields:</p>
    <dl>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-rp"><code>rp</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑥">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-rp"><code>rp</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①①">USVString</a></span>
     <dd data-md>
      <p>The relying party that created the credential.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑦">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①②">USVString</a></span>
     <dd data-md>
-     <p>The origin of the top level context that requested to sign the transaction details. Typically this would a merchant origin.</p>
+     <p>The origin of the top level context that requested to sign the transaction details.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①③">USVString</a></span>
+    <dd data-md>
+     <p>The origin of the payee that was displayed to the user.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-total"><code>total</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount③">PaymentCurrencyAmount</a></span>
     <dd data-md>
      <p>The <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount④">PaymentCurrencyAmount</a></code> of the <a data-link-type="biblio" href="#biblio-payment-request">[payment-request]</a> <code>total</code> field.</p>
@@ -948,7 +964,7 @@ frame is already included in <code class="idl"><a data-link-type="idl" href="htt
    <h3 class="heading settled" data-level="6.1" id="sctn-paymentcredentialinstrument-dictionary"><span class="secno">6.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-paymentcredentialinstrument"><code>PaymentCredentialInstrument</code></dfn> Dictionary</span><a class="self-link" href="#sctn-paymentcredentialinstrument-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑥"><c- g>PaymentCredentialInstrument</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname"><c- g>displayName</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑧"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon"><c- g>icon</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon"><c- g>icon</c-></a>;
 };
 </pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑦">PaymentCredentialInstrument</a></code> dictionary contains the information to be
@@ -958,7 +974,7 @@ contains the following members:</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-displayname"><code>displayName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①">DOMString</a></span>
     <dd data-md>
      <p>The name of the payment instrument to be displayed to the user.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-icon"><code>icon</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑨">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-icon"><code>icon</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①⑤">USVString</a></span>
     <dd data-md>
      <p>The URL of the icon of the payment instrument.</p>
    </dl>
@@ -1062,6 +1078,13 @@ very clear payments UX when a match is found (though that may be too late).</p>
      <li><a href="#dom-securepaymentconfirmationrequest-instrument">dict-member for SecurePaymentConfirmationRequest</a><span>, in §4.1.2</span>
     </ul>
    <li><a href="#dom-authenticationextensionspaymentinputs-ispayment">isPayment</a><span>, in §5</span>
+   <li>
+    payeeOrigin
+    <ul>
+     <li><a href="#dom-authenticationextensionspaymentinputs-payeeorigin">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in §5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">dict-member for CollectedClientAdditionalPaymentData</a><span>, in §5.2</span>
+     <li><a href="#dom-securepaymentconfirmationrequest-payeeorigin">dict-member for SecurePaymentConfirmationRequest</a><span>, in §4.1.2</span>
+    </ul>
    <li>
     payment
     <ul>
@@ -1331,9 +1354,10 @@ very clear payments UX when a match is found (though that may be too late).</p>
   <aside class="dfn-panel" data-for="term-for-idl-USVString">
    <a href="https://heycam.github.io/webidl/#idl-USVString">https://heycam.github.io/webidl/#idl-USVString</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-USVString">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-USVString①">(2)</a> <a href="#ref-for-idl-USVString②">(3)</a> <a href="#ref-for-idl-USVString③">(4)</a>
-    <li><a href="#ref-for-idl-USVString④">5.2. CollectedClientAdditionalPaymentData Dictionary</a> <a href="#ref-for-idl-USVString⑤">(2)</a> <a href="#ref-for-idl-USVString⑥">(3)</a> <a href="#ref-for-idl-USVString⑦">(4)</a>
-    <li><a href="#ref-for-idl-USVString⑧">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-USVString⑨">(2)</a>
+    <li><a href="#ref-for-idl-USVString">4.1.2. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-USVString①">(2)</a>
+    <li><a href="#ref-for-idl-USVString②">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-USVString③">(2)</a> <a href="#ref-for-idl-USVString④">(3)</a> <a href="#ref-for-idl-USVString⑤">(4)</a> <a href="#ref-for-idl-USVString⑥">(5)</a> <a href="#ref-for-idl-USVString⑦">(6)</a>
+    <li><a href="#ref-for-idl-USVString⑧">5.2. CollectedClientAdditionalPaymentData Dictionary</a> <a href="#ref-for-idl-USVString⑨">(2)</a> <a href="#ref-for-idl-USVString①⓪">(3)</a> <a href="#ref-for-idl-USVString①①">(4)</a> <a href="#ref-for-idl-USVString①②">(5)</a> <a href="#ref-for-idl-USVString①③">(6)</a>
+    <li><a href="#ref-for-idl-USVString①④">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-USVString①⑤">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
@@ -1452,6 +1476,7 @@ very clear payments UX when a match is found (though that may be too late).</p>
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource"><c- n>BufferSource</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="FrozenArray<BufferSource> " href="#dom-securepaymentconfirmationrequest-credentialids"><c- g>credentialIds</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-securepaymentconfirmationrequest-instrument"><c- g>instrument</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-securepaymentconfirmationrequest-timeout"><c- g>timeout</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-payeeorigin"><c- g>payeeOrigin</c-></a>;
     <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs"><c- n>AuthenticationExtensionsClientInputs</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="AuthenticationExtensionsClientInputs " href="#dom-securepaymentconfirmationrequest-extensions"><c- g>extensions</c-></a>;
 };
 
@@ -1465,6 +1490,7 @@ very clear payments UX when a match is found (though that may be too late).</p>
   // Only used for authentication.
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-rporigin"><c- g>rpOrigin</c-></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-toporigin"><c- g>topOrigin</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-payeeorigin"><c- g>payeeOrigin</c-></a>;
   <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-authenticationextensionspaymentinputs-total"><c- g>total</c-></a>;
   <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-authenticationextensionspaymentinputs-instrument"><c- g>instrument</c-></a>;
 };
@@ -1476,6 +1502,7 @@ very clear payments UX when a match is found (though that may be too late).</p>
 <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentdata"><c- g>CollectedClientAdditionalPaymentData</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rp"><c- g>rp</c-></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin"><c- g>topOrigin</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin"><c- g>payeeOrigin</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total"><c- g>total</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument"><c- g>instrument</c-></a>;
 };
@@ -1532,6 +1559,12 @@ very clear payments UX when a match is found (though that may be too late).</p>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-timeout">4.1.2. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-payeeorigin">
+   <b><a href="#dom-securepaymentconfirmationrequest-payeeorigin">#dom-securepaymentconfirmationrequest-payeeorigin</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin">4.1.2. SecurePaymentConfirmationRequest Dictionary</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-extensions">
    <b><a href="#dom-securepaymentconfirmationrequest-extensions">#dom-securepaymentconfirmationrequest-extensions</a></b><b>Referenced in:</b>
    <ul>
@@ -1568,6 +1601,12 @@ very clear payments UX when a match is found (though that may be too late).</p>
    <b><a href="#dom-authenticationextensionspaymentinputs-toporigin">#dom-authenticationextensionspaymentinputs-toporigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-payeeorigin">
+   <b><a href="#dom-authenticationextensionspaymentinputs-payeeorigin">#dom-authenticationextensionspaymentinputs-payeeorigin</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-total">
@@ -1613,6 +1652,12 @@ very clear payments UX when a match is found (though that may be too late).</p>
    <b><a href="#dom-collectedclientadditionalpaymentdata-toporigin">#dom-collectedclientadditionalpaymentdata-toporigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeeorigin">
+   <b><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">#dom-collectedclientadditionalpaymentdata-payeeorigin</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-total">

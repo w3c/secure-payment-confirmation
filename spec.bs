@@ -610,10 +610,6 @@ directly; for authentication the extension can only be accessed via
          consume a [=transient activation=] here, if we felt the permission policy
          is not sufficient.
 
-    2. In step 13, set the {{CollectedClientData/type}} to "`payment.create`".
-
-        <div class="note">**TODO**: Can we and/or should we rely on `getClientExtensionResults()` instead?</div>
-
 :  Client extension processing ([=authentication extension|authentication=])
 :: When [[webauthn-3#sctn-getAssertion|making an assertion]]:
 

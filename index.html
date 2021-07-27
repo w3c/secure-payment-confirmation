@@ -267,7 +267,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-07-26">26 July 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-07-27">27 July 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -869,9 +869,6 @@ part of any WebAuthn algorithm!</p>
  (see <a href="#sctn-permissions-policy">§ 7 Permissions Policy integration</a>). We could additionally require and
  consume a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a> here, if we felt the permission policy
  is not sufficient.</p>
-      <li data-md>
-       <p>In step 13, set the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type" id="ref-for-dom-collectedclientdata-type">type</a></code> to "<code>payment.create</code>".</p>
-       <div class="note" role="note"><strong>TODO</strong>: Can we and/or should we rely on <code>getClientExtensionResults()</code> instead?</div>
      </ol>
     <dt data-md>Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension②">authentication</a>)
     <dd data-md>
@@ -1315,12 +1312,6 @@ very clear payments UX when a match is found (though that may be too late).</p>
     <li><a href="#ref-for-dom-userverificationrequirement-required">4.1.5. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-collectedclientdata-type">
-   <a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type">https://w3c.github.io/webauthn/#dom-collectedclientdata-type</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-collectedclientdata-type">5. WebAuthn Extension - "payment"</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-BufferSource">
    <a href="https://heycam.github.io/webidl/#BufferSource">https://heycam.github.io/webidl/#BufferSource</a><b>Referenced in:</b>
    <ul>
@@ -1432,7 +1423,6 @@ very clear payments UX when a match is found (though that may be too late).</p>
      <li><span class="dfn-paneled" id="term-for-dom-authenticatortransport-internal">internal</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialtype-public-key">public-key</span>
      <li><span class="dfn-paneled" id="term-for-dom-userverificationrequirement-required">required</span>
-     <li><span class="dfn-paneled" id="term-for-dom-collectedclientdata-type">type</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:

@@ -372,7 +372,7 @@ below and in [[#index-defined-elsewhere]].
     <div class="note">To quickly support an initial SPC experiment,
     this API was designed atop existing implementations of the Payment
     Request and Payment Handler APIs. There is now general agreement
-    that SPC should be usable independent of Payment Request.  We
+    to explore a design of SPC independent of Payment Request.  We
     therefore expect (without a concrete timeline) that SPC will move
     away from its Payment Request origins. For developers, this should
     improve feature detection, invocation, and other aspects of the

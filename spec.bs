@@ -24,6 +24,7 @@ Markup Shorthands: markdown yes
 spec: credential-management-1; urlPrefix: https://w3c.github.io/webappsec-credential-management/
     type: dfn
         text: same-origin with its ancestors; url: same-origin-with-its-ancestors
+        text: request a credential; url: abstract-opdef-request-a-credential
 
 spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
     type: dfn
@@ -34,10 +35,15 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
 spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
     type: dfn
         text: payment method; url: dfn-payment-method
+        text: payment request details; url: dfn-details
         text: steps to check if a payment can be made; url: dfn-steps-to-check-if-a-payment-can-be-made
         text: steps to respond to a payment request; url: dfn-steps-to-respond-to-a-payment-request
         text: payment permission string; url: dfn-payment-permission
         text: payment request accessibility considerations; url: accessibility-considerations
+
+spec: payment-method-id; urlPrefix: https://w3c.github.io/payment-method-id/
+    type: dfn
+        text: registry of standardized payment methods; url: registry
 
 spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
     type: dfn
@@ -48,6 +54,14 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: client extension; url: client-extension
         text: registration extension; url: registration-extension
         text: authentication extension; url: authentication-extension
+
+spec: image-resource; urlPrefix: https://w3c.github.io/image-resource/
+    type: dfn
+        text: fetch the image resource; url: fetching-an-image-resource
+
+spec: infra; urlPrefix: https://infra.spec.whatwg.org/
+    type: dfn
+        text: list-append; url: list-append
 </pre>
 
 <div class="non-normative">
@@ -385,11 +399,11 @@ To enroll a user for Secure Payment Confirmation, relying parties should call
 {{AuthenticationExtensionsClientInputs/payment}} [=WebAuthn Extension=]
 specified.
 
-Note: We currently require an extension in order to allow 
-      credential creation in a cross-origin iframe and to allow
-      the browser to cache SPC credentials in the absence of
-      [=WebAuthn Conditional UI=]. Future versions of this
-      specification may remove the requirement for the extension.
+Note: We currently require an extension in order to allow (1) credential
+      creation in a cross-origin iframe (which WebAuthn does not yet allow)
+      and (2) the browser to cache SPC credentials in the absence of
+      [=WebAuthn Conditional UI=]. Future versions of this specification may
+      remove the requirement for the extension once WebAuthn supports these.
 
 # Authentication # {#sctn-authentication}
 
@@ -408,6 +422,9 @@ from the Relying Party on some other unspecified channel. See
 
 ## Payment Method: Secure Payment Confirmation ## {#sctn-payment-method-spc}
 
+This specification defines a new [=payment handler=], the <dfn>Secure Payment Confirmation payment
+handler</dfn>, which handles requests to authenticate a given payment.
+
 <div class="note">
 **TODO**: This specification also needs to monkey-patch step 12 of
 {{PaymentRequest/constructor|PaymentRequest's constructor}} somehow, to enforce
@@ -417,8 +434,16 @@ given.
 
 ### Payment Method Identifier ### {#sctn-payment-method-identifier}
 
-The [=standardized payment method identifier=] for this specification is
-"<dfn>secure-payment-confirmation</dfn>".
+The [=standardized payment method identifier=] for the [=Secure Payment
+Confirmation payment handler=] is "<dfn>secure-payment-confirmation</dfn>".
+
+### Monkey-patch to [[payment-method-id]] ### {#sctn-monkey-patch-payment-method-id}
+
+Add the following to the [=registry of standardized payment methods=] in
+[[payment-method-id]]:
+
+    : "[=secure-payment-confirmation=]"
+    :: The <a href="https://w3c.github.io/secure-payment-confirmation/">Secure Payment Confirmation</a> specification.
 
 ### <dfn dictionary>SecurePaymentConfirmationRequest</dfn> Dictionary ### {#sctn-securepaymentconfirmationrequest-dictionary}
 
@@ -459,13 +484,15 @@ members:
 ### Steps to check if a payment can be made ### {#sctn-steps-to-check-if-a-payment-can-be-made}
 
 The [=steps to check if a payment can be made=] for this payment method, for an
-input {{SecurePaymentConfirmationRequest}} `request`, are:
+input {{SecurePaymentConfirmationRequest}} |request|, are:
 
-1. If `request.credentialIds` is empty, return `false`.
+1. If |request|.{{SecurePaymentConfirmationRequest/credentialIds}} is empty, return `false`.
 
-1. If `request.instrument.displayName` is empty, return `false`.
+1. If |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/displayName}} is empty, return `false`.
 
-1. Download the image specified in `request.instrument.icon`. If this fails, return `false`.
+1. [=Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
+    |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/icon}}]»
+    for *image*. If this fails, return `false`.
 
     Note: Performing this step here mitigates a privacy leak. **TODO**:
     Document + link-to privacy section.
@@ -490,49 +517,46 @@ output).
 
 ### Steps to respond to a payment request ### {#sctn-steps-to-respond-to-a-payment-request}
 
-The [=steps to respond to a payment request=] for this payment method, for an
-input {{SecurePaymentConfirmationRequest}} `request`, are:
+The [=steps to respond to a payment request=] for this payment method, for a given
+{{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |data|, are:
 
-1. Create a {{AuthenticationExtensionsPaymentInputs}} dictionary, |payment|, with:
+1. Let |topOrigin| be the origin of the top-level frame.
 
-    1. `isPayment` set to `true`.
-    1. `rpOrigin` set to **TODO**.
+    <div class="note">**TODO**: Specify this concretely</div>
 
-        <div class="note">**TODO**: We don't have the rp origin here; maybe this should just go in the processing steps.</div>
+1. Let |payment| be a new a {{AuthenticationExtensionsPaymentInputs}} dictionary, initialized
+    as «["{{AuthenticationExtensionsPaymentInputs/isPayment}}" → `true`,
+    "{{AuthenticationExtensionsPaymentInputs/rpOrigin}}" → **TODO**,
+    "{{AuthenticationExtensionsPaymentInputs/topOrigin}}" → |topOrigin|,
+    "{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}" → |data|.{{SecurePaymentConfirmationRequest/payeeOrigin}},
+    "{{AuthenticationExtensionsPaymentInputs/total}}" → |request|.[=payment request details|[[details]]=].{{PaymentDetailsInit/total}},
+    "{{AuthenticationExtensionsPaymentInputs/instrument}}" → |data|.{{SecurePaymentConfirmationRequest/instrument}}]».
 
-    1. `topOrigin` set to the origin of the top-level frame.
+    <div class="note">**TODO**: We do not have the RP origin at this step; maybe that should just go in the extension processing steps?</div>
 
-        <div class="note">**TODO**: This is part of the PaymentRequestEvent, but it's unclear how to access that in an inbuilt PaymentHandler.</div>
+1. Let |extensions| be a new {{AuthenticationExtensionsClientInputs}} dictionary whose
+    {{AuthenticationExtensionsClientInputs/payment}} member is set to |payment|, and whose other
+    members are set from |data|.{{SecurePaymentConfirmationRequest/extensions}}.
 
-    1. `payeeOrigin` set to `request.payeeOrigin`.
+1. Let |publicKeyOpts| be a new {{PublicKeyCredentialRequestOptions}} dictionary, initialized
+    as «["{{PublicKeyCredentialRequestOptions/challenge}}" → |data|.{{SecurePaymentConfirmationRequest/challenge}},
+    "{{PublicKeyCredentialRequestOptions/timeout}}" → |data|.{{SecurePaymentConfirmationRequest/timeout}},
+    "{{PublicKeyCredentialRequestOptions/userVerification}}" → {{UserVerificationRequirement/required}},
+    "{{PublicKeyCredentialRequestOptions/extensions}}" → |extensions|]».
 
-    1. `total` set to the `total` from the PaymentRequest.
+1. For each |id| in `data.credentialIds`:
 
-        <div class="note">**TODO**: This is part of the PaymentRequestEvent, but it's unclear how to access that in an inbuilt PaymentHandler.</div>
+    1. Let |descriptor| be a new {{PublicKeyCredentialDescriptor}} dictionary, initialized as
+        «["{{PublicKeyCredentialDescriptor/type}}" → {{PublicKeyCredentialType/public-key}},
+        "{{PublicKeyCredentialDescriptor/id}}" → |id|,
+        "{{PublicKeyCredentialDescriptor/transports}}" → a sequence of length 1 whose only member is
+        {{AuthenticatorTransport/internal}}]».
 
-    1. `instrument` set to `request.instrument`.
+    1. [=list-append|Append=] |descriptor| to |publicKeyOpts|.{{PublicKeyCredentialRequestOptions/allowCredentials}}.
 
-1. Create a {{PublicKeyCredentialRequestOptions}}, `publicKeyOpts`, with:
-
-    1. `challenge` set to `request.challenge`.
-    1. `timeout` set to `request.timeout`.
-    1. `userVerification` set to {{UserVerificationRequirement/required}}.
-    1. `extensions` set to a {{AuthenticationExtensionsClientInputs}} dictionary
-        whose {{AuthenticationExtensionsClientInputs/payment}} member is set to |payment|,
-        and whose other members are set from `request.extensions`.
-
-1. For each |id| in `request.credentialIds`:
-
-    1. Create a {{PublicKeyCredentialDescriptor}}, |descriptor|, with:
-
-        1. `type` set to {{PublicKeyCredentialType/public-key}}
-        1. `id` set to |id|
-        1. `transports` set to a sequence of length 1 whose only member is
-            {{AuthenticatorTransport/internal}}.
-
-    1. Push |descriptor| onto `publicKeyOpts.allowCredentials`.
-
-1. Let |outputCredential| be the result of calling <code><a idl for="CredentialsContainer" lt="get()">navigator.credentials.get({publicKey})</a></code>.
+1. Let |outputCredential| be the result of running the algorithm to
+    [=Request a Credential=], passing «["{{CredentialRequestOptions/publicKey}}"
+    → |publicKeyOpts|]».
 
     Note: This triggers [[webauthn-3]]'s [[webauthn-3#sctn-getAssertion|Get]] behavior
 

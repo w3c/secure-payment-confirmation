@@ -3,7 +3,7 @@
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
-  <meta content="Bikeshed version 59d067506, updated Fri Jul 23 15:43:29 2021 -0700" name="generator">
+  <meta content="Bikeshed version b2f668fca, updated Fri Aug 6 17:41:38 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
 <style>/* style-autolinks */
 
@@ -267,7 +267,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-07-27">27 July 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-10">10 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -658,6 +658,14 @@ cache of WebAuthn credentials created for this device, or always showing the
 transaction UX even if the user may be unable to complete the
 authentication.</p>
      <div class="note" role="note">TODO: Bikeshed the name.</div>
+     <div class="note" role="note">To quickly support an initial SPC experiment,
+this API was designed atop existing implementations of the Payment
+Request and Payment Handler APIs. There is now general agreement
+to explore a design of SPC independent of Payment Request.  We
+therefore expect (without a concrete timeline) that SPC will move
+away from its Payment Request origins. For developers, this should
+improve feature detection, invocation, and other aspects of the
+API.</div>
    </dl>
    <h2 class="heading settled" data-level="3" id="sctn-enrollment"><span class="secno">3. </span><span class="content">Enrollment</span><a class="self-link" href="#sctn-enrollment"></a></h2>
    <p>To enroll a user for Secure Payment Confirmation, relying parties should call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create">navigator.credentials.create()</a></code>, with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment">payment</a></code> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions①">WebAuthn Extension</a> specified.</p>
@@ -1059,54 +1067,54 @@ very clear payments UX when a match is found (though that may be too late).</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#dictdef-authenticationextensionspaymentinputs">AuthenticationExtensionsPaymentInputs</a><span>, in §5</span>
-   <li><a href="#dom-securepaymentconfirmationrequest-challenge">challenge</a><span>, in §4.1.2</span>
-   <li><a href="#dictdef-collectedclientadditionalpaymentdata">CollectedClientAdditionalPaymentData</a><span>, in §5.2</span>
-   <li><a href="#dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a><span>, in §5.1</span>
-   <li><a href="#dom-securepaymentconfirmationrequest-credentialids">credentialIds</a><span>, in §4.1.2</span>
-   <li><a href="#dom-paymentcredentialinstrument-displayname">displayName</a><span>, in §6.1</span>
-   <li><a href="#dom-securepaymentconfirmationrequest-extensions">extensions</a><span>, in §4.1.2</span>
-   <li><a href="#dom-paymentcredentialinstrument-icon">icon</a><span>, in §6.1</span>
+   <li><a href="#dictdef-authenticationextensionspaymentinputs">AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+   <li><a href="#dom-securepaymentconfirmationrequest-challenge">challenge</a><span>, in § 4.1.2</span>
+   <li><a href="#dictdef-collectedclientadditionalpaymentdata">CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
+   <li><a href="#dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a><span>, in § 5.1</span>
+   <li><a href="#dom-securepaymentconfirmationrequest-credentialids">credentialIds</a><span>, in § 4.1.2</span>
+   <li><a href="#dom-paymentcredentialinstrument-displayname">displayName</a><span>, in § 6.1</span>
+   <li><a href="#dom-securepaymentconfirmationrequest-extensions">extensions</a><span>, in § 4.1.2</span>
+   <li><a href="#dom-paymentcredentialinstrument-icon">icon</a><span>, in § 6.1</span>
    <li>
     instrument
     <ul>
-     <li><a href="#dom-authenticationextensionspaymentinputs-instrument">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in §5</span>
-     <li><a href="#dom-collectedclientadditionalpaymentdata-instrument">dict-member for CollectedClientAdditionalPaymentData</a><span>, in §5.2</span>
-     <li><a href="#dom-securepaymentconfirmationrequest-instrument">dict-member for SecurePaymentConfirmationRequest</a><span>, in §4.1.2</span>
+     <li><a href="#dom-authenticationextensionspaymentinputs-instrument">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-instrument">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
+     <li><a href="#dom-securepaymentconfirmationrequest-instrument">dict-member for SecurePaymentConfirmationRequest</a><span>, in § 4.1.2</span>
     </ul>
-   <li><a href="#dom-authenticationextensionspaymentinputs-ispayment">isPayment</a><span>, in §5</span>
+   <li><a href="#dom-authenticationextensionspaymentinputs-ispayment">isPayment</a><span>, in § 5</span>
    <li>
     payeeOrigin
     <ul>
-     <li><a href="#dom-authenticationextensionspaymentinputs-payeeorigin">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in §5</span>
-     <li><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">dict-member for CollectedClientAdditionalPaymentData</a><span>, in §5.2</span>
-     <li><a href="#dom-securepaymentconfirmationrequest-payeeorigin">dict-member for SecurePaymentConfirmationRequest</a><span>, in §4.1.2</span>
+     <li><a href="#dom-authenticationextensionspaymentinputs-payeeorigin">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
+     <li><a href="#dom-securepaymentconfirmationrequest-payeeorigin">dict-member for SecurePaymentConfirmationRequest</a><span>, in § 4.1.2</span>
     </ul>
    <li>
     payment
     <ul>
-     <li><a href="#dom-authenticationextensionsclientinputs-payment">dict-member for AuthenticationExtensionsClientInputs</a><span>, in §5</span>
-     <li><a href="#dom-collectedclientpaymentdata-payment">dict-member for CollectedClientPaymentData</a><span>, in §5.1</span>
+     <li><a href="#dom-authenticationextensionsclientinputs-payment">dict-member for AuthenticationExtensionsClientInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientpaymentdata-payment">dict-member for CollectedClientPaymentData</a><span>, in § 5.1</span>
     </ul>
-   <li><a href="#dictdef-paymentcredentialinstrument">PaymentCredentialInstrument</a><span>, in §6.1</span>
-   <li><a href="#dom-collectedclientadditionalpaymentdata-rp">rp</a><span>, in §5.2</span>
-   <li><a href="#dom-authenticationextensionspaymentinputs-rporigin">rpOrigin</a><span>, in §5</span>
-   <li><a href="#secure-payment-confirmation">secure-payment-confirmation</a><span>, in §4.1.1</span>
-   <li><a href="#dictdef-securepaymentconfirmationrequest">SecurePaymentConfirmationRequest</a><span>, in §4.1.2</span>
-   <li><a href="#dom-securepaymentconfirmationrequest-timeout">timeout</a><span>, in §4.1.2</span>
+   <li><a href="#dictdef-paymentcredentialinstrument">PaymentCredentialInstrument</a><span>, in § 6.1</span>
+   <li><a href="#dom-collectedclientadditionalpaymentdata-rp">rp</a><span>, in § 5.2</span>
+   <li><a href="#dom-authenticationextensionspaymentinputs-rporigin">rpOrigin</a><span>, in § 5</span>
+   <li><a href="#secure-payment-confirmation">secure-payment-confirmation</a><span>, in § 4.1.1</span>
+   <li><a href="#dictdef-securepaymentconfirmationrequest">SecurePaymentConfirmationRequest</a><span>, in § 4.1.2</span>
+   <li><a href="#dom-securepaymentconfirmationrequest-timeout">timeout</a><span>, in § 4.1.2</span>
    <li>
     topOrigin
     <ul>
-     <li><a href="#dom-authenticationextensionspaymentinputs-toporigin">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in §5</span>
-     <li><a href="#dom-collectedclientadditionalpaymentdata-toporigin">dict-member for CollectedClientAdditionalPaymentData</a><span>, in §5.2</span>
+     <li><a href="#dom-authenticationextensionspaymentinputs-toporigin">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-toporigin">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
     </ul>
    <li>
     total
     <ul>
-     <li><a href="#dom-authenticationextensionspaymentinputs-total">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in §5</span>
-     <li><a href="#dom-collectedclientadditionalpaymentdata-total">dict-member for CollectedClientAdditionalPaymentData</a><span>, in §5.2</span>
+     <li><a href="#dom-authenticationextensionspaymentinputs-total">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-total">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
     </ul>
-   <li><a href="#webauthn-conditional-ui">WebAuthn Conditional UI</a><span>, in §2</span>
+   <li><a href="#webauthn-conditional-ui">WebAuthn Conditional UI</a><span>, in § 2</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-dom-credentialscontainer-create">
    <a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create</a><b>Referenced in:</b>
@@ -1441,24 +1449,24 @@ very clear payments UX when a match is found (though that may be too late).</p>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]
-   <dd>Mike West. <a href="https://www.w3.org/TR/credential-management-1/">Credential Management Level 1</a>. 17 January 2019. WD. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
+   <dd>Mike West. <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. 17 January 2019. WD. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
    <dt id="biblio-payment-method-id">[PAYMENT-METHOD-ID]
-   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-method-id/">Payment Method Identifiers</a>. 5 September 2019. CR. URL: <a href="https://www.w3.org/TR/payment-method-id/">https://www.w3.org/TR/payment-method-id/</a>
+   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. 5 September 2019. CR. URL: <a href="https://www.w3.org/TR/payment-method-id/">https://www.w3.org/TR/payment-method-id/</a>
    <dt id="biblio-payment-request">[PAYMENT-REQUEST]
-   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-request/">Payment Request API</a>. 22 July 2021. CR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
+   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-request/"><cite>Payment Request API</cite></a>. 22 July 2021. CR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
    <dt id="biblio-webauthn-1">[WEBAUTHN-1]
-   <dd>Dirk Balfanz; et al. <a href="https://www.w3.org/TR/webauthn-1/">Web Authentication:An API for accessing Public Key Credentials Level 1</a>. 4 March 2019. REC. URL: <a href="https://www.w3.org/TR/webauthn-1/">https://www.w3.org/TR/webauthn-1/</a>
+   <dd>Dirk Balfanz; et al. <a href="https://www.w3.org/TR/webauthn-1/"><cite>Web Authentication:An API for accessing Public Key Credentials Level 1</cite></a>. 4 March 2019. REC. URL: <a href="https://www.w3.org/TR/webauthn-1/">https://www.w3.org/TR/webauthn-1/</a>
    <dt id="biblio-webidl">[WebIDL]
-   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/">Web IDL</a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
+   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/"><cite>Web IDL</cite></a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-ecmascript">[ECMASCRIPT]
-   <dd><a href="https://tc39.es/ecma262/multipage/">ECMAScript Language Specification</a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
+   <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
    <dt id="biblio-html">[HTML]
-   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-webauthn-3">[WEBAUTHN-3]
-   <dd>Jeff Hodges; et al. <a href="https://www.w3.org/TR/webauthn-3/">Web Authentication: An API for accessing Public Key Credentials - Level 3</a>. 27 April 2021. WD. URL: <a href="https://www.w3.org/TR/webauthn-3/">https://www.w3.org/TR/webauthn-3/</a>
+   <dd>Jeff Hodges; et al. <a href="https://www.w3.org/TR/webauthn-3/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. 27 April 2021. WD. URL: <a href="https://www.w3.org/TR/webauthn-3/">https://www.w3.org/TR/webauthn-3/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-securepaymentconfirmationrequest"><c- g>SecurePaymentConfirmationRequest</c-></a> {

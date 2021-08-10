@@ -369,6 +369,19 @@ below and in [[#index-defined-elsewhere]].
 
     <div class="note">TODO: Bikeshed the name.</div>
 
+    <div class="note">This specification describes an API implemented
+    to support a Stripe pilot that began in December 2020. To quickly
+    provide support for that experiment, the Chrome team added SPC
+    support atop existing implementations of the Payment Request and
+    Payment Handler APIs. However, given findings from the pilot and
+    subsequent use case and requirements discussions, there is now
+    general agreement that SPC should be usable independent of Payment
+    Request. To foster more experimentation in a timely fashion we are
+    moving forward with the API in its current form, but we expect
+    (without a concrete timeline) that SPC will move away from its
+    Payment Request origins. For developers, this should improve
+    feature detection, invocation, and other aspects of the API.</div>
+
 # Enrollment # {#sctn-enrollment}
 
 To enroll a user for Secure Payment Confirmation, relying parties should call

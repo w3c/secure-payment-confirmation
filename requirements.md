@@ -73,6 +73,10 @@ an [SPC Enrollment](#dfn-spc-enrollment). The Relying Party determines whether i
 
 ### Payment Confirmation
 
+#### Origin Policies
+
+* Any origin (including the Relying Party) must be able to invoke SPC payment confirmation with the credential id(s) of the Relying Party. 
+
 #### Instrument Information at Payment Confirmation
 
 * Instrument information (e.g., a display string and icon) must be available for

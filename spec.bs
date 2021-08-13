@@ -89,6 +89,10 @@ Functionally, this specification defines a new [=payment method=] for the
 [[webauthn-3]] with payment-specific datastructures and to relax assumptions to
 allow the API to be called in payment contexts.
 
+## Testing DO NOT SUBMIT ## {#some-text}
+
+This is a test change. DO NOT SUBMIT.
+
 ## Use Cases ## {#sctn-use-cases}
 
 Although [[webauthn-3]] provides general authentication capabilities

@@ -404,6 +404,11 @@ Note: We currently require an extension in order to allow (1) credential
       and (2) the browser to cache SPC credentials in the absence of
       [=WebAuthn Conditional UI=]. Future versions of this specification may
       remove the requirement for the extension once WebAuthn supports these.
+      As long as SPC depends on the extension, we do not expect that
+      other types of WebAuthn credentials will be usable with SPC. On the
+      other hand, one may be able to use SPC credentials in other
+      contexts (e.g., for login), but such reuse lies outside the scope
+      of this specification.
 
 # Authentication # {#sctn-authentication}
 

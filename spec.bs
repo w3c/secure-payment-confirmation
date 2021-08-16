@@ -328,7 +328,9 @@ const request = new PaymentRequest([{
     instrument: {
       displayName: "Fancy Card ****1234",
       icon: "https://fancybank.com/card-art.png",
-    }, 
+    },
+
+    payeeOrigin: "merchant.com",
 
     timeout: 360000,  // 6 minutes
   }], {

@@ -616,7 +616,9 @@ presumes access to await/async, for easier to read promise handling.</p>
     instrument<c- o>:</c-> <c- p>{</c->
       displayName<c- o>:</c-> <c- u>"Fancy Card ****1234"</c-><c- p>,</c->
       icon<c- o>:</c-> <c- u>"https://fancybank.com/card-art.png"</c-><c- p>,</c->
-    <c- p>},</c-> 
+    <c- p>},</c->
+
+    payeeOrigin<c- o>:</c-> <c- u>"https://merchant.com"</c-><c- p>,</c->
 
     timeout<c- o>:</c-> <c- mf>360000</c-><c- p>,</c->  <c- c1>// 6 minutes</c->
   <c- p>}],</c-> <c- p>{</c->
@@ -726,7 +728,7 @@ members:</p>
      <p>The number of milliseconds before the request to sign the transaction details times out. At most 1 hour.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①">USVString</a></span>
     <dd data-md>
-     <p>The origin of the payee that this SPC call is for (e.g., the merchant).</p>
+     <p>The fully qualified <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin">origin</a> of the payee that this SPC call is for (e.g., the merchant).</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-extensions"><code>extensions</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs①">AuthenticationExtensionsClientInputs</a></span>
     <dd data-md>
      <p>Any <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions②">WebAuthn extensions</a> that should be used for the passed credential(s). The caller does not need to specify the <a href="#sctn-payment-extension-enrollment"> payment extension</a>; it is added automatically.</p>
@@ -737,6 +739,8 @@ input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconf
    <ol>
     <li data-md>
      <p>If <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids①">credentialIds</a></code> is empty, return <code>false</code>.</p>
+    <li data-md>
+     <p>If <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">payeeOrigin</a></code> is not a fully qualified <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin①">origin</a>, return <code>false</code>.</p>
     <li data-md>
      <p>If <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument①">instrument</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname">displayName</a></code> is empty, return <code>false</code>.</p>
     <li data-md>
@@ -769,7 +773,7 @@ output). </div>
 as «["<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-ispayment" id="ref-for-dom-authenticationextensionspaymentinputs-ispayment">isPayment</a></code>" → <code>true</code>,
 "<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-rporigin" id="ref-for-dom-authenticationextensionspaymentinputs-rporigin">rpOrigin</a></code>" → <strong>TODO</strong>,
 "<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin">topOrigin</a></code>" → <var>topOrigin</var>,
-"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">payeeOrigin</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">payeeOrigin</a></code>,
+"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">payeeOrigin</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">payeeOrigin</a></code>,
 "<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total">total</a></code>" → <var>request</var>.<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-details" id="ref-for-dfn-details">[[details]]</a>.<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total" id="ref-for-dom-paymentdetailsinit-total">total</a></code>,
 "<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument">instrument</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument③">instrument</a></code>]».</p>
      <div class="note" role="note"><strong>TODO</strong>: We do not have the RP origin at this step; maybe that should just go in the extension processing steps?</div>
@@ -1147,6 +1151,13 @@ very clear payments UX when a match is found (though that may be too late).</p>
     <li><a href="#ref-for-in-parallel">7. Permissions Policy integration</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-concept-origin">
+   <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">https://html.spec.whatwg.org/multipage/origin.html#concept-origin</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-concept-origin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-concept-origin①">4.1.4. Steps to check if a payment can be made</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-transient-activation">
    <a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
    <ul>
@@ -1482,6 +1493,7 @@ very clear payments UX when a match is found (though that may be too late).</p>
     <ul>
      <li><span class="dfn-paneled" id="term-for-current-settings-object">current settings object</span>
      <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
+     <li><span class="dfn-paneled" id="term-for-concept-origin">origin</span>
      <li><span class="dfn-paneled" id="term-for-transient-activation">transient activation</span>
     </ul>
    <li>
@@ -1566,6 +1578,8 @@ very clear payments UX when a match is found (though that may be too late).</p>
   <dl>
    <dt id="biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]
    <dd>Mike West. <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. 17 January 2019. WD. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
+   <dt id="biblio-html">[HTML]
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-image-resource">[IMAGE-RESOURCE]
    <dd>Aaron Gustafson; Rayan Kanso; Marcos Caceres. <a href="https://www.w3.org/TR/image-resource/"><cite>Image Resource</cite></a>. 4 June 2021. WD. URL: <a href="https://www.w3.org/TR/image-resource/">https://www.w3.org/TR/image-resource/</a>
    <dt id="biblio-infra">[INFRA]
@@ -1583,8 +1597,6 @@ very clear payments UX when a match is found (though that may be too late).</p>
   <dl>
    <dt id="biblio-ecmascript">[ECMASCRIPT]
    <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
-   <dt id="biblio-html">[HTML]
-   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-webauthn-3">[WEBAUTHN-3]
    <dd>Jeff Hodges; et al. <a href="https://www.w3.org/TR/webauthn-3/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. 27 April 2021. WD. URL: <a href="https://www.w3.org/TR/webauthn-3/">https://www.w3.org/TR/webauthn-3/</a>
   </dl>
@@ -1693,7 +1705,8 @@ very clear payments UX when a match is found (though that may be too late).</p>
    <b><a href="#dom-securepaymentconfirmationrequest-payeeorigin">#dom-securepaymentconfirmationrequest-payeeorigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">4.1.6. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-extensions">

@@ -527,13 +527,13 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
 
 1. Let |payment| be a new a {{AuthenticationExtensionsPaymentInputs}} dictionary, initialized
     as «["{{AuthenticationExtensionsPaymentInputs/isPayment}}" → `true`,
-    "{{AuthenticationExtensionsPaymentInputs/rpOrigin}}" → **TODO**,
+    "{{AuthenticationExtensionsPaymentInputs/rp}}" → **TODO**,
     "{{AuthenticationExtensionsPaymentInputs/topOrigin}}" → |topOrigin|,
     "{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}" → |data|.{{SecurePaymentConfirmationRequest/payeeOrigin}},
     "{{AuthenticationExtensionsPaymentInputs/total}}" → |request|.[=payment request details|[[details]]=].{{PaymentDetailsInit/total}},
     "{{AuthenticationExtensionsPaymentInputs/instrument}}" → |data|.{{SecurePaymentConfirmationRequest/instrument}}]».
 
-    <div class="note">**TODO**: We do not have the RP origin at this step; maybe that should just go in the extension processing steps?</div>
+    <div class="note">**TODO**: We do not have the rp id at this step; maybe that should just go in the extension processing steps?</div>
 
 1. Let |extensions| be a new {{AuthenticationExtensionsClientInputs}} dictionary whose
     {{AuthenticationExtensionsClientInputs/payment}} member is set to |payment|, and whose other
@@ -597,7 +597,7 @@ directly; for authentication the extension can only be accessed via
       boolean isPayment;
 
       // Only used for authentication.
-      USVString rpOrigin;
+      USVString rp;
       USVString topOrigin;
       USVString payeeOrigin;
       PaymentCurrencyAmount total;
@@ -611,8 +611,8 @@ directly; for authentication the extension can only be accessed via
 
         <div class="note">**TODO**: Find a better way to do this. Needed currently because other members are auth-time only.</div>
 
-      :  <dfn>rpOrigin</dfn> member
-      :: The [=Relying Party=] origin of the credential(s) being used. Only valid at authentication time.
+      :  <dfn>rp</dfn> member
+      :: The [=Relying Party=] id of the credential(s) being used. Only valid at authentication time.
 
       :  <dfn>topOrigin</dfn> member
       :: The origin of the top-level frame. Only valid at authentication time.
@@ -663,7 +663,7 @@ directly; for authentication the extension can only be accessed via
             1. `type` set to "`payment.get"`
             1. `payment` set to a new {{CollectedClientAdditionalPaymentData}} with:
 
-                1. `rpOrigin` set to {{AuthenticationExtensionsPaymentInputs/rpOrigin}}.
+                1. `rp` set to {{AuthenticationExtensionsPaymentInputs/rp}}.
                 1. `topOrigin` set to {{AuthenticationExtensionsPaymentInputs/topOrigin}}.
                 1. `payeeOrigin` set to {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}.
                 1. `total` set to {{AuthenticationExtensionsPaymentInputs/total}}.
@@ -710,7 +710,7 @@ fields:
 
 <dl dfn-type="dict-member" dfn-for="CollectedClientAdditionalPaymentData">
     :  <dfn>rp</dfn> member
-    :: The relying party that created the credential.
+    :: The id of the [=Relying Party=] that created the credential.
 
     :  <dfn>topOrigin</dfn> member
     :: The origin of the top level context that requested to sign the transaction details.

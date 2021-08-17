@@ -54,14 +54,6 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: client extension; url: client-extension
         text: registration extension; url: registration-extension
         text: authentication extension; url: authentication-extension
-
-spec: image-resource; urlPrefix: https://w3c.github.io/image-resource/
-    type: dfn
-        text: fetch the image resource; url: fetching-an-image-resource
-
-spec: infra; urlPrefix: https://infra.spec.whatwg.org/
-    type: dfn
-        text: list-append; url: list-append
 </pre>
 
 <div class="non-normative">
@@ -490,7 +482,7 @@ input {{SecurePaymentConfirmationRequest}} |request|, are:
 
 1. If |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/displayName}} is empty, return `false`.
 
-1. [=Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
+1. [=fetch an image resource|Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
     |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/icon}}]»
     for *image*. If this fails, return `false`.
 
@@ -552,7 +544,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
         "{{PublicKeyCredentialDescriptor/transports}}" → a sequence of length 1 whose only member is
         {{AuthenticatorTransport/internal}}]».
 
-    1. [=list-append|Append=] |descriptor| to |publicKeyOpts|.{{PublicKeyCredentialRequestOptions/allowCredentials}}.
+    1. [=list/Append=] |descriptor| to |publicKeyOpts|.{{PublicKeyCredentialRequestOptions/allowCredentials}}.
 
 1. Let |outputCredential| be the result of running the algorithm to
     [=Request a Credential=], passing «["{{CredentialRequestOptions/publicKey}}"

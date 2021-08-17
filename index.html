@@ -267,7 +267,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-13">13 August 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-17">17 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -740,7 +740,7 @@ input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconf
     <li data-md>
      <p>If <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument①">instrument</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname">displayName</a></code> is empty, return <code>false</code>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://w3c.github.io/image-resource/#fetching-an-image-resource" id="ref-for-fetching-an-image-resource">Fetch the image resource</a> for the icon, passing «["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-dom-imageresource-src">src</a></code>" → <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument②">instrument</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon">icon</a></code>]»
+     <p><a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource" id="ref-for-dfn-fetching-an-image-resource">Fetch the image resource</a> for the icon, passing «["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-dom-imageresource-src">src</a></code>" → <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument②">instrument</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon">icon</a></code>]»
 for <em>image</em>. If this fails, return <code>false</code>.</p>
      <p class="note" role="note"><span>Note:</span> Performing this step here mitigates a privacy leak. <strong>TODO</strong>:
 Document + link-to privacy section.</p>
@@ -1153,10 +1153,10 @@ very clear payments UX when a match is found (though that may be too late).</p>
     <li><a href="#ref-for-transient-activation">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-fetching-an-image-resource">
-   <a href="https://w3c.github.io/image-resource/#fetching-an-image-resource">https://w3c.github.io/image-resource/#fetching-an-image-resource</a><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="term-for-dfn-fetching-an-image-resource">
+   <a href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource">https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-fetching-an-image-resource">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dfn-fetching-an-image-resource">4.1.4. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-imageresource-src">
@@ -1487,13 +1487,13 @@ very clear payments UX when a match is found (though that may be too late).</p>
    <li>
     <a data-link-type="biblio">[image-resource]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-fetching-an-image-resource">fetch the image resource</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-fetching-an-image-resource">fetching an image resource</span>
      <li><span class="dfn-paneled" id="term-for-dom-imageresource-src">src</span>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-list-append">list-append</span>
+     <li><span class="dfn-paneled" id="term-for-list-append">append</span>
     </ul>
    <li>
     <a data-link-type="biblio">[payment-method-id]</a> defines the following terms:

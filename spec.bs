@@ -54,6 +54,11 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: client extension; url: client-extension
         text: registration extension; url: registration-extension
         text: authentication extension; url: authentication-extension
+
+spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
+    type: dfn
+        urlPrefix: origin.html
+            text: origin; url: concept-origin
 </pre>
 
 <div class="non-normative">
@@ -328,7 +333,9 @@ const request = new PaymentRequest([{
     instrument: {
       displayName: "Fancy Card ****1234",
       icon: "https://fancybank.com/card-art.png",
-    }, 
+    },
+
+    payeeOrigin: "https://merchant.com",
 
     timeout: 360000,  // 6 minutes
   }], {
@@ -467,7 +474,7 @@ members:
     :: The number of milliseconds before the request to sign the transaction details times out. At most 1 hour.
 
     :  <dfn>payeeOrigin</dfn> member
-    :: The origin of the payee that this SPC call is for (e.g., the merchant).
+    :: The fully qualified [=origin=] of the payee that this SPC call is for (e.g., the merchant).
 
     :  <dfn>extensions</dfn> member
     :: Any [=WebAuthn extensions=] that should be used for the passed credential(s). The caller does not need to specify the [[#sctn-payment-extension-enrollment| payment extension]]; it is added automatically.
@@ -479,6 +486,8 @@ The [=steps to check if a payment can be made=] for this payment method, for an
 input {{SecurePaymentConfirmationRequest}} |request|, are:
 
 1. If |request|.{{SecurePaymentConfirmationRequest/credentialIds}} is empty, return `false`.
+
+1. If |request|.{{SecurePaymentConfirmationRequest/payeeOrigin}} is not a fully qualified [=origin=], return `false`.
 
 1. If |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/displayName}} is empty, return `false`.
 

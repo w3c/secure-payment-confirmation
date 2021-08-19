@@ -55,8 +55,8 @@ Online payments are usually a 3 party interaction:
 * The Account Provider (e.g. the bank that issued the payment instrument being used)
 
 > **NOTE**: It is not uncommon for there to be a fourth party: the Payment
-> Service Provider, whom the Merchant may delegate the task of accepting the
-> payment method to. This is usually done by the Merchant either redirecting the
+> Service Provider, to whom the Merchant delegates the task of accepting the
+> payment method. This is usually done by the Merchant either redirecting the
 > User to the Payment Service Provider's website, or by embedding the Payment
 > Service Provider in an iframe. Any following mention of the term Merchant
 > should be taken to mean either a Merchant or a Payment Service Provider;
@@ -66,15 +66,15 @@ Traditionally, the Customer only interacts with the Merchant, and the Merchant
 communicates with the Account Provider via a back-channel protocol. However,
 Account Providers are increasingly looking to authenticate Customers during
 online payments. This is done for both regulatory reasons (e.g. [SCA] in the
-European Union) or for fraud prevention reasons - either fradulent Customers or
+European Union) and for fraud prevention reasons - either fradulent Customers or
 fradulent Merchants.
 
 Existing methods of authenticating a Customer during an online payment are
 either high friction (e.g. embedding challenge iframes from the Account
-Provider) or have poor user privacy (e.g. data-collection or tracking the user
-for risk analysis, to provide a 'frictionless flow'). The payments industry
-needs a consistent, low friction, strong authentication flow for online
-payments.
+Provider or redirecting to the Account Provider site or app) or have poor user
+privacy (e.g. data-collection or tracking the user for risk analysis, to
+provide a 'frictionless flow'). The payments industry needs a consistent, low
+friction, strong authentication flow for online payments.
 
 The [Web Authentication (WebAuthn) API][webauthn] makes FIDO-based
 authentication available on the web, which provides a strong, low-friction
@@ -96,6 +96,8 @@ authentication problem, as:
 This proposal attempts to provide an authentication solution for online
 payments that is both as strong and low-friction as WebAuthn, whilst also
 solving these three issues.
+
+<!-- TODO: Incorporate https://lists.w3.org/Archives/Public/public-webauthn-pay/2020Jan/0002.html as evidence of iframe friction -->
 
 ### Goals
 
@@ -128,18 +130,18 @@ Find a solution that (in no particular order):
 ## Proposed Solution: Secure Payment Confirmation
 
 Secure Payment Confirmation (SPC) builds on top of [WebAuthn] to add
-payment-specific datastructures to the signed assertion, and to relax
-assumptions to allow the API to be called in payment contexts.
+payment-specific data to the signed assertion, and to relax assumptions to
+allow the API to be called in payment contexts.
 
-The intention for Secure Payment Confirmation is that a Customer would enroll
-once on a given device for a given account with an Account Provider, either on
-the Account Provider's website or during a traditionally-authenticated online
+Ideally with Secure Payment Confirmation, a Customer would enroll once on a
+given device for a given account with an Account Provider, either on the
+Account Provider's website or during a traditionally-authenticated online
 payment (e.g. after completing a challenge in a Account Provider iframe). Then,
 in subsequent transactions on **any Merchant** that wishes to use Secure
 Payment Confirmation:
 
-1. The Customer identifies themselves to the Merchant as per normal (e.g.
-   by selecting a payment instrument such as a credit card or bank account.)
+1. The Customer selects a payment instrument (e.g. a credit card or bank
+   account).
 1. Using a back-channel (e.g. the EMV® 3-D Secure protocol), the Merchant asks
    for, and receives, a list of credentials for the identified Customer from
    the Account Provider.
@@ -178,7 +180,7 @@ which adds three payments-specific capabilities on top of traditional WebAuthn:
    as a ["payment" permission policy] is set on the iframe.
 1. Allows a third-party (the Merchant) to initiate an authentication ceremony
    **on behalf of** the RP (the Account Provider), by passing in credentials
-   provided to the Merchant by the Account Provider.
+   (typically provided to the Merchant by the Account Provider).
 1. Enforces that the User Agent appropriately communicates to the user that they
    are authenticating a transaction and the transaction details. Those details
    are then included in the assertion signed by the authenticator.

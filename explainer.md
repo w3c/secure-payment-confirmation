@@ -78,11 +78,13 @@ authentication problem, as:
 
 1. It requires the ??? to be present in the transaction (e.g. via an embedded
    iframe), which increases user friction and lowers conversion rates.
-1. The generated assertion contains no payments-related information, which could
-   be useful to meet e.g. [Dynamic Linking] requirements.
+1. The generated assertion contains no payments-related information, so it
+   cannot be used as-is to fulfill regulatory requirements to provide evidence
+   of user content (e.g. [Dynamic Linking] requirements).
 1. WebAuthn does not allow credential creation in a cross-origin iframe, thus
    excluding a useful onboarding flow - enrolling a Customer after they have
-   completed a traditional authentication flow (e.g. via SMS OTP).
+   completed a traditional authentication flow (e.g. via SMS OTP), without
+   the friction of redirecting them to the bank's site or app.
 
 This proposal attempts to provide an authentication solution for online
 payments that is both as strong and low-friction as WebAuthn, whilst also
@@ -102,7 +104,8 @@ Find a solution that (in no particular order):
 > to e.g. Dynamic Linking, but we aim to produce a solution that could be
 > vetted as such.
 
-* Allows for in-flow enrollment of Customers during a traditional challenge flow.
+* Allows for in-flow enrollment of Customers during a traditional challenge
+  flow, as well as outside of a transaction.
 
 ### Non-Goals
 
@@ -128,10 +131,12 @@ completing a challenge in a ??? iframe). Then, in subsequent transactions on
 **any Merchant** that wishes to use Secure Payment Confirmation:
 
 1. The Customer identifies themselves to the Merchant as per normal (e.g.
-   by providing a credit card number)
-1. Using a back-channel (e.g. the 3D-Secure protocol), the Merchant asks for,
-   and receives, a list of credentials for the identified Customer from the ???.
-1. The Merchant calls the SPC API with the list of credentials.
+   by selecting a payment instrument such as a credit card or bank account.)
+1. Using a back-channel (e.g. the EMV® 3-D Secure protocol), the Merchant asks
+   for, and receives, a list of credentials for the identified Customer from
+   the ???.
+1. The Merchant calls the SPC API with the list of
+   [webauthn-credentials|credentials].
 1. The User Agent displays a UX to the Customer, informing them of the
    transaction details and asking if they wish to authenticate their identity to
    the ???.
@@ -144,10 +149,9 @@ completing a challenge in a ??? iframe). Then, in subsequent transactions on
 1. The ??? informs the Merchant of transaction success, and the payment
    concludes successfully.
 
-> **NOTE**: This seems like a lot of steps, but it is worth noting that to the
-> user the only authentication interactions are to look at the transaction
-> amounts and to perform a [WebAuthn] interaction. The other steps occur in the
-> background.
+> **NOTE**: Most of the above flow happens in the background. The user
+> experience consists only of examining and agreeing to the transaction
+> details, and performing a [WebAuthn] interaction.
 
 **TODO**: Color-coded image here showing the authentication flow from the user
 perspective. Merchant site with 'pay' button, then overlaid payment transaction
@@ -159,7 +163,7 @@ device, see [the Privacy section](#privacy-considerations).
 ### Proposed APIs
 
 Secure Payment Confirmation introduces a new [WebAuthn extension], `payment`,
-which has three 'powers' over traditional WebAuthn:
+which adds three payments-specific capabilities on top of traditional WebAuthn:
 
 1. Allows calling `navigator.credentials.create` in a cross-origin iframe, as long
    as a ["payment" permission policy] is set on the iframe.
@@ -167,8 +171,8 @@ which has three 'powers' over traditional WebAuthn:
    **on behalf of** the RP (the ???), by passing in credentials provided to
    the Merchant by the ???.
 1. Enforces that the User Agent appropriately communicates to the user that they
-   are authenticating a transaction, including transaction details, and includes
-   those details in the signed assertion.
+   are authenticating a transaction and the transaction details. Those details
+   are then included in the assertion signed by the authenticator.
 
 > **NOTE**: Allowing `navigator.credentials.create` in a cross-origin iframe is
 > [currently a topic of discussion](https://github.com/w3c/webauthn/issues/1656)
@@ -310,16 +314,19 @@ const request = new PaymentRequest([{
   });
 
 try {
+  // NOTE: canMakePayment() checks only public information for whether the SPC
+  // call is valid. To preserve user privacy, it does not check whether any
+  // passed credentials match the current device.
   const canMakePayment = await request.canMakePayment();
   if (!canMakePayment) { throw new Error('Cannot make payment'); }
 
   const response = await request.show();
   await response.complete('success');
 
-  // response.data is a PublicKeyCredential, with a clientDataJSON that
+  // response.details is a PublicKeyCredential, with a clientDataJSON that
   // contains the transaction data for verification by the issuing bank.
 
-  /* send response.data to the issuing bank for verification */
+  /* send response.details to the issuing bank for verification */
 } catch (err) {
   /* SPC cannot be used; merchant should fallback to traditional flows */
 }
@@ -358,6 +365,7 @@ merchants that accept credit cards.
 
 [SCA]: https://en.wikipedia.org/wiki/Strong_customer_authentication
 [webauthn]: https://www.w3.org/TR/webauthn
+[webauthn-credentials]: https://www.w3.org/TR/webauthn/#credential-id
 [Dynamic Linking]: https://www.twilio.com/blog/dynamic-linking-psd2#:~:text=What%20is%20Dynamic%20Linking
 [webauthn extension]: https://www.w3.org/TR/webauthn/#sctn-extensions
 [3D Secure]: https://en.wikipedia.org/wiki/3-D_Secure

@@ -2,11 +2,15 @@
 
 ## tl;dr
 
-**Secure Payment Confirmation** is a proposed Web API that enables the use of
-biometric authentication in payment flows on the web, building on top of
-[WebAuthn]. The goal is to provide strong, low-friction authentication of a
-customer in a payment context, whilst still preserving user privacy better than
-current fingerprinting-based methods.
+**Secure Payment Confirmation (SPC)** is a proposed Web API to support
+streamlined authentication during a payment transaction. It is designed to
+scale authentication across merchants, to be used within a wide range of
+authentication protocols, and to produce cryptographic evidence that the user
+has confirmed transaction details.
+
+SPC adds payment-specific capabilities atop [WebAuthn] and is designed with
+stronger privacy protections than risk analysis approaches that rely on data
+collection.
 
 See also:
   - [Specification](https://w3c.github.io/secure-payment-confirmation/), the formal draft spec.
@@ -67,7 +71,7 @@ fradulent Merchants.
 
 Existing methods of authenticating a Customer during an online payment are
 either high friction (e.g. embedding challenge iframes from the Account
-Provider) or have poor user privacy (e.g. fingerprinting or tracking the user
+Provider) or have poor user privacy (e.g. data-collection or tracking the user
 for risk analysis, to provide a 'frictionless flow'). The payments industry
 needs a consistent, low friction, strong authentication flow for online
 payments.

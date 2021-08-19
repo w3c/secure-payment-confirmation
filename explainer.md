@@ -31,8 +31,8 @@ See also:
     - [Authenticating a payment](#authenticating-a-payment)
 - [Other Considerations](#other-considerations)
   - [Initial Experimentation with Stripe](#initial-experimentation-with-stripe)
-  - [Are SPC credentials identical to WebAuthn credentials?](#are-spc-credentials-identical-to-webauthn-credentials)
-  - [Why use the PaymentRequest API](#why-use-the-paymentrequest-api)
+  - [Should SPC credentials be identical to WebAuthn credentials?](#should-spc-credentials-be-identical-to-webauthn-credentials)
+  - [Why use the Payment Request API?](#why-use-the-payment-request-api)
 - [Alternatives Considered](#alternatives-considered)
   - [Traditional WebAuthn](#traditional-webauthn)
   - [Delegated Authentication](#delegated-authentication)
@@ -137,7 +137,7 @@ allow the API to be called in payment contexts.
 Ideally with Secure Payment Confirmation, a Customer would enroll once on a
 given device for a given account with an Account Provider, either on the
 Account Provider's website or during a traditionally-authenticated online
-payment (e.g. after completing a challenge in a Account Provider iframe). Then,
+payment (e.g. after completing a challenge in an Account Provider iframe). Then,
 in subsequent transactions on **any Merchant** that wishes to use Secure
 Payment Confirmation:
 
@@ -347,13 +347,100 @@ try {
 
 ### Initial Experimentation with Stripe
 
-### Are SPC credentials identical to WebAuthn credentials?
+In late 2020, [Stripe] ran a 3-month experiment of Secure Payment Confirmation
+via a Google Chrome [Origin Trial]. The experiment showed a **+8pp increase in
+conversion rate** (~84.7% to 92.7%), a **3x reduction in time-to-authenticate**
+(36s median to 12s median), and **neglible fraud**.
 
-### Why use the PaymentRequest API
+It is worth noting that the experiment only compared traditional One Time
+Password challenge flows versus FIDO-based (e.g. biometric) challenge flows. No
+comparison was done of WebAuthn versus Secure Payment Confirmation.
+
+More details:
+  - [Web Payments WG blog-post on the experiment](https://www.w3.org/blog/wpwg/2021/03/26/secure-payment-confirmation-stripe-experiment-and-next-steps/)
+  - [Stripe presentation](https://www.w3.org/2021/Talks/spc-pilot-202103.pdf)
+
+### Should SPC credentials be identical to WebAuthn credentials?
+
+We have not yet reached a conclusion about whether a SPC credential should be
+(somehow) marked as different from 'normal' WebAuthn credentials. It seems
+reasonable that an SPC credential should be able to be used as a login
+credential, if a Relying Party wished to do so. However whether a WebAuthn
+credential should be able to used in a payment authentication context is less
+clear.
+
+Allowing such a use would make it easier for an entity with existing WebAuthn
+credentials to use SPC, without requiring some explicit upgrade path. For
+example, an Account Provider may already have created WebAuthn credentials for their
+Customers to login, and might then want to use them for payment authentication
+as well.
+
+On the other hand, it would also open [a possible
+attack](#cross-origin-authentication-ceremony) on Relying Parties who do not
+perform sufficient verification of assertions that they receive. If a Relying
+Party fails to check the `clientDataJSON.type` or `clientDataJSON.origin` of
+the assertion, they might mistake a 3p-created SPC assertion for a login
+assertion.
+
+### Why use the Payment Request API?
+
+The proposed Secure Payment Confirmation API is built on top of the [Payment
+Request API] for authentication, defining SPC as a new 'payment method'. This
+was largely done for ease of implementation in Chrome, and for lack of any
+clearly better alternative.
+
+Using Payment Request does have some drawbacks:
+
+1. It has been argued that SPC does not make sense as a payment *method*, as
+   it conducts no actual payment. (However note that basic-card is also a
+   payment method and also conducts no actual payment - it only provides
+   instrument selection).
+
+1. There is a mismatch in API shape between the Payment Request API and SPC:
+     * Payment Request assumes that many payment methods can be passed in, but
+       SPC only makes sense on its own.
+     * Payment Request assumes that a Payment Handler window is still showing
+       after the `show()` promise resolves, and so has methods like `retry()`
+       and `complete()` on the `PaymentResponse`. For SPC, if the `show()`
+       promise resolves successfully there is nothing to retry or complete.
+
+Suggestions have been made to instead use `navigator.credentials.get()` as the
+entry point for SPC authentication. This seems reasonable but will require more
+cooperation with the WebAuthn WG.
+
+Related issues:
+* https://github.com/w3c/secure-payment-confirmation/issues/65
+* https://github.com/w3c/secure-payment-confirmation/issues/56
 
 ## Alternatives Considered
 
 ### Traditional WebAuthn
+
+WebAuthn level 2 (which allows `navigator.credentials.get` in a cross-origin
+iframe) does allow bringing FIDO-based authentication into online payments, by
+letting the Account Provider utilize it in a challenge iframe (instead of e.g.
+SMS OTP). However, as noted above, it is unable to support the following useful
+payments-specific abilities:
+
+1. Including transaction information in the signed assertion, which can be used
+   for regulations such as [Dynamic Linking].
+1. Creating credentials during a payment flow, via credential creation in a
+   cross-origin iframe
+
+Additionally, the Web Payments Working Group [has
+heard](https://lists.w3.org/Archives/Public/public-webauthn-pay/2020Jan/0002.html)
+that Merchants prefer not to have the Account Provider in the flow if possible,
+as:
+
+* It causes increased friction and lowered conversion rates, as users are
+  disoriented by the bank iframe appearing, loading, etc.
+* Including an iframe requires punching a hole in the merchant's CSP policy to
+  allow every individual bank to be loaded
+* Merchants have seen problems with the availability of internet-facing services
+  from Account Providers - they are often the target for DOS attacks, for
+  example.
+
+SPC addresses each of these points as well.
 
 ### Delegated Authentication
 
@@ -513,7 +600,9 @@ to mitigate this.
 [webauthn extension]: https://www.w3.org/TR/webauthn/#sctn-extensions
 [3D Secure]: https://en.wikipedia.org/wiki/3-D_Secure
 [delegated authentication]: https://www.w3.org/2020/02/3p-creds-20200219.pdf
+[Stripe]: https://stripe.com
 [Payment Request API]: https://www.w3.org/TR/payment-request
 [pr-cross-origin]: https://www.w3.org/TR/payment-request/#using-with-cross-origin-iframes
 ["payment" permission policy]: https://w3c.github.io/payment-request/#permissions-policy
+[Origin Trial]: https://developer.chrome.com/blog/origin-trials/
 

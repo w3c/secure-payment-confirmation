@@ -55,13 +55,10 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: registration extension; url: registration-extension
         text: authentication extension; url: authentication-extension
 
-spec: image-resource; urlPrefix: https://w3c.github.io/image-resource/
+spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
     type: dfn
-        text: fetch the image resource; url: fetching-an-image-resource
-
-spec: infra; urlPrefix: https://infra.spec.whatwg.org/
-    type: dfn
-        text: list-append; url: list-append
+        urlPrefix: origin.html
+            text: origin; url: concept-origin
 </pre>
 
 <div class="non-normative">
@@ -336,7 +333,9 @@ const request = new PaymentRequest([{
     instrument: {
       displayName: "Fancy Card ****1234",
       icon: "https://fancybank.com/card-art.png",
-    }, 
+    },
+
+    payeeOrigin: "https://merchant.com",
 
     timeout: 360000,  // 6 minutes
   }], {
@@ -480,7 +479,7 @@ members:
     :: The number of milliseconds before the request to sign the transaction details times out. At most 1 hour.
 
     :  <dfn>payeeOrigin</dfn> member
-    :: The origin of the payee that this SPC call is for (e.g., the merchant).
+    :: The fully qualified [=origin=] of the payee that this SPC call is for (e.g., the merchant).
 
     :  <dfn>extensions</dfn> member
     :: Any [=WebAuthn extensions=] that should be used for the passed credential(s). The caller does not need to specify the [[#sctn-payment-extension-enrollment| payment extension]]; it is added automatically.
@@ -493,9 +492,11 @@ input {{SecurePaymentConfirmationRequest}} |request|, are:
 
 1. If |request|.{{SecurePaymentConfirmationRequest/credentialIds}} is empty, return `false`.
 
+1. If |request|.{{SecurePaymentConfirmationRequest/payeeOrigin}} is not a fully qualified [=origin=], return `false`.
+
 1. If |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/displayName}} is empty, return `false`.
 
-1. [=Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
+1. [=fetch an image resource|Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
     |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/icon}}]»
     for *image*. If this fails, return `false`.
 
@@ -531,13 +532,13 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
 
 1. Let |payment| be a new a {{AuthenticationExtensionsPaymentInputs}} dictionary, initialized
     as «["{{AuthenticationExtensionsPaymentInputs/isPayment}}" → `true`,
-    "{{AuthenticationExtensionsPaymentInputs/rpOrigin}}" → **TODO**,
+    "{{AuthenticationExtensionsPaymentInputs/rp}}" → **TODO**,
     "{{AuthenticationExtensionsPaymentInputs/topOrigin}}" → |topOrigin|,
     "{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}" → |data|.{{SecurePaymentConfirmationRequest/payeeOrigin}},
     "{{AuthenticationExtensionsPaymentInputs/total}}" → |request|.[=payment request details|[[details]]=].{{PaymentDetailsInit/total}},
     "{{AuthenticationExtensionsPaymentInputs/instrument}}" → |data|.{{SecurePaymentConfirmationRequest/instrument}}]».
 
-    <div class="note">**TODO**: We do not have the RP origin at this step; maybe that should just go in the extension processing steps?</div>
+    <div class="note">**TODO**: We do not have the rp id at this step; maybe that should just go in the extension processing steps?</div>
 
 1. Let |extensions| be a new {{AuthenticationExtensionsClientInputs}} dictionary whose
     {{AuthenticationExtensionsClientInputs/payment}} member is set to |payment|, and whose other
@@ -557,7 +558,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
         "{{PublicKeyCredentialDescriptor/transports}}" → a sequence of length 1 whose only member is
         {{AuthenticatorTransport/internal}}]».
 
-    1. [=list-append|Append=] |descriptor| to |publicKeyOpts|.{{PublicKeyCredentialRequestOptions/allowCredentials}}.
+    1. [=list/Append=] |descriptor| to |publicKeyOpts|.{{PublicKeyCredentialRequestOptions/allowCredentials}}.
 
 1. Let |outputCredential| be the result of running the algorithm to
     [=Request a Credential=], passing «["{{CredentialRequestOptions/publicKey}}"
@@ -601,7 +602,7 @@ directly; for authentication the extension can only be accessed via
       boolean isPayment;
 
       // Only used for authentication.
-      USVString rpOrigin;
+      USVString rp;
       USVString topOrigin;
       USVString payeeOrigin;
       PaymentCurrencyAmount total;
@@ -615,8 +616,8 @@ directly; for authentication the extension can only be accessed via
 
         <div class="note">**TODO**: Find a better way to do this. Needed currently because other members are auth-time only.</div>
 
-      :  <dfn>rpOrigin</dfn> member
-      :: The [=Relying Party=] origin of the credential(s) being used. Only valid at authentication time.
+      :  <dfn>rp</dfn> member
+      :: The [=Relying Party=] id of the credential(s) being used. Only valid at authentication time.
 
       :  <dfn>topOrigin</dfn> member
       :: The origin of the top-level frame. Only valid at authentication time.
@@ -667,7 +668,7 @@ directly; for authentication the extension can only be accessed via
             1. `type` set to "`payment.get"`
             1. `payment` set to a new {{CollectedClientAdditionalPaymentData}} with:
 
-                1. `rpOrigin` set to {{AuthenticationExtensionsPaymentInputs/rpOrigin}}.
+                1. `rp` set to {{AuthenticationExtensionsPaymentInputs/rp}}.
                 1. `topOrigin` set to {{AuthenticationExtensionsPaymentInputs/topOrigin}}.
                 1. `payeeOrigin` set to {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}.
                 1. `total` set to {{AuthenticationExtensionsPaymentInputs/total}}.
@@ -714,7 +715,7 @@ fields:
 
 <dl dfn-type="dict-member" dfn-for="CollectedClientAdditionalPaymentData">
     :  <dfn>rp</dfn> member
-    :: The relying party that created the credential.
+    :: The id of the [=Relying Party=] that created the credential.
 
     :  <dfn>topOrigin</dfn> member
     :: The origin of the top level context that requested to sign the transaction details.

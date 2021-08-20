@@ -145,15 +145,15 @@ Payment Confirmation:
 1. Using a back-channel (e.g. the EMV® 3-D Secure protocol), the Merchant asks
    for, and receives, a list of credentials for the identified Customer from
    the Account Provider.
-1. The Merchant calls the SPC API with the list of
+1. **SPC API STARTS HERE.** The Merchant calls the SPC API with the list of
    [webauthn-credentials|credentials].
 1. The User Agent displays a UX to the Customer, informing them of the
    transaction details and asking if they wish to authenticate their identity to
    the Account Provider.
 1. The Customer consents, and the User Agent and Customer perform a [WebAuthn]
    signing ceremony. Payment details are included in the returned assertion.
-1. The Merchant receives the assertion, and using the existing back-channel
-   sends the assertion to the Account Provider.
+1. The Merchant receives the assertion. **SPC API ENDS HERE.**
+1. Using the existing back-channel, the Merchant sends the assertion to the Account Provider.
 1. The Account Provider verifies the signature on the assertion, and verifies
    that the data in the assertion (e.g. transaction amount, payee) is as
    expected.

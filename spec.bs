@@ -860,10 +860,10 @@ attack is infeasible:
 * If the user does agree to the transaction, and completes the subsequent
     WebAuthn authentication ceremony, the attacker now has a signed SPC
     assertion for the [=Relying Party=].
-* However, the [=Relying Party=] is not expecting a transaction, and so will
-    just reject the assertion it was sent!
-
-NOTE: In addition the above, the assertion `challenge` will also be incorrect.
+* If the [=Relying Party=] is not expecting a transaction, it will reject the
+    assertion.
+* If the [=Relying Party=] is expecting a transaction, it will detect an
+    unfamiliar `challenge` and reject the assertion.
 
 The general concept here is that a Secure Payment Confirmation assertion is
 essentially useless unless it is part of an ongoing online transaction.
@@ -892,16 +892,15 @@ account statement).
 
 With Secure Payment Confirmation, the bank can (and should) instead
 [[#sctn-verifying-assertion|verify the cryptogram]] that they receive, to
-ensure that it aligns with the transaction details that the merchant initiated
-the transaction for.
+ensure that it aligns with the transaction details provided by the merchant.
 
 # Privacy Considerations # {#sctn-privacy-considerations}
 
 As this specification builds on top of WebAuthn, the
-[[webauthn-3#sctn-privacy-considerations|WebAuthn Privacy Considerations]]
-are applicable to this specification. The below subsections comprise the
-current Secure Payment Confirmation-specific privacy considerations, where
-this specification diverges from WebAuthn.
+[[webauthn-3#sctn-privacy-considerations|WebAuthn Privacy Considerations]] are
+applicable. The below subsections comprise the current Secure Payment
+Confirmation-specific privacy considerations, where this specification diverges
+from WebAuthn.
 
 ## Enrollment in a Cross-Origin iframe ## {#sctn-security-cross-origin-enrollment}
 
@@ -939,11 +938,11 @@ with the appropriate permissions set). If this is true, then
     credential (again in the main frame) to identify and track the user.
 
 <div class="note">
-**TODO**: The described attack does allow `https://website.tracker` to track the
-          user across multiple parent sites that it is directly included in,
-          using the credential as a cross-site identifier. The above
-          counter-claims stand up less well there, so we should perhaps remove
-          them.
+**TODO**: The above-described attack does allow `https://website.tracker` to
+          track the user across multiple parent sites that it is directly
+          included in, using the credential as a cross-site identifier. The
+          above counter-claims stand up less well there, so we should perhaps
+          remove them.
 </div>
 
 In the absence of script access to the main frame, the ability for a malicious
@@ -968,8 +967,11 @@ to distinguish between these cases:
 * A credential is not available.
 * A credential is available, but the user does not consent to use it.
 
-For example, the User Agent must fetch the {{PaymentCredentialInstrument/icon}}
-passed to SPC before checking whether any of the passed credentials match.
+For example, consider an implementation that does not download the payment
+instrument icon unless a credential matches. A caller could then provide an
+unique URL that they control for the payment instrument icon. If the URL is
+accessed then the caller can conclude that at least one of the passed
+credentials is available to the user.
 
 ## Joining different payment instruments ## {#sctn-privacy-joining-payment-instruments}
 
@@ -986,13 +988,13 @@ the user already provides sufficient information to do this joining anyway
 payment tokenization becomes commonplace.
 
 One possible way to defeat this may be to hash the credential IDs with a random
-salt from the RP:
+salt from the Account Provider ([=Relying Party=]):
 
-1. Merchant requests the list of credential IDs from the issuer.
-1. Issuer generates a random salt.
-1. Issuer sends `[salt, hash(salt || credential ID)]` to the merchant.
-1. Merchant invokes SPC with the hashed credential ID and additional passes the
-     salt.
+1. Merchant requests the list of credential IDs from the Account Provider.
+1. Account Provider generates a random salt.
+1. Account Provider sends `[salt, hash(salt || credential ID)]` to the merchant.
+1. Merchant invokes SPC with the hashed credential ID and additionally passes
+     the `salt` into the API.
 1. The browser generates `hash(salt || credential ID)` for each of the
      credential IDs that it has stored in the user profile.
 1. If any of the hashes match what the merchant provided, then a credential
@@ -1009,7 +1011,7 @@ for more details.
 
 Even for a single payment instrument, the credential ID(s) returned by the
 [=Relying Party=] could be used by a malicious entity as a tracking vector, as
-they are a strong, cross-site identifier. However in order to obtain them from
+they are strong, cross-site identifiers. However in order to obtain them from
 the [=Relying Party=], the merchant already needs an as-strong identifier to
 give to the [=Relying Party=] (e.g., the credit card number).
 

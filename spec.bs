@@ -763,70 +763,260 @@ enrollment and authentication. This extends the
 
 Note: Algorithms specified in [[!CREDENTIAL-MANAGEMENT-1]] perform the actual permissions policy evaluation. This is because such policy evaluation needs to occur when there is access to the [=current settings object=]. The {{PublicKeyCredential/[[Create]](origin, options, sameOriginWithAncestors)}} and {{PublicKeyCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}} [=internal methods=] do not have such access since they are invoked [=in parallel=] (by algorithms specified in [[!CREDENTIAL-MANAGEMENT-1]]).
 
+# SPC Relying Party Operations # {#sctn-relying-party-operations}
+
+## Verifying an Authentication Assertion ## {#sctn-verifying-assertion}
+
+<div class="note">**TODO**: Write this section</div>
+
 # Security Considerations # {#sctn-security-considerations}
 
-Note: This section is still very much a draft.
+As this specification builds on top of WebAuthn, the
+[[webauthn-3#sctn-security-considerations|WebAuthn Security Considerations]]
+are applicable. The below subsections comprise the current Secure Payment
+Confirmation-specific security considerations, where this specification
+diverges from WebAuthn.
 
-Main considerations (on top of WebAuthn itself):
+## Cross-origin authentication ceremony ## {#sctn-security-cross-origin-auth}
 
-* A successful payment backed by Secure Payment Confirmation will always
-    require two things: the user to provide consent and the Relying Party
-    to accept the signed cryptogram. As such, even if a malicious party obtains
-    the credential list from the Relying Party, it is unlikely for fraud to
-    occur because:
+A significant departure that Secure Payment Confirmation makes from WebAuthn is
+in allowing a third-party (`a.com`) to initiate an authentication ceremony
+using credentials for a different [=Relying Party=] (`b.com`), and returning
+the assertion to `a.com`. This feature can expose [=Relying Parties=] to both
+login and payment attacks, which are discussed here.
 
-    * The user must provide their consent (and verification) to the
-        website - with either browser and/or authenticator UX that shows the
-        transaction details.
+### Login Attack ### {#sctn-security-login-attack}
 
-    * Assuming the user does consent and verify the transaction, the
-        Relying Party must still be expecting the payment, otherwise the
-        cryptogram is useless.
+As credentials created for Secure Payment Confirmation are valid WebAuthn
+credentials, it is possible that a [=Relying Party=] may wish to use the same
+credential for a given user for both login and payment. This allows a potential
+attack on the [=Relying Party's=] login system, if they do not carefully verify
+the assertion they receive.
 
-* The same argument is used against the concern that a third party (e.g., the
-    merchant) provides many of the input values for SPC authentication
-    (e.g., the card icon, name, etc). Whilst this may be confusing to the
-    user if the merchant is malicious, the cryptogram is ultimately useless
-    unless the Relying Party accepts it - and they are able to
-    cryptographically verify what was shown to the user.
+The attack is as follows:
 
-* Allowing \[[Create]] in an iframe; see https://github.com/w3c/webauthn/issues/1336
-    from WebAuthn.
+1. The user visits `a.com`, which is or pretends to be a merchant site.
+1. `a.com` obtains credentials for the user from `b.com`, either legitimately
+     or by stealing them from `b.com` or another party with whom `b.com` had
+     shared the credentials.
+1. `a.com` initiates SPC authentication, and the user agrees to the transaction
+     (which may or may not be legitimate).
+1. `a.com` takes the payment assertion that they received from the API call,
+     and sends it to the login endpoint for `b.com`, e.g. by sending a POST to
+     `https://b.com/login`.
+1. `b.com` is employing faulty assertion validation code, which checks the
+     signature but fails to validate the necessary fields (see below), and
+     believes the login attempt to be legitimate.
+1. `b.com` returns e.g. a login cookie to `a.com`. The user's account at
+     `b.com` has now been compromised.
 
-    * Implementations can address this concern by providing native 
-        payments-focused browser UX during SPC enrollment.
+[=Relying Parties=] can guard against this attack in two ways.
 
-    * In the absence of such as UX, a browser can require a
-        user gesture as part of initiating the API.
+Firstly, a [=Relying Party=] must always follow the correct assertion
+validation steps either for [[webauthn-3#sctn-verifying-assertion|WebAuthn
+login]] or [[#sctn-verifying-assertion|SPC payment]] as appropriate. In
+particular, the following fields can all be used to detect an inappropriate use
+of a credential:
+
+* {{CollectedClientData}}.{{CollectedClientData/type}} - "webauthn.get" for
+    login, "payment.get" for SPC.
+* {{CollectedClientData}}.{{CollectedClientData/challenge}} - this value should
+    be provided by the [=Relying Party=] server to the site ahead of any call
+    to either WebAuthn or SPC, and should be verified as matching an expected,
+    appropriate, previously-provided value.
+* {{CollectedClientData}}.{{CollectedClientData/origin}} - if SPC is being
+    performed cross-origin, this value will contain the origin of the caller
+    (e.g. `a.com` in the above example).
+
+Secondly, a [=Relying Party=] can consider keeping their payment and login
+credentials separate. If doing this, the [=Relying Party=] should only register
+credentials for Secure Payment Confirmation on a subdomain (e.g.
+`https//payment.b.com`), and should keep payment credentials and login
+credentials separate in their database.
+
+<div class="note">
+NOTE: As currently written, the Secure Payment Confirmation specification
+      allows any WebAuthn credential to be used in an SPC authentication.
+      However this is not true in implementations today, which only allow
+      credentials created with the {{AuthenticationExtensionsClientInputs/payment}}
+      extension specified to participate in SPC authentication, and the
+      specification may be updated to reflect that in the future.
+
+      In both implementation and specification today, a credential created
+      with the {{AuthenticationExtensionsClientInputs/payment}} can be used
+      for login, if the Relying Party wishes. This is not expected to change.
+</div>
+
+### Payment Attack ### {#sctn-security-payment-attack}
+
+Instead of attempting to hijack a user account, a malicious third-party may
+also attempt to initiate an unauthorized payment using Secure Payment
+Confirmation credentials (obtained either legitimately or otherwise). Such an
+attack is infeasible:
+
+* When the attacker initiates SPC, the user will be shown an interface by the
+    User Agent that clearly states the transaction details (including the payee
+    and amount). The user is very likely to reject this interface as invalid.
+* If the user does agree to the transaction, and completes the subsequent
+    WebAuthn authentication ceremony, the attacker now has a signed SPC
+    assertion for the [=Relying Party=].
+* If the [=Relying Party=] is not expecting a transaction, it will reject the
+    assertion.
+* If the [=Relying Party=] is expecting a transaction, it will detect an
+    unfamiliar `challenge` and reject the assertion.
+
+The general concept here is that a Secure Payment Confirmation assertion is
+essentially useless unless it is part of an ongoing online transaction.
+
+## Merchant-supplied authentication data ## {#sctn-security-merchant-data}
+
+A consequence of this specification's third-party authentication ceremony is
+that even in a valid transaction (i.e. one that the [=Relying Party=] is
+expecting), a third-party provides the transaction details that are shown to
+the user:
+
+* Transaction amount and currency
+* Payment instrument name and icon
+* Payee origin
+
+This could lead to a spoofing attack, in which a merchant presents incorrect
+data to the user. For example, the merchant could tell the bank (in the
+backend) that it is initiating a purchase of $100, but then pass $1 to the SPC
+API (and thus show the user a $1 transaction to verify).
+
+Secure Payment Confirmation actually makes defeating this kind of attack easier
+than it currently is on the web. In online payments today, the bank has to
+trust that the merchant showed the user the correct amount in their checkout
+flow (and any fraud discoveries are post-payment, when the user checks their
+account statement).
+
+With Secure Payment Confirmation, the bank can (and should) instead
+[[#sctn-verifying-assertion|verify the cryptogram]] that they receive, to
+ensure that it aligns with the transaction details provided by the merchant.
 
 # Privacy Considerations # {#sctn-privacy-considerations}
 
-Note: This section is still very much a draft.
+As this specification builds on top of WebAuthn, the
+[[webauthn-3#sctn-privacy-considerations|WebAuthn Privacy Considerations]] are
+applicable. The below subsections comprise the current Secure Payment
+Confirmation-specific privacy considerations, where this specification diverges
+from WebAuthn.
 
-SPC primarily points to WebAuthn for its privacy model, but it does relax
-that model in significant ways that should be considered.
+## Enrollment in a Cross-Origin iframe ## {#sctn-security-cross-origin-enrollment}
 
-* Probing for credential ids
+Unlike WebAuthn, this specification allows the creation of credentials in a
+cross-origin iframe (as long as the appropriate
+[[#sctn-permissions-policy|Permission Policy]] is set on the iframe). That is,
+if site A embeds an iframe from site B, with the "[=payment permission
+string|payment=]" policy set, then site B may initiate a credential creation
+for site B within that iframe.
 
-    * Currently SPC exits immediately (on Chrome) when no passed credential
-        matches the current device. This could be used to probe for whether the
-        current device matches an existing known credential. This does show a
-        very clear payments UX when a match is found (though that may be too late).
+NOTE: Allowing credential creation in cross-origin iframes is currently [under
+      discussion](https://github.com/w3c/webauthn/issues/1656) in the WebAuthn
+      Working Group, and thus may move from this specification to WebAuthn in
+      the future.
 
-        Note: The instant-exit may be removed in the future.
+A [previously described
+attack](https://github.com/w3c/webauthn/issues/1336#issue-513568855) on this
+feature exists. In it, a malicious iframe (`https://website.tracker`) initiates
+credential creation, attempting to trick the user into thinking that the
+WebAuthn credential creation is for logging into the legitimate parent site
+(`https://example.org`). The user creates the credential. The malicious actor
+can then later utilize `get()` in a cross-origin iframe (again, timing the call
+to coincide with a login attempt to `https://example.org`) to have the user
+accidentally identify themselves to the tracker iframe.
 
-* Identifying user across different payment instruments.
+This attack, however, presumes that `https://website.tracker` already has
+script access to `https://example.org` (in order to create the attacker iframe,
+with the appropriate permissions set). If this is true, then
+`https://website.tracker` can already directly track the user, for example by:
 
-     * If the relying party uses the same credentials for a given user across
-         multiple payment instruments, this could expose that linkage to the
-         merchant (as they could track what sets of credentials they see for
-         each instrument they ask about on the backend). See https://github.com/w3c/secure-payment-confirmation/issues/77
+* Identifying them from the username they provide when logging in to
+    `https://example.org`, OR
+* Creating a WebAuthn credential for `https://example.org` (in the main frame),
+    saving that to a `https://website.tracker` server, and later using that
+    credential (again in the main frame) to identify and track the user.
 
-* Credential ID(s) as a tracking vector
+<div class="note">
+**TODO**: The above-described attack does allow `https://website.tracker` to
+          track the user across multiple parent sites that it is directly
+          included in, using the credential as a cross-site identifier. The
+          above counter-claims stand up less well there, so we should perhaps
+          remove them.
+</div>
 
-     * The credential ID could be used as a tracking vector, but to obtain it
-         from the Relying Party the merchant already needs an as-strong
-         identifier to give to the Relying Party (e.g., the credit card number).
+In the absence of script access to the main frame, the ability for a malicious
+iframe to perform an attack like this seems far less feasible.  Firstly, the
+main frame must have granted the malicious iframe
+[[#sctn-permissions-policy|permission]] to call the API. Secondly, the iframe
+has no way to know when the user is logging into `https://example.org`, to
+align their attack. 
+
+A consideration for a future version of this specification might be to
+additionally require consuming a [=transient activation=] for credential
+creation in a cross-origin iframe, to ensure that the user has at least
+interacted with an iframe attempting credential creation.
+
+## Probing for credential ids ## {#sctn-privacy-probing-credential-ids}
+
+As per WebAuthn's section on [[webauthn-3#sctn-assertion-privacy|Authentication
+Ceremony Privacy]], implementors of Secure Payment Confirmation must make sure
+not to enable malicious callers (who now may not even be the [=Relying Party=]
+to distinguish between these cases:
+
+* A credential is not available.
+* A credential is available, but the user does not consent to use it.
+
+For example, consider an implementation that does not download the payment
+instrument icon unless a credential matches. A caller could then provide an
+unique URL that they control for the payment instrument icon. If the URL is
+accessed then the caller can conclude that at least one of the passed
+credentials is available to the user.
+
+## Joining different payment instruments ## {#sctn-privacy-joining-payment-instruments}
+
+If a [=Relying Party=] uses the same credentials for a given user across
+multiple payment instruments, this might allow a merchant to join information
+about payment instruments that might otherwise not be linked. That is, across
+two different transactions that a user U performs with payment instruments P1
+and P2 (either on the same merchant M, or two colluding merchants M1 and M2),
+the merchant(s) may now be able to learn that P1 and P2 are for the same user.
+
+For many current online payment flows this may not be a significant concern, as
+the user already provides sufficient information to do this joining anyway
+(e.g. their address), however it could become a privacy attack if, e.g.,
+payment tokenization becomes commonplace.
+
+One possible way to defeat this may be to hash the credential IDs with a random
+salt from the Account Provider ([=Relying Party=]):
+
+1. Merchant requests the list of credential IDs from the Account Provider.
+1. Account Provider generates a random salt.
+1. Account Provider sends `[salt, hash(salt || credential ID)]` to the merchant.
+1. Merchant invokes SPC with the hashed credential ID and additionally passes
+     the `salt` into the API.
+1. The browser generates `hash(salt || credential ID)` for each of the
+     credential IDs that it has stored in the user profile.
+1. If any of the hashes match what the merchant provided, then a credential
+     match has been found.
+
+NOTE: If SPC relies on [=WebAuthn Conditional UI=] in the future, that API
+      would have to support this salt-ing concept as the browser would not have
+      a local list of credentials.
+
+See [this issue](https://github.com/w3c/secure-payment-confirmation/issues/77)
+for more details.
+
+## Credential ID(s) as a tracking vector ## {#sctn-privacy-credential-id-tracking-vector}
+
+Even for a single payment instrument, the credential ID(s) returned by the
+[=Relying Party=] could be used by a malicious entity as a tracking vector, as
+they are strong, cross-site identifiers. However in order to obtain them from
+the [=Relying Party=], the merchant already needs an as-strong identifier to
+give to the [=Relying Party=] (e.g., the credit card number).
+
+As above, a possible solution to this would be to hash the credential ID(s)
+with a random salt, making them non-consistent across calls.
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 

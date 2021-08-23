@@ -90,7 +90,7 @@ authentication problem, as:
    cannot be used as-is to fulfill regulatory requirements to provide evidence
    of user content (e.g. [Dynamic Linking] requirements).
 1. WebAuthn does not allow credential creation in a cross-origin iframe, thus
-   excluding a useful onboarding flow - enrolling a Customer after they have
+   excluding a useful onboarding flow - registering a Customer after they have
    completed a traditional authentication flow (e.g. via SMS OTP), without
    the friction of redirecting them to the bank's site or app.
 
@@ -114,14 +114,14 @@ Find a solution that (in no particular order):
 > to e.g. Dynamic Linking, but we aim to produce a solution that could be
 > vetted as such.
 
-* Allows for in-flow enrollment of Customers during a traditional challenge
+* Allows for in-flow registration of Customers during a traditional challenge
   flow, as well as outside of a transaction.
 
 ### Non-Goals
 
 * Selection of a Payment Instrument by the Customer; it is presumed that the
   Customer has already done so (e.g. by typing in their credit card number).
-* ID & V to establish real world identity during enrollment; it is up to the
+* ID & V to establish real world identity during registration; it is up to the
   Account Provider to determine the Customer's identity to their satisfaction.
 * Providing authentication for peer-to-peer or business-to-business
   transactions.
@@ -134,7 +134,7 @@ Secure Payment Confirmation (SPC) builds on top of [WebAuthn] to add
 payment-specific data to the signed assertion, and to relax assumptions to
 allow the API to be called in payment contexts.
 
-Ideally with Secure Payment Confirmation, a Customer would enroll once on a
+Ideally with Secure Payment Confirmation, a Customer would register once on a
 given device for a given account with an Account Provider, either on the
 Account Provider's website or during a traditionally-authenticated online
 payment (e.g. after completing a challenge in a Account Provider iframe). Then,
@@ -250,7 +250,7 @@ navigator.credentials.create({ publicKey })
   });
 ```
 
-As per the above note, the need to have a special enrollment flow for SPC will
+As per the above note, the need to have a special registration (formerly "enrollment") flow for SPC will
 depend on whether:
 
 * [WebAuthn] starts to allow credential creation in a cross-origin iframe.
@@ -258,13 +258,13 @@ depend on whether:
    in SPC authentication.
 
 If both of these become true, then the extension would not be needed during
-enrollment.
+registration.
 
 ##### Creating a SPC credential in a cross-origin iframe
 
 Unlike normal WebAuthn credentials, SPC allows a credential to be created in a
 cross-origin iframe (e.g. if `merchant.com` embeds an iframe from `bank.com`). This is
-intended to support the common enrollment flow of a bank enrolling the user during a
+intended to support the common registration flow of a bank registering the user during a
 step-up challenge (e.g. after proving their identity via OTP).
 
 To allow this, the cross-origin iframe must have the ["payment" permission

@@ -72,14 +72,15 @@ methods in payment flows on the web. It aims to provide the same authentication
 benefits and user privacy focus as [[webauthn-3]] with enhancements to meet the needs of payment processing.
 
 Similarly to [[webauthn-3]], this specification defines two related
-processes involving a user. The first is [[#sctn-enrollment]], where a
-relationship is created between the user and the [=Relying
-Party=]. The second is [[#sctn-authentication]], where the user
-responds to a challenge from the [=Relying Party=] (possibly via an
-intermediary payment service provider) to consent to a specific
-payment. An important feature of Secure Payment Confirmation is that
-the merchant (or another entity) may initiate the authentication
-ceremony on the [=Relying Party's=] behalf.
+processes involving a user. The first is [[#sctn-registration]]
+(formerly "enrollment"), where a relationship is created between the
+user and the [=Relying Party=]. The second is
+[[#sctn-authentication]], where the user responds to a challenge from
+the [=Relying Party=] (possibly via an intermediary payment service
+provider) to consent to a specific payment. An important feature of
+Secure Payment Confirmation is that the merchant (or another entity)
+may initiate the authentication ceremony on the [=Relying Party's=]
+behalf.
 
 Functionally, this specification defines a new [=payment method=] for the
 {{PaymentRequest}} API, and adds a [=WebAuthn Extension=] to extend
@@ -139,7 +140,7 @@ These limitations motivate the following Secure Payment Confirmation behaviors:
     other Web features. The current specification is designed to
     increase the security and usability of Web payments.
 
-### Enrollment in a third-party iframe ### {#sctn-use-case-iframe-enrollment}
+### Registration in a third-party iframe ### {#sctn-use-case-iframe-registration}
 
 If a bank wishes to use [[webauthn-3]] as the [=Relying Party=], that
 specification requires the bank to register the user in a first party
@@ -150,7 +151,7 @@ payment journey creates a risk of transaction abandonment.
 
 This limitation motivates the following Secure Payment Confirmation behavior:
 
-1. SPC supports cross-origin enrollment from an iframe in a third-party context. For instance, this enrollment might take place following some other ID&V flow (e.g., SMS OTP).
+1. SPC supports cross-origin registration from an iframe in a third-party context. For instance, this registration might take place following some other ID&V flow (e.g., SMS OTP).
 
 * See <a href="https://github.com/w3c/webauthn/issues/1336#issuecomment-554170183">discussion on WebAuthn issue 1336</a>.
 
@@ -181,7 +182,7 @@ In this section, we walk through some scenarios for Secure Payment Confirmation
 and the corresponding sample code for using this API. Note that these are
 example flows and do not limit the scope of how the API can be used.
 
-### Enrollment ### {#sctn-sample-enrollment}
+### Registration ### {#sctn-sample-registration}
 
 This is the first-time flow, in which a new credential is created and stored by
 an issuing bank.
@@ -200,9 +201,9 @@ an issuing bank.
 
 1. In the iframe, the issuing bank confirms the user's identity via a
     traditional means (e.g., SMS OTP). After confirmation, the
-    bank invites the user to enroll in SPC authentication for future payments.
+    bank invites the user to register in SPC authentication for future payments.
 
-1. The user consents (e.g., by clicking an "Enroll" button in the bank UX), and
+1. The user consents (e.g., by clicking an "Register" button in the bank UX), and
     the bank runs code in the iframe (see example below).
 
 1. The user goes through a WebAuthn registration flow. A new
@@ -213,9 +214,9 @@ an issuing bank.
 1. The verification completes; the bank iframe closes and the merchant finishes
     the checkout process for the user.
 
-The sample code for enrolling the user follows:
+The sample code for registering the user follows:
 
-<pre class="example" id="enrollment-example" highlight="js">
+<pre class="example" id="registration-example" highlight="js">
 if (!window.PublicKeyCredential) { /* Client not capable. Handle error. */ }
 
 const publicKey = {
@@ -290,7 +291,7 @@ Payment Confirmation.
     indicate that they wish to pay (e.g., by pressing a "Pay" button).
 
     Note: The cross-origin use of SPC credentials makes it possible for
-    the user to "enroll once" and authenticate on any merchant origin,
+    the user to "register once" and authenticate on any merchant origin,
     not just the merchant origin where the user first registered for SPC.
 
 1. The merchant communicates out-of-band
@@ -391,9 +392,9 @@ below and in [[#index-defined-elsewhere]].
     improve feature detection, invocation, and other aspects of the
     API.</div>
 
-# Enrollment # {#sctn-enrollment}
+# Registration # {#sctn-registration}
 
-To enroll a user for Secure Payment Confirmation, relying parties should call
+To register a user for Secure Payment Confirmation, relying parties should call
 {{CredentialsContainer/create()|navigator.credentials.create()}}, with the
 {{AuthenticationExtensionsClientInputs/payment}} [=WebAuthn Extension=]
 specified.
@@ -472,7 +473,7 @@ members:
     :: The list of credential identifiers for the given instrument.
 
     :  <dfn>instrument</dfn> member
-    :: The description of the instrument name and icon to display during enrollment and to be signed along with the transaction details.
+    :: The description of the instrument name and icon to display during registration and to be signed along with the transaction details.
 
     :  <dfn>timeout</dfn> member
     :: The number of milliseconds before the request to sign the transaction details times out. At most 1 hour.
@@ -481,7 +482,7 @@ members:
     :: The fully qualified [=origin=] of the payee that this SPC call is for (e.g., the merchant).
 
     :  <dfn>extensions</dfn> member
-    :: Any [=WebAuthn extensions=] that should be used for the passed credential(s). The caller does not need to specify the [[#sctn-payment-extension-enrollment| payment extension]]; it is added automatically.
+    :: Any [=WebAuthn extensions=] that should be used for the passed credential(s). The caller does not need to specify the [[#sctn-payment-extension-registration| payment extension]]; it is added automatically.
 </dl>
 
 ### Steps to check if a payment can be made ### {#sctn-steps-to-check-if-a-payment-can-be-made}
@@ -567,7 +568,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
 
 1. Return |outputCredential|.
 
-# WebAuthn Extension - "`payment`" # {#sctn-payment-extension-enrollment}
+# WebAuthn Extension - "`payment`" # {#sctn-payment-extension-registration}
 
 This [=client extension|client=] [=registration extension=] and
 [=authentication extension=] indicates that a credential is either being
@@ -735,7 +736,7 @@ frame is already included in {{CollectedClientData}} of [[webauthn-3]].
 
 # Common Data Structures # {#sctn-common-data-structures}
 
-The following data structures are shared between enrollment and authentication.
+The following data structures are shared between registration and authentication.
 
 ## <dfn dictionary>PaymentCredentialInstrument</dfn> Dictionary ## {#sctn-paymentcredentialinstrument-dictionary}
 
@@ -762,7 +763,7 @@ contains the following members:
 
 This specification uses the "[=payment permission string|payment=]"
 policy-identifier string from [[payment-request]] to control access to **both**
-enrollment and authentication. This extends the
+registration and authentication. This extends the
 [[webauthn-3#sctn-permissions-policy|WebAuthn Permission Policy]].
 
 Note: Algorithms specified in [[!CREDENTIAL-MANAGEMENT-1]] perform the actual permissions policy evaluation. This is because such policy evaluation needs to occur when there is access to the [=current settings object=]. The {{PublicKeyCredential/[[Create]](origin, options, sameOriginWithAncestors)}} and {{PublicKeyCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}} [=internal methods=] do not have such access since they are invoked [=in parallel=] (by algorithms specified in [[!CREDENTIAL-MANAGEMENT-1]]).
@@ -906,7 +907,7 @@ applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific privacy considerations, where this specification diverges
 from WebAuthn.
 
-## Enrollment in a Cross-Origin iframe ## {#sctn-security-cross-origin-enrollment}
+## Registration in a Cross-Origin iframe ## {#sctn-security-cross-origin-registration}
 
 Unlike WebAuthn, this specification allows the creation of credentials in a
 cross-origin iframe (as long as the appropriate

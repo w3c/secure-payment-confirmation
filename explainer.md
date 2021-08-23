@@ -422,10 +422,10 @@ letting the Account Provider utilize it in a challenge iframe (instead of e.g.
 SMS OTP). However, as noted above, it is unable to support the following useful
 payments-specific abilities:
 
-1. Including transaction information in the signed assertion, which can be used
-   for regulations such as [Dynamic Linking].
+1. Including displayed transaction information in the signed assertion, which
+   can be used for regulations such as [Dynamic Linking].
 1. Creating credentials during a payment flow, via credential creation in a
-   cross-origin iframe
+   cross-origin iframe.
 
 Additionally, the Web Payments Working Group [has
 heard](https://lists.w3.org/Archives/Public/public-webauthn-pay/2020Jan/0002.html)

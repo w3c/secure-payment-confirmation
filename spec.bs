@@ -508,13 +508,20 @@ input {{SecurePaymentConfirmationRequest}} |request|, are:
 
 ### Displaying a transaction confirmation UX ### {#sctn-transaction-confirmation-ux}
 
-<div class="note">
-**TODO**: We need to determine how best this can be specified. We tend to avoid
-requiring user agents to show specific UX, but in the case of SPC we do want to
-ensure that the appropriate transaction details are communicated to the user
-(either via browser UX or via the authenticator device itself, if it has an
-output).
-</div>
+To avoid restricting User Agent implementation choice, this specification does
+not require a User Agent to display a particular user interface when
+{{PaymentRequest/show|PaymentRequest.show()}} is called and the [=Secure
+Payment Confirmation payment handler=] is selected. However, so that a
+[=Relying Party=] can trust the information included in
+{{CollectedClientPaymentData}}, the User Agent MUST ensure that the following
+is communicated to the user:
+
+* The {{CollectedClientAdditionalPaymentData/payeeOrigin}}.
+* The {{CollectedClientAdditionalPaymentData/total}}, that is the
+    {{PaymentCurrencyAmount/currency}} and {{PaymentCurrencyAmount/value}} of the transaction.
+* The {{CollectedClientAdditionalPaymentData/instrument}} details, that is the
+    payment instrument {{PaymentCredentialInstrument/displayName}} and
+    {{PaymentCredentialInstrument/icon}}.
 
 ### Steps to respond to a payment request ### {#sctn-steps-to-respond-to-a-payment-request}
 

@@ -308,18 +308,18 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        <a href="#sctn-use-cases"><span class="secno">1.1</span> <span class="content">Use Cases</span></a>
        <ol class="toc">
         <li><a href="#sctn-use-case-verifying-payment"><span class="secno">1.1.1</span> <span class="content">Cryptographic evidence of transaction confirmation</span></a>
-        <li><a href="#sctn-use-case-iframe-enrollment"><span class="secno">1.1.2</span> <span class="content">Enrollment in a third-party iframe</span></a>
+        <li><a href="#sctn-use-case-iframe-registration"><span class="secno">1.1.2</span> <span class="content">Registration in a third-party iframe</span></a>
         <li><a href="#sctn-use-case-merchant-authentication"><span class="secno">1.1.3</span> <span class="content">Merchant control of authentication</span></a>
        </ol>
       <li>
        <a href="#sctn-sample-scenarios"><span class="secno">1.2</span> <span class="content">Sample API Usage Scenarios</span></a>
        <ol class="toc">
-        <li><a href="#sctn-sample-enrollment"><span class="secno">1.2.1</span> <span class="content">Enrollment</span></a>
+        <li><a href="#sctn-sample-registration"><span class="secno">1.2.1</span> <span class="content">Registration</span></a>
         <li><a href="#sctn-sample-authentication"><span class="secno">1.2.2</span> <span class="content">Authentication</span></a>
        </ol>
      </ol>
     <li><a href="#sctn-dependencies"><span class="secno">2</span> <span class="content">Dependencies</span></a>
-    <li><a href="#sctn-enrollment"><span class="secno">3</span> <span class="content">Enrollment</span></a>
+    <li><a href="#sctn-registration"><span class="secno">3</span> <span class="content">Registration</span></a>
     <li>
      <a href="#sctn-authentication"><span class="secno">4</span> <span class="content">Authentication</span></a>
      <ol class="toc">
@@ -335,7 +335,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        </ol>
      </ol>
     <li>
-     <a href="#sctn-payment-extension-enrollment"><span class="secno">5</span> <span class="content">WebAuthn Extension - "<code>payment</code>"</span></a>
+     <a href="#sctn-payment-extension-registration"><span class="secno">5</span> <span class="content">WebAuthn Extension - "<code>payment</code>"</span></a>
      <ol class="toc">
       <li><a href="#sctn-collectedclientpaymentdata-dictionary"><span class="secno">5.1</span> <span class="content"><span><code>CollectedClientPaymentData</code></span> Dictionary</span></a>
       <li><a href="#sctn-collectedclientadditionalpaymentdata-dictionary"><span class="secno">5.2</span> <span class="content"><span><code>CollectedClientAdditionalPaymentData</code></span> Dictionary</span></a>
@@ -365,7 +365,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <li>
      <a href="#sctn-privacy-considerations"><span class="secno">10</span> <span class="content">Privacy Considerations</span></a>
      <ol class="toc">
-      <li><a href="#sctn-security-cross-origin-enrollment"><span class="secno">10.1</span> <span class="content">Enrollment in a Cross-Origin iframe</span></a>
+      <li><a href="#sctn-security-cross-origin-registration"><span class="secno">10.1</span> <span class="content">Registration in a Cross-Origin iframe</span></a>
       <li><a href="#sctn-privacy-probing-credential-ids"><span class="secno">10.2</span> <span class="content">Probing for credential ids</span></a>
       <li><a href="#sctn-privacy-joining-payment-instruments"><span class="secno">10.3</span> <span class="content">Joining different payment instruments</span></a>
       <li><a href="#sctn-privacy-credential-id-tracking-vector"><span class="secno">10.4</span> <span class="content">Credential ID(s) as a tracking vector</span></a>
@@ -394,14 +394,12 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 methods in payment flows on the web. It aims to provide the same authentication
 benefits and user privacy focus as <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> with enhancements to meet the needs of payment processing.</p>
     <p>Similarly to <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, this specification defines two related
-processes involving a user. The first is <a href="#sctn-enrollment">§ 3 Enrollment</a>, where a
-relationship is created between the user and the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party">Relying
-Party</a>. The second is <a href="#sctn-authentication">§ 4 Authentication</a>, where the user
-responds to a challenge from the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①">Relying Party</a> (possibly via an
-intermediary payment service provider) to consent to a specific
-payment. An important feature of Secure Payment Confirmation is that
-the merchant (or another entity) may initiate the authentication
-ceremony on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②">Relying Party’s</a> behalf.</p>
+processes involving a user. The first is <a href="#sctn-registration">§ 3 Registration</a> (formerly "enrollment"), where a relationship is created between the
+user and the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party">Relying Party</a>. The second is <a href="#sctn-authentication">§ 4 Authentication</a>, where the user responds to a challenge from
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①">Relying Party</a> (possibly via an intermediary payment service
+provider) to consent to a specific payment. An important feature of
+Secure Payment Confirmation is that the merchant (or another entity)
+may initiate the authentication ceremony on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②">Relying Party’s</a> behalf.</p>
     <p>Functionally, this specification defines a new <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-method" id="ref-for-dfn-payment-method">payment method</a> for the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest">PaymentRequest</a></code> API, and adds a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions">WebAuthn Extension</a> to extend <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> with payment-specific datastructures and to relax assumptions to
 allow the API to be called in payment contexts.</p>
     <h3 class="heading settled" data-level="1.1" id="sctn-use-cases"><span class="secno">1.1. </span><span class="content">Use Cases</span><a class="self-link" href="#sctn-use-cases"></a></h3>
@@ -455,7 +453,7 @@ payments via browsers sufficiently today using TLS, iframes, and
 other Web features. The current specification is designed to
 increase the security and usability of Web payments.</p>
     </ol>
-    <h4 class="heading settled" data-level="1.1.2" id="sctn-use-case-iframe-enrollment"><span class="secno">1.1.2. </span><span class="content">Enrollment in a third-party iframe</span><a class="self-link" href="#sctn-use-case-iframe-enrollment"></a></h4>
+    <h4 class="heading settled" data-level="1.1.2" id="sctn-use-case-iframe-registration"><span class="secno">1.1.2. </span><span class="content">Registration in a third-party iframe</span><a class="self-link" href="#sctn-use-case-iframe-registration"></a></h4>
     <p>If a bank wishes to use <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> as the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④">Relying Party</a>, that
 specification requires the bank to register the user in a first party
 context. Registration can happen outside of a transaction while the user
@@ -465,7 +463,7 @@ payment journey creates a risk of transaction abandonment.</p>
     <p>This limitation motivates the following Secure Payment Confirmation behavior:</p>
     <ol>
      <li data-md>
-      <p>SPC supports cross-origin enrollment from an iframe in a third-party context. For instance, this enrollment might take place following some other ID&amp;V flow (e.g., SMS OTP).</p>
+      <p>SPC supports cross-origin registration from an iframe in a third-party context. For instance, this registration might take place following some other ID&amp;V flow (e.g., SMS OTP).</p>
     </ol>
     <ul>
      <li data-md>
@@ -493,7 +491,7 @@ experience may still do so using SPC from an iframe.</p>
     <p>In this section, we walk through some scenarios for Secure Payment Confirmation
 and the corresponding sample code for using this API. Note that these are
 example flows and do not limit the scope of how the API can be used.</p>
-    <h4 class="heading settled" data-level="1.2.1" id="sctn-sample-enrollment"><span class="secno">1.2.1. </span><span class="content">Enrollment</span><a class="self-link" href="#sctn-sample-enrollment"></a></h4>
+    <h4 class="heading settled" data-level="1.2.1" id="sctn-sample-registration"><span class="secno">1.2.1. </span><span class="content">Registration</span><a class="self-link" href="#sctn-sample-registration"></a></h4>
     <p>This is the first-time flow, in which a new credential is created and stored by
 an issuing bank.</p>
     <ol>
@@ -512,9 +510,9 @@ to "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-pay
      <li data-md>
       <p>In the iframe, the issuing bank confirms the user’s identity via a
 traditional means (e.g., SMS OTP). After confirmation, the
-bank invites the user to enroll in SPC authentication for future payments.</p>
+bank invites the user to register in SPC authentication for future payments.</p>
      <li data-md>
-      <p>The user consents (e.g., by clicking an "Enroll" button in the bank UX), and
+      <p>The user consents (e.g., by clicking an "Register" button in the bank UX), and
 the bank runs code in the iframe (see example below).</p>
      <li data-md>
       <p>The user goes through a WebAuthn registration flow. A new
@@ -525,8 +523,8 @@ payment instrument(s).</p>
       <p>The verification completes; the bank iframe closes and the merchant finishes
 the checkout process for the user.</p>
     </ol>
-    <p>The sample code for enrolling the user follows:</p>
-<pre class="example highlight" id="enrollment-example"><a class="self-link" href="#enrollment-example"></a><c- k>if</c-> <c- p>(</c-><c- o>!</c->window<c- p>.</c->PublicKeyCredential<c- p>)</c-> <c- p>{</c-> <c- d>/* Client not capable. Handle error. */</c-> <c- p>}</c->
+    <p>The sample code for registering the user follows:</p>
+<pre class="example highlight" id="registration-example"><a class="self-link" href="#registration-example"></a><c- k>if</c-> <c- p>(</c-><c- o>!</c->window<c- p>.</c->PublicKeyCredential<c- p>)</c-> <c- p>{</c-> <c- d>/* Client not capable. Handle error. */</c-> <c- p>}</c->
 
 <c- a>const</c-> publicKey <c- o>=</c-> <c- p>{</c->
   <c- c1>// The challenge should be created by the bank server and sent to the iframe.</c->
@@ -597,7 +595,7 @@ Payment Confirmation.</p>
 to the checkout flow. They enter their payment instrument details, and
 indicate that they wish to pay (e.g., by pressing a "Pay" button).</p>
      <p class="note" role="note"><span>Note:</span> The cross-origin use of SPC credentials makes it possible for
-the user to "enroll once" and authenticate on any merchant origin,
+the user to "register once" and authenticate on any merchant origin,
 not just the merchant origin where the user first registered for SPC.</p>
     <li data-md>
      <p>The merchant communicates out-of-band
@@ -692,8 +690,8 @@ away from its Payment Request origins. For developers, this should
 improve feature detection, invocation, and other aspects of the
 API.</div>
    </dl>
-   <h2 class="heading settled" data-level="3" id="sctn-enrollment"><span class="secno">3. </span><span class="content">Enrollment</span><a class="self-link" href="#sctn-enrollment"></a></h2>
-   <p>To enroll a user for Secure Payment Confirmation, relying parties should call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create">navigator.credentials.create()</a></code>, with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment">payment</a></code> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions①">WebAuthn Extension</a> specified.</p>
+   <h2 class="heading settled" data-level="3" id="sctn-registration"><span class="secno">3. </span><span class="content">Registration</span><a class="self-link" href="#sctn-registration"></a></h2>
+   <p>To register a user for Secure Payment Confirmation, relying parties should call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create">navigator.credentials.create()</a></code>, with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment">payment</a></code> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions①">WebAuthn Extension</a> specified.</p>
    <p class="note" role="note"><span>Note:</span> In this specification we define an extension in order to allow
       (1) credential creation in a cross-origin iframe (which WebAuthn
       does not yet allow) and (2) the browser to cache SPC credentials
@@ -749,7 +747,7 @@ members:</p>
      <p>The list of credential identifiers for the given instrument.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-instrument"><code>instrument</code></dfn> member, <span> of type <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument①">PaymentCredentialInstrument</a></span>
     <dd data-md>
-     <p>The description of the instrument name and icon to display during enrollment and to be signed along with the transaction details.</p>
+     <p>The description of the instrument name and icon to display during registration and to be signed along with the transaction details.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-timeout"><code>timeout</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①">unsigned long</a></span>
     <dd data-md>
      <p>The number of milliseconds before the request to sign the transaction details times out. At most 1 hour.</p>
@@ -758,7 +756,7 @@ members:</p>
      <p>The fully qualified <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin">origin</a> of the payee that this SPC call is for (e.g., the merchant).</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-extensions"><code>extensions</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs①">AuthenticationExtensionsClientInputs</a></span>
     <dd data-md>
-     <p>Any <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions②">WebAuthn extensions</a> that should be used for the passed credential(s). The caller does not need to specify the <a href="#sctn-payment-extension-enrollment"> payment extension</a>; it is added automatically.</p>
+     <p>Any <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions②">WebAuthn extensions</a> that should be used for the passed credential(s). The caller does not need to specify the <a href="#sctn-payment-extension-registration"> payment extension</a>; it is added automatically.</p>
    </dl>
    <h4 class="heading settled" data-level="4.1.4" id="sctn-steps-to-check-if-a-payment-can-be-made"><span class="secno">4.1.4. </span><span class="content">Steps to check if a payment can be made</span><a class="self-link" href="#sctn-steps-to-check-if-a-payment-can-be-made"></a></h4>
    <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made" id="ref-for-dfn-steps-to-check-if-a-payment-can-be-made">steps to check if a payment can be made</a> for this payment method, for an
@@ -831,7 +829,7 @@ as «["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/web
     <li data-md>
      <p>Return <var>outputCredential</var>.</p>
    </ol>
-   <h2 class="heading settled" data-level="5" id="sctn-payment-extension-enrollment"><span class="secno">5. </span><span class="content">WebAuthn Extension - "<code>payment</code>"</span><a class="self-link" href="#sctn-payment-extension-enrollment"></a></h2>
+   <h2 class="heading settled" data-level="5" id="sctn-payment-extension-registration"><span class="secno">5. </span><span class="content">WebAuthn Extension - "<code>payment</code>"</span><a class="self-link" href="#sctn-payment-extension-registration"></a></h2>
    <p>This <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#client-extension" id="ref-for-client-extension">client</a> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension">registration extension</a> and <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension">authentication extension</a> indicates that a credential is either being
 created for or used for Secure Payment Confirmation, respectively.</p>
    <p>For registration, this extension relaxes the WebAuthn requirements to allow
@@ -990,7 +988,7 @@ fields:</p>
    <p>Note that there is no <code>paymentRequestOrigin</code> field in <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata⑤">CollectedClientAdditionalPaymentData</a></code>, because the origin of the calling
 frame is already included in <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata④">CollectedClientData</a></code> of <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>.</p>
    <h2 class="heading settled" data-level="6" id="sctn-common-data-structures"><span class="secno">6. </span><span class="content">Common Data Structures</span><a class="self-link" href="#sctn-common-data-structures"></a></h2>
-   <p>The following data structures are shared between enrollment and authentication.</p>
+   <p>The following data structures are shared between registration and authentication.</p>
    <h3 class="heading settled" data-level="6.1" id="sctn-paymentcredentialinstrument-dictionary"><span class="secno">6.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-paymentcredentialinstrument"><code>PaymentCredentialInstrument</code></dfn> Dictionary</span><a class="self-link" href="#sctn-paymentcredentialinstrument-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑥"><c- g>PaymentCredentialInstrument</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname①"><c- g>displayName</c-></a>;
@@ -1010,7 +1008,7 @@ contains the following members:</p>
    </dl>
    <h2 class="heading settled" data-level="7" id="sctn-permissions-policy"><span class="secno">7. </span><span class="content">Permissions Policy integration</span><a class="self-link" href="#sctn-permissions-policy"></a></h2>
    <p>This specification uses the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission①">payment</a>"
-policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-request">[payment-request]</a> to control access to <strong>both</strong> enrollment and authentication. This extends the <a href="https://www.w3.org/TR/webauthn-3/#sctn-permissions-policy">WebAuthn Permission Policy</a>.</p>
+policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-request">[payment-request]</a> to control access to <strong>both</strong> registration and authentication. This extends the <a href="https://www.w3.org/TR/webauthn-3/#sctn-permissions-policy">WebAuthn Permission Policy</a>.</p>
    <p class="note" role="note"><span>Note:</span> Algorithms specified in <a data-link-type="biblio" href="#biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]</a> perform the actual permissions policy evaluation. This is because such policy evaluation needs to occur when there is access to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object" id="ref-for-current-settings-object">current settings object</a>. The <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot" id="ref-for-dom-publickeycredential-create-slot">[[Create]](origin, options, sameOriginWithAncestors)</a></code> and <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot" id="ref-for-dom-publickeycredential-discoverfromexternalsource-slot①">[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</a></code> <a data-link-type="dfn" href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots" id="ref-for-sec-object-internal-methods-and-internal-slots">internal methods</a> do not have such access since they are invoked <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a> (by algorithms specified in <a data-link-type="biblio" href="#biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]</a>).</p>
    <h2 class="heading settled" data-level="8" id="sctn-relying-party-operations"><span class="secno">8. </span><span class="content">SPC Relying Party Operations</span><a class="self-link" href="#sctn-relying-party-operations"></a></h2>
    <h3 class="heading settled" data-level="8.1" id="sctn-verifying-assertion"><span class="secno">8.1. </span><span class="content">Verifying an Authentication Assertion</span><a class="self-link" href="#sctn-verifying-assertion"></a></h3>
@@ -1138,7 +1136,7 @@ ensure that it aligns with the transaction details provided by the merchant.</p>
 applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific privacy considerations, where this specification diverges
 from WebAuthn.</p>
-   <h3 class="heading settled" data-level="10.1" id="sctn-security-cross-origin-enrollment"><span class="secno">10.1. </span><span class="content">Enrollment in a Cross-Origin iframe</span><a class="self-link" href="#sctn-security-cross-origin-enrollment"></a></h3>
+   <h3 class="heading settled" data-level="10.1" id="sctn-security-cross-origin-registration"><span class="secno">10.1. </span><span class="content">Registration in a Cross-Origin iframe</span><a class="self-link" href="#sctn-security-cross-origin-registration"></a></h3>
    <p>Unlike WebAuthn, this specification allows the creation of credentials in a
 cross-origin iframe (as long as the appropriate <a href="#sctn-permissions-policy">Permission Policy</a> is set on the iframe). That is,
 if site A embeds an iframe from site B, with the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission②">payment</a>" policy set, then site B may initiate a credential creation
@@ -1302,7 +1300,7 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="term-for-dom-credentialscontainer-create">
    <a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-credentialscontainer-create">3. Enrollment</a>
+    <li><a href="#ref-for-dom-credentialscontainer-create">3. Registration</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-credentialscontainer-get">
@@ -1346,7 +1344,7 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transient-activation">5. WebAuthn Extension - "payment"</a>
-    <li><a href="#ref-for-transient-activation①">10.1. Enrollment in a Cross-Origin iframe</a>
+    <li><a href="#ref-for-transient-activation①">10.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-fetching-an-image-resource">
@@ -1416,9 +1414,9 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="term-for-dfn-payment-permission">
    <a href="https://w3c.github.io/payment-request/#dfn-payment-permission">https://w3c.github.io/payment-request/#dfn-payment-permission</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dfn-payment-permission">1.2.1. Enrollment</a>
+    <li><a href="#ref-for-dfn-payment-permission">1.2.1. Registration</a>
     <li><a href="#ref-for-dfn-payment-permission①">7. Permissions Policy integration</a>
-    <li><a href="#ref-for-dfn-payment-permission②">10.1. Enrollment in a Cross-Origin iframe</a>
+    <li><a href="#ref-for-dfn-payment-permission②">10.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-accessibility-considerations">
@@ -1480,7 +1478,7 @@ with a random salt, making them non-consistent across calls.</p>
    <ul>
     <li><a href="#ref-for-relying-party">1. Introduction</a> <a href="#ref-for-relying-party①">(2)</a> <a href="#ref-for-relying-party②">(3)</a>
     <li><a href="#ref-for-relying-party③">1.1.1. Cryptographic evidence of transaction confirmation</a>
-    <li><a href="#ref-for-relying-party④">1.1.2. Enrollment in a third-party iframe</a>
+    <li><a href="#ref-for-relying-party④">1.1.2. Registration in a third-party iframe</a>
     <li><a href="#ref-for-relying-party⑤">1.1.3. Merchant control of authentication</a> <a href="#ref-for-relying-party⑥">(2)</a> <a href="#ref-for-relying-party⑦">(3)</a>
     <li><a href="#ref-for-relying-party⑧">4. Authentication</a>
     <li><a href="#ref-for-relying-party⑨">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-relying-party①⓪">(2)</a>
@@ -1498,7 +1496,7 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://w3c.github.io/webauthn/#webauthn-extensions">https://w3c.github.io/webauthn/#webauthn-extensions</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-webauthn-extensions">1. Introduction</a>
-    <li><a href="#ref-for-webauthn-extensions①">3. Enrollment</a>
+    <li><a href="#ref-for-webauthn-extensions①">3. Registration</a>
     <li><a href="#ref-for-webauthn-extensions②">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
@@ -1848,7 +1846,7 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="webauthn-conditional-ui">
    <b><a href="#webauthn-conditional-ui">#webauthn-conditional-ui</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-webauthn-conditional-ui">3. Enrollment</a>
+    <li><a href="#ref-for-webauthn-conditional-ui">3. Registration</a>
     <li><a href="#ref-for-webauthn-conditional-ui①">10.3. Joining different payment instruments</a>
    </ul>
   </aside>
@@ -1922,7 +1920,7 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="dom-authenticationextensionsclientinputs-payment">
    <b><a href="#dom-authenticationextensionsclientinputs-payment">#dom-authenticationextensionsclientinputs-payment</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment">3. Enrollment</a>
+    <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment">3. Registration</a>
     <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment①">4.1.6. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment②">9.1.1. Login Attack</a> <a href="#ref-for-dom-authenticationextensionsclientinputs-payment③">(2)</a>
    </ul>

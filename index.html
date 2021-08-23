@@ -267,7 +267,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-22">22 August 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-23">23 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -694,10 +694,15 @@ API.</div>
    </dl>
    <h2 class="heading settled" data-level="3" id="sctn-enrollment"><span class="secno">3. </span><span class="content">Enrollment</span><a class="self-link" href="#sctn-enrollment"></a></h2>
    <p>To enroll a user for Secure Payment Confirmation, relying parties should call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create">navigator.credentials.create()</a></code>, with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment">payment</a></code> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions①">WebAuthn Extension</a> specified.</p>
-   <p class="note" role="note"><span>Note:</span> We currently require an extension in order to allow (1) credential
-      creation in a cross-origin iframe (which WebAuthn does not yet allow)
-      and (2) the browser to cache SPC credentials in the absence of <a data-link-type="dfn" href="#webauthn-conditional-ui" id="ref-for-webauthn-conditional-ui">WebAuthn Conditional UI</a>. Future versions of this specification may
-      remove the requirement for the extension once WebAuthn supports these.</p>
+   <p class="note" role="note"><span>Note:</span> In this specification we define an extension in order to allow
+      (1) credential creation in a cross-origin iframe (which WebAuthn
+      does not yet allow) and (2) the browser to cache SPC credentials
+      in the absence of <a data-link-type="dfn" href="#webauthn-conditional-ui" id="ref-for-webauthn-conditional-ui">WebAuthn Conditional UI</a>. If these
+      capabilities are available in future versions of WebAuthn, we
+      may remove the requirement for the extension from SPC. Note that
+      SPC credentials (with the extension) are otherwise full-fledged
+      WebAuthn credentials. This specification does not preclude their
+      use in other use-cases (e.g., login).</p>
    <h2 class="heading settled" data-level="4" id="sctn-authentication"><span class="secno">4. </span><span class="content">Authentication</span><a class="self-link" href="#sctn-authentication"></a></h2>
    <p>To authenticate a payment via Secure Payment Confirmation, this specification
 defines a new <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-method" id="ref-for-dfn-payment-method①">payment method</a>, "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation">secure-payment-confirmation</a>". This
@@ -1784,7 +1789,7 @@ with a random salt, making them non-consistent across calls.</p>
    <dt id="biblio-payment-method-id">[PAYMENT-METHOD-ID]
    <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. 5 September 2019. CR. URL: <a href="https://www.w3.org/TR/payment-method-id/">https://www.w3.org/TR/payment-method-id/</a>
    <dt id="biblio-payment-request">[PAYMENT-REQUEST]
-   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-request/"><cite>Payment Request API</cite></a>. 22 July 2021. CR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
+   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-request/"><cite>Payment Request API</cite></a>. 23 August 2021. CR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
    <dt id="biblio-webauthn-1">[WEBAUTHN-1]
    <dd>Dirk Balfanz; et al. <a href="https://www.w3.org/TR/webauthn-1/"><cite>Web Authentication:An API for accessing Public Key Credentials Level 1</cite></a>. 4 March 2019. REC. URL: <a href="https://www.w3.org/TR/webauthn-1/">https://www.w3.org/TR/webauthn-1/</a>
    <dt id="biblio-webidl">[WebIDL]

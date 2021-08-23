@@ -398,7 +398,7 @@ ensure that the use of the assertion matches the expected interaction type.
 
 In this attack, a malicious third-party tries to use SPC (again with either
 legimitately or illictly obtained credentials) to initiate an unauthorized
-payment. The attack is infeasible:
+payment. Such an attack has a low chance of success for several reasons:
 
 * When the attacker initiates SPC, the user will be shown an interface by the
     User Agent that clearly states the transaction details (including the payee
@@ -430,11 +430,16 @@ it is initiating a purchase of $100, but then pass $1 to the SPC API (and thus
 show the Customer a $1 transaction to verify).
 
 This form of attack already exists on the web today (where an Account Provider
-largely has to trust that the Merchant is showing the correct details), and SPC
-actually makes it harder to perform this attack. After receiving an assertion,
-the Account Provider can (and should) verify the payment data in the assertion
-to ensure it aligns with the transaction details provided to the Account
-Provider by the Merchant.
+largely has to trust that the Merchant is showing the correct details). We
+anticipate that SPC will provide better protection against this attack when
+used according to this common pattern:
+
+* The Merchant provides some "pre-authentication" transaction information
+  (including merchant name and amount) to the Account Provider over a backend
+  protocol.
+* After receiving an assertion, the Account Provider can (and should) compare
+  the pre-authentication details with the assertion details to ensure that they
+  align.
 
 ## Privacy Considerations
 

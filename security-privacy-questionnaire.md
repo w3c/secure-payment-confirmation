@@ -76,10 +76,9 @@ information that will be shown to the user in a native UI:
 * Intended payee
 
 This information is displayed to the user in the user agent's native UI when
-this credential is exercised via Payment Request API. It could be spoofed by
-the merchant, however the issuing bank that receives the assertion will be able
-to detect this and reject the payment (and take action against the merchant as
-appropriate).
+this credential is exercised. If the merchant provides incorrect or fraudulent
+data to the API for confirmation by the user, the Relying Party can detect this
+when validating the assertion and reject the transaction.
 
 ## 12. What temporary identifiers might this this specification create or expose to the web?
 

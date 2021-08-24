@@ -3,20 +3,16 @@
 ## 1. What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary?
 
 This feature allows a web site that is not the original Relying Party of a
-`PaymentCredential` (which is a public key credential) to exercise the
-credential via the Payment Request API to sign over transaction data. This is to
-allow a merchant or a Payment Service Provider (PSP) that represents the
-merchant to request strong authentication of the payment instrument used in the
-transaction without redirecting to the issuing bank of the payment instrument.
-Minimizing redirection or any form of friction is critical to avoid cart
-abandonment during a checkout process. Direct authentication using the issuing
-bank's credential is necessary because the merchant or PSP may be fradulent.
-
-This feature also allows a web site to find out that a given credential does not
-exist - the `paymentRequest.show()` call will reject if no matching credential
-is found. We believe this does not pose a significant probing risk because
-`paymentRequest.show()` consumes a user activation. This makes it hard for a
-malicious merchant to automate probing at scale.
+`PublicKeyCredential` to exercise the credential in order to sign over
+transaction data. This is to allow a merchant or a Payment Service Provider
+(PSP) that represents the merchant to request strong authentication of the
+payment instrument used in the transaction without redirecting to the issuing
+bank of the payment instrument. Minimizing redirection or any form of friction
+is critical to avoid cart abandonment during a checkout process. In many
+payment systems, the Account Provider wishes (or is required by regulation) to
+authenticate the user for fraud protection; SPC allows them to fulfill the
+requirement to validate the authentication while enabling the merchant to
+manage the user experience.
 
 ## 2. Is this specification exposing the minimum amount of information necessary to power the feature?
 
@@ -28,26 +24,22 @@ This feature does not collect or expose any such information.
 
 ## 4. How does this specification deal with sensitive information?
 
-The only sensitive information this feature handles is an opaque string that can
-be mapped to a payment instrument by an issuing bank. This instrument ID is
-saved in the user agent along side the public key credential when the issuing
-bank creates a `PaymentCredential`. Later, an origin that has access to this
-instrument ID, presumably via a trusted server integration with the issuing
-bank, can provide it to the user agent via [Payment Request API] to exercise the
-corresponding `PaymentCredential`.
+The only sensitive information this feature handles relates to the (WebAuthn)
+credential ID of the created credential. This credential ID is saved in the
+user agent along side the Relying Party ID when the issuing bank creates an
+SPC-enabled `PublicKeyCredential`. Later, an origin that has access to this
+credential ID, presumably via a trusted server integration with the issuing
+bank, can provide it to the user agent via [Payment Request API] to exercise
+the corresponding `PublicKeyCredential`.
 
 ## 5. Does this specification introduce new state for an origin that persists across browsing sessions?
 
-This feature allows an issuing bank to persist an icon, a descriptive string and
-an issuer-defined payment instrument ID with a public key credential when it
-creates a new `PaymentCredential`. However, this data is only used by the
-user agent to render UI to the user, and cannot be queried via JavaScript.
+No.
 
 ## 6. What information from the underlying platform, e.g. configuration data, is exposed by this specification to an origin?
 
-This feature allows a web site to detect, after consuming a user activation,
-that the underlying platform does not have a credential with the credential ID
-provided by the website.
+None; as with WebAuthn we take care not to expose e.g. credential existence (or
+lack thereof) to any caller.
 
 ## 7. Does this specification allow an origin access to sensors on a user’s device
 
@@ -76,10 +68,17 @@ No.
 
 ## 11. Does this specification allow an origin some measure of control over a user agent's native UI?
 
-Yes. This feature allows an origin (usually a bank) to associate an icon and a
-descriptive string with a public key credential. This icon and string are
-displayed to the user in the user agent's native UI when this credential is
-exercised via Payment Request API.
+Yes. This feature allows an origin (usually a bank) to provide a set of
+information that will be shown to the user in a native UI:
+
+* Payment instrument icon and string
+* Payment amount and currency
+* Intended payee
+
+This information is displayed to the user in the user agent's native UI when
+this credential is exercised. If the merchant provides incorrect or fraudulent
+data to the API for confirmation by the user, the Relying Party can detect this
+when validating the assertion and reject the transaction.
 
 ## 12. What temporary identifiers might this this specification create or expose to the web?
 
@@ -88,13 +87,16 @@ created by [Web Authentication].
 
 ## 13. How does this specification distinguish between behavior in first-party and third-party contexts?
 
-This feature inherits the behavior from [Payment Request API] and
-[Web Authentication], namely:
+This feature mostly inherits the behavior from [Web Authentication], with the
+following exceptions:
 
-- A `PaymentCredential` can only be created in a first-party secure context.
-- A `PaymentCredential` can be exercised in any context where Payment Request
-  API is allowed, i.e. a first-party secure context, or a third-party secure
-  context with [delegated permission] from the top-level context.
+- When a Relying Party is embedded in a cross-origin iframe that has [delegated
+  permission], that Relying Party is able to register an SPC-enabled
+  `PublicKeyCredential` for itself.
+- A SPC-enabled `PublicKeyCredential` can be exercised in any context where
+  Payment Request API is allowed, i.e. a first-party secure context, or a
+  third-party secure context with [delegated permission] from the top-level
+  context.
 
 [delegated permission]: https://w3c.github.io/payment-request/#permissions-policy
 

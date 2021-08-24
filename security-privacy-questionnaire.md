@@ -89,9 +89,9 @@ created by [Web Authentication].
 This feature mostly inherits the behavior from [Web Authentication], with the
 following exceptions:
 
-- A SPC-enabled `PublicKeyCredentials` can be created in a third-party secure
-  context, **for that third-party**, if given [delegated permission] from
-  the top-level context.
+- When a Relying Party is embedded in a cross-origin iframe that has [delegated
+  permission], that Relying Party is able to register an SPC-enabled
+  `PublicKeyCredential` for itself.
 - A SPC-enabled `PublicKeyCredential` can be exercised in any context where
   Payment Request API is allowed, i.e. a first-party secure context, or a
   third-party secure context with [delegated permission] from the top-level

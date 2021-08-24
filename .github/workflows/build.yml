@@ -15,3 +15,4 @@ jobs:
           GH_PAGES_BRANCH: gh-pages
           TOOLCHAIN: bikeshed
           SOURCE: spec.bs
+          DESTNATION: index.html

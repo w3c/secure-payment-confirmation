@@ -1,0 +1,2170 @@
+<!doctype html><html lang="en">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Secure Payment Confirmation</title>
+  <meta content="w3c/ED" name="w3c-status">
+  <meta content="Bikeshed version 4f053d00e, updated Tue Aug 10 14:13:32 2021 -0700" name="generator">
+  <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
+  <meta content="84269212c3a601ef461a9b4444b51e247b4e566e" name="document-revision">
+<style>/* style-autolinks */
+
+.css.css, .property.property, .descriptor.descriptor {
+    color: var(--a-normal-text);
+    font-size: inherit;
+    font-family: inherit;
+}
+.css::before, .property::before, .descriptor::before {
+    content: "‘";
+}
+.css::after, .property::after, .descriptor::after {
+    content: "’";
+}
+.property, .descriptor {
+    /* Don't wrap property and descriptor names */
+    white-space: nowrap;
+}
+.type { /* CSS value <type> */
+    font-style: italic;
+}
+pre .property::before, pre .property::after {
+    content: "";
+}
+[data-link-type="property"]::before,
+[data-link-type="propdesc"]::before,
+[data-link-type="descriptor"]::before,
+[data-link-type="value"]::before,
+[data-link-type="function"]::before,
+[data-link-type="at-rule"]::before,
+[data-link-type="selector"]::before,
+[data-link-type="maybe"]::before {
+    content: "‘";
+}
+[data-link-type="property"]::after,
+[data-link-type="propdesc"]::after,
+[data-link-type="descriptor"]::after,
+[data-link-type="value"]::after,
+[data-link-type="function"]::after,
+[data-link-type="at-rule"]::after,
+[data-link-type="selector"]::after,
+[data-link-type="maybe"]::after {
+    content: "’";
+}
+
+[data-link-type].production::before,
+[data-link-type].production::after,
+.prod [data-link-type]::before,
+.prod [data-link-type]::after {
+    content: "";
+}
+
+[data-link-type=element],
+[data-link-type=element-attr] {
+    font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    font-size: .9em;
+}
+[data-link-type=element]::before { content: "<" }
+[data-link-type=element]::after  { content: ">" }
+
+[data-link-type=biblio] {
+    white-space: pre;
+}</style>
+<style>/* style-counters */
+
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
+}
+
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}</style>
+<style>/* style-dfn-panel */
+
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    height: auto;
+    width: -webkit-fit-content;
+    width: fit-content;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0; }
+.dfn-panel li { list-style: inside; }
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled { cursor: pointer; }
+</style>
+<style>/* style-md-lists */
+
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}</style>
+<style>/* style-selflinks */
+
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* style-syntax-highlighting */
+
+            pre.idl.highlight {
+                background: var(--borderedblock-bg, var(--def-bg));
+            }
+            
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+</style>
+  <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
+ <body class="h-entry">
+  <div class="head">
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
+   <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-24">24 August 2021</time></span></h2>
+   <div data-fill-with="spec-metadata">
+    <dl>
+     <dt>This version:
+     <dd><a class="u-url" href="https://w3c.github.io/secure-payment-confirmation">https://w3c.github.io/secure-payment-confirmation</a>
+     <dt>Latest published version:
+     <dd><a href="https://www.w3.org/TR/secure-payment-confirmation/">https://www.w3.org/TR/secure-payment-confirmation/</a>
+     <dt>Issue Tracking:
+     <dd><a href="https://github.com/w3c/secure-payment-confirmation/issues/">GitHub</a>
+     <dt class="editor">Editors:
+     <dd class="editor p-author h-card vcard" data-editor-id="83784"><a class="p-name fn u-email email" href="mailto:rouslan@chromium.org">Rouslan Solomakhin</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
+     <dd class="editor p-author h-card vcard" data-editor-id="96463"><a class="p-name fn u-email email" href="mailto:smcgruer@chromium.org">Stephen McGruer</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
+    </dl>
+   </div>
+   <div data-fill-with="warning"></div>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2021 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <hr title="Separator for header">
+  </div>
+  <div class="p-summary" data-fill-with="abstract">
+   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+   <p>Secure Payment Confirmation (SPC) is a Web API to support streamlined
+
+  authentication during a payment transaction. It is designed to scale authentication
+  across merchants, to be used within a wide range of authentication protocols, and
+  to produce cryptographic evidence that the user has confirmed transaction details.</p>
+  </div>
+  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
+  <div data-fill-with="status">
+   <p><em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current W3C publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/">W3C technical reports index</a> at https://www.w3.org/TR/.</em></p>
+   <p> This document was published by the <a href="https://www.w3.org/Payments/WG/">Web Payments Working Group</a> as an Editors' Draft. This document is intended to become a W3C Recommendation.
+
+    Feedback and comments on this specification are welcome. Please use <a href="https://github.com/w3c/secure-payment-confirmation/issues">Github issues</a>.
+    Discussions may also be found in the <a href="https://lists.w3.org/Archives/Public/public-payments-wg/">public-payments-wg@w3.org archives</a>. </p>
+   <p> Publication as an Editors' Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may
+    be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite
+    this document as other than work in progress. </p>
+   <p> This document was produced by a group operating under the <a href="https://www.w3.org/Consortium/Patent-Policy-20170801/"> <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/groups/wg/payments/ipr" rel="disclosure">public list of any
+    patent disclosures</a> made in connection with the deliverables of the group; that page also
+    includes instructions for disclosing a patent. An individual who has actual knowledge of a
+    patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy-20170801/#def-essential">Essential
+    Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy-20170801/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. </p>
+   <p> This document is governed by the <a href="https://www.w3.org/2020/Process-20200915/" id="w3c_process_revision">15 September 2020 W3C Process Document</a>. </p>
+   <p></p>
+  </div>
+  <div data-fill-with="at-risk"></div>
+  <nav data-fill-with="table-of-contents" id="toc">
+   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
+   <ol class="toc" role="directory">
+    <li>
+     <a href="#sctn-intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
+     <ol class="toc">
+      <li>
+       <a href="#sctn-use-cases"><span class="secno">1.1</span> <span class="content">Use Cases</span></a>
+       <ol class="toc">
+        <li><a href="#sctn-use-case-verifying-payment"><span class="secno">1.1.1</span> <span class="content">Cryptographic evidence of transaction confirmation</span></a>
+        <li><a href="#sctn-use-case-iframe-registration"><span class="secno">1.1.2</span> <span class="content">Registration in a third-party iframe</span></a>
+        <li><a href="#sctn-use-case-merchant-authentication"><span class="secno">1.1.3</span> <span class="content">Merchant control of authentication</span></a>
+       </ol>
+      <li>
+       <a href="#sctn-sample-scenarios"><span class="secno">1.2</span> <span class="content">Sample API Usage Scenarios</span></a>
+       <ol class="toc">
+        <li><a href="#sctn-sample-registration"><span class="secno">1.2.1</span> <span class="content">Registration</span></a>
+        <li><a href="#sctn-sample-authentication"><span class="secno">1.2.2</span> <span class="content">Authentication</span></a>
+       </ol>
+     </ol>
+    <li><a href="#sctn-dependencies"><span class="secno">2</span> <span class="content">Dependencies</span></a>
+    <li><a href="#sctn-registration"><span class="secno">3</span> <span class="content">Registration</span></a>
+    <li>
+     <a href="#sctn-authentication"><span class="secno">4</span> <span class="content">Authentication</span></a>
+     <ol class="toc">
+      <li>
+       <a href="#sctn-payment-method-spc"><span class="secno">4.1</span> <span class="content">Payment Method: Secure Payment Confirmation</span></a>
+       <ol class="toc">
+        <li><a href="#sctn-payment-method-identifier"><span class="secno">4.1.1</span> <span class="content">Payment Method Identifier</span></a>
+        <li><a href="#sctn-monkey-patch-payment-method-id"><span class="secno">4.1.2</span> <span class="content">Monkey-patch to <span>[payment-method-id]</span></span></a>
+        <li><a href="#sctn-securepaymentconfirmationrequest-dictionary"><span class="secno">4.1.3</span> <span class="content"><span><code>SecurePaymentConfirmationRequest</code></span> Dictionary</span></a>
+        <li><a href="#sctn-steps-to-check-if-a-payment-can-be-made"><span class="secno">4.1.4</span> <span class="content">Steps to check if a payment can be made</span></a>
+        <li><a href="#sctn-transaction-confirmation-ux"><span class="secno">4.1.5</span> <span class="content">Displaying a transaction confirmation UX</span></a>
+        <li><a href="#sctn-steps-to-respond-to-a-payment-request"><span class="secno">4.1.6</span> <span class="content">Steps to respond to a payment request</span></a>
+       </ol>
+     </ol>
+    <li>
+     <a href="#sctn-payment-extension-registration"><span class="secno">5</span> <span class="content">WebAuthn Extension - "<code>payment</code>"</span></a>
+     <ol class="toc">
+      <li><a href="#sctn-collectedclientpaymentdata-dictionary"><span class="secno">5.1</span> <span class="content"><span><code>CollectedClientPaymentData</code></span> Dictionary</span></a>
+      <li><a href="#sctn-collectedclientadditionalpaymentdata-dictionary"><span class="secno">5.2</span> <span class="content"><span><code>CollectedClientAdditionalPaymentData</code></span> Dictionary</span></a>
+     </ol>
+    <li>
+     <a href="#sctn-common-data-structures"><span class="secno">6</span> <span class="content">Common Data Structures</span></a>
+     <ol class="toc">
+      <li><a href="#sctn-paymentcredentialinstrument-dictionary"><span class="secno">6.1</span> <span class="content"><span><code>PaymentCredentialInstrument</code></span> Dictionary</span></a>
+     </ol>
+    <li><a href="#sctn-permissions-policy"><span class="secno">7</span> <span class="content">Permissions Policy integration</span></a>
+    <li>
+     <a href="#sctn-relying-party-operations"><span class="secno">8</span> <span class="content">SPC Relying Party Operations</span></a>
+     <ol class="toc">
+      <li><a href="#sctn-verifying-assertion"><span class="secno">8.1</span> <span class="content">Verifying an Authentication Assertion</span></a>
+     </ol>
+    <li>
+     <a href="#sctn-security-considerations"><span class="secno">9</span> <span class="content">Security Considerations</span></a>
+     <ol class="toc">
+      <li>
+       <a href="#sctn-security-cross-origin-auth"><span class="secno">9.1</span> <span class="content">Cross-origin authentication ceremony</span></a>
+       <ol class="toc">
+        <li><a href="#sctn-security-login-attack"><span class="secno">9.1.1</span> <span class="content">Login Attack</span></a>
+        <li><a href="#sctn-security-payment-attack"><span class="secno">9.1.2</span> <span class="content">Payment Attack</span></a>
+       </ol>
+      <li><a href="#sctn-security-merchant-data"><span class="secno">9.2</span> <span class="content">Merchant-supplied authentication data</span></a>
+     </ol>
+    <li>
+     <a href="#sctn-privacy-considerations"><span class="secno">10</span> <span class="content">Privacy Considerations</span></a>
+     <ol class="toc">
+      <li><a href="#sctn-security-cross-origin-registration"><span class="secno">10.1</span> <span class="content">Registration in a Cross-Origin iframe</span></a>
+      <li><a href="#sctn-privacy-probing-credential-ids"><span class="secno">10.2</span> <span class="content">Probing for credential ids</span></a>
+      <li><a href="#sctn-privacy-joining-payment-instruments"><span class="secno">10.3</span> <span class="content">Joining different payment instruments</span></a>
+      <li><a href="#sctn-privacy-credential-id-tracking-vector"><span class="secno">10.4</span> <span class="content">Credential ID(s) as a tracking vector</span></a>
+     </ol>
+    <li><a href="#sctn-accessibility-considerations"><span class="secno">11</span> <span class="content">Accessibility Considerations</span></a>
+    <li>
+     <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
+     <ol class="toc">
+      <li><a href="#w3c-conventions"><span class="secno"></span> <span class="content">Document conventions</span></a>
+      <li><a href="#w3c-conformant-algorithms"><span class="secno"></span> <span class="content">Conformant Algorithms</span></a>
+     </ol>
+    <li>
+     <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
+     <ol class="toc">
+      <li><a href="#index-defined-here"><span class="secno"></span> <span class="content">Terms defined by this specification</span></a>
+      <li><a href="#index-defined-elsewhere"><span class="secno"></span> <span class="content">Terms defined by reference</span></a>
+     </ol>
+    <li>
+     <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
+     <ol class="toc">
+      <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
+      <li><a href="#informative"><span class="secno"></span> <span class="content">Informative References</span></a>
+     </ol>
+    <li><a href="#idl-index"><span class="secno"></span> <span class="content">IDL Index</span></a>
+   </ol>
+  </nav>
+  <main>
+   <div class="non-normative">
+    <h2 class="heading settled" data-level="1" id="sctn-intro"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#sctn-intro"></a></h2>
+    <p><em>This section and its sub-sections are non-normative.</em></p>
+    <p>This specification defines an API that enables the use of strong authentication
+methods in payment flows on the web. It aims to provide the same authentication
+benefits and user privacy focus as <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> with enhancements to meet the needs of payment processing.</p>
+    <p>Similarly to <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, this specification defines two related
+processes involving a user. The first is <a href="#sctn-registration">§ 3 Registration</a> (formerly "enrollment"), where a relationship is created between the
+user and the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party">Relying Party</a>. The second is <a href="#sctn-authentication">§ 4 Authentication</a>, where the user responds to a challenge from
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①">Relying Party</a> (possibly via an intermediary payment service
+provider) to consent to a specific payment. An important feature of
+Secure Payment Confirmation is that the merchant (or another entity)
+may initiate the authentication ceremony on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②">Relying Party’s</a> behalf.</p>
+    <p>Functionally, this specification defines a new <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-method" id="ref-for-dfn-payment-method">payment method</a> for the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest">PaymentRequest</a></code> API, and adds a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions">WebAuthn Extension</a> to extend <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> with payment-specific datastructures and to relax assumptions to
+allow the API to be called in payment contexts.</p>
+    <h3 class="heading settled" data-level="1.1" id="sctn-use-cases"><span class="secno">1.1. </span><span class="content">Use Cases</span><a class="self-link" href="#sctn-use-cases"></a></h3>
+    <p>Although <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> provides general authentication capabilities
+for the Web, the following use cases illustrate the value of the
+payment-specific extension defined in this specification.</p>
+    <p>We presume that the general use case of cryptographic-based
+authentication for online transactions is well established.</p>
+    <p class="note" role="note"><span>Note:</span> These sections are still a WIP.</p>
+    <h4 class="heading settled" data-level="1.1.1" id="sctn-use-case-verifying-payment"><span class="secno">1.1.1. </span><span class="content">Cryptographic evidence of transaction confirmation</span><a class="self-link" href="#sctn-use-case-verifying-payment"></a></h4>
+    <p>In many online payment systems, it is common for the entity (e.g.,
+bank) that issues a payment instrument to seek to reduce fraud through
+authentication. <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> and this specification make it possible
+to use authenticators to cryptographically sign important payment-specific
+information such as the origin of the merchant and the transaction
+amount and currency. The bank, as the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③">Relying Party</a>, can then verify
+the signed payment-specific information as part of the decision to authorize
+the payment.</p>
+    <p>If the bank uses plain <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, the payment-specific
+information to be verified must be stored in the WebAuthn <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge" id="ref-for-dom-publickeycredentialrequestoptions-challenge">challenge</a></code>. This raises several
+issues:</p>
+    <ol>
+     <li data-md>
+      <p>It is a misuse of the <code>challenge</code> field (which is intended to defeat replay
+attacks).</p>
+     <li data-md>
+      <p>There is no specification for this, so each bank is likely to have
+to devise its own format for how payment-specific information should be formatted and encoded in the challenge, complicating deployment and increasing fragmentation.</p>
+     <li data-md>
+      <p>Regulations may require evidence that the user was shown and agreed to the payment-specific information. Plain <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> does not provide for this display: there is no specified UX associated with information stored in the <code>challenge</code> field.</p>
+    </ol>
+    <p>These limitations motivate the following Secure Payment Confirmation behaviors:</p>
+    <ol>
+     <li data-md>
+      <p>The <code>challenge</code> field is only used to defeat replay attacks, as with plain <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>.</p>
+     <li data-md>
+      <p>SPC specifies a format for payment-specific information.
+This will enable development
+of generic verification code and test suites.</p>
+     <li data-md>
+      <p>SPC guarantees that the user agent has presented the
+payment-specific information to the user in a way
+that a malicious website (or maliciously introduced
+JavaScript code on a trusted website) cannot bypass.</p>
+      <ul>
+       <li data-md>
+        <p>The payment-specific information is included in the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata">CollectedClientData</a></code> dictionary, which cannot be tampered with via JavaScript.</p>
+      </ul>
+      <p class="note" role="note"><span>NOTE:</span> Banks and other stakeholders in the payments ecosystem trust
+payments via browsers sufficiently today using TLS, iframes, and
+other Web features. The current specification is designed to
+increase the security and usability of Web payments.</p>
+    </ol>
+    <h4 class="heading settled" data-level="1.1.2" id="sctn-use-case-iframe-registration"><span class="secno">1.1.2. </span><span class="content">Registration in a third-party iframe</span><a class="self-link" href="#sctn-use-case-iframe-registration"></a></h4>
+    <p>If a bank wishes to use <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> as the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④">Relying Party</a>, that
+specification requires the bank to register the user in a first party
+context. Registration can happen outside of a transaction while the user
+is visiting the bank’s site. It is also useful to be able to register
+the user during a transaction, but any registration that interrupts the
+payment journey creates a risk of transaction abandonment.</p>
+    <p>This limitation motivates the following Secure Payment Confirmation behavior:</p>
+    <ol>
+     <li data-md>
+      <p>SPC supports cross-origin registration from an iframe in a third-party context. For instance, this registration might take place following some other ID&amp;V flow (e.g., SMS OTP).</p>
+    </ol>
+    <ul>
+     <li data-md>
+      <p>See <a href="https://github.com/w3c/webauthn/issues/1336#issuecomment-554170183">discussion on WebAuthn issue 1336</a>.</p>
+    </ul>
+    <h4 class="heading settled" data-level="1.1.3" id="sctn-use-case-merchant-authentication"><span class="secno">1.1.3. </span><span class="content">Merchant control of authentication</span><a class="self-link" href="#sctn-use-case-merchant-authentication"></a></h4>
+    <p>Merchants seek to avoid user drop-off during checkout, in particular by
+reducing authentication friction. A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤">Relying Party</a> (e.g., a bank)
+that wishes to use <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> to authenticate the user typically
+does so from an iframe. However, merchants would prefer to manage
+the user experience of authenticating the user while still enabling
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑥">Relying Party</a> to verify the results of authentication.</p>
+    <p>This limitation motivates the following Secure Payment Confirmation behavior:</p>
+    <ul>
+     <li data-md>
+      <p>With SPC, other parties than the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑦">Relying Party</a> can use authentication credentials <em>on behalf of</em> the Relying Party. The Relying Party can then verify the authentication results.</p>
+    </ul>
+    <p>An additional benefit of this feature to Relying Parties is that they
+no longer need to build their own front-end experiences for
+authentication. Instead, payment service providers are likely to build
+them on behalf of merchants.</p>
+    <p class="note" role="note"><span>NOTE:</span> Relying Parties that wish to provide the authentication user
+experience may still do so using SPC from an iframe.</p>
+    <h3 class="heading settled" data-level="1.2" id="sctn-sample-scenarios"><span class="secno">1.2. </span><span class="content">Sample API Usage Scenarios</span><a class="self-link" href="#sctn-sample-scenarios"></a></h3>
+    <p>In this section, we walk through some scenarios for Secure Payment Confirmation
+and the corresponding sample code for using this API. Note that these are
+example flows and do not limit the scope of how the API can be used.</p>
+    <h4 class="heading settled" data-level="1.2.1" id="sctn-sample-registration"><span class="secno">1.2.1. </span><span class="content">Registration</span><a class="self-link" href="#sctn-sample-registration"></a></h4>
+    <p>This is the first-time flow, in which a new credential is created and stored by
+an issuing bank.</p>
+    <ol>
+     <li data-md>
+      <p>The user visits <code>merchant.com</code>, selects an item to purchase, and proceeds
+to the checkout flow. They enter their payment instrument details, and
+indicate that they wish to pay (e.g., by pressing a "Pay" button).</p>
+     <li data-md>
+      <p>The merchant communicates out-of-band (e.g., using another protocol)
+with the bank that issued the payment instrument.
+The issuing bank requests verification of the user,
+and provides a bank-controlled URL for the merchant to open in an iframe.</p>
+     <li data-md>
+      <p>The merchant opens an iframe to <code>bank.com</code>, with the <code>allow</code> attribute set
+to "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission">payment</a>".</p>
+     <li data-md>
+      <p>In the iframe, the issuing bank confirms the user’s identity via a
+traditional means (e.g., SMS OTP). After confirmation, the
+bank invites the user to register in SPC authentication for future payments.</p>
+     <li data-md>
+      <p>The user consents (e.g., by clicking an "Register" button in the bank UX), and
+the bank runs code in the iframe (see example below).</p>
+     <li data-md>
+      <p>The user goes through a WebAuthn registration flow. A new
+credential is created and returned to the issuing bank who stores
+it in their server-side database associated with the user and
+payment instrument(s).</p>
+     <li data-md>
+      <p>The verification completes; the bank iframe closes and the merchant finishes
+the checkout process for the user.</p>
+    </ol>
+    <p>The sample code for registering the user follows:</p>
+<pre class="example highlight" id="registration-example"><a class="self-link" href="#registration-example"></a><c- k>if</c-> <c- p>(</c-><c- o>!</c->window<c- p>.</c->PublicKeyCredential<c- p>)</c-> <c- p>{</c-> <c- d>/* Client not capable. Handle error. */</c-> <c- p>}</c->
+
+<c- a>const</c-> publicKey <c- o>=</c-> <c- p>{</c->
+  <c- c1>// The challenge should be created by the bank server and sent to the iframe.</c->
+  challenge<c- o>:</c-> <c- k>new</c-> Uint8Array<c- p>([</c-><c- mf>21</c-><c- p>,</c-><c- mf>31</c-><c- p>,</c-><c- mf>105</c-> <c- d>/* 29 more random bytes generated by the server */</c-><c- p>]),</c->
+
+  <c- c1>// Relying Party:</c->
+  rp<c- o>:</c-> <c- p>{</c->
+    name<c- o>:</c-> <c- u>"Fancy Bank"</c-><c- p>,</c->
+  <c- p>},</c->
+
+  <c- c1>// User:</c->
+  user<c- o>:</c-> <c- p>{</c->
+    <c- c1>// An id that the bank server can use to identify this user in future interactions.</c->
+    id<c- o>:</c-> Uint8Array<c- p>.</c->from<c- p>(</c->window<c- p>.</c->atob<c- p>(</c-><c- u>"MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="</c-><c- p>),</c-> c<c- p>=></c->c<c- p>.</c->charCodeAt<c- p>(</c-><c- mf>0</c-><c- p>)),</c->
+    name<c- o>:</c-> <c- u>"jane.doe@example.com"</c-><c- p>,</c->
+    displayName<c- o>:</c-> <c- u>"Jane Doe"</c-><c- p>,</c->
+  <c- p>},</c->
+
+  <c- c1>// This Relying Party will accept either an ES256 or RS256 credential, but</c->
+  <c- c1>// prefers an ES256 credential.</c->
+  pubKeyCredParams<c- o>:</c-> <c- p>[</c->
+    <c- p>{</c->
+      type<c- o>:</c-> <c- u>"public-key"</c-><c- p>,</c->
+      alg<c- o>:</c-> <c- o>-</c-><c- mf>7</c-> <c- c1>// "ES256"</c->
+    <c- p>},</c->
+    <c- p>{</c->
+      type<c- o>:</c-> <c- u>"public-key"</c-><c- p>,</c->
+      alg<c- o>:</c-> <c- o>-</c-><c- mf>257</c-> <c- c1>// "RS256"</c->
+    <c- p>}</c->
+  <c- p>],</c->
+
+  <c- c1>// This Relying Party requires user verification.</c->
+  authenticatorSelection<c- o>:</c-> <c- p>{</c->
+    userVerification<c- o>:</c-> <c- u>"required"</c->
+  <c- p>},</c->
+
+  timeout<c- o>:</c-> <c- mf>360000</c-><c- p>,</c->  <c- c1>// 6 minutes</c->
+
+  <c- c1>// Indicate that this is an SPC credential. This is currently required to</c->
+  <c- c1>// allow credential creation in an iframe, and so that the browser knows this</c->
+  <c- c1>// credential relates to SPC.</c->
+  <c- c1>//</c->
+  <c- c1>// It is expected that a future version of the spec may remove the need for</c->
+  <c- c1>// this extension.</c->
+  extensions<c- o>:</c-> <c- p>{</c->
+    <c- u>"payment"</c-><c- o>:</c-> <c- p>{</c->
+      isPayment<c- o>:</c-> <c- kc>true</c-><c- p>,</c->
+    <c- p>}</c->
+  <c- p>}</c->
+<c- p>};</c->
+
+<c- c1>// Note: The following call will cause the authenticator to display UI.</c->
+navigator<c- p>.</c->credentials<c- p>.</c->create<c- p>({</c-> publicKey <c- p>})</c->
+  <c- p>.</c->then<c- p>(</c-><c- a>function</c-> <c- p>(</c->newCredentialInfo<c- p>)</c-> <c- p>{</c->
+    <c- c1>// Send new credential info to server for verification and registration.</c->
+  <c- p>}).</c-><c- k>catch</c-><c- p>(</c-><c- a>function</c-> <c- p>(</c->err<c- p>)</c-> <c- p>{</c->
+    <c- c1>// No acceptable authenticator or user refused consent. Handle appropriately.</c->
+  <c- p>});</c->
+</pre>
+   </div>
+   <h4 class="heading settled" data-level="1.2.2" id="sctn-sample-authentication"><span class="secno">1.2.2. </span><span class="content">Authentication</span><a class="self-link" href="#sctn-sample-authentication"></a></h4>
+   <p>This is the flow when a user with an already registered credential is
+performing a transaction and the issuing bank and merchant wish to use Secure
+Payment Confirmation.</p>
+   <ol>
+    <li data-md>
+     <p>The user visits <code>merchant.com</code>, selects an item to purchase, and proceeds
+to the checkout flow. They enter their payment instrument details, and
+indicate that they wish to pay (e.g., by pressing a "Pay" button).</p>
+     <p class="note" role="note"><span>Note:</span> The cross-origin use of SPC credentials makes it possible for
+the user to "register once" and authenticate on any merchant origin,
+not just the merchant origin where the user first registered for SPC.</p>
+    <li data-md>
+     <p>The merchant communicates out-of-band
+with the issuing bank of the payment instrument
+(e.g., using another protocol).
+The issuing bank requests verification of the user,
+and at the same time informs the merchant that it accepts SPC by
+providing the information necessary to use the API. This
+information includes a challenge and any credential IDs
+associated with this user and payment instrument(s).</p>
+    <li data-md>
+     <p>The merchant runs the example code shown below.</p>
+    <li data-md>
+     <p>The user agrees to the payment-specific information displayed in the
+SPC UX, and performs a subsequent WebAuthn authentication
+ceremony. The signed cryptogram is returned to the merchant.</p>
+    <li data-md>
+     <p>The merchant communicates the signed cryptogram to the issuing bank
+out-of-band. The issuing bank verifies the cryptogram, and knows
+that the user is valid, what payment-specific information has been
+displayed, and that the user has consented to the transaction. The
+issuing bank authorizes the transaction and the merchant finishes
+the checkout process for the user.</p>
+   </ol>
+   <p>The sample code for authenticating the user follows. Note that the example code
+presumes access to await/async, for easier to read promise handling.</p>
+<pre class="example highlight" id="authentication-example"><a class="self-link" href="#authentication-example"></a><c- k>if</c-> <c- p>(</c-><c- o>!</c->window<c- p>.</c->PaymentRequest<c- p>)</c-> <c- p>{</c-> <c- d>/* PaymentRequest not available; merchant should fallback to traditional flows */</c-> <c- p>}</c->
+
+<c- a>const</c-> request <c- o>=</c-> <c- k>new</c-> PaymentRequest<c- p>([{</c->
+  supportedMethods<c- o>:</c-> <c- u>"secure-payment-confirmation"</c-><c- p>,</c->
+  data<c- o>:</c-> <c- p>{</c->
+    <c- c1>// List of credential IDs obtained from the bank.</c->
+    credentialIds<c- p>,</c->
+
+    <c- c1>// The challenge is also obtained from the bank.</c->
+    challenge<c- o>:</c-> <c- k>new</c-> Uint8Array<c- p>([</c-><c- mf>21</c-><c- p>,</c-><c- mf>31</c-><c- p>,</c-><c- mf>105</c-> <c- d>/* 29 more random bytes generated by the bank */</c-><c- p>]),</c->
+
+    instrument<c- o>:</c-> <c- p>{</c->
+      displayName<c- o>:</c-> <c- u>"Fancy Card ****1234"</c-><c- p>,</c->
+      icon<c- o>:</c-> <c- u>"https://fancybank.com/card-art.png"</c-><c- p>,</c->
+    <c- p>},</c->
+
+    payeeOrigin<c- o>:</c-> <c- u>"https://merchant.com"</c-><c- p>,</c->
+
+    timeout<c- o>:</c-> <c- mf>360000</c-><c- p>,</c->  <c- c1>// 6 minutes</c->
+  <c- p>}],</c-> <c- p>{</c->
+    total<c- o>:</c-> <c- p>{</c->
+      label<c- o>:</c-> <c- u>"Total"</c-><c- p>,</c->
+      amount<c- o>:</c-> <c- p>{</c->
+        currency<c- o>:</c-> <c- u>"USD"</c-><c- p>,</c->
+        value<c- o>:</c-> <c- u>"5.00"</c-><c- p>,</c->
+      <c- p>},</c->
+    <c- p>},</c->
+  <c- p>});</c->
+
+<c- k>try</c-> <c- p>{</c->
+  <c- a>const</c-> canMakePayment <c- o>=</c-> <c- k>await</c-> request<c- p>.</c->canMakePayment<c- p>();</c->
+  <c- k>if</c-> <c- p>(</c-><c- o>!</c->canMakePayment<c- p>)</c-> <c- p>{</c-> <c- k>throw</c-> <c- k>new</c-> Error<c- p>(</c-><c- t>'Cannot make payment'</c-><c- p>);</c-> <c- p>}</c->
+
+  <c- a>const</c-> response <c- o>=</c-> <c- k>await</c-> request<c- p>.</c->show<c- p>();</c->
+  <c- k>await</c-> response<c- p>.</c->complete<c- p>(</c-><c- t>'success'</c-><c- p>);</c->
+
+  <c- c1>// response.data is a PublicKeyCredential, with a clientDataJSON that</c->
+  <c- c1>// contains the transaction data for verification by the issuing bank.</c->
+
+  <c- d>/* send response.data to the issuing bank for verification */</c->
+<c- p>}</c-> <c- k>catch</c-> <c- p>(</c->err<c- p>)</c-> <c- p>{</c->
+  <c- d>/* SPC cannot be used; merchant should fallback to traditional flows */</c->
+<c- p>}</c->
+</pre>
+   <h2 class="heading settled" data-level="2" id="sctn-dependencies"><span class="secno">2. </span><span class="content">Dependencies</span><a class="self-link" href="#sctn-dependencies"></a></h2>
+   <p>This specification relies on several other underlying specifications, listed
+below and in <a href="#index-defined-elsewhere">Terms defined by reference</a>.</p>
+   <dl>
+    <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="webauthn-conditional-ui">WebAuthn Conditional UI</dfn>
+    <dd data-md>
+     <p>Secure Payment Confirmation only shows the transaction UX if one of the
+passed credentials is valid for the current device, without requiring a user
+interaction. This concept is not currently part of <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, but is on
+the roadmap for a future enhancement.</p>
+     <p>Until this is available, user agents can consider either storing a local
+cache of WebAuthn credentials created for this device, or always showing the
+transaction UX even if the user may be unable to complete the
+authentication.</p>
+     <div class="note" role="note">TODO: Bikeshed the name.</div>
+     <div class="note" role="note">NOTE: To quickly support an initial SPC experiment,
+this API was designed atop existing implementations of the Payment
+Request and Payment Handler APIs. There is now general agreement
+to explore a design of SPC independent of Payment Request.  We
+therefore expect (without a concrete timeline) that SPC will move
+away from its Payment Request origins. For developers, this should
+improve feature detection, invocation, and other aspects of the
+API.</div>
+   </dl>
+   <h2 class="heading settled" data-level="3" id="sctn-registration"><span class="secno">3. </span><span class="content">Registration</span><a class="self-link" href="#sctn-registration"></a></h2>
+   <p>To register a user for Secure Payment Confirmation, relying parties should call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create">navigator.credentials.create()</a></code>, with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment">payment</a></code> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions①">WebAuthn Extension</a> specified.</p>
+   <p class="note" role="note"><span>Note:</span> In this specification we define an extension in order to allow
+      (1) credential creation in a cross-origin iframe (which WebAuthn
+      does not yet allow) and (2) the browser to cache SPC credentials
+      in the absence of <a data-link-type="dfn" href="#webauthn-conditional-ui" id="ref-for-webauthn-conditional-ui">WebAuthn Conditional UI</a>. If these
+      capabilities are available in future versions of WebAuthn, we
+      may remove the requirement for the extension from SPC. Note that
+      SPC credentials (with the extension) are otherwise full-fledged
+      WebAuthn credentials. This specification does not preclude their
+      use in other use-cases (e.g., login).</p>
+   <h2 class="heading settled" data-level="4" id="sctn-authentication"><span class="secno">4. </span><span class="content">Authentication</span><a class="self-link" href="#sctn-authentication"></a></h2>
+   <p>To authenticate a payment via Secure Payment Confirmation, this specification
+defines a new <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-method" id="ref-for-dfn-payment-method①">payment method</a>, "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation">secure-payment-confirmation</a>". This
+payment method confirms the transaction with the user and then performs an <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-ceremony" id="ref-for-authentication-ceremony">authentication ceremony</a> to authenticate the user and create a signed blob
+representing the authentication ceremony.</p>
+   <p>At a high level, authentication for Secure Payment Confirmation is similar to <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>, with one major conceptual shift. Secure Payment Confirmation
+allows a third-party (e.g., the merchant) to trigger an authentication ceremony
+on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑧">Relying Party</a>, passing in credentials that it has obtained
+from the Relying Party on some other unspecified channel. See <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
+   <h3 class="heading settled" data-level="4.1" id="sctn-payment-method-spc"><span class="secno">4.1. </span><span class="content">Payment Method: Secure Payment Confirmation</span><a class="self-link" href="#sctn-payment-method-spc"></a></h3>
+   <p>This specification defines a new <a data-link-type="dfn" href="https://www.w3.org/TR/payment-request/#dfn-payment-handler" id="ref-for-dfn-payment-handler">payment handler</a>, the <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Secure Payment Confirmation payment handler" data-noexport id="secure-payment-confirmation-payment-handler">Secure Payment Confirmation payment
+handler</dfn>, which handles requests to authenticate a given payment.</p>
+   <div class="note" role="note"> <strong>TODO</strong>: This specification also needs to monkey-patch step 12 of <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-constructor" id="ref-for-dom-paymentrequest-constructor">PaymentRequest’s constructor</a></code> somehow, to enforce
+that when "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation①">secure-payment-confirmation</a>" is used, exactly one method is
+given. </div>
+   <h4 class="heading settled" data-level="4.1.1" id="sctn-payment-method-identifier"><span class="secno">4.1.1. </span><span class="content">Payment Method Identifier</span><a class="self-link" href="#sctn-payment-method-identifier"></a></h4>
+   <p>The <a data-link-type="dfn" href="https://www.w3.org/TR/payment-method-id/#dfn-standardized-payment-method-identifier" id="ref-for-dfn-standardized-payment-method-identifier">standardized payment method identifier</a> for the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler">Secure Payment
+Confirmation payment handler</a> is "<dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="secure-payment-confirmation">secure-payment-confirmation</dfn>".</p>
+   <h4 class="heading settled" data-level="4.1.2" id="sctn-monkey-patch-payment-method-id"><span class="secno">4.1.2. </span><span class="content">Monkey-patch to <a data-link-type="biblio" href="#biblio-payment-method-id">[payment-method-id]</a></span><a class="self-link" href="#sctn-monkey-patch-payment-method-id"></a></h4>
+   <p>Add the following to the <a data-link-type="dfn" href="https://w3c.github.io/payment-method-id/#registry" id="ref-for-registry">registry of standardized payment methods</a> in <a data-link-type="biblio" href="#biblio-payment-method-id">[payment-method-id]</a>:</p>
+   <dl>
+    <dt data-md>"<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation②">secure-payment-confirmation</a>"
+    <dd data-md>
+     <p>The <a href="https://w3c.github.io/secure-payment-confirmation/">Secure Payment Confirmation</a> specification.</p>
+   </dl>
+   <h4 class="heading settled" data-level="4.1.3" id="sctn-securepaymentconfirmationrequest-dictionary"><span class="secno">4.1.3. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-securepaymentconfirmationrequest"><code>SecurePaymentConfirmationRequest</code></dfn> Dictionary</span><a class="self-link" href="#sctn-securepaymentconfirmationrequest-dictionary"></a></h4>
+<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest"><c- g>SecurePaymentConfirmationRequest</c-></a> {
+    <c- b>required</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource"><c- n>BufferSource</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="BufferSource " href="#dom-securepaymentconfirmationrequest-challenge" id="ref-for-dom-securepaymentconfirmationrequest-challenge"><c- g>challenge</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-frozen-array" id="ref-for-idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource①"><c- n>BufferSource</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="FrozenArray<BufferSource> " href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids"><c- g>credentialIds</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument"><c- g>instrument</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-securepaymentconfirmationrequest-timeout" id="ref-for-dom-securepaymentconfirmationrequest-timeout"><c- g>timeout</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin"><c- g>payeeOrigin</c-></a>;
+    <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs"><c- n>AuthenticationExtensionsClientInputs</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="AuthenticationExtensionsClientInputs " href="#dom-securepaymentconfirmationrequest-extensions" id="ref-for-dom-securepaymentconfirmationrequest-extensions"><c- g>extensions</c-></a>;
+};
+</pre>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest①">SecurePaymentConfirmationRequest</a></code> dictionary contains the following
+members:</p>
+   <dl>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-challenge"><code>challenge</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource②">BufferSource</a></span>
+    <dd data-md>
+     <p>A random challenge that the relying party generates on the server side to prevent replay attacks.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-credentialids"><code>credentialIds</code></dfn> member, <span> of type FrozenArray&lt;<a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource③">BufferSource</a>></span>
+    <dd data-md>
+     <p>The list of credential identifiers for the given instrument.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-instrument"><code>instrument</code></dfn> member, <span> of type <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument①">PaymentCredentialInstrument</a></span>
+    <dd data-md>
+     <p>The description of the instrument name and icon to display during registration and to be signed along with the transaction details.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-timeout"><code>timeout</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①">unsigned long</a></span>
+    <dd data-md>
+     <p>The number of milliseconds before the request to sign the transaction details times out. At most 1 hour.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①">USVString</a></span>
+    <dd data-md>
+     <p>The fully qualified <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin">origin</a> of the payee that this SPC call is for (e.g., the merchant).</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-extensions"><code>extensions</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs①">AuthenticationExtensionsClientInputs</a></span>
+    <dd data-md>
+     <p>Any <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions②">WebAuthn extensions</a> that should be used for the passed credential(s). The caller does not need to specify the <a href="#sctn-payment-extension-registration"> payment extension</a>; it is added automatically.</p>
+   </dl>
+   <h4 class="heading settled" data-level="4.1.4" id="sctn-steps-to-check-if-a-payment-can-be-made"><span class="secno">4.1.4. </span><span class="content">Steps to check if a payment can be made</span><a class="self-link" href="#sctn-steps-to-check-if-a-payment-can-be-made"></a></h4>
+   <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made" id="ref-for-dfn-steps-to-check-if-a-payment-can-be-made">steps to check if a payment can be made</a> for this payment method, for an
+input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest②">SecurePaymentConfirmationRequest</a></code> <var>request</var>, are:</p>
+   <ol>
+    <li data-md>
+     <p>If <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids①">credentialIds</a></code> is empty, return <code>false</code>.</p>
+    <li data-md>
+     <p>If <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">payeeOrigin</a></code> is not a fully qualified <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin①">origin</a>, return <code>false</code>.</p>
+    <li data-md>
+     <p>If <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument①">instrument</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname">displayName</a></code> is empty, return <code>false</code>.</p>
+    <li data-md>
+     <p><a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource" id="ref-for-dfn-fetching-an-image-resource">Fetch the image resource</a> for the icon, passing «["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-dom-imageresource-src">src</a></code>" → <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument②">instrument</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon">icon</a></code>]»
+for <em>image</em>. If this fails, return <code>false</code>.</p>
+     <p class="note" role="note"><span>Note:</span> Performing this step here mitigates a privacy leak. <strong>TODO</strong>:
+Document + link-to privacy section.</p>
+    <li data-md>
+     <p>Optionally, the user agent may elect to return <code>false</code>.</p>
+     <p class="note" role="note"><span>Note:</span> This covers the current Chrome behavior of checking whether the
+passed credentials match those on the system, and early-exit if so. This
+is a potential privacy concern, and may be removed.</p>
+    <li data-md>
+     <p>Return <code>true</code>.</p>
+   </ol>
+   <h4 class="heading settled" data-level="4.1.5" id="sctn-transaction-confirmation-ux"><span class="secno">4.1.5. </span><span class="content">Displaying a transaction confirmation UX</span><a class="self-link" href="#sctn-transaction-confirmation-ux"></a></h4>
+   <div class="note" role="note"> <strong>TODO</strong>: We need to determine how best this can be specified. We tend to avoid
+requiring user agents to show specific UX, but in the case of SPC we do want to
+ensure that the appropriate transaction details are communicated to the user
+(either via browser UX or via the authenticator device itself, if it has an
+output). </div>
+   <h4 class="heading settled" data-level="4.1.6" id="sctn-steps-to-respond-to-a-payment-request"><span class="secno">4.1.6. </span><span class="content">Steps to respond to a payment request</span><a class="self-link" href="#sctn-steps-to-respond-to-a-payment-request"></a></h4>
+   <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request" id="ref-for-dfn-steps-to-respond-to-a-payment-request">steps to respond to a payment request</a> for this payment method, for a given <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest①">PaymentRequest</a></code> <var>request</var> and <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest③">SecurePaymentConfirmationRequest</a></code> <var>data</var>, are:</p>
+   <ol>
+    <li data-md>
+     <p>Let <var>topOrigin</var> be the origin of the top-level frame.</p>
+     <div class="note" role="note"><strong>TODO</strong>: Specify this concretely</div>
+    <li data-md>
+     <p>Let <var>payment</var> be a new a <code class="idl"><a data-link-type="idl" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs">AuthenticationExtensionsPaymentInputs</a></code> dictionary, initialized
+as «["<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-ispayment" id="ref-for-dom-authenticationextensionspaymentinputs-ispayment">isPayment</a></code>" → <code>true</code>,
+"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-rp" id="ref-for-dom-authenticationextensionspaymentinputs-rp">rp</a></code>" → <strong>TODO</strong>,
+"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin">topOrigin</a></code>" → <var>topOrigin</var>,
+"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">payeeOrigin</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">payeeOrigin</a></code>,
+"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total">total</a></code>" → <var>request</var>.<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-details" id="ref-for-dfn-details">[[details]]</a>.<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total" id="ref-for-dom-paymentdetailsinit-total">total</a></code>,
+"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument">instrument</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument③">instrument</a></code>]».</p>
+     <div class="note" role="note"><strong>TODO</strong>: We do not have the rp id at this step; maybe that should just go in the extension processing steps?</div>
+    <li data-md>
+     <p>Let <var>extensions</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs②">AuthenticationExtensionsClientInputs</a></code> dictionary whose <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment①">payment</a></code> member is set to <var>payment</var>, and whose other
+members are set from <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-extensions" id="ref-for-dom-securepaymentconfirmationrequest-extensions①">extensions</a></code>.</p>
+    <li data-md>
+     <p>Let <var>publicKeyOpts</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions" id="ref-for-dictdef-publickeycredentialrequestoptions">PublicKeyCredentialRequestOptions</a></code> dictionary, initialized
+as «["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge" id="ref-for-dom-publickeycredentialrequestoptions-challenge①">challenge</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-challenge" id="ref-for-dom-securepaymentconfirmationrequest-challenge①">challenge</a></code>,
+"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout" id="ref-for-dom-publickeycredentialrequestoptions-timeout">timeout</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-timeout" id="ref-for-dom-securepaymentconfirmationrequest-timeout①">timeout</a></code>,
+"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification">userVerification</a></code>" → <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required" id="ref-for-dom-userverificationrequirement-required">required</a></code>,
+"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions" id="ref-for-dom-publickeycredentialrequestoptions-extensions">extensions</a></code>" → <var>extensions</var>]».</p>
+    <li data-md>
+     <p>For each <var>id</var> in <code>data.credentialIds</code>:</p>
+     <ol>
+      <li data-md>
+       <p>Let <var>descriptor</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor" id="ref-for-dictdef-publickeycredentialdescriptor">PublicKeyCredentialDescriptor</a></code> dictionary, initialized as
+«["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type" id="ref-for-dom-publickeycredentialdescriptor-type">type</a></code>" → <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key" id="ref-for-dom-publickeycredentialtype-public-key">public-key</a></code>,
+"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id" id="ref-for-dom-publickeycredentialdescriptor-id">id</a></code>" → <var>id</var>,
+"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports" id="ref-for-dom-publickeycredentialdescriptor-transports">transports</a></code>" → a sequence of length 1 whose only member is <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatortransport-internal" id="ref-for-dom-authenticatortransport-internal">internal</a></code>]».</p>
+      <li data-md>
+       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-append" id="ref-for-list-append">Append</a> <var>descriptor</var> to <var>publicKeyOpts</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials" id="ref-for-dom-publickeycredentialrequestoptions-allowcredentials">allowCredentials</a></code>.</p>
+     </ol>
+    <li data-md>
+     <p>Let <var>outputCredential</var> be the result of running the algorithm to <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential" id="ref-for-abstract-opdef-request-a-credential">Request a Credential</a>, passing «["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey" id="ref-for-dom-credentialrequestoptions-publickey">publicKey</a></code>"
+→ <var>publicKeyOpts</var>]».</p>
+     <p class="note" role="note"><span>Note:</span> This triggers <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>'s <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">Get</a> behavior</p>
+    <li data-md>
+     <p>Return <var>outputCredential</var>.</p>
+   </ol>
+   <h2 class="heading settled" data-level="5" id="sctn-payment-extension-registration"><span class="secno">5. </span><span class="content">WebAuthn Extension - "<code>payment</code>"</span><a class="self-link" href="#sctn-payment-extension-registration"></a></h2>
+   <p>This <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#client-extension" id="ref-for-client-extension">client</a> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension">registration extension</a> and <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension">authentication extension</a> indicates that a credential is either being
+created for or used for Secure Payment Confirmation, respectively.</p>
+   <p>For registration, this extension relaxes the WebAuthn requirements to allow
+credential creation in a cross-origin iframe, and also allows the browser to
+identify and cache Secure Payment Confirmation credentials. For authentication,
+this extension allows a third-party to perform an authentication ceremony on
+behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑨">Relying Party</a>, and also adds transaction information to the
+signed cryptogram.</p>
+   <p>Notably, a website should not call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get" id="ref-for-dom-credentialscontainer-get">navigator.credentials.get()</a></code> with this extension
+directly; for authentication the extension can only be accessed via <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest②">PaymentRequest</a></code> with a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation③">secure-payment-confirmation</a>" payment method.</p>
+   <dl>
+    <dt data-md>Extension identifier
+    <dd data-md>
+     <p><code>payment</code></p>
+    <dt data-md>Operation applicability
+    <dd data-md>
+     <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension①">Registration</a> and <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension①">authentication</a></p>
+    <dt data-md>Client extension input
+    <dd data-md>
+<pre class="idl highlight def"><c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs③"><c- g>AuthenticationExtensionsClientInputs</c-></a> {
+  <a data-link-type="idl-name" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs①"><c- n>AuthenticationExtensionsPaymentInputs</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsClientInputs" data-dfn-type="dict-member" data-export data-type="AuthenticationExtensionsPaymentInputs " id="dom-authenticationextensionsclientinputs-payment"><code><c- g>payment</c-></code></dfn>;
+};
+
+<c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-authenticationextensionspaymentinputs"><code><c- g>AuthenticationExtensionsPaymentInputs</c-></code></dfn> {
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="boolean " href="#dom-authenticationextensionspaymentinputs-ispayment" id="ref-for-dom-authenticationextensionspaymentinputs-ispayment①"><c- g>isPayment</c-></a>;
+
+  // Only used for authentication.
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString②"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-rp" id="ref-for-dom-authenticationextensionspaymentinputs-rp①"><c- g>rp</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString③"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin①"><c- g>topOrigin</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin①"><c- g>payeeOrigin</c-></a>;
+  <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total①"><c- g>total</c-></a>;
+  <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument②"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument①"><c- g>instrument</c-></a>;
+};
+</pre>
+     <dl>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-ispayment"><code>isPayment</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①">boolean</a></span>
+      <dd data-md>
+       <p>Indicates that the extension is active.</p>
+       <div class="note" role="note"><strong>TODO</strong>: Find a better way to do this. Needed currently because other members are auth-time only.</div>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-rp"><code>rp</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑤">USVString</a></span>
+      <dd data-md>
+       <p>The <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⓪">Relying Party</a> id of the credential(s) being used. Only valid at authentication time.</p>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑥">USVString</a></span>
+      <dd data-md>
+       <p>The origin of the top-level frame. Only valid at authentication time.</p>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑦">USVString</a></span>
+      <dd data-md>
+       <p>The payee origin that was displayed to the user. Only valid at authentication time.</p>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-total"><code>total</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount①">PaymentCurrencyAmount</a></span>
+      <dd data-md>
+       <p>The transaction amount that was displayed to the user. Only valid at authentication time.</p>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-instrument"><code>instrument</code></dfn> member, <span> of type <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument③">PaymentCredentialInstrument</a></span>
+      <dd data-md>
+       <p>The instrument details that were displayed to the user. Only valid at authentication time.</p>
+     </dl>
+    <dt data-md>Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension②">registration</a>)
+    <dd data-md>
+     <p class="note" role="note"><span>Note:</span> Reading <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> literally, these steps don’t work; extensions
+are injected at step 12 of <code>[[Create]]</code> and cannot really modify anything.
+However other extensions ignore that entirely and assume they can modify any
+part of any WebAuthn algorithm!</p>
+     <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-createCredential">creating a new credential</a>:</p>
+     <ol>
+      <li data-md>
+       <p>Remove the check for <em>sameOriginWithAncestors</em> in step 2.</p>
+       <p class="note" role="note"><span>Note:</span> This allows for creating SPC credentials in a cross-origin
+ iframe, as long as the correct permission policy is set
+ (see <a href="#sctn-permissions-policy">§ 7 Permissions Policy integration</a>). We could additionally require and
+ consume a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a> here, if we felt the permission policy
+ is not sufficient.</p>
+     </ol>
+    <dt data-md>Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension②">authentication</a>)
+    <dd data-md>
+     <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">making an assertion</a>:</p>
+     <ol>
+      <li data-md>
+       <p>If not in a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation④">secure-payment-confirmation</a>" payment handler, return a "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
+       <p class="note" role="note"><span>Note:</span> This guards against websites trying to access the extended powers of
+SPC without going through the browser UX.</p>
+      <li data-md>
+       <p>During <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot" id="ref-for-dom-publickeycredential-discoverfromexternalsource-slot">[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</a></code>:</p>
+       <ol>
+        <li data-md>
+         <p>Skip step 6.1, which compares <em>options.rpId</em> to <em>effectiveDomain</em></p>
+         <p class="note" role="note"><span>Note:</span> This enables cross-domain authentication ceremonies; see <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
+        <li data-md>
+         <p>In step 9, instead of creating a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata①">CollectedClientData</a></code>, instead create a <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a></code> with:</p>
+         <ol>
+          <li data-md>
+           <p><code>type</code> set to "<code>payment.get"</code></p>
+          <li data-md>
+           <p><code>payment</code> set to a new <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata">CollectedClientAdditionalPaymentData</a></code> with:</p>
+           <ol>
+            <li data-md>
+             <p><code>rp</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-rp" id="ref-for-dom-authenticationextensionspaymentinputs-rp②">rp</a></code>.</p>
+            <li data-md>
+             <p><code>topOrigin</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin②">topOrigin</a></code>.</p>
+            <li data-md>
+             <p><code>payeeOrigin</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin②">payeeOrigin</a></code>.</p>
+            <li data-md>
+             <p><code>total</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total②">total</a></code>.</p>
+            <li data-md>
+             <p><code>instrument</code> set <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument②">instrument</a></code>.</p>
+           </ol>
+          <li data-md>
+           <p>All other members set as per the original step 9.</p>
+         </ol>
+       </ol>
+     </ol>
+    <dt data-md>Client extension output
+    <dd data-md>
+     <p>None</p>
+    <dt data-md>Authenticator extension processing
+    <dd data-md>
+     <p>None</p>
+   </dl>
+   <h3 class="heading settled" data-level="5.1" id="sctn-collectedclientpaymentdata-dictionary"><span class="secno">5.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientpaymentdata"><code>CollectedClientPaymentData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientpaymentdata-dictionary"></a></h3>
+<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata①"><c- g>CollectedClientPaymentData</c-></a> : <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata②"><c- n>CollectedClientData</c-></a> {
+    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata①"><c- n>CollectedClientAdditionalPaymentData</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="CollectedClientAdditionalPaymentData " href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment"><c- g>payment</c-></a>;
+};
+</pre>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata②">CollectedClientPaymentData</a></code> dictionary inherits from <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata③">CollectedClientData</a></code>. It contains the following additional field:</p>
+   <dl>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientpaymentdata-payment"><code>payment</code></dfn> member, <span> of type <a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata②">CollectedClientAdditionalPaymentData</a></span>
+    <dd data-md>
+     <p>The additional payment information to sign.</p>
+   </dl>
+   <h3 class="heading settled" data-level="5.2" id="sctn-collectedclientadditionalpaymentdata-dictionary"><span class="secno">5.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientadditionalpaymentdata"><code>CollectedClientAdditionalPaymentData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientadditionalpaymentdata-dictionary"></a></h3>
+<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata③"><c- g>CollectedClientAdditionalPaymentData</c-></a> {
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑧"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rp" id="ref-for-dom-collectedclientadditionalpaymentdata-rp"><c- g>rp</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑨"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin"><c- g>topOrigin</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①⓪"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin"><c- g>payeeOrigin</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount②"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total"><c- g>total</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument④"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument"><c- g>instrument</c-></a>;
+};
+</pre>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata④">CollectedClientAdditionalPaymentData</a></code> dictionary contains the following
+fields:</p>
+   <dl>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-rp"><code>rp</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①①">USVString</a></span>
+    <dd data-md>
+     <p>The id of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①①">Relying Party</a> that created the credential.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①②">USVString</a></span>
+    <dd data-md>
+     <p>The origin of the top level context that requested to sign the transaction details.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①③">USVString</a></span>
+    <dd data-md>
+     <p>The origin of the payee that was displayed to the user.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-total"><code>total</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount③">PaymentCurrencyAmount</a></span>
+    <dd data-md>
+     <p>The <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount④">PaymentCurrencyAmount</a></code> of the <a data-link-type="biblio" href="#biblio-payment-request">[payment-request]</a> <code>total</code> field.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-instrument"><code>instrument</code></dfn> member, <span> of type <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑤">PaymentCredentialInstrument</a></span>
+    <dd data-md>
+     <p>The instrument information that was displayed to the user.</p>
+   </dl>
+   <p>Note that there is no <code>paymentRequestOrigin</code> field in <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata⑤">CollectedClientAdditionalPaymentData</a></code>, because the origin of the calling
+frame is already included in <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata④">CollectedClientData</a></code> of <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>.</p>
+   <h2 class="heading settled" data-level="6" id="sctn-common-data-structures"><span class="secno">6. </span><span class="content">Common Data Structures</span><a class="self-link" href="#sctn-common-data-structures"></a></h2>
+   <p>The following data structures are shared between registration and authentication.</p>
+   <h3 class="heading settled" data-level="6.1" id="sctn-paymentcredentialinstrument-dictionary"><span class="secno">6.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-paymentcredentialinstrument"><code>PaymentCredentialInstrument</code></dfn> Dictionary</span><a class="self-link" href="#sctn-paymentcredentialinstrument-dictionary"></a></h3>
+<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑥"><c- g>PaymentCredentialInstrument</c-></a> {
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname①"><c- g>displayName</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon①"><c- g>icon</c-></a>;
+};
+</pre>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑦">PaymentCredentialInstrument</a></code> dictionary contains the information to be
+displayed to the user and signed together with the transaction details. It
+contains the following members:</p>
+   <dl>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-displayname"><code>displayName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①">DOMString</a></span>
+    <dd data-md>
+     <p>The name of the payment instrument to be displayed to the user.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-icon"><code>icon</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①⑤">USVString</a></span>
+    <dd data-md>
+     <p>The URL of the icon of the payment instrument.</p>
+   </dl>
+   <h2 class="heading settled" data-level="7" id="sctn-permissions-policy"><span class="secno">7. </span><span class="content">Permissions Policy integration</span><a class="self-link" href="#sctn-permissions-policy"></a></h2>
+   <p>This specification uses the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission①">payment</a>"
+policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-request">[payment-request]</a> to control access to <strong>both</strong> registration and authentication. This extends the <a href="https://www.w3.org/TR/webauthn-3/#sctn-permissions-policy">WebAuthn Permission Policy</a>.</p>
+   <p class="note" role="note"><span>Note:</span> Algorithms specified in <a data-link-type="biblio" href="#biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]</a> perform the actual permissions policy evaluation. This is because such policy evaluation needs to occur when there is access to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object" id="ref-for-current-settings-object">current settings object</a>. The <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot" id="ref-for-dom-publickeycredential-create-slot">[[Create]](origin, options, sameOriginWithAncestors)</a></code> and <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot" id="ref-for-dom-publickeycredential-discoverfromexternalsource-slot①">[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</a></code> <a data-link-type="dfn" href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots" id="ref-for-sec-object-internal-methods-and-internal-slots">internal methods</a> do not have such access since they are invoked <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a> (by algorithms specified in <a data-link-type="biblio" href="#biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]</a>).</p>
+   <h2 class="heading settled" data-level="8" id="sctn-relying-party-operations"><span class="secno">8. </span><span class="content">SPC Relying Party Operations</span><a class="self-link" href="#sctn-relying-party-operations"></a></h2>
+   <h3 class="heading settled" data-level="8.1" id="sctn-verifying-assertion"><span class="secno">8.1. </span><span class="content">Verifying an Authentication Assertion</span><a class="self-link" href="#sctn-verifying-assertion"></a></h3>
+   <div class="note" role="note"><strong>TODO</strong>: Write this section</div>
+   <h2 class="heading settled" data-level="9" id="sctn-security-considerations"><span class="secno">9. </span><span class="content">Security Considerations</span><a class="self-link" href="#sctn-security-considerations"></a></h2>
+   <p>As this specification builds on top of WebAuthn, the <a href="https://www.w3.org/TR/webauthn-3/#sctn-security-considerations">WebAuthn Security Considerations</a> are applicable. The below subsections comprise the current Secure Payment
+Confirmation-specific security considerations, where this specification
+diverges from WebAuthn.</p>
+   <h3 class="heading settled" data-level="9.1" id="sctn-security-cross-origin-auth"><span class="secno">9.1. </span><span class="content">Cross-origin authentication ceremony</span><a class="self-link" href="#sctn-security-cross-origin-auth"></a></h3>
+   <p>A significant departure that Secure Payment Confirmation makes from WebAuthn is
+in allowing a third-party (<code>a.com</code>) to initiate an authentication ceremony
+using credentials for a different <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①②">Relying Party</a> (<code>b.com</code>), and returning
+the assertion to <code>a.com</code>. This feature can expose <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①③">Relying Parties</a> to both
+login and payment attacks, which are discussed here.</p>
+   <h4 class="heading settled" data-level="9.1.1" id="sctn-security-login-attack"><span class="secno">9.1.1. </span><span class="content">Login Attack</span><a class="self-link" href="#sctn-security-login-attack"></a></h4>
+   <p>As credentials created for Secure Payment Confirmation are valid WebAuthn
+credentials, it is possible that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①④">Relying Party</a> may wish to use the same
+credential for a given user for both login and payment. This allows a potential
+attack on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑤">Relying Party’s</a> login system, if they do not carefully verify
+the assertion they receive.</p>
+   <p>The attack is as follows:</p>
+   <ol>
+    <li data-md>
+     <p>The user visits <code>a.com</code>, which is or pretends to be a merchant site.</p>
+    <li data-md>
+     <p><code>a.com</code> obtains credentials for the user from <code>b.com</code>, either legitimately
+ or by stealing them from <code>b.com</code> or another party with whom <code>b.com</code> had
+ shared the credentials.</p>
+    <li data-md>
+     <p><code>a.com</code> initiates SPC authentication, and the user agrees to the transaction
+ (which may or may not be legitimate).</p>
+    <li data-md>
+     <p><code>a.com</code> takes the payment assertion that they received from the API call,
+ and sends it to the login endpoint for <code>b.com</code>, e.g. by sending a POST to <code>https://b.com/login</code>.</p>
+    <li data-md>
+     <p><code>b.com</code> is employing faulty assertion validation code, which checks the
+ signature but fails to validate the necessary fields (see below), and
+ believes the login attempt to be legitimate.</p>
+    <li data-md>
+     <p><code>b.com</code> returns e.g. a login cookie to <code>a.com</code>. The user’s account at <code>b.com</code> has now been compromised.</p>
+   </ol>
+   <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑥">Relying Parties</a> can guard against this attack in two ways.</p>
+   <p>Firstly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑦">Relying Party</a> must always follow the correct assertion
+validation steps either for <a href="https://www.w3.org/TR/webauthn-3/#sctn-verifying-assertion">WebAuthn
+login</a> or <a href="#sctn-verifying-assertion">SPC payment</a> as appropriate. In
+particular, the following fields can all be used to detect an inappropriate use
+of a credential:</p>
+   <ul>
+    <li data-md>
+     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑤">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type" id="ref-for-dom-collectedclientdata-type">type</a></code> - "webauthn.get" for
+login, "payment.get" for SPC.</p>
+    <li data-md>
+     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑥">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge" id="ref-for-dom-collectedclientdata-challenge">challenge</a></code> - this value should
+be provided by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑧">Relying Party</a> server to the site ahead of any call
+to either WebAuthn or SPC, and should be verified as matching an expected,
+appropriate, previously-provided value.</p>
+    <li data-md>
+     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑦">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin" id="ref-for-dom-collectedclientdata-origin">origin</a></code> - if SPC is being
+performed cross-origin, this value will contain the origin of the caller
+(e.g. <code>a.com</code> in the above example).</p>
+   </ul>
+   <p>Secondly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑨">Relying Party</a> can consider keeping their payment and login
+credentials separate. If doing this, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⓪">Relying Party</a> should only register
+credentials for Secure Payment Confirmation on a subdomain (e.g. <code>https//payment.b.com</code>), and should keep payment credentials and login
+credentials separate in their database.</p>
+   <div class="note" role="note">
+     NOTE: As currently written, the Secure Payment Confirmation specification
+      allows any WebAuthn credential to be used in an SPC authentication.
+      However this is not true in implementations today, which only allow
+      credentials created with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment②">payment</a></code> extension specified to participate in SPC authentication, and the
+      specification may be updated to reflect that in the future. 
+    <p>In both implementation and specification today, a credential created
+      with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment③">payment</a></code> can be used
+      for login, if the Relying Party wishes. This is not expected to change.</p>
+   </div>
+   <h4 class="heading settled" data-level="9.1.2" id="sctn-security-payment-attack"><span class="secno">9.1.2. </span><span class="content">Payment Attack</span><a class="self-link" href="#sctn-security-payment-attack"></a></h4>
+   <p>Instead of attempting to hijack a user account, a malicious third-party may
+also attempt to initiate an unauthorized payment using Secure Payment
+Confirmation credentials (obtained either legitimately or otherwise). Such an
+attack is infeasible:</p>
+   <ul>
+    <li data-md>
+     <p>When the attacker initiates SPC, the user will be shown an interface by the
+User Agent that clearly states the transaction details (including the payee
+and amount). The user is very likely to reject this interface as invalid.</p>
+    <li data-md>
+     <p>If the user does agree to the transaction, and completes the subsequent
+WebAuthn authentication ceremony, the attacker now has a signed SPC
+assertion for the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②①">Relying Party</a>.</p>
+    <li data-md>
+     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②②">Relying Party</a> is not expecting a transaction, it will reject the
+assertion.</p>
+    <li data-md>
+     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②③">Relying Party</a> is expecting a transaction, it will detect an
+unfamiliar <code>challenge</code> and reject the assertion.</p>
+   </ul>
+   <p>The general concept here is that a Secure Payment Confirmation assertion is
+essentially useless unless it is part of an ongoing online transaction.</p>
+   <h3 class="heading settled" data-level="9.2" id="sctn-security-merchant-data"><span class="secno">9.2. </span><span class="content">Merchant-supplied authentication data</span><a class="self-link" href="#sctn-security-merchant-data"></a></h3>
+   <p>A consequence of this specification’s third-party authentication ceremony is
+that even in a valid transaction (i.e. one that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②④">Relying Party</a> is
+expecting), a third-party provides the transaction details that are shown to
+the user:</p>
+   <ul>
+    <li data-md>
+     <p>Transaction amount and currency</p>
+    <li data-md>
+     <p>Payment instrument name and icon</p>
+    <li data-md>
+     <p>Payee origin</p>
+   </ul>
+   <p>This could lead to a spoofing attack, in which a merchant presents incorrect
+data to the user. For example, the merchant could tell the bank (in the
+backend) that it is initiating a purchase of $100, but then pass $1 to the SPC
+API (and thus show the user a $1 transaction to verify).</p>
+   <p>Secure Payment Confirmation actually makes defeating this kind of attack easier
+than it currently is on the web. In online payments today, the bank has to
+trust that the merchant showed the user the correct amount in their checkout
+flow (and any fraud discoveries are post-payment, when the user checks their
+account statement).</p>
+   <p>With Secure Payment Confirmation, the bank can (and should) instead <a href="#sctn-verifying-assertion">verify the cryptogram</a> that they receive, to
+ensure that it aligns with the transaction details provided by the merchant.</p>
+   <h2 class="heading settled" data-level="10" id="sctn-privacy-considerations"><span class="secno">10. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#sctn-privacy-considerations"></a></h2>
+   <p>As this specification builds on top of WebAuthn, the <a href="https://www.w3.org/TR/webauthn-3/#sctn-privacy-considerations">WebAuthn Privacy Considerations</a> are
+applicable. The below subsections comprise the current Secure Payment
+Confirmation-specific privacy considerations, where this specification diverges
+from WebAuthn.</p>
+   <h3 class="heading settled" data-level="10.1" id="sctn-security-cross-origin-registration"><span class="secno">10.1. </span><span class="content">Registration in a Cross-Origin iframe</span><a class="self-link" href="#sctn-security-cross-origin-registration"></a></h3>
+   <p>Unlike WebAuthn, this specification allows the creation of credentials in a
+cross-origin iframe (as long as the appropriate <a href="#sctn-permissions-policy">Permission Policy</a> is set on the iframe). That is,
+if site A embeds an iframe from site B, with the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission②">payment</a>" policy set, then site B may initiate a credential creation
+for site B within that iframe.</p>
+   <p class="note" role="note"><span>NOTE:</span> Allowing credential creation in cross-origin iframes is currently <a href="https://github.com/w3c/webauthn/issues/1656">under
+      discussion</a> in the WebAuthn
+      Working Group, and thus may move from this specification to WebAuthn in
+      the future.</p>
+   <p>A <a href="https://github.com/w3c/webauthn/issues/1336#issue-513568855">previously described
+attack</a> on this
+feature exists. In it, a malicious iframe (<code>https://website.tracker</code>) initiates
+credential creation, attempting to trick the user into thinking that the
+WebAuthn credential creation is for logging into the legitimate parent site
+(<code>https://example.org</code>). The user creates the credential. The malicious actor
+can then later utilize <code>get()</code> in a cross-origin iframe (again, timing the call
+to coincide with a login attempt to <code>https://example.org</code>) to have the user
+accidentally identify themselves to the tracker iframe.</p>
+   <p>This attack, however, presumes that <code>https://website.tracker</code> already has
+script access to <code>https://example.org</code> (in order to create the attacker iframe,
+with the appropriate permissions set). If this is true, then <code>https://website.tracker</code> can already directly track the user, for example by:</p>
+   <ul>
+    <li data-md>
+     <p>Identifying them from the username they provide when logging in to <code>https://example.org</code>, OR</p>
+    <li data-md>
+     <p>Creating a WebAuthn credential for <code>https://example.org</code> (in the main frame),
+saving that to a <code>https://website.tracker</code> server, and later using that
+credential (again in the main frame) to identify and track the user.</p>
+   </ul>
+   <div class="note" role="note"> <strong>TODO</strong>: The above-described attack does allow <code>https://website.tracker</code> to
+          track the user across multiple parent sites that it is directly
+          included in, using the credential as a cross-site identifier. The
+          above counter-claims stand up less well there, so we should perhaps
+          remove them. </div>
+   <p>In the absence of script access to the main frame, the ability for a malicious
+iframe to perform an attack like this seems far less feasible.  Firstly, the
+main frame must have granted the malicious iframe <a href="#sctn-permissions-policy">permission</a> to call the API. Secondly, the iframe
+has no way to know when the user is logging into <code>https://example.org</code>, to
+align their attack.</p>
+   <p>A consideration for a future version of this specification might be to
+additionally require consuming a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation①">transient activation</a> for credential
+creation in a cross-origin iframe, to ensure that the user has at least
+interacted with an iframe attempting credential creation.</p>
+   <h3 class="heading settled" data-level="10.2" id="sctn-privacy-probing-credential-ids"><span class="secno">10.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
+   <p>As per WebAuthn’s section on <a href="https://www.w3.org/TR/webauthn-3/#sctn-assertion-privacy">Authentication
+Ceremony Privacy</a>, implementors of Secure Payment Confirmation must make sure
+not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑤">Relying Party</a> to distinguish between these cases:</p>
+   <ul>
+    <li data-md>
+     <p>A credential is not available.</p>
+    <li data-md>
+     <p>A credential is available, but the user does not consent to use it.</p>
+   </ul>
+   <p>For example, consider an implementation that does not download the payment
+instrument icon unless a credential matches. A caller could then provide an
+unique URL that they control for the payment instrument icon. If the URL is
+accessed then the caller can conclude that at least one of the passed
+credentials is available to the user.</p>
+   <h3 class="heading settled" data-level="10.3" id="sctn-privacy-joining-payment-instruments"><span class="secno">10.3. </span><span class="content">Joining different payment instruments</span><a class="self-link" href="#sctn-privacy-joining-payment-instruments"></a></h3>
+   <p>If a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑥">Relying Party</a> uses the same credentials for a given user across
+multiple payment instruments, this might allow a merchant to join information
+about payment instruments that might otherwise not be linked. That is, across
+two different transactions that a user U performs with payment instruments P1
+and P2 (either on the same merchant M, or two colluding merchants M1 and M2),
+the merchant(s) may now be able to learn that P1 and P2 are for the same user.</p>
+   <p>For many current online payment flows this may not be a significant concern, as
+the user already provides sufficient information to do this joining anyway
+(e.g. their address), however it could become a privacy attack if, e.g.,
+payment tokenization becomes commonplace.</p>
+   <p>One possible way to defeat this may be to hash the credential IDs with a random
+salt from the Account Provider (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑦">Relying Party</a>):</p>
+   <ol>
+    <li data-md>
+     <p>Merchant requests the list of credential IDs from the Account Provider.</p>
+    <li data-md>
+     <p>Account Provider generates a random salt.</p>
+    <li data-md>
+     <p>Account Provider sends <code>[salt, hash(salt || credential ID)]</code> to the merchant.</p>
+    <li data-md>
+     <p>Merchant invokes SPC with the hashed credential ID and additionally passes
+ the <code>salt</code> into the API.</p>
+    <li data-md>
+     <p>The browser generates <code>hash(salt || credential ID)</code> for each of the
+ credential IDs that it has stored in the user profile.</p>
+    <li data-md>
+     <p>If any of the hashes match what the merchant provided, then a credential
+ match has been found.</p>
+   </ol>
+   <p class="note" role="note"><span>NOTE:</span> If SPC relies on <a data-link-type="dfn" href="#webauthn-conditional-ui" id="ref-for-webauthn-conditional-ui①">WebAuthn Conditional UI</a> in the future, that API
+      would have to support this salt-ing concept as the browser would not have
+      a local list of credentials.</p>
+   <p>See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">this issue</a> for more details.</p>
+   <h3 class="heading settled" data-level="10.4" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">10.4. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
+   <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑧">Relying Party</a> could be used by a malicious entity as a tracking vector, as
+they are strong, cross-site identifiers. However in order to obtain them from
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑨">Relying Party</a>, the merchant already needs an as-strong identifier to
+give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⓪">Relying Party</a> (e.g., the credit card number).</p>
+   <p>As above, a possible solution to this would be to hash the credential ID(s)
+with a random salt, making them non-consistent across calls.</p>
+   <h2 class="heading settled" data-level="11" id="sctn-accessibility-considerations"><span class="secno">11. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
+   <p>User Agents implementing this specification should follow both <a href="https://www.w3.org/TR/webauthn-3/#accessibility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
+  </main>
+  <div data-fill-with="conformance">
+   <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
+   <h3 class="no-ref no-num heading settled" id="w3c-conventions"><span class="content">Document conventions</span><a class="self-link" href="#w3c-conventions"></a></h3>
+   <p>Conformance requirements are expressed
+    with a combination of descriptive assertions
+    and RFC 2119 terminology.
+    The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
+    in the normative parts of this document
+    are to be interpreted as described in RFC 2119.
+    However, for readability,
+    these words do not appear in all uppercase letters in this specification. </p>
+   <p>All of the text of this specification is normative
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
+   <p>Examples in this specification are introduced with the words “for example”
+    or are set apart from the normative text
+    with <code>class="example"</code>,
+    like this: </p>
+   <div class="example" id="w3c-example">
+    <a class="self-link" href="#w3c-example"></a> 
+    <p>This is an example of an informative example. </p>
+   </div>
+   <p>Informative notes begin with the word “Note”
+    and are set apart from the normative text
+    with <code>class="note"</code>,
+    like this: </p>
+   <p class="note" role="note">Note, this is an informative note. </p>
+   <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
+   <p>Requirements phrased in the imperative as part of algorithms
+    (such as "strip any leading space characters"
+    or "return false and abort these steps")
+    are to be interpreted with the meaning of the key word
+    ("must", "should", "may", etc)
+    used in introducing the algorithm. </p>
+   <p>Conformance requirements phrased as algorithms or specific steps
+    can be implemented in any manner,
+    so long as the end result is equivalent.
+    In particular, the algorithms defined in this specification
+    are intended to be easy to understand
+    and are not intended to be performant.
+    Implementers are encouraged to optimize. </p>
+  </div>
+<script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+  <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
+  <ul class="index">
+   <li><a href="#dictdef-authenticationextensionspaymentinputs">AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+   <li><a href="#dom-securepaymentconfirmationrequest-challenge">challenge</a><span>, in § 4.1.3</span>
+   <li><a href="#dictdef-collectedclientadditionalpaymentdata">CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
+   <li><a href="#dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a><span>, in § 5.1</span>
+   <li><a href="#dom-securepaymentconfirmationrequest-credentialids">credentialIds</a><span>, in § 4.1.3</span>
+   <li><a href="#dom-paymentcredentialinstrument-displayname">displayName</a><span>, in § 6.1</span>
+   <li><a href="#dom-securepaymentconfirmationrequest-extensions">extensions</a><span>, in § 4.1.3</span>
+   <li><a href="#dom-paymentcredentialinstrument-icon">icon</a><span>, in § 6.1</span>
+   <li>
+    instrument
+    <ul>
+     <li><a href="#dom-authenticationextensionspaymentinputs-instrument">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-instrument">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
+     <li><a href="#dom-securepaymentconfirmationrequest-instrument">dict-member for SecurePaymentConfirmationRequest</a><span>, in § 4.1.3</span>
+    </ul>
+   <li><a href="#dom-authenticationextensionspaymentinputs-ispayment">isPayment</a><span>, in § 5</span>
+   <li>
+    payeeOrigin
+    <ul>
+     <li><a href="#dom-authenticationextensionspaymentinputs-payeeorigin">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
+     <li><a href="#dom-securepaymentconfirmationrequest-payeeorigin">dict-member for SecurePaymentConfirmationRequest</a><span>, in § 4.1.3</span>
+    </ul>
+   <li>
+    payment
+    <ul>
+     <li><a href="#dom-authenticationextensionsclientinputs-payment">dict-member for AuthenticationExtensionsClientInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientpaymentdata-payment">dict-member for CollectedClientPaymentData</a><span>, in § 5.1</span>
+    </ul>
+   <li><a href="#dictdef-paymentcredentialinstrument">PaymentCredentialInstrument</a><span>, in § 6.1</span>
+   <li>
+    rp
+    <ul>
+     <li><a href="#dom-authenticationextensionspaymentinputs-rp">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-rp">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
+    </ul>
+   <li><a href="#secure-payment-confirmation">secure-payment-confirmation</a><span>, in § 4.1.1</span>
+   <li><a href="#secure-payment-confirmation-payment-handler">Secure Payment Confirmation payment handler</a><span>, in § 4.1</span>
+   <li><a href="#dictdef-securepaymentconfirmationrequest">SecurePaymentConfirmationRequest</a><span>, in § 4.1.3</span>
+   <li><a href="#dom-securepaymentconfirmationrequest-timeout">timeout</a><span>, in § 4.1.3</span>
+   <li>
+    topOrigin
+    <ul>
+     <li><a href="#dom-authenticationextensionspaymentinputs-toporigin">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-toporigin">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
+    </ul>
+   <li>
+    total
+    <ul>
+     <li><a href="#dom-authenticationextensionspaymentinputs-total">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+     <li><a href="#dom-collectedclientadditionalpaymentdata-total">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
+    </ul>
+   <li><a href="#webauthn-conditional-ui">WebAuthn Conditional UI</a><span>, in § 2</span>
+  </ul>
+  <aside class="dfn-panel" data-for="term-for-dom-credentialscontainer-create">
+   <a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-credentialscontainer-create">3. Registration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-credentialscontainer-get">
+   <a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-credentialscontainer-get">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-abstract-opdef-request-a-credential">
+   <a href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential">https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-abstract-opdef-request-a-credential">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-sec-object-internal-methods-and-internal-slots">
+   <a href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots">https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-sec-object-internal-methods-and-internal-slots">7. Permissions Policy integration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-current-settings-object">
+   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-current-settings-object">7. Permissions Policy integration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-in-parallel">
+   <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-in-parallel">7. Permissions Policy integration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-concept-origin">
+   <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">https://html.spec.whatwg.org/multipage/origin.html#concept-origin</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-concept-origin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-concept-origin①">4.1.4. Steps to check if a payment can be made</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-transient-activation">
+   <a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-transient-activation">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-transient-activation①">10.1. Registration in a Cross-Origin iframe</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-fetching-an-image-resource">
+   <a href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource">https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-fetching-an-image-resource">4.1.4. Steps to check if a payment can be made</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-imageresource-src">
+   <a href="https://www.w3.org/TR/image-resource/#dom-imageresource-src">https://www.w3.org/TR/image-resource/#dom-imageresource-src</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-imageresource-src">4.1.4. Steps to check if a payment can be made</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-list-append">
+   <a href="https://infra.spec.whatwg.org/#list-append">https://infra.spec.whatwg.org/#list-append</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-list-append">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-registry">
+   <a href="https://w3c.github.io/payment-method-id/#registry">https://w3c.github.io/payment-method-id/#registry</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-registry">4.1.2. Monkey-patch to [payment-method-id]</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-standardized-payment-method-identifier">
+   <a href="https://www.w3.org/TR/payment-method-id/#dfn-standardized-payment-method-identifier">https://www.w3.org/TR/payment-method-id/#dfn-standardized-payment-method-identifier</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-standardized-payment-method-identifier">4.1.1. Payment Method Identifier</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-paymentcurrencyamount">
+   <a href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount">https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-paymentcurrencyamount">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-paymentcurrencyamount①">(2)</a>
+    <li><a href="#ref-for-dom-paymentcurrencyamount②">5.2. CollectedClientAdditionalPaymentData Dictionary</a> <a href="#ref-for-dom-paymentcurrencyamount③">(2)</a> <a href="#ref-for-dom-paymentcurrencyamount④">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-paymentrequest">
+   <a href="https://www.w3.org/TR/payment-request/#dom-paymentrequest">https://www.w3.org/TR/payment-request/#dom-paymentrequest</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-paymentrequest">1. Introduction</a>
+    <li><a href="#ref-for-dom-paymentrequest①">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-paymentrequest②">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-paymentrequest-constructor">
+   <a href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-constructor">https://www.w3.org/TR/payment-request/#dom-paymentrequest-constructor</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-paymentrequest-constructor">4.1. Payment Method: Secure Payment Confirmation</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-payment-handler">
+   <a href="https://www.w3.org/TR/payment-request/#dfn-payment-handler">https://www.w3.org/TR/payment-request/#dfn-payment-handler</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-payment-handler">4.1. Payment Method: Secure Payment Confirmation</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-payment-method">
+   <a href="https://w3c.github.io/payment-request/#dfn-payment-method">https://w3c.github.io/payment-request/#dfn-payment-method</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-payment-method">1. Introduction</a>
+    <li><a href="#ref-for-dfn-payment-method①">4. Authentication</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-payment-permission">
+   <a href="https://w3c.github.io/payment-request/#dfn-payment-permission">https://w3c.github.io/payment-request/#dfn-payment-permission</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-payment-permission">1.2.1. Registration</a>
+    <li><a href="#ref-for-dfn-payment-permission①">7. Permissions Policy integration</a>
+    <li><a href="#ref-for-dfn-payment-permission②">10.1. Registration in a Cross-Origin iframe</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-accessibility-considerations">
+   <a href="https://w3c.github.io/payment-request/#accessibility-considerations">https://w3c.github.io/payment-request/#accessibility-considerations</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-accessibility-considerations">11. Accessibility Considerations</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-details">
+   <a href="https://w3c.github.io/payment-request/#dfn-details">https://w3c.github.io/payment-request/#dfn-details</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-details">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-steps-to-check-if-a-payment-can-be-made">
+   <a href="https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made">https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-steps-to-check-if-a-payment-can-be-made">4.1.4. Steps to check if a payment can be made</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-steps-to-respond-to-a-payment-request">
+   <a href="https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request">https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-steps-to-respond-to-a-payment-request">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-paymentdetailsinit-total">
+   <a href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total">https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-paymentdetailsinit-total">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-authentication-ceremony">
+   <a href="https://w3c.github.io/webauthn/#authentication-ceremony">https://w3c.github.io/webauthn/#authentication-ceremony</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-authentication-ceremony">4. Authentication</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-authentication-extension">
+   <a href="https://w3c.github.io/webauthn/#authentication-extension">https://w3c.github.io/webauthn/#authentication-extension</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-authentication-extension">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-authentication-extension①">(2)</a> <a href="#ref-for-authentication-extension②">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-client-extension">
+   <a href="https://w3c.github.io/webauthn/#client-extension">https://w3c.github.io/webauthn/#client-extension</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-client-extension">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-registration-extension">
+   <a href="https://w3c.github.io/webauthn/#registration-extension">https://w3c.github.io/webauthn/#registration-extension</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-registration-extension">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-registration-extension①">(2)</a> <a href="#ref-for-registration-extension②">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-relying-party">
+   <a href="https://w3c.github.io/webauthn/#relying-party">https://w3c.github.io/webauthn/#relying-party</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-relying-party">1. Introduction</a> <a href="#ref-for-relying-party①">(2)</a> <a href="#ref-for-relying-party②">(3)</a>
+    <li><a href="#ref-for-relying-party③">1.1.1. Cryptographic evidence of transaction confirmation</a>
+    <li><a href="#ref-for-relying-party④">1.1.2. Registration in a third-party iframe</a>
+    <li><a href="#ref-for-relying-party⑤">1.1.3. Merchant control of authentication</a> <a href="#ref-for-relying-party⑥">(2)</a> <a href="#ref-for-relying-party⑦">(3)</a>
+    <li><a href="#ref-for-relying-party⑧">4. Authentication</a>
+    <li><a href="#ref-for-relying-party⑨">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-relying-party①⓪">(2)</a>
+    <li><a href="#ref-for-relying-party①①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-relying-party①②">9.1. Cross-origin authentication ceremony</a> <a href="#ref-for-relying-party①③">(2)</a>
+    <li><a href="#ref-for-relying-party①④">9.1.1. Login Attack</a> <a href="#ref-for-relying-party①⑤">(2)</a> <a href="#ref-for-relying-party①⑥">(3)</a> <a href="#ref-for-relying-party①⑦">(4)</a> <a href="#ref-for-relying-party①⑧">(5)</a> <a href="#ref-for-relying-party①⑨">(6)</a> <a href="#ref-for-relying-party②⓪">(7)</a>
+    <li><a href="#ref-for-relying-party②①">9.1.2. Payment Attack</a> <a href="#ref-for-relying-party②②">(2)</a> <a href="#ref-for-relying-party②③">(3)</a>
+    <li><a href="#ref-for-relying-party②④">9.2. Merchant-supplied authentication data</a>
+    <li><a href="#ref-for-relying-party②⑤">10.2. Probing for credential ids</a>
+    <li><a href="#ref-for-relying-party②⑥">10.3. Joining different payment instruments</a> <a href="#ref-for-relying-party②⑦">(2)</a>
+    <li><a href="#ref-for-relying-party②⑧">10.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party②⑨">(2)</a> <a href="#ref-for-relying-party③⓪">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-webauthn-extensions">
+   <a href="https://w3c.github.io/webauthn/#webauthn-extensions">https://w3c.github.io/webauthn/#webauthn-extensions</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-webauthn-extensions">1. Introduction</a>
+    <li><a href="#ref-for-webauthn-extensions①">3. Registration</a>
+    <li><a href="#ref-for-webauthn-extensions②">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dictdef-authenticationextensionsclientinputs">
+   <a href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs">https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dictdef-authenticationextensionsclientinputs①">(2)</a>
+    <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs②">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs③">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dictdef-collectedclientdata">
+   <a href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata">https://w3c.github.io/webauthn/#dictdef-collectedclientdata</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-collectedclientdata">1.1.1. Cryptographic evidence of transaction confirmation</a>
+    <li><a href="#ref-for-dictdef-collectedclientdata①">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dictdef-collectedclientdata②">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientdata③">(2)</a>
+    <li><a href="#ref-for-dictdef-collectedclientdata④">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dictdef-collectedclientdata⑤">9.1.1. Login Attack</a> <a href="#ref-for-dictdef-collectedclientdata⑥">(2)</a> <a href="#ref-for-dictdef-collectedclientdata⑦">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dictdef-publickeycredentialdescriptor">
+   <a href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor">https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-publickeycredentialdescriptor">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dictdef-publickeycredentialrequestoptions">
+   <a href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions">https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-publickeycredentialrequestoptions">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredential-create-slot">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot">https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredential-create-slot">7. Permissions Policy integration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredential-discoverfromexternalsource-slot">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot">https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredential-discoverfromexternalsource-slot">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-publickeycredential-discoverfromexternalsource-slot①">7. Permissions Policy integration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-allowcredentials">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-allowcredentials">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-challenge">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-challenge">1.1.1. Cryptographic evidence of transaction confirmation</a>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-challenge①">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-extensions">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-extensions">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-id">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialdescriptor-id">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-authenticatortransport-internal">
+   <a href="https://w3c.github.io/webauthn/#dom-authenticatortransport-internal">https://w3c.github.io/webauthn/#dom-authenticatortransport-internal</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticatortransport-internal">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-collectedclientdata-origin">
+   <a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin">https://w3c.github.io/webauthn/#dom-collectedclientdata-origin</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientdata-origin">9.1.1. Login Attack</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialtype-public-key">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key">https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialtype-public-key">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-credentialrequestoptions-publickey">
+   <a href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey">https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-credentialrequestoptions-publickey">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-userverificationrequirement-required">
+   <a href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required">https://w3c.github.io/webauthn/#dom-userverificationrequirement-required</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-userverificationrequirement-required">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-timeout">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-timeout">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-transports">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialdescriptor-transports">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-type">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialdescriptor-type">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-userverification">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-userverification">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-BufferSource">
+   <a href="https://heycam.github.io/webidl/#BufferSource">https://heycam.github.io/webidl/#BufferSource</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-BufferSource">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-BufferSource①">(2)</a> <a href="#ref-for-BufferSource②">(3)</a> <a href="#ref-for-BufferSource③">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-DOMException">
+   <a href="https://heycam.github.io/webidl/#idl-DOMException">https://heycam.github.io/webidl/#idl-DOMException</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-DOMException">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-DOMString">
+   <a href="https://heycam.github.io/webidl/#idl-DOMString">https://heycam.github.io/webidl/#idl-DOMString</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-DOMString">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-DOMString①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-frozen-array">
+   <a href="https://heycam.github.io/webidl/#idl-frozen-array">https://heycam.github.io/webidl/#idl-frozen-array</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-frozen-array">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-notallowederror">
+   <a href="https://heycam.github.io/webidl/#notallowederror">https://heycam.github.io/webidl/#notallowederror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-notallowederror">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-USVString">
+   <a href="https://heycam.github.io/webidl/#idl-USVString">https://heycam.github.io/webidl/#idl-USVString</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-USVString">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-USVString①">(2)</a>
+    <li><a href="#ref-for-idl-USVString②">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-USVString③">(2)</a> <a href="#ref-for-idl-USVString④">(3)</a> <a href="#ref-for-idl-USVString⑤">(4)</a> <a href="#ref-for-idl-USVString⑥">(5)</a> <a href="#ref-for-idl-USVString⑦">(6)</a>
+    <li><a href="#ref-for-idl-USVString⑧">5.2. CollectedClientAdditionalPaymentData Dictionary</a> <a href="#ref-for-idl-USVString⑨">(2)</a> <a href="#ref-for-idl-USVString①⓪">(3)</a> <a href="#ref-for-idl-USVString①①">(4)</a> <a href="#ref-for-idl-USVString①②">(5)</a> <a href="#ref-for-idl-USVString①③">(6)</a>
+    <li><a href="#ref-for-idl-USVString①④">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-USVString①⑤">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-boolean">
+   <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-boolean">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-boolean①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
+   <a href="https://heycam.github.io/webidl/#idl-unsigned-long">https://heycam.github.io/webidl/#idl-unsigned-long</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-unsigned-long">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-unsigned-long①">(2)</a>
+   </ul>
+  </aside>
+  <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
+  <ul class="index">
+   <li>
+    <a data-link-type="biblio">[CREDENTIAL-MANAGEMENT-1]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-dom-credentialscontainer-create">create()</span>
+     <li><span class="dfn-paneled" id="term-for-dom-credentialscontainer-get">get()</span>
+     <li><span class="dfn-paneled" id="term-for-abstract-opdef-request-a-credential">request a credential</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-sec-object-internal-methods-and-internal-slots">internal method</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[HTML]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-current-settings-object">current settings object</span>
+     <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
+     <li><span class="dfn-paneled" id="term-for-concept-origin">origin</span>
+     <li><span class="dfn-paneled" id="term-for-transient-activation">transient activation</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[image-resource]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-dfn-fetching-an-image-resource">fetching an image resource</span>
+     <li><span class="dfn-paneled" id="term-for-dom-imageresource-src">src</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[INFRA]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-list-append">append</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[payment-method-id]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-registry">registry of standardized payment methods</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-standardized-payment-method-identifier">standardized payment method identifier</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[payment-request]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-dom-paymentcurrencyamount">PaymentCurrencyAmount</span>
+     <li><span class="dfn-paneled" id="term-for-dom-paymentrequest">PaymentRequest</span>
+     <li><span class="dfn-paneled" id="term-for-dom-paymentrequest-constructor">constructor</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-payment-handler">payment handler</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-payment-method">payment method</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-payment-permission">payment permission string</span>
+     <li><span class="dfn-paneled" id="term-for-accessibility-considerations">payment request accessibility considerations</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-details">payment request details</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-steps-to-check-if-a-payment-can-be-made">steps to check if a payment can be made</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-steps-to-respond-to-a-payment-request">steps to respond to a payment request</span>
+     <li><span class="dfn-paneled" id="term-for-dom-paymentdetailsinit-total">total</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[web-authn]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-authentication-ceremony">authentication ceremony</span>
+     <li><span class="dfn-paneled" id="term-for-authentication-extension">authentication extension</span>
+     <li><span class="dfn-paneled" id="term-for-client-extension">client extension</span>
+     <li><span class="dfn-paneled" id="term-for-registration-extension">registration extension</span>
+     <li><span class="dfn-paneled" id="term-for-relying-party">relying party</span>
+     <li><span class="dfn-paneled" id="term-for-webauthn-extensions">webauthn extension</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[webauthn-1]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-dictdef-authenticationextensionsclientinputs">AuthenticationExtensionsClientInputs</span>
+     <li><span class="dfn-paneled" id="term-for-dictdef-collectedclientdata">CollectedClientData</span>
+     <li><span class="dfn-paneled" id="term-for-dictdef-publickeycredentialdescriptor">PublicKeyCredentialDescriptor</span>
+     <li><span class="dfn-paneled" id="term-for-dictdef-publickeycredentialrequestoptions">PublicKeyCredentialRequestOptions</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredential-create-slot">[[Create]](origin, options, sameOriginWithAncestors)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredential-discoverfromexternalsource-slot">[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-allowcredentials">allowCredentials</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-challenge">challenge <small>(for PublicKeyCredentialRequestOptions)</small></span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-extensions">extensions</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-id">id</span>
+     <li><span class="dfn-paneled" id="term-for-dom-authenticatortransport-internal">internal</span>
+     <li><span class="dfn-paneled" id="term-for-dom-collectedclientdata-origin">origin</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialtype-public-key">public-key</span>
+     <li><span class="dfn-paneled" id="term-for-dom-credentialrequestoptions-publickey">publicKey</span>
+     <li><span class="dfn-paneled" id="term-for-dom-userverificationrequirement-required">required</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-timeout">timeout</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-transports">transports</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-type">type <small>(for PublicKeyCredentialDescriptor)</small></span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-userverification">userVerification</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-BufferSource">BufferSource</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
+     <li><span class="dfn-paneled" id="term-for-idl-frozen-array">FrozenArray</span>
+     <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="term-for-idl-USVString">USVString</span>
+     <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long">unsigned long</span>
+    </ul>
+  </ul>
+  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
+  <dl>
+   <dt id="biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]
+   <dd>Mike West. <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. 17 January 2019. WD. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
+   <dt id="biblio-html">[HTML]
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dt id="biblio-image-resource">[IMAGE-RESOURCE]
+   <dd>Aaron Gustafson; Rayan Kanso; Marcos Caceres. <a href="https://www.w3.org/TR/image-resource/"><cite>Image Resource</cite></a>. 4 June 2021. WD. URL: <a href="https://www.w3.org/TR/image-resource/">https://www.w3.org/TR/image-resource/</a>
+   <dt id="biblio-infra">[INFRA]
+   <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
+   <dt id="biblio-payment-method-id">[PAYMENT-METHOD-ID]
+   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. 5 September 2019. CR. URL: <a href="https://www.w3.org/TR/payment-method-id/">https://www.w3.org/TR/payment-method-id/</a>
+   <dt id="biblio-payment-request">[PAYMENT-REQUEST]
+   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-request/"><cite>Payment Request API</cite></a>. 23 August 2021. CR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
+   <dt id="biblio-rfc2119">[RFC2119]
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-webauthn-1">[WEBAUTHN-1]
+   <dd>Dirk Balfanz; et al. <a href="https://www.w3.org/TR/webauthn-1/"><cite>Web Authentication:An API for accessing Public Key Credentials Level 1</cite></a>. 4 March 2019. REC. URL: <a href="https://www.w3.org/TR/webauthn-1/">https://www.w3.org/TR/webauthn-1/</a>
+   <dt id="biblio-webidl">[WebIDL]
+   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/"><cite>Web IDL</cite></a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
+  </dl>
+  <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
+  <dl>
+   <dt id="biblio-ecmascript">[ECMASCRIPT]
+   <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
+   <dt id="biblio-webauthn-3">[WEBAUTHN-3]
+   <dd>Jeff Hodges; et al. <a href="https://www.w3.org/TR/webauthn-3/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. 27 April 2021. WD. URL: <a href="https://www.w3.org/TR/webauthn-3/">https://www.w3.org/TR/webauthn-3/</a>
+  </dl>
+  <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
+<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-securepaymentconfirmationrequest"><c- g>SecurePaymentConfirmationRequest</c-></a> {
+    <c- b>required</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource"><c- n>BufferSource</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="BufferSource " href="#dom-securepaymentconfirmationrequest-challenge"><c- g>challenge</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource"><c- n>BufferSource</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="FrozenArray<BufferSource> " href="#dom-securepaymentconfirmationrequest-credentialids"><c- g>credentialIds</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-securepaymentconfirmationrequest-instrument"><c- g>instrument</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-securepaymentconfirmationrequest-timeout"><c- g>timeout</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-payeeorigin"><c- g>payeeOrigin</c-></a>;
+    <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs"><c- n>AuthenticationExtensionsClientInputs</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="AuthenticationExtensionsClientInputs " href="#dom-securepaymentconfirmationrequest-extensions"><c- g>extensions</c-></a>;
+};
+
+<c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs"><c- g>AuthenticationExtensionsClientInputs</c-></a> {
+  <a data-link-type="idl-name" href="#dictdef-authenticationextensionspaymentinputs"><c- n>AuthenticationExtensionsPaymentInputs</c-></a> <a data-type="AuthenticationExtensionsPaymentInputs " href="#dom-authenticationextensionsclientinputs-payment"><code><c- g>payment</c-></code></a>;
+};
+
+<c- b>dictionary</c-> <a href="#dictdef-authenticationextensionspaymentinputs"><code><c- g>AuthenticationExtensionsPaymentInputs</c-></code></a> {
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="boolean " href="#dom-authenticationextensionspaymentinputs-ispayment"><c- g>isPayment</c-></a>;
+
+  // Only used for authentication.
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-rp"><c- g>rp</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-toporigin"><c- g>topOrigin</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-payeeorigin"><c- g>payeeOrigin</c-></a>;
+  <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-authenticationextensionspaymentinputs-total"><c- g>total</c-></a>;
+  <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-authenticationextensionspaymentinputs-instrument"><c- g>instrument</c-></a>;
+};
+
+<c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientpaymentdata"><c- g>CollectedClientPaymentData</c-></a> : <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata"><c- n>CollectedClientData</c-></a> {
+    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentdata"><c- n>CollectedClientAdditionalPaymentData</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="CollectedClientAdditionalPaymentData " href="#dom-collectedclientpaymentdata-payment"><c- g>payment</c-></a>;
+};
+
+<c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentdata"><c- g>CollectedClientAdditionalPaymentData</c-></a> {
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rp"><c- g>rp</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin"><c- g>topOrigin</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin"><c- g>payeeOrigin</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total"><c- g>total</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument"><c- g>instrument</c-></a>;
+};
+
+<c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument"><c- g>PaymentCredentialInstrument</c-></a> {
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-paymentcredentialinstrument-displayname"><c- g>displayName</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon"><c- g>icon</c-></a>;
+};
+
+</pre>
+  <aside class="dfn-panel" data-for="webauthn-conditional-ui">
+   <b><a href="#webauthn-conditional-ui">#webauthn-conditional-ui</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-webauthn-conditional-ui">3. Registration</a>
+    <li><a href="#ref-for-webauthn-conditional-ui①">10.3. Joining different payment instruments</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="secure-payment-confirmation-payment-handler">
+   <b><a href="#secure-payment-confirmation-payment-handler">#secure-payment-confirmation-payment-handler</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-secure-payment-confirmation-payment-handler">4.1.1. Payment Method Identifier</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="secure-payment-confirmation">
+   <b><a href="#secure-payment-confirmation">#secure-payment-confirmation</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-secure-payment-confirmation">4. Authentication</a>
+    <li><a href="#ref-for-secure-payment-confirmation①">4.1. Payment Method: Secure Payment Confirmation</a>
+    <li><a href="#ref-for-secure-payment-confirmation②">4.1.2. Monkey-patch to [payment-method-id]</a>
+    <li><a href="#ref-for-secure-payment-confirmation③">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-secure-payment-confirmation④">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-securepaymentconfirmationrequest">
+   <b><a href="#dictdef-securepaymentconfirmationrequest">#dictdef-securepaymentconfirmationrequest</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dictdef-securepaymentconfirmationrequest①">(2)</a>
+    <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest②">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest③">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-challenge">
+   <b><a href="#dom-securepaymentconfirmationrequest-challenge">#dom-securepaymentconfirmationrequest-challenge</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-challenge">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-challenge①">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-credentialids">
+   <b><a href="#dom-securepaymentconfirmationrequest-credentialids">#dom-securepaymentconfirmationrequest-credentialids</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids①">4.1.4. Steps to check if a payment can be made</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-instrument">
+   <b><a href="#dom-securepaymentconfirmationrequest-instrument">#dom-securepaymentconfirmationrequest-instrument</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument①">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument②">(2)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument③">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-timeout">
+   <b><a href="#dom-securepaymentconfirmationrequest-timeout">#dom-securepaymentconfirmationrequest-timeout</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-timeout">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-timeout①">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-payeeorigin">
+   <b><a href="#dom-securepaymentconfirmationrequest-payeeorigin">#dom-securepaymentconfirmationrequest-payeeorigin</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-extensions">
+   <b><a href="#dom-securepaymentconfirmationrequest-extensions">#dom-securepaymentconfirmationrequest-extensions</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-extensions">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-extensions①">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-authenticationextensionsclientinputs-payment">
+   <b><a href="#dom-authenticationextensionsclientinputs-payment">#dom-authenticationextensionsclientinputs-payment</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment">3. Registration</a>
+    <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment①">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment②">9.1.1. Login Attack</a> <a href="#ref-for-dom-authenticationextensionsclientinputs-payment③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-authenticationextensionspaymentinputs">
+   <b><a href="#dictdef-authenticationextensionspaymentinputs">#dictdef-authenticationextensionspaymentinputs</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs①">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-ispayment">
+   <b><a href="#dom-authenticationextensionspaymentinputs-ispayment">#dom-authenticationextensionspaymentinputs-ispayment</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-ispayment">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-ispayment①">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-rp">
+   <b><a href="#dom-authenticationextensionspaymentinputs-rp">#dom-authenticationextensionspaymentinputs-rp</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-rp">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-rp①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-rp②">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-toporigin">
+   <b><a href="#dom-authenticationextensionspaymentinputs-toporigin">#dom-authenticationextensionspaymentinputs-toporigin</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin②">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-payeeorigin">
+   <b><a href="#dom-authenticationextensionspaymentinputs-payeeorigin">#dom-authenticationextensionspaymentinputs-payeeorigin</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin②">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-total">
+   <b><a href="#dom-authenticationextensionspaymentinputs-total">#dom-authenticationextensionspaymentinputs-total</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-total">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-total①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-total②">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-instrument">
+   <b><a href="#dom-authenticationextensionspaymentinputs-instrument">#dom-authenticationextensionspaymentinputs-instrument</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument②">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-collectedclientpaymentdata">
+   <b><a href="#dictdef-collectedclientpaymentdata">#dictdef-collectedclientpaymentdata</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-collectedclientpaymentdata">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dictdef-collectedclientpaymentdata①">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientpaymentdata②">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-collectedclientpaymentdata-payment">
+   <b><a href="#dom-collectedclientpaymentdata-payment">#dom-collectedclientpaymentdata-payment</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientpaymentdata-payment">5.1. CollectedClientPaymentData Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-collectedclientadditionalpaymentdata">
+   <b><a href="#dictdef-collectedclientadditionalpaymentdata">#dictdef-collectedclientadditionalpaymentdata</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-collectedclientadditionalpaymentdata">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dictdef-collectedclientadditionalpaymentdata①">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientadditionalpaymentdata②">(2)</a>
+    <li><a href="#ref-for-dictdef-collectedclientadditionalpaymentdata③">5.2. CollectedClientAdditionalPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientadditionalpaymentdata④">(2)</a> <a href="#ref-for-dictdef-collectedclientadditionalpaymentdata⑤">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-rp">
+   <b><a href="#dom-collectedclientadditionalpaymentdata-rp">#dom-collectedclientadditionalpaymentdata-rp</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rp">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-toporigin">
+   <b><a href="#dom-collectedclientadditionalpaymentdata-toporigin">#dom-collectedclientadditionalpaymentdata-toporigin</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeeorigin">
+   <b><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">#dom-collectedclientadditionalpaymentdata-payeeorigin</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-total">
+   <b><a href="#dom-collectedclientadditionalpaymentdata-total">#dom-collectedclientadditionalpaymentdata-total</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-instrument">
+   <b><a href="#dom-collectedclientadditionalpaymentdata-instrument">#dom-collectedclientadditionalpaymentdata-instrument</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-paymentcredentialinstrument">
+   <b><a href="#dictdef-paymentcredentialinstrument">#dictdef-paymentcredentialinstrument</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-paymentcredentialinstrument">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dictdef-paymentcredentialinstrument①">(2)</a>
+    <li><a href="#ref-for-dictdef-paymentcredentialinstrument②">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dictdef-paymentcredentialinstrument③">(2)</a>
+    <li><a href="#ref-for-dictdef-paymentcredentialinstrument④">5.2. CollectedClientAdditionalPaymentData Dictionary</a> <a href="#ref-for-dictdef-paymentcredentialinstrument⑤">(2)</a>
+    <li><a href="#ref-for-dictdef-paymentcredentialinstrument⑥">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dictdef-paymentcredentialinstrument⑦">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-displayname">
+   <b><a href="#dom-paymentcredentialinstrument-displayname">#dom-paymentcredentialinstrument-displayname</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname①">6.1. PaymentCredentialInstrument Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-icon">
+   <b><a href="#dom-paymentcredentialinstrument-icon">#dom-paymentcredentialinstrument-icon</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon①">6.1. PaymentCredentialInstrument Dictionary</a>
+   </ul>
+  </aside>
+<script>/* script-dfn-panel */
+
+document.body.addEventListener("click", function(e) {
+    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
+    // Find the dfn element or panel, if any, that was clicked on.
+    var el = e.target;
+    var target;
+    var hitALink = false;
+    while(el.parentElement) {
+        if(el.tagName == "A") {
+            // Clicking on a link in a <dfn> shouldn't summon the panel
+            hitALink = true;
+        }
+        if(el.classList.contains("dfn-paneled")) {
+            target = "dfn";
+            break;
+        }
+        if(el.classList.contains("dfn-panel")) {
+            target = "dfn-panel";
+            break;
+        }
+        el = el.parentElement;
+    }
+    if(target != "dfn-panel") {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
+            el.classList.remove("on");
+            el.classList.remove("activated");
+        });
+    }
+    if(target == "dfn" && !hitALink) {
+        // open the panel
+        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
+        if(dfnPanel) {
+            dfnPanel.classList.add("on");
+            var rect = el.getBoundingClientRect();
+            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
+            dfnPanel.style.top = window.scrollY + rect.top + "px";
+            var panelRect = dfnPanel.getBoundingClientRect();
+            var panelWidth = panelRect.right - panelRect.left;
+            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
+                // Reposition, because the panel is overflowing
+                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+            }
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
+        }
+    } else if(target == "dfn-panel") {
+        // Switch it to "activated" state, which pins it.
+        el.classList.add("activated");
+        el.style.left = null;
+        el.style.top = null;
+    }
+
+});
+</script>

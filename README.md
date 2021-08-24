@@ -1,13 +1,19 @@
 # Secure Payment Confirmation
 
-Using FIDO-based authentication to securely confirm payments initiated via the Payment Request API.
-
-This work is currently in incubation within [W3C Web Payments Working Group](https://www.w3.org/Payments/WG/).
+Secure Payment Confirmation (SPC) is a Web API to support streamlined
+authentication during a payment transaction. It is designed to scale
+authentication across merchants, to be used within a wide range of
+authentication protocols, and to produce cryptographic evidence that the user
+has confirmed transaction details. The [W3C Web Payments Working
+Group](https://www.w3.org/Payments/WG/) is developing SPC.
 
 Links:
 
 - [Explainer](explainer.md)
 - [Specification](https://w3c.github.io/secure-payment-confirmation/) ([spec.bs](spec.bs))
+- [Use Cases](scope.md#user-stories)
+- [Requirements](requirements.md)
+- [Tests](https://wpt.fyi/results/secure-payment-confirmation?label=master&label=experimental&aligned)
 
 ![Screenshot](payment.png)
 

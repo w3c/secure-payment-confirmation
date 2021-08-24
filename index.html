@@ -3,6 +3,7 @@
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
+  <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 4f053d00e, updated Tue Aug 10 14:13:32 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
 <style>/* style-autolinks */
@@ -267,7 +268,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-23">23 August 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-24">24 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -277,8 +278,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dt>Issue Tracking:
      <dd><a href="https://github.com/w3c/secure-payment-confirmation/issues/">GitHub</a>
      <dt class="editor">Editors:
-     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:rouslan@chromium.org">Rouslan Solomakhin</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
-     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:smcgruer@chromium.org">Stephen McGruer</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
+     <dd class="editor p-author h-card vcard" data-editor-id="83784"><a class="p-name fn u-email email" href="mailto:rouslan@chromium.org">Rouslan Solomakhin</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
+     <dd class="editor p-author h-card vcard" data-editor-id="96463"><a class="p-name fn u-email email" href="mailto:smcgruer@chromium.org">Stephen McGruer</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
     </dl>
    </div>
    <div data-fill-with="warning"></div>
@@ -293,7 +294,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   across merchants, to be used within a wide range of authentication protocols, and
   to produce cryptographic evidence that the user has confirmed transaction details.</p>
   </div>
-  <h2 class="no-num no-toc no-ref heading settled" id="status"><span class="content">Status of this document</span></h2>
+  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
    <p></p>
   </div>
@@ -371,6 +372,12 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       <li><a href="#sctn-privacy-credential-id-tracking-vector"><span class="secno">10.4</span> <span class="content">Credential ID(s) as a tracking vector</span></a>
      </ol>
     <li><a href="#sctn-accessibility-considerations"><span class="secno">11</span> <span class="content">Accessibility Considerations</span></a>
+    <li>
+     <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
+     <ol class="toc">
+      <li><a href="#w3c-conventions"><span class="secno"></span> <span class="content">Document conventions</span></a>
+      <li><a href="#w3c-conformant-algorithms"><span class="secno"></span> <span class="content">Conformant Algorithms</span></a>
+     </ol>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
      <ol class="toc">
@@ -1237,9 +1244,49 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
 with a random salt, making them non-consistent across calls.</p>
    <h2 class="heading settled" data-level="11" id="sctn-accessibility-considerations"><span class="secno">11. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
    <p>User Agents implementing this specification should follow both <a href="https://www.w3.org/TR/webauthn-3/#accessibility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
-   <p id="back-to-top" role="navigation"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p>
-<script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
   </main>
+  <div data-fill-with="conformance">
+   <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
+   <h3 class="no-ref no-num heading settled" id="w3c-conventions"><span class="content">Document conventions</span><a class="self-link" href="#w3c-conventions"></a></h3>
+   <p>Conformance requirements are expressed
+    with a combination of descriptive assertions
+    and RFC 2119 terminology.
+    The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
+    in the normative parts of this document
+    are to be interpreted as described in RFC 2119.
+    However, for readability,
+    these words do not appear in all uppercase letters in this specification. </p>
+   <p>All of the text of this specification is normative
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
+   <p>Examples in this specification are introduced with the words “for example”
+    or are set apart from the normative text
+    with <code>class="example"</code>,
+    like this: </p>
+   <div class="example" id="w3c-example">
+    <a class="self-link" href="#w3c-example"></a> 
+    <p>This is an example of an informative example. </p>
+   </div>
+   <p>Informative notes begin with the word “Note”
+    and are set apart from the normative text
+    with <code>class="note"</code>,
+    like this: </p>
+   <p class="note" role="note">Note, this is an informative note. </p>
+   <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
+   <p>Requirements phrased in the imperative as part of algorithms
+    (such as "strip any leading space characters"
+    or "return false and abort these steps")
+    are to be interpreted with the meaning of the key word
+    ("must", "should", "may", etc)
+    used in introducing the algorithm. </p>
+   <p>Conformance requirements phrased as algorithms or specific steps
+    can be implemented in any manner,
+    so long as the end result is equivalent.
+    In particular, the algorithms defined in this specification
+    are intended to be easy to understand
+    and are not intended to be performant.
+    Implementers are encouraged to optimize. </p>
+  </div>
+<script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
@@ -1788,6 +1835,8 @@ with a random salt, making them non-consistent across calls.</p>
    <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. 5 September 2019. CR. URL: <a href="https://www.w3.org/TR/payment-method-id/">https://www.w3.org/TR/payment-method-id/</a>
    <dt id="biblio-payment-request">[PAYMENT-REQUEST]
    <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-request/"><cite>Payment Request API</cite></a>. 23 August 2021. CR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
+   <dt id="biblio-rfc2119">[RFC2119]
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-webauthn-1">[WEBAUTHN-1]
    <dd>Dirk Balfanz; et al. <a href="https://www.w3.org/TR/webauthn-1/"><cite>Web Authentication:An API for accessing Public Key Credentials Level 1</cite></a>. 4 March 2019. REC. URL: <a href="https://www.w3.org/TR/webauthn-1/">https://www.w3.org/TR/webauthn-1/</a>
    <dt id="biblio-webidl">[WebIDL]

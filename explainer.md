@@ -88,7 +88,7 @@ authentication problem, as:
    rates.
 1. The generated assertion contains no payments-related information, so it
    cannot be used as-is to fulfill regulatory requirements to provide evidence
-   of user content (e.g. [Dynamic Linking] requirements).
+   of user consent (e.g. [Dynamic Linking] requirements).
 1. WebAuthn does not allow credential creation in a cross-origin iframe, thus
    excluding a useful onboarding flow - registering a Customer after they have
    completed a traditional authentication flow (e.g. via SMS OTP), without

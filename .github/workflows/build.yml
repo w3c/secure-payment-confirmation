@@ -1,22 +1,17 @@
-name: Build
+name: CI
 on:
-  pull_request:
-    branches:
-    - main
+  pull_request: {}
   push:
-    branches:
-    - main
+    branches: [main]
+
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
+  main:
+    name: Build, Validate, and Publish
+    runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: make ci
-    - name: Deploy
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./out
+      - uses: actions/checkout@v2
+      - uses: w3c/spec-prod@v2
+        with:
+          GH_PAGES_BRANCH: gh-pages
+          TOOLCHAIN: bikeshed
+          SOURCE: spec.bs

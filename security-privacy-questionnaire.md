@@ -3,14 +3,16 @@
 ## 1. What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary?
 
 This feature allows a web site that is not the original Relying Party of a
-`PublicKeyCredential` to exercise the credential via the Payment Request API to
-sign over transaction data. This is to allow a merchant or a Payment Service
-Provider (PSP) that represents the merchant to request strong authentication of
-the payment instrument used in the transaction without redirecting to the
-issuing bank of the payment instrument. Minimizing redirection or any form of
-friction is critical to avoid cart abandonment during a checkout process.
-Direct authentication using the issuing bank's credential is necessary because
-the merchant or PSP may be fradulent.
+`PublicKeyCredential` to exercise the credential in order to sign over
+transaction data. This is to allow a merchant or a Payment Service Provider
+(PSP) that represents the merchant to request strong authentication of the
+payment instrument used in the transaction without redirecting to the issuing
+bank of the payment instrument. Minimizing redirection or any form of friction
+is critical to avoid cart abandonment during a checkout process. In many
+payment systems, the Account Provider wishes (or is required by regulation) to
+authenticate the user for fraud protection; SPC allows them to fulfill the
+requirement to validate the authentication while enabling the merchant to
+manage the user experience.
 
 ## 2. Is this specification exposing the minimum amount of information necessary to power the feature?
 
@@ -22,13 +24,13 @@ This feature does not collect or expose any such information.
 
 ## 4. How does this specification deal with sensitive information?
 
-The only sensitive information this feature handles is the public ID of the
-created credential. This credential ID is saved in the user agent along side
-the Relying Party ID when the issuing bank creates an SPC-enabled
-`PublicKeyCredential`. Later, an origin that has access to this credential ID,
-presumably via a trusted server integration with the issuing bank, can provide
-it to the user agent via [Payment Request API] to exercise the corresponding
-`PublicKeyCredential`.
+The only sensitive information this feature handles relates to the (WebAuthn)
+credential ID of the created credential. This credential ID is saved in the
+user agent along side the Relying Party ID when the issuing bank creates an
+SPC-enabled `PublicKeyCredential`. Later, an origin that has access to this
+credential ID, presumably via a trusted server integration with the issuing
+bank, can provide it to the user agent via [Payment Request API] to exercise
+the corresponding `PublicKeyCredential`.
 
 ## 5. Does this specification introduce new state for an origin that persists across browsing sessions?
 

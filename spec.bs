@@ -70,18 +70,17 @@ spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
 
 This specification defines an API that enables the use of strong authentication
 methods in payment flows on the web. It aims to provide the same authentication
-benefits and user privacy focus as [[webauthn-3]] with enhancements to meet the needs of payment processing.
+benefits and user privacy focus as [[webauthn-3]] with enhancements to meet the
+needs of payment processing.
 
-Similarly to [[webauthn-3]], this specification defines two related
-processes involving a user. The first is [[#sctn-registration]]
-(formerly "enrollment"), where a relationship is created between the
-user and the [=Relying Party=]. The second is
-[[#sctn-authentication]], where the user responds to a challenge from
-the [=Relying Party=] (possibly via an intermediary payment service
-provider) to consent to a specific payment. An important feature of
-Secure Payment Confirmation is that the merchant (or another entity)
-may initiate the authentication ceremony on the [=Relying Party's=]
-behalf.
+Similarly to [[webauthn-3]], this specification defines two related processes
+involving a user. The first is [[#sctn-registration]] (formerly "enrollment"),
+where a relationship is created between the user and the [=Relying Party=]. The
+second is [[#sctn-authentication]], where the user responds to a challenge from
+the [=Relying Party=] (possibly via an intermediary payment service provider)
+to consent to a specific payment. An important feature of Secure Payment
+Confirmation is that the merchant (or another entity) may initiate the
+authentication ceremony on the [=Relying Party's=] behalf.
 
 Functionally, this specification defines a new [=payment method=] for the
 {{PaymentRequest}} API, and adds a [=WebAuthn Extension=] to extend
@@ -90,92 +89,98 @@ allow the API to be called in payment contexts.
 
 ## Use Cases ## {#sctn-use-cases}
 
-Although [[webauthn-3]] provides general authentication capabilities
-for the Web, the following use cases illustrate the value of the
-payment-specific extension defined in this specification.
+Although [[webauthn-3]] provides general authentication capabilities for the
+Web, the following use cases illustrate the value of the payment-specific
+extension defined in this specification.
 
-We presume that the general use case of cryptographic-based
-authentication for online transactions is well established.
+We presume that the general use case of cryptographic-based authentication for
+online transactions is well established.
 
 Note: These sections are still a WIP.
 
 ### Cryptographic evidence of transaction confirmation ### {#sctn-use-case-verifying-payment}
 
-In many online payment systems, it is common for the entity (e.g.,
-bank) that issues a payment instrument to seek to reduce fraud through
-authentication. [[webauthn-3]] and this specification make it possible
-to use authenticators to cryptographically sign important payment-specific
-information such as the origin of the merchant and the transaction
-amount and currency. The bank, as the [=Relying Party=], can then verify
-the signed payment-specific information as part of the decision to authorize
-the payment.
+In many online payment systems, it is common for the entity (e.g., bank) that
+issues a payment instrument to seek to reduce fraud through authentication.
+[[webauthn-3]] and this specification make it possible to use authenticators to
+cryptographically sign important payment-specific information such as the
+origin of the merchant and the transaction amount and currency. The bank, as
+the [=Relying Party=], can then verify the signed payment-specific information
+as part of the decision to authorize the payment.
 
-If the bank uses plain [[webauthn-3]], the payment-specific
-information to be verified must be stored in the WebAuthn
-{{PublicKeyCredentialRequestOptions/challenge}}. This raises several
-issues:
+If the bank uses plain [[webauthn-3]], the payment-specific information to be
+verified must be stored in the WebAuthn
+{{PublicKeyCredentialRequestOptions/challenge}}. This raises several issues:
 
 1. It is a misuse of the `challenge` field (which is intended to defeat replay
     attacks).
 1. There is no specification for this, so each bank is likely to have
-    to devise its own format for how payment-specific information should be formatted and encoded in the challenge, complicating deployment and increasing fragmentation.
-1. Regulations may require evidence that the user was shown and agreed to the payment-specific information. Plain [[webauthn-3]] does not provide for this display: there is no specified UX associated with information stored in the `challenge` field.
+    to devise its own format for how payment-specific information should be
+    formatted and encoded in the challenge, complicating deployment and
+    increasing fragmentation.
+1. Regulations may require evidence that the user was shown and agreed to the
+    payment-specific information. Plain [[webauthn-3]] does not provide for
+    this display: there is no specified UX associated with information stored
+    in the `challenge` field.
 
 These limitations motivate the following Secure Payment Confirmation behaviors:
 
 1. The `challenge` field is only used to defeat replay attacks, as with plain
     [[webauthn-3]].
-1. SPC specifies a format for payment-specific information.
-    This will enable development
-    of generic verification code and test suites.
-1. SPC guarantees that the user agent has presented the
-    payment-specific information to the user in a way
-    that a malicious website (or maliciously introduced
-    JavaScript code on a trusted website) cannot bypass.
+1. SPC specifies a format for payment-specific information. This will enable
+    development of generic verification code and test suites.
+1. SPC guarantees that the user agent has presented the payment-specific
+    information to the user in a way that a malicious website (or maliciously
+    introduced JavaScript code on a trusted website) cannot bypass.
 
-    * The payment-specific information is included in the {{CollectedClientData}}
-        dictionary, which cannot be tampered with via JavaScript.
+    * The payment-specific information is included in the
+        {{CollectedClientData}} dictionary, which cannot be tampered with via
+        JavaScript.
 
-    NOTE: Banks and other stakeholders in the payments ecosystem trust
-    payments via browsers sufficiently today using TLS, iframes, and
-    other Web features. The current specification is designed to
-    increase the security and usability of Web payments.
+    NOTE: Banks and other stakeholders in the payments ecosystem trust payments
+    via browsers sufficiently today using TLS, iframes, and other Web features.
+    The current specification is designed to increase the security and usability
+    of Web payments.
 
 ### Registration in a third-party iframe ### {#sctn-use-case-iframe-registration}
 
 If a bank wishes to use [[webauthn-3]] as the [=Relying Party=], that
-specification requires the bank to register the user in a first party
-context. Registration can happen outside of a transaction while the user
-is visiting the bank's site. It is also useful to be able to register
-the user during a transaction, but any registration that interrupts the
-payment journey creates a risk of transaction abandonment.
+specification requires the bank to register the user in a first party context.
+Registration can happen outside of a transaction while the user is visiting the
+bank's site. It is also useful to be able to register the user during a
+transaction, but any registration that interrupts the payment journey creates a
+risk of transaction abandonment.
 
 This limitation motivates the following Secure Payment Confirmation behavior:
 
-1. SPC supports cross-origin registration from an iframe in a third-party context. For instance, this registration might take place following some other ID&V flow (e.g., SMS OTP).
+1. SPC supports cross-origin registration from an iframe in a third-party
+    context. For instance, this registration might take place following some
+    other ID&V flow (e.g., SMS OTP).
 
-* See <a href="https://github.com/w3c/webauthn/issues/1336#issuecomment-554170183">discussion on WebAuthn issue 1336</a>.
+* See <a href="https://github.com/w3c/webauthn/issues/1336#issuecomment-554170183">discussion
+    on WebAuthn issue 1336</a>.
 
 ### Merchant control of authentication ### {#sctn-use-case-merchant-authentication}
 
 Merchants seek to avoid user drop-off during checkout, in particular by
-reducing authentication friction. A [=Relying Party=] (e.g., a bank)
-that wishes to use [[webauthn-3]] to authenticate the user typically
-does so from an iframe. However, merchants would prefer to manage
-the user experience of authenticating the user while still enabling
-the [=Relying Party=] to verify the results of authentication.
+reducing authentication friction. A [=Relying Party=] (e.g., a bank) that
+wishes to use [[webauthn-3]] to authenticate the user typically does so from an
+iframe. However, merchants would prefer to manage the user experience of
+authenticating the user while still enabling the [=Relying Party=] to verify
+the results of authentication.
 
 This limitation motivates the following Secure Payment Confirmation behavior:
 
-* With SPC, other parties than the [=Relying Party=] can use authentication credentials *on behalf of* the Relying Party. The Relying Party can then verify the authentication results.
+* With SPC, other parties than the [=Relying Party=] can use authentication
+    credentials *on behalf of* the Relying Party. The Relying Party can then
+    verify the authentication results.
 
-An additional benefit of this feature to Relying Parties is that they
-no longer need to build their own front-end experiences for
-authentication. Instead, payment service providers are likely to build
-them on behalf of merchants.
+An additional benefit of this feature to Relying Parties is that they no longer
+need to build their own front-end experiences for authentication. Instead,
+payment service providers are likely to build them on behalf of merchants.
 
-NOTE: Relying Parties that wish to provide the authentication user
-experience may still do so using SPC from an iframe.
+NOTE: Relying Parties that wish to provide the authentication user experience
+may still do so using SPC from an iframe.
 
 ## Sample API Usage Scenarios ## {#sctn-sample-scenarios}
 
@@ -188,29 +193,28 @@ example flows and do not limit the scope of how the API can be used.
 This is the first-time flow, in which a new credential is created and stored by
 an issuing bank.
 
-1. The user visits `merchant.com`, selects an item to purchase, and proceeds
-    to the checkout flow. They enter their payment instrument details, and
-    indicate that they wish to pay (e.g., by pressing a "Pay" button).
+1. The user visits `merchant.com`, selects an item to purchase, and proceeds to
+    the checkout flow. They enter their payment instrument details, and indicate
+    that they wish to pay (e.g., by pressing a "Pay" button).
 
-1. The merchant communicates out-of-band (e.g., using another protocol)
-    with the bank that issued the payment instrument.
-    The issuing bank requests verification of the user,
-    and provides a bank-controlled URL for the merchant to open in an iframe.
+1. The merchant communicates out-of-band (e.g., using another protocol) with the
+    bank that issued the payment instrument. The issuing bank requests
+    verification of the user, and provides a bank-controlled URL for the
+    merchant to open in an iframe.
 
-1. The merchant opens an iframe to `bank.com`, with the `allow` attribute set
-    to "[=payment permission string|payment=]".
+1. The merchant opens an iframe to `bank.com`, with the `allow` attribute set to
+    "[=payment permission string|payment=]".
 
 1. In the iframe, the issuing bank confirms the user's identity via a
-    traditional means (e.g., SMS OTP). After confirmation, the
-    bank invites the user to register in SPC authentication for future payments.
+    traditional means (e.g., SMS OTP). After confirmation, the bank invites the
+    user to register in SPC authentication for future payments.
 
-1. The user consents (e.g., by clicking an "Register" button in the bank UX), and
-    the bank runs code in the iframe (see example below).
+1. The user consents (e.g., by clicking an "Register" button in the bank UX),
+    and the bank runs code in the iframe (see example below).
 
-1. The user goes through a WebAuthn registration flow. A new
-    credential is created and returned to the issuing bank who stores
-    it in their server-side database associated with the user and
-    payment instrument(s).
+1. The user goes through a WebAuthn registration flow. A new credential is
+    created and returned to the issuing bank who stores it in their server-side
+    database associated with the user and payment instrument(s).
 
 1. The verification completes; the bank iframe closes and the merchant finishes
     the checkout process for the user.
@@ -291,31 +295,28 @@ Payment Confirmation.
     to the checkout flow. They enter their payment instrument details, and
     indicate that they wish to pay (e.g., by pressing a "Pay" button).
 
-    Note: The cross-origin use of SPC credentials makes it possible for
-    the user to "register once" and authenticate on any merchant origin,
-    not just the merchant origin where the user first registered for SPC.
+    Note: The cross-origin use of SPC credentials makes it possible for the
+    user to "register once" and authenticate on any merchant origin, not just
+    the merchant origin where the user first registered for SPC.
 
-1. The merchant communicates out-of-band
-    with the issuing bank of the payment instrument
-    (e.g., using another protocol).
-    The issuing bank requests verification of the user,
-    and at the same time informs the merchant that it accepts SPC by
-    providing the information necessary to use the API. This
-    information includes a challenge and any credential IDs
-    associated with this user and payment instrument(s).
+1. The merchant communicates out-of-band with the issuing bank of the payment
+    instrument (e.g., using another protocol). The issuing bank requests
+    verification of the user, and at the same time informs the merchant that it
+    accepts SPC by providing the information necessary to use the API. This
+    information includes a challenge and any credential IDs associated with this
+    user and payment instrument(s).
 
 1. The merchant runs the example code shown below.
 
-1. The user agrees to the payment-specific information displayed in the
-    SPC UX, and performs a subsequent WebAuthn authentication
-    ceremony. The signed cryptogram is returned to the merchant.
+1. The user agrees to the payment-specific information displayed in the SPC UX,
+    and performs a subsequent WebAuthn authentication ceremony. The signed
+    cryptogram is returned to the merchant.
 
 1. The merchant communicates the signed cryptogram to the issuing bank
-    out-of-band. The issuing bank verifies the cryptogram, and knows
-    that the user is valid, what payment-specific information has been
-    displayed, and that the user has consented to the transaction. The
-    issuing bank authorizes the transaction and the merchant finishes
-    the checkout process for the user.
+    out-of-band. The issuing bank verifies the cryptogram, and knows that the
+    user is valid, what payment-specific information has been displayed, and
+    that the user has consented to the transaction. The issuing bank authorizes
+    the transaction and the merchant finishes the checkout process for the user.
 
 The sample code for authenticating the user follows. Note that the example code
 presumes access to await/async, for easier to read promise handling.
@@ -382,16 +383,14 @@ below and in [[#index-defined-elsewhere]].
     transaction UX even if the user may be unable to complete the
     authentication.
 
-    <div class="note">TODO: Bikeshed the name.</div>
+    <div class="note">**TODO**: Bikeshed the name.</div>
 
-    <div class="note">NOTE: To quickly support an initial SPC experiment,
-    this API was designed atop existing implementations of the Payment
-    Request and Payment Handler APIs. There is now general agreement
-    to explore a design of SPC independent of Payment Request.  We
-    therefore expect (without a concrete timeline) that SPC will move
-    away from its Payment Request origins. For developers, this should
-    improve feature detection, invocation, and other aspects of the
-    API.</div>
+    NOTE: To quickly support an initial SPC experiment, this API was designed
+    atop existing implementations of the Payment Request and Payment Handler
+    APIs. There is now general agreement to explore a design of SPC independent
+    of Payment Request. We therefore expect (without a concrete timeline) that
+    SPC will move away from its Payment Request origins. For developers, this
+    should improve feature detection, invocation, and other aspects of the API.
 
 # Registration # {#sctn-registration}
 
@@ -400,15 +399,14 @@ To register a user for Secure Payment Confirmation, relying parties should call
 {{AuthenticationExtensionsClientInputs/payment}} [=WebAuthn Extension=]
 specified.
 
-Note: In this specification we define an extension in order to allow
-      (1) credential creation in a cross-origin iframe (which WebAuthn
-      does not yet allow) and (2) the browser to cache SPC credentials
-      in the absence of [=WebAuthn Conditional UI=]. If these
-      capabilities are available in future versions of WebAuthn, we
-      may remove the requirement for the extension from SPC. Note that
-      SPC credentials (with the extension) are otherwise full-fledged
-      WebAuthn credentials. This specification does not preclude their
-      use in other use-cases (e.g., login).
+Note: In this specification we define an extension in order to allow (1)
+      credential creation in a cross-origin iframe (which WebAuthn does not yet
+      allow) and (2) the browser to cache SPC credentials in the absence of
+      [=WebAuthn Conditional UI=]. If these capabilities are available in future
+      versions of WebAuthn, we may remove the requirement for the extension from
+      SPC. Note that SPC credentials (with the extension) are otherwise
+      full-fledged WebAuthn credentials. This specification does not preclude
+      their use in other use-cases (e.g., login).
 
 # Authentication # {#sctn-authentication}
 
@@ -427,8 +425,9 @@ from the Relying Party on some other unspecified channel. See
 
 ## Payment Method: Secure Payment Confirmation ## {#sctn-payment-method-spc}
 
-This specification defines a new [=payment handler=], the <dfn>Secure Payment Confirmation payment
-handler</dfn>, which handles requests to authenticate a given payment.
+This specification defines a new [=payment handler=], the <dfn>Secure Payment
+Confirmation payment handler</dfn>, which handles requests to authenticate a
+given payment.
 
 <div class="note">
 **TODO**: This specification also needs to monkey-patch step 12 of
@@ -468,22 +467,29 @@ members:
 
 <dl dfn-type="dict-member" dfn-for="SecurePaymentConfirmationRequest">
     :  <dfn>challenge</dfn> member
-    :: A random challenge that the relying party generates on the server side to prevent replay attacks.
+    :: A random challenge that the relying party generates on the server side
+        to prevent replay attacks.
 
     :  <dfn>credentialIds</dfn> member
     :: The list of credential identifiers for the given instrument.
 
     :  <dfn>instrument</dfn> member
-    :: The description of the instrument name and icon to display during registration and to be signed along with the transaction details.
+    :: The description of the instrument name and icon to display during
+        registration and to be signed along with the transaction details.
 
     :  <dfn>timeout</dfn> member
-    :: The number of milliseconds before the request to sign the transaction details times out. At most 1 hour.
+    :: The number of milliseconds before the request to sign the transaction
+        details times out. At most 1 hour.
 
     :  <dfn>payeeOrigin</dfn> member
-    :: The fully qualified [=origin=] of the payee that this SPC call is for (e.g., the merchant).
+    :: The fully qualified [=origin=] of the payee that this SPC call is for
+        (e.g., the merchant).
 
     :  <dfn>extensions</dfn> member
-    :: Any [=WebAuthn extensions=] that should be used for the passed credential(s). The caller does not need to specify the [[#sctn-payment-extension-registration| payment extension]]; it is added automatically.
+    :: Any [=WebAuthn extensions=] that should be used for the passed
+        credential(s). The caller does not need to specify the
+        [[#sctn-payment-extension-registration| payment extension]]; it is added
+        automatically.
 </dl>
 
 ### Steps to check if a payment can be made ### {#sctn-steps-to-check-if-a-payment-can-be-made}
@@ -491,11 +497,14 @@ members:
 The [=steps to check if a payment can be made=] for this payment method, for an
 input {{SecurePaymentConfirmationRequest}} |request|, are:
 
-1. If |request|.{{SecurePaymentConfirmationRequest/credentialIds}} is empty, return `false`.
+1. If |request|.{{SecurePaymentConfirmationRequest/credentialIds}} is empty,
+    return `false`.
 
-1. If |request|.{{SecurePaymentConfirmationRequest/payeeOrigin}} is not a fully qualified [=origin=], return `false`.
+1. If |request|.{{SecurePaymentConfirmationRequest/payeeOrigin}} is not a fully
+    qualified [=origin=], return `false`.
 
-1. If |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/displayName}} is empty, return `false`.
+1. If |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/displayName}}
+    is empty, return `false`.
 
 1. [=fetch an image resource|Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
     |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/icon}}]»
@@ -506,9 +515,9 @@ input {{SecurePaymentConfirmationRequest}} |request|, are:
 
 1. Optionally, the user agent may elect to return `false`.
 
-    Note: This covers the current Chrome behavior of checking whether the
-    passed credentials match those on the system, and early-exit if so. This
-    is a potential privacy concern, and may be removed.
+    Note: This covers the current Chrome behavior of checking whether the passed
+    credentials match those on the system, and early-exit if so. This is a
+    potential privacy concern, and may be removed.
 
 1. Return `true`.
 
@@ -524,7 +533,8 @@ is communicated to the user:
 
 * The {{CollectedClientAdditionalPaymentData/payeeOrigin}}.
 * The {{CollectedClientAdditionalPaymentData/total}}, that is the
-    {{PaymentCurrencyAmount/currency}} and {{PaymentCurrencyAmount/value}} of the transaction.
+    {{PaymentCurrencyAmount/currency}} and {{PaymentCurrencyAmount/value}} of the
+    transaction.
 * The {{CollectedClientAdditionalPaymentData/instrument}} details, that is the
     payment instrument {{PaymentCredentialInstrument/displayName}} and
     {{PaymentCredentialInstrument/icon}}.
@@ -774,7 +784,14 @@ policy-identifier string from [[payment-request]] to control access to **both**
 registration and authentication. This extends the
 [[webauthn-3#sctn-permissions-policy|WebAuthn Permission Policy]].
 
-Note: Algorithms specified in [[!CREDENTIAL-MANAGEMENT-1]] perform the actual permissions policy evaluation. This is because such policy evaluation needs to occur when there is access to the [=current settings object=]. The {{PublicKeyCredential/[[Create]](origin, options, sameOriginWithAncestors)}} and {{PublicKeyCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}} [=internal methods=] do not have such access since they are invoked [=in parallel=] (by algorithms specified in [[!CREDENTIAL-MANAGEMENT-1]]).
+Note: Algorithms specified in [[!CREDENTIAL-MANAGEMENT-1]] perform the actual
+permissions policy evaluation. This is because such policy evaluation needs to
+occur when there is access to the [=current settings object=]. The
+{{PublicKeyCredential/[[Create]](origin, options, sameOriginWithAncestors)}}
+and {{PublicKeyCredential/[[DiscoverFromExternalSource]](origin, options,
+sameOriginWithAncestors)}} [=internal methods=] do not have such access since
+they are invoked [=in parallel=] (by algorithms specified in
+[[!CREDENTIAL-MANAGEMENT-1]]).
 
 # SPC Relying Party Operations # {#sctn-relying-party-operations}
 

@@ -548,33 +548,53 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
 
     <div class="note">**TODO**: Specify this concretely</div>
 
-1. Let |payment| be a new a {{AuthenticationExtensionsPaymentInputs}} dictionary, initialized
-    as «["{{AuthenticationExtensionsPaymentInputs/isPayment}}" → `true`,
-    "{{AuthenticationExtensionsPaymentInputs/rp}}" → **TODO**,
-    "{{AuthenticationExtensionsPaymentInputs/topOrigin}}" → |topOrigin|,
-    "{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}" → |data|.{{SecurePaymentConfirmationRequest/payeeOrigin}},
-    "{{AuthenticationExtensionsPaymentInputs/total}}" → |request|.[=payment request details|[[details]]=].{{PaymentDetailsInit/total}},
-    "{{AuthenticationExtensionsPaymentInputs/instrument}}" → |data|.{{SecurePaymentConfirmationRequest/instrument}}]».
+1. Let |payment| be a new a {{AuthenticationExtensionsPaymentInputs}} dictionary,
+    whose fields are:
+
+    : {{AuthenticationExtensionsPaymentInputs/isPayment}}
+    :: The boolean value `true`.
+    : {{AuthenticationExtensionsPaymentInputs/rp}}
+    :: **TODO**
+    : {{AuthenticationExtensionsPaymentInputs/topOrigin}}
+    :: |topOrigin|
+    : {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
+    :: |data|.{{SecurePaymentConfirmationRequest/payeeOrigin}}
+    : {{AuthenticationExtensionsPaymentInputs/total}}
+    :: |request|.[=payment request details|[[details]]=].{{PaymentDetailsInit/total}}
+    : {{AuthenticationExtensionsPaymentInputs/instrument}}
+    :: |data|.{{SecurePaymentConfirmationRequest/instrument}}
 
     <div class="note">**TODO**: We do not have the rp id at this step; maybe that should just go in the extension processing steps?</div>
 
-1. Let |extensions| be a new {{AuthenticationExtensionsClientInputs}} dictionary whose
-    {{AuthenticationExtensionsClientInputs/payment}} member is set to |payment|, and whose other
-    members are set from |data|.{{SecurePaymentConfirmationRequest/extensions}}.
+1. Let |extensions| be a new {{AuthenticationExtensionsClientInputs}} dictionary
+    whose {{AuthenticationExtensionsClientInputs/payment}} member is set to
+    |payment|, and whose other members are set from
+    |data|.{{SecurePaymentConfirmationRequest/extensions}}.
 
-1. Let |publicKeyOpts| be a new {{PublicKeyCredentialRequestOptions}} dictionary, initialized
-    as «["{{PublicKeyCredentialRequestOptions/challenge}}" → |data|.{{SecurePaymentConfirmationRequest/challenge}},
-    "{{PublicKeyCredentialRequestOptions/timeout}}" → |data|.{{SecurePaymentConfirmationRequest/timeout}},
-    "{{PublicKeyCredentialRequestOptions/userVerification}}" → {{UserVerificationRequirement/required}},
-    "{{PublicKeyCredentialRequestOptions/extensions}}" → |extensions|]».
+1. Let |publicKeyOpts| be a new {{PublicKeyCredentialRequestOptions}}
+    dictionary, whose fields are:
+
+    : {{PublicKeyCredentialRequestOptions/challenge}}
+    :: |data|.{{SecurePaymentConfirmationRequest/challenge}}
+    : {{PublicKeyCredentialRequestOptions/timeout}}
+    :: |data|.{{SecurePaymentConfirmationRequest/timeout}}
+    : {{PublicKeyCredentialRequestOptions/userVerification}}
+    :: {{UserVerificationRequirement/required}}
+    : {{PublicKeyCredentialRequestOptions/extensions}}
+    :: |extensions|
 
 1. For each |id| in `data.credentialIds`:
 
-    1. Let |descriptor| be a new {{PublicKeyCredentialDescriptor}} dictionary, initialized as
-        «["{{PublicKeyCredentialDescriptor/type}}" → {{PublicKeyCredentialType/public-key}},
-        "{{PublicKeyCredentialDescriptor/id}}" → |id|,
-        "{{PublicKeyCredentialDescriptor/transports}}" → a sequence of length 1 whose only member is
-        {{AuthenticatorTransport/internal}}]».
+    1. Let |descriptor| be a new {{PublicKeyCredentialDescriptor}} dictionary,
+        whose fields are:
+
+        : {{PublicKeyCredentialDescriptor/type}}
+        :: {{PublicKeyCredentialType/public-key}}
+        : {{PublicKeyCredentialDescriptor/id}}
+        :: |id|
+        : {{PublicKeyCredentialDescriptor/transports}}
+        :: A sequence of length 1 whose only member is
+            {{AuthenticatorTransport/internal}}.
 
     1. [=list/Append=] |descriptor| to |publicKeyOpts|.{{PublicKeyCredentialRequestOptions/allowCredentials}}.
 
@@ -668,31 +688,42 @@ directly; for authentication the extension can only be accessed via
          is not sufficient.
 
 :  Client extension processing ([=authentication extension|authentication=])
-:: When [[webauthn-3#sctn-getAssertion|making an assertion]]:
+:: When [[webauthn-3#sctn-getAssertion|making an assertion]] with a
+    {{AuthenticationExtensionsPaymentInputs}} |extension_inputs|:
 
-    1. If not in a "[=secure-payment-confirmation=]" payment handler, return a "{{NotAllowedError}}" {{DOMException}}.
+    1. If not in a "[=secure-payment-confirmation=]" payment handler, return a
+        "{{NotAllowedError}}" {{DOMException}}.
 
         Note: This guards against websites trying to access the extended powers of
-        SPC without going through the browser UX.
+        SPC without going through [[#sctn-transaction-confirmation-ux|the
+        transaction UX]].
 
     1. During {{PublicKeyCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}}:
 
         1. Skip step 6.1, which compares *options.rpId* to *effectiveDomain*
 
-            Note: This enables cross-domain authentication ceremonies; see [[#sctn-use-case-merchant-authentication]].
+            Note: This enables cross-domain authentication ceremonies; see
+                  [[#sctn-use-case-merchant-authentication]].
 
-        1. In step 9, instead of creating a {{CollectedClientData}}, instead create a {{CollectedClientPaymentData}} with:
+        1. In step 9, instead of creating a {{CollectedClientData}}, instead
+            create a {{CollectedClientPaymentData}} with:
 
-            1. `type` set to "`payment.get"`
-            1. `payment` set to a new {{CollectedClientAdditionalPaymentData}} with:
+            1. {{CollectedClientData/type}} set to "`payment.get`"
+            1. {{CollectedClientPaymentData/payment}} set to a new
+                {{CollectedClientAdditionalPaymentData}} whose fields are:
 
-                1. `rp` set to {{AuthenticationExtensionsPaymentInputs/rp}}.
-                1. `topOrigin` set to {{AuthenticationExtensionsPaymentInputs/topOrigin}}.
-                1. `payeeOrigin` set to {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}.
-                1. `total` set to {{AuthenticationExtensionsPaymentInputs/total}}.
-                1. `instrument` set {{AuthenticationExtensionsPaymentInputs/instrument}}.
+                : {{CollectedClientAdditionalPaymentData/rp}}
+                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/rp}}
+                : {{CollectedClientAdditionalPaymentData/topOrigin}}
+                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/topOrigin}}
+                : {{CollectedClientAdditionalPaymentData/payeeOrigin}}
+                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
+                : {{CollectedClientAdditionalPaymentData/total}}
+                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/total}}
+                : {{CollectedClientAdditionalPaymentData/instrument}}
+                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/instrument}}
 
-            1. All other members set as per the original step 9.
+            1. All other fields set as per the original step 9.
 
 :  Client extension output
 :: None

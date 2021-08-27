@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 4f053d00e, updated Tue Aug 10 14:13:32 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="e937e92b47dc91136d022a4149c409ffad8ba99c" name="document-revision">
+  <meta content="aad8ea7226b14276225d7ada479747911f32a2d1" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -269,7 +269,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-26">26 August 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-27">27 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -833,31 +833,65 @@ payment instrument <code class="idl"><a data-link-type="idl" href="#dom-paymentc
      <p>Let <var>topOrigin</var> be the origin of the top-level frame.</p>
      <div class="note" role="note"><strong>TODO</strong>: Specify this concretely</div>
     <li data-md>
-     <p>Let <var>payment</var> be a new a <code class="idl"><a data-link-type="idl" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs">AuthenticationExtensionsPaymentInputs</a></code> dictionary, initialized
-as «["<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-ispayment" id="ref-for-dom-authenticationextensionspaymentinputs-ispayment">isPayment</a></code>" → <code>true</code>,
-"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-rp" id="ref-for-dom-authenticationextensionspaymentinputs-rp">rp</a></code>" → <strong>TODO</strong>,
-"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin">topOrigin</a></code>" → <var>topOrigin</var>,
-"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">payeeOrigin</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">payeeOrigin</a></code>,
-"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total">total</a></code>" → <var>request</var>.<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-details" id="ref-for-dfn-details">[[details]]</a>.<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total" id="ref-for-dom-paymentdetailsinit-total">total</a></code>,
-"<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument">instrument</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument③">instrument</a></code>]».</p>
+     <p>Let <var>payment</var> be a new a <code class="idl"><a data-link-type="idl" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs">AuthenticationExtensionsPaymentInputs</a></code> dictionary,
+whose fields are:</p>
+     <dl>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-ispayment" id="ref-for-dom-authenticationextensionspaymentinputs-ispayment">isPayment</a></code>
+      <dd data-md>
+       <p>The boolean value <code>true</code>.</p>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-rp" id="ref-for-dom-authenticationextensionspaymentinputs-rp">rp</a></code>
+      <dd data-md>
+       <p><strong>TODO</strong></p>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin">topOrigin</a></code>
+      <dd data-md>
+       <p><var>topOrigin</var></p>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">payeeOrigin</a></code>
+      <dd data-md>
+       <p><var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">payeeOrigin</a></code></p>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total">total</a></code>
+      <dd data-md>
+       <p><var>request</var>.<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-details" id="ref-for-dfn-details">[[details]]</a>.<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total" id="ref-for-dom-paymentdetailsinit-total">total</a></code></p>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument">instrument</a></code>
+      <dd data-md>
+       <p><var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument③">instrument</a></code></p>
+     </dl>
      <div class="note" role="note"><strong>TODO</strong>: We do not have the rp id at this step; maybe that should just go in the extension processing steps?</div>
     <li data-md>
-     <p>Let <var>extensions</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs②">AuthenticationExtensionsClientInputs</a></code> dictionary whose <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment①">payment</a></code> member is set to <var>payment</var>, and whose other
-members are set from <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-extensions" id="ref-for-dom-securepaymentconfirmationrequest-extensions①">extensions</a></code>.</p>
+     <p>Let <var>extensions</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs②">AuthenticationExtensionsClientInputs</a></code> dictionary
+whose <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment①">payment</a></code> member is set to <var>payment</var>, and whose other members are set from <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-extensions" id="ref-for-dom-securepaymentconfirmationrequest-extensions①">extensions</a></code>.</p>
     <li data-md>
-     <p>Let <var>publicKeyOpts</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions" id="ref-for-dictdef-publickeycredentialrequestoptions">PublicKeyCredentialRequestOptions</a></code> dictionary, initialized
-as «["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge" id="ref-for-dom-publickeycredentialrequestoptions-challenge①">challenge</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-challenge" id="ref-for-dom-securepaymentconfirmationrequest-challenge①">challenge</a></code>,
-"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout" id="ref-for-dom-publickeycredentialrequestoptions-timeout">timeout</a></code>" → <var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-timeout" id="ref-for-dom-securepaymentconfirmationrequest-timeout①">timeout</a></code>,
-"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification">userVerification</a></code>" → <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required" id="ref-for-dom-userverificationrequirement-required">required</a></code>,
-"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions" id="ref-for-dom-publickeycredentialrequestoptions-extensions">extensions</a></code>" → <var>extensions</var>]».</p>
+     <p>Let <var>publicKeyOpts</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions" id="ref-for-dictdef-publickeycredentialrequestoptions">PublicKeyCredentialRequestOptions</a></code> dictionary, whose fields are:</p>
+     <dl>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge" id="ref-for-dom-publickeycredentialrequestoptions-challenge①">challenge</a></code>
+      <dd data-md>
+       <p><var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-challenge" id="ref-for-dom-securepaymentconfirmationrequest-challenge①">challenge</a></code></p>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout" id="ref-for-dom-publickeycredentialrequestoptions-timeout">timeout</a></code>
+      <dd data-md>
+       <p><var>data</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-timeout" id="ref-for-dom-securepaymentconfirmationrequest-timeout①">timeout</a></code></p>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification">userVerification</a></code>
+      <dd data-md>
+       <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required" id="ref-for-dom-userverificationrequirement-required">required</a></code></p>
+      <dt data-md><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions" id="ref-for-dom-publickeycredentialrequestoptions-extensions">extensions</a></code>
+      <dd data-md>
+       <p><var>extensions</var></p>
+     </dl>
     <li data-md>
      <p>For each <var>id</var> in <code>data.credentialIds</code>:</p>
      <ol>
       <li data-md>
-       <p>Let <var>descriptor</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor" id="ref-for-dictdef-publickeycredentialdescriptor">PublicKeyCredentialDescriptor</a></code> dictionary, initialized as
-«["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type" id="ref-for-dom-publickeycredentialdescriptor-type">type</a></code>" → <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key" id="ref-for-dom-publickeycredentialtype-public-key">public-key</a></code>,
-"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id" id="ref-for-dom-publickeycredentialdescriptor-id">id</a></code>" → <var>id</var>,
-"<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports" id="ref-for-dom-publickeycredentialdescriptor-transports">transports</a></code>" → a sequence of length 1 whose only member is <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatortransport-internal" id="ref-for-dom-authenticatortransport-internal">internal</a></code>]».</p>
+       <p>Let <var>descriptor</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor" id="ref-for-dictdef-publickeycredentialdescriptor">PublicKeyCredentialDescriptor</a></code> dictionary,
+whose fields are:</p>
+       <dl>
+        <dt data-md><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type" id="ref-for-dom-publickeycredentialdescriptor-type">type</a></code>
+        <dd data-md>
+         <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key" id="ref-for-dom-publickeycredentialtype-public-key">public-key</a></code></p>
+        <dt data-md><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id" id="ref-for-dom-publickeycredentialdescriptor-id">id</a></code>
+        <dd data-md>
+         <p><var>id</var></p>
+        <dt data-md><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports" id="ref-for-dom-publickeycredentialdescriptor-transports">transports</a></code>
+        <dd data-md>
+         <p>A sequence of length 1 whose only member is <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatortransport-internal" id="ref-for-dom-authenticatortransport-internal">internal</a></code>.</p>
+       </dl>
       <li data-md>
        <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-append" id="ref-for-list-append">Append</a> <var>descriptor</var> to <var>publicKeyOpts</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials" id="ref-for-dom-publickeycredentialrequestoptions-allowcredentials">allowCredentials</a></code>.</p>
      </ol>
@@ -942,12 +976,14 @@ part of any WebAuthn algorithm!</p>
      </ol>
     <dt data-md>Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension②">authentication</a>)
     <dd data-md>
-     <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">making an assertion</a>:</p>
+     <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">making an assertion</a> with a <code class="idl"><a data-link-type="idl" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs②">AuthenticationExtensionsPaymentInputs</a></code> <var>extension_inputs</var>:</p>
      <ol>
       <li data-md>
-       <p>If not in a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation④">secure-payment-confirmation</a>" payment handler, return a "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
+       <p>If not in a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation④">secure-payment-confirmation</a>" payment handler, return a
+"<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
        <p class="note" role="note"><span>Note:</span> This guards against websites trying to access the extended powers of
-SPC without going through the browser UX.</p>
+SPC without going through <a href="#sctn-transaction-confirmation-ux">the
+transaction UX</a>.</p>
       <li data-md>
        <p>During <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot" id="ref-for-dom-publickeycredential-discoverfromexternalsource-slot">[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</a></code>:</p>
        <ol>
@@ -955,26 +991,32 @@ SPC without going through the browser UX.</p>
          <p>Skip step 6.1, which compares <em>options.rpId</em> to <em>effectiveDomain</em></p>
          <p class="note" role="note"><span>Note:</span> This enables cross-domain authentication ceremonies; see <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
         <li data-md>
-         <p>In step 9, instead of creating a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata①">CollectedClientData</a></code>, instead create a <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata①">CollectedClientPaymentData</a></code> with:</p>
+         <p>In step 9, instead of creating a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata①">CollectedClientData</a></code>, instead
+create a <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata①">CollectedClientPaymentData</a></code> with:</p>
          <ol>
           <li data-md>
-           <p><code>type</code> set to "<code>payment.get"</code></p>
+           <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type" id="ref-for-dom-collectedclientdata-type">type</a></code> set to "<code>payment.get</code>"</p>
           <li data-md>
-           <p><code>payment</code> set to a new <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata">CollectedClientAdditionalPaymentData</a></code> with:</p>
-           <ol>
-            <li data-md>
-             <p><code>rp</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-rp" id="ref-for-dom-authenticationextensionspaymentinputs-rp②">rp</a></code>.</p>
-            <li data-md>
-             <p><code>topOrigin</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin②">topOrigin</a></code>.</p>
-            <li data-md>
-             <p><code>payeeOrigin</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin②">payeeOrigin</a></code>.</p>
-            <li data-md>
-             <p><code>total</code> set to <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total②">total</a></code>.</p>
-            <li data-md>
-             <p><code>instrument</code> set <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument②">instrument</a></code>.</p>
-           </ol>
+           <p><code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment">payment</a></code> set to a new <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata">CollectedClientAdditionalPaymentData</a></code> whose fields are:</p>
+           <dl>
+            <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-rp" id="ref-for-dom-collectedclientadditionalpaymentdata-rp">rp</a></code>
+            <dd data-md>
+             <p><var>extension_inputs</var>.<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-rp" id="ref-for-dom-authenticationextensionspaymentinputs-rp②">rp</a></code></p>
+            <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin">topOrigin</a></code>
+            <dd data-md>
+             <p><var>extension_inputs</var>.<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin②">topOrigin</a></code></p>
+            <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin①">payeeOrigin</a></code>
+            <dd data-md>
+             <p><var>extension_inputs</var>.<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin②">payeeOrigin</a></code></p>
+            <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total①">total</a></code>
+            <dd data-md>
+             <p><var>extension_inputs</var>.<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total②">total</a></code></p>
+            <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument①">instrument</a></code>
+            <dd data-md>
+             <p><var>extension_inputs</var>.<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument②">instrument</a></code></p>
+           </dl>
           <li data-md>
-           <p>All other members set as per the original step 9.</p>
+           <p>All other fields set as per the original step 9.</p>
          </ol>
        </ol>
      </ol>
@@ -987,7 +1029,7 @@ SPC without going through the browser UX.</p>
    </dl>
    <h3 class="heading settled" data-level="5.1" id="sctn-collectedclientpaymentdata-dictionary"><span class="secno">5.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientpaymentdata"><code>CollectedClientPaymentData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientpaymentdata-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata②"><c- g>CollectedClientPaymentData</c-></a> : <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata②"><c- n>CollectedClientData</c-></a> {
-    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata①"><c- n>CollectedClientAdditionalPaymentData</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="CollectedClientAdditionalPaymentData " href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment"><c- g>payment</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata①"><c- n>CollectedClientAdditionalPaymentData</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="CollectedClientAdditionalPaymentData " href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment①"><c- g>payment</c-></a>;
 };
 </pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata③">CollectedClientPaymentData</a></code> dictionary inherits from <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata③">CollectedClientData</a></code>. It contains the following additional field:</p>
@@ -998,11 +1040,11 @@ SPC without going through the browser UX.</p>
    </dl>
    <h3 class="heading settled" data-level="5.2" id="sctn-collectedclientadditionalpaymentdata-dictionary"><span class="secno">5.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientadditionalpaymentdata"><code>CollectedClientAdditionalPaymentData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientadditionalpaymentdata-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata③"><c- g>CollectedClientAdditionalPaymentData</c-></a> {
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑧"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rp" id="ref-for-dom-collectedclientadditionalpaymentdata-rp"><c- g>rp</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑨"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin"><c- g>topOrigin</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①⓪"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin①"><c- g>payeeOrigin</c-></a>;
-    <c- b>required</c-> <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount②"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total①"><c- g>total</c-></a>;
-    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument④"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument①"><c- g>instrument</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑧"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rp" id="ref-for-dom-collectedclientadditionalpaymentdata-rp①"><c- g>rp</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString⑨"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin①"><c- g>topOrigin</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-USVString" id="ref-for-idl-USVString①⓪"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin②"><c- g>payeeOrigin</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount②"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total②"><c- g>total</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument④"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument②"><c- g>instrument</c-></a>;
 };
 </pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata④">CollectedClientAdditionalPaymentData</a></code> dictionary contains the following
@@ -1101,7 +1143,7 @@ particular, the following fields can all be used to detect an inappropriate use
 of a credential:</p>
    <ul>
     <li data-md>
-     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑤">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type" id="ref-for-dom-collectedclientdata-type">type</a></code> - "webauthn.get" for
+     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑤">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type" id="ref-for-dom-collectedclientdata-type①">type</a></code> - "webauthn.get" for
 login, "payment.get" for SPC.</p>
     <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑥">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge" id="ref-for-dom-collectedclientdata-challenge">challenge</a></code> - this value should
@@ -1890,9 +1932,9 @@ with a random salt, making them non-consistent across calls.</p>
    <dt id="biblio-infra">[INFRA]
    <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
    <dt id="biblio-payment-method-id">[PAYMENT-METHOD-ID]
-   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. 5 September 2019. CR. URL: <a href="https://www.w3.org/TR/payment-method-id/">https://www.w3.org/TR/payment-method-id/</a>
+   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. 27 August 2021. CR. URL: <a href="https://www.w3.org/TR/payment-method-id/">https://www.w3.org/TR/payment-method-id/</a>
    <dt id="biblio-payment-request">[PAYMENT-REQUEST]
-   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-request/"><cite>Payment Request API</cite></a>. 23 August 2021. CR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
+   <dd>Marcos Caceres; et al. <a href="https://www.w3.org/TR/payment-request/"><cite>Payment Request API</cite></a>. 27 August 2021. CR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-webauthn-1">[WEBAUTHN-1]
@@ -2037,7 +2079,7 @@ with a random salt, making them non-consistent across calls.</p>
    <b><a href="#dictdef-authenticationextensionspaymentinputs">#dictdef-authenticationextensionspaymentinputs</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs">4.1.6. Steps to respond to a payment request</a>
-    <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs①">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dictdef-authenticationextensionspaymentinputs②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-ispayment">
@@ -2093,7 +2135,8 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="dom-collectedclientpaymentdata-payment">
    <b><a href="#dom-collectedclientpaymentdata-payment">#dom-collectedclientpaymentdata-payment</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-collectedclientpaymentdata-payment">5.1. CollectedClientPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientpaymentdata-payment">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-collectedclientpaymentdata-payment①">5.1. CollectedClientPaymentData Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-collectedclientadditionalpaymentdata">
@@ -2107,34 +2150,39 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-rp">
    <b><a href="#dom-collectedclientadditionalpaymentdata-rp">#dom-collectedclientadditionalpaymentdata-rp</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rp">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rp">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rp①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-toporigin">
    <b><a href="#dom-collectedclientadditionalpaymentdata-toporigin">#dom-collectedclientadditionalpaymentdata-toporigin</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeeorigin">
    <b><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">#dom-collectedclientadditionalpaymentdata-payeeorigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin">4.1.5. Displaying a transaction confirmation UX</a>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin①">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-total">
    <b><a href="#dom-collectedclientadditionalpaymentdata-total">#dom-collectedclientadditionalpaymentdata-total</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total">4.1.5. Displaying a transaction confirmation UX</a>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total①">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-instrument">
    <b><a href="#dom-collectedclientadditionalpaymentdata-instrument">#dom-collectedclientadditionalpaymentdata-instrument</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument">4.1.5. Displaying a transaction confirmation UX</a>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument①">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-paymentcredentialinstrument">

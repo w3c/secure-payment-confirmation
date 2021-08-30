@@ -583,6 +583,8 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     : {{PublicKeyCredentialRequestOptions/extensions}}
     :: |extensions|
 
+    Note: This algorithm hard-codes "required" as the value for {{PublicKeyCredentialRequestOptions/userVerification}} because that is what Chrome's initial implementation supports. The current limitation may change. The Working Group invites implementers to share use cases that would benefit from support for other values ("preferred", "discouraged").
+
 1. For each |id| in `data.credentialIds`:
 
     1. Let |descriptor| be a new {{PublicKeyCredentialDescriptor}} dictionary,

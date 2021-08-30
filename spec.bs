@@ -8,7 +8,7 @@ Prepare for TR: true
 Inline Github Issues: true
 Group: payments
 Status: w3c/ED
-Level: 1
+Level:
 URL: https://w3c.github.io/secure-payment-confirmation
 Editor: Rouslan Solomakhin, w3cid 83784, Google https://www.google.com/, rouslan@chromium.org
 Editor: Stephen McGruer, w3cid 96463, Google https://www.google.com/, smcgruer@chromium.org

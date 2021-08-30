@@ -1084,5 +1084,5 @@ with a random salt, making them non-consistent across calls.
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 
 User Agents implementing this specification should follow both
-[[webauthn-3#accessibility-considerations|WebAuthn's Accessibility Considerations]]
+[[webauthn-3#sctn-accessiblility-considerations|WebAuthn's Accessibility Considerations]]
 and [=payment request accessibility considerations|PaymentRequest's Accessibility Considerations=].

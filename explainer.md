@@ -134,6 +134,14 @@ Secure Payment Confirmation (SPC) builds on top of [WebAuthn] to add
 payment-specific data to the signed assertion, and to relax assumptions to
 allow the API to be called in payment contexts.
 
+<div align="center">
+
+| ![Diagram showing SPC authentication from the user's perspective.](explainer-diagram.png) |
+|:--:|
+| *Diagram: A payment flow authenticated by SPC. With SPC, the user does not leave the merchant website (in blue). The browser (in green) displays the merchant origin and provides a transaction confirmation dialog. The operating system (in orange) provides the biometric authentication service.* |
+
+</div>
+
 Ideally with Secure Payment Confirmation, a Customer would register once on a
 given device for a given account with an Account Provider, either on the
 Account Provider's website or during a traditionally-authenticated online
@@ -164,10 +172,6 @@ Payment Confirmation:
 > **NOTE**: Most of the above flow happens in the background. The user
 > experience consists only of examining and agreeing to the transaction
 > details, and performing a [WebAuthn] interaction.
-
-**TODO**: Color-coded image here showing the authentication flow from the user
-perspective. Merchant site with 'pay' button, then overlaid payment transaction
-details, then WebAuthn interface, then success.
 
 For the handling of cases when no returned credentials match the current
 device, see [the Privacy section](#privacy-considerations).

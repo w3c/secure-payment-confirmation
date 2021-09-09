@@ -138,7 +138,7 @@ allow the API to be called in payment contexts.
 
 | ![Diagram showing SPC authentication from the user's perspective.](explainer-diagram.png) |
 |:--:|
-| *Diagram: A payment flow authenticated by SPC. Green is browser UX, blue is page UX, and orange is system UX.* |
+| *Diagram: A payment flow authenticated by SPC. With SPC, the user does not leave the merchant website (in blue). The browser (in green) displays the merchant origin and provides a transaction confirmation dialog. The operating system (in orange) provides the biometric authentication service.* |
 
 </div>
 

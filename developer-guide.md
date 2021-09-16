@@ -101,14 +101,16 @@ SPC is similar in concept to WebAuthn, but has two key differences:
    not allowed in WebAuthn. This supports user enrollment during the common
    payments flow of a `bank.com` embedded-iframe inside a top-level
    `merchant.com` or `psp.com` website.
-2. A `PaymentCredential` can be authenticated against from a 3p origin, e.g.
-   `merchant.com` can exercise a credential whose relying party is `bank.com`.
-   This allows merchants or PSPs to to use SPC authentication without the
-   friction of redirecting to an issuer bank website.
+2. An origin my authenticate a user with the `PaymentCredential` of a
+   different origin. For example, `merchant.com` can exercise a
+   credential whose relying party is `bank.com`. This allows merchants or
+   PSPs to use SPC authentication without the friction of redirecting
+   to an issuer bank website.
 
 SPC also provides a standardized format for including transaction details
 (amount and currency) inside the signed assertation. This is possible to do
-with WebAuthn today, but SPC brings a convenient and standardized way to do it.
+with WebAuthn today, but SPC brings a convenient and standardized way to do
+it via a native browser user experience.
 
 ### Why is PaymentCredential bound to a payment instrument rather than to just the Relying Party?
 
@@ -134,7 +136,7 @@ credentials on the authenticator.
 
 Keep in mind that Chrome 95 at the time of writing uses disk cache where it
 stores the public credential identifiers. If a credential is erased from the
-authenticator device, but remains the SPC disk cache, then the payment flow
+authenticator device but remains the SPC disk cache, then the payment flow
 will display browser UI, but the operating system prompt for biometric will
 return an error to the website.
 

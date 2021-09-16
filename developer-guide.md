@@ -124,6 +124,20 @@ but UXR explorations are needed to ensure the user understands the situation.
 
 Chrome's current implementation expects an icon that is 32px wide by 20px high.
 
+### Can I re-use a user ID during registration?
+
+Please avoid re-using the same user ID during registration, because that will
+overwrite any existing credentials on the authenticator device that have the
+same user ID and the same RP ID. The recommendation is to use unique user ID
+for each registration, unless your goal is to erase your RP's existing
+credentials on the authenticator. 
+
+Keep in mind that Chrome 95 at the time of writing uses disk cache where it
+stores the public credential identifiers. If a credential is erased from the
+authenticator device, but remains the SPC disk cache, then the payment flow
+will display browser UI, but the operating system prompt for biometric will
+return an error to the website.
+
 ## Questions & Feedback
 
 Please contact payments-dev@chromium.org.

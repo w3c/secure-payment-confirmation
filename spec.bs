@@ -256,7 +256,9 @@ const publicKey = {
 
   // This Relying Party requires user verification.
   authenticatorSelection: {
-    userVerification: "required"
+    userVerification: "required",
+    residentKey: "required",
+    authenticatorAttachment: "platform",
   },
 
   timeout: 360000,  // 6 minutes
@@ -583,7 +585,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     : {{PublicKeyCredentialRequestOptions/extensions}}
     :: |extensions|
 
-    Note: This algorithm hard-codes "required" as the value for {{PublicKeyCredentialRequestOptions/userVerification}} because that is what Chrome's initial implementation supports. The current limitation may change. The Working Group invites implementers to share use cases that would benefit from support for other values ("preferred", "discouraged").
+    Note: This algorithm hard-codes "required" as the value for {{PublicKeyCredentialRequestOptions/userVerification}} and {{PublicKeyCredentialRequestOptions/residentKey}}, as well as "platform" for {{PublicKeyCredentialRequestOptions/authenticatorAttachment}}, because that is what Chrome's initial implementation supports. The current limitation may change. The Working Group invites implementers to share use cases that would benefit from support for other values ("preferred", "discouraged").
 
 1. For each |id| in `data.credentialIds`:
 

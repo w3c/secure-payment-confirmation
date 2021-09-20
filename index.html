@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="w3c/ED" name="w3c-status">
-  <meta content="Bikeshed version e42be938a, updated Thu Sep 16 09:29:28 2021 -0700" name="generator">
+  <meta content="Bikeshed version a210b7d86, updated Thu Sep 16 13:45:19 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="a97486f3c2ddb4fd9343c35227baa1865db222ed" name="document-revision">
+  <meta content="150bca16a9421797a19ce83af4a8149b60000801" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -269,7 +269,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-09-16">16 September 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-09-20">20 September 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -586,7 +586,9 @@ the checkout process for the user.</p>
 
   <c- c1>// This Relying Party requires user verification.</c->
   authenticatorSelection<c- o>:</c-> <c- p>{</c->
-    userVerification<c- o>:</c-> <c- u>"required"</c->
+    userVerification<c- o>:</c-> <c- u>"required"</c-><c- p>,</c->
+    residentKey<c- o>:</c-> <c- u>"required"</c-><c- p>,</c->
+    authenticatorAttachment<c- o>:</c-> <c- u>"platform"</c-><c- p>,</c->
   <c- p>},</c->
 
   timeout<c- o>:</c-> <c- mf>360000</c-><c- p>,</c->  <c- c1>// 6 minutes</c->
@@ -875,7 +877,7 @@ whose <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensi
       <dd data-md>
        <p><var>extensions</var></p>
      </dl>
-     <p class="note" role="note"><span>Note:</span> This algorithm hard-codes "required" as the value for <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification①">userVerification</a></code> because that is what Chrome’s initial implementation supports. The current limitation may change. The Working Group invites implementers to share use cases that would benefit from support for other values ("preferred", "discouraged").</p>
+     <p class="note" role="note"><span>Note:</span> This algorithm hard-codes "required" as the value for <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification①">userVerification</a></code> and <code class="idl"><a data-link-type="idl">residentKey</a></code>, as well as "platform" for <code class="idl"><a data-link-type="idl">authenticatorAttachment</a></code>, because that is what Chrome’s initial implementation supports. The current limitation may change. The Working Group invites implementers to share use cases that would benefit from support for other values ("preferred", "discouraged").</p>
     <li data-md>
      <p>For each <var>id</var> in <code>data.credentialIds</code>:</p>
      <ol>

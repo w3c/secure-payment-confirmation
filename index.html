@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version a210b7d86, updated Thu Sep 16 13:45:19 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="150bca16a9421797a19ce83af4a8149b60000801" name="document-revision">
+  <meta content="0444d4cac684d55206436c0796fb12532aeb64c9" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -877,7 +877,7 @@ whose <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensi
       <dd data-md>
        <p><var>extensions</var></p>
      </dl>
-     <p class="note" role="note"><span>Note:</span> This algorithm hard-codes "required" as the value for <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification①">userVerification</a></code> and <code class="idl"><a data-link-type="idl">residentKey</a></code>, as well as "platform" for <code class="idl"><a data-link-type="idl">authenticatorAttachment</a></code>, because that is what Chrome’s initial implementation supports. The current limitation may change. The Working Group invites implementers to share use cases that would benefit from support for other values ("preferred", "discouraged").</p>
+     <p class="note" role="note"><span>Note:</span> This algorithm hard-codes "required" as the value for <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification①">userVerification</a></code> and <code class="idl"><a data-link-type="idl">residentKey</a></code>, as well as "platform" for <code class="idl"><a data-link-type="idl">authenticatorAttachment</a></code>, because that is what Chrome’s initial implementation supports. The current limitations may change. The Working Group invites implementers to share use cases that would benefit from support for other values (e.g., "preferred" or "discouraged" for userVerification).</p>
     <li data-md>
      <p>For each <var>id</var> in <code>data.credentialIds</code>:</p>
      <ol>

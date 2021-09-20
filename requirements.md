@@ -80,7 +80,8 @@ an [SPC Registration](#dfn-spc-registration). The Relying Party determines wheth
 #### Instrument Information at Payment Confirmation
 
 * Instrument information (e.g., a display string and icon) must be available for
-  use within the payment confirmation user experience.
+  use within the payment confirmation user experience. The API must support
+  accessibility requirements associated with this information.
 * The party that calls the API must be able to provide instrument
   information as input. Note: The
   Relying Party is the authoritative source of instrument information.

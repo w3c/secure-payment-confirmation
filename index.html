@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version a210b7d86, updated Thu Sep 16 13:45:19 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="39462477e5ca22bfe5f46239ebbbe85f7947161d" name="document-revision">
+  <meta content="ba809dbf01cd7ae026442d44e07cb9cb12ef7879" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -877,7 +877,7 @@ whose <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensi
       <dd data-md>
        <p><var>extensions</var></p>
      </dl>
-     <p class="note" role="note"><span>Note:</span> This algorithm hard-codes "required" as the value for <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification①">userVerification</a></code> and <code class="idl"><a data-link-type="idl">residentKey</a></code>, as well as "platform" for <code class="idl"><a data-link-type="idl">authenticatorAttachment</a></code>, because that is what Chrome’s initial implementation supports. The current limitations may change. The Working Group invites implementers to share use cases that would benefit from support for other values (e.g., "preferred" or "discouraged" for userVerification).</p>
+     <p class="note" role="note"><span>Note:</span> This algorithm hard-codes "required" as the value for <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification①">userVerification</a></code>, because that is what Chrome’s initial implementation supports. The current limitations may change. The Working Group invites implementers to share use cases that would benefit from support for other values (e.g., "preferred" or "discouraged").</p>
     <li data-md>
      <p>For each <var>id</var> in <code>data.credentialIds</code>:</p>
      <ol>
@@ -976,6 +976,24 @@ part of any WebAuthn algorithm!</p>
  (see <a href="#sctn-permissions-policy">§ 7 Permissions Policy integration</a>). We could additionally require and
  consume a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a> here, if we felt the permission policy
  is not sufficient.</p>
+      <li data-md>
+       <p>After step 3, insert the following step:</p>
+       <ul>
+        <li data-md>
+         <p>If any of the following are true:</p>
+         <ul>
+          <li data-md>
+           <p><em>options</em>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection">authenticatorSelection</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment" id="ref-for-dom-authenticatorselectioncriteria-authenticatorattachment">authenticatorAttachment</a></code> is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform" id="ref-for-dom-authenticatorattachment-platform">platform</a></code>".</p>
+          <li data-md>
+           <p><em>options</em>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection①">authenticatorSelection</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey" id="ref-for-dom-authenticatorselectioncriteria-residentkey">residentKey</a></code> is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required" id="ref-for-dom-residentkeyrequirement-required">required</a></code>".</p>
+          <li data-md>
+           <p><em>options</em>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection②">authenticatorSelection</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification" id="ref-for-dom-authenticatorselectioncriteria-userverification">userVerification</a></code> is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required" id="ref-for-dom-userverificationrequirement-required①">required</a></code>".</p>
+         </ul>
+         <p>then throw a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code>.</p>
+         <p class="note" role="note"><span>Note:</span> These values are hard-coded as that is what Chrome’s initial implementation
+supports. The current limitations may change. The Working Group invites implementers
+to share use cases that would benefit from support for other values.</p>
+       </ul>
      </ol>
     <dt data-md>Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension②">authentication</a>)
     <dd data-md>
@@ -1696,6 +1714,18 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-allowcredentials">4.1.6. Steps to respond to a payment request</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-authenticatorselectioncriteria-authenticatorattachment">
+   <a href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment">https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticatorselectioncriteria-authenticatorattachment">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialcreationoptions-authenticatorselection">
+   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection">https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-publickeycredentialcreationoptions-authenticatorselection">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-publickeycredentialcreationoptions-authenticatorselection①">(2)</a> <a href="#ref-for-dom-publickeycredentialcreationoptions-authenticatorselection②">(3)</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-challenge">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge</a><b>Referenced in:</b>
    <ul>
@@ -1727,6 +1757,12 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dom-collectedclientdata-origin">9.1.1. Login Attack</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-authenticatorattachment-platform">
+   <a href="https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform">https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticatorattachment-platform">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialtype-public-key">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key">https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key</a><b>Referenced in:</b>
    <ul>
@@ -1743,6 +1779,13 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required">https://w3c.github.io/webauthn/#dom-userverificationrequirement-required</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-userverificationrequirement-required">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-userverificationrequirement-required①">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-authenticatorselectioncriteria-residentkey">
+   <a href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey">https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticatorselectioncriteria-residentkey">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-timeout">
@@ -1797,6 +1840,12 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://heycam.github.io/webidl/#notallowederror">https://heycam.github.io/webidl/#notallowederror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-notallowederror">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-exceptiondef-typeerror">
+   <a href="https://heycam.github.io/webidl/#exceptiondef-typeerror">https://heycam.github.io/webidl/#exceptiondef-typeerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-exceptiondef-typeerror">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-USVString">
@@ -1897,18 +1946,22 @@ with a random salt, making them non-consistent across calls.</p>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredential-create-slot">[[Create]](origin, options, sameOriginWithAncestors)</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredential-discoverfromexternalsource-slot">[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-allowcredentials">allowCredentials</span>
+     <li><span class="dfn-paneled" id="term-for-dom-authenticatorselectioncriteria-authenticatorattachment">authenticatorAttachment</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialcreationoptions-authenticatorselection">authenticatorSelection</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-challenge">challenge <small>(for PublicKeyCredentialRequestOptions)</small></span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-extensions">extensions</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-id">id</span>
      <li><span class="dfn-paneled" id="term-for-dom-authenticatortransport-internal">internal</span>
      <li><span class="dfn-paneled" id="term-for-dom-collectedclientdata-origin">origin</span>
+     <li><span class="dfn-paneled" id="term-for-dom-authenticatorattachment-platform">platform</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialtype-public-key">public-key</span>
      <li><span class="dfn-paneled" id="term-for-dom-credentialrequestoptions-publickey">publicKey</span>
-     <li><span class="dfn-paneled" id="term-for-dom-userverificationrequirement-required">required</span>
+     <li><span class="dfn-paneled" id="term-for-dom-userverificationrequirement-required">required <small>(for UserVerificationRequirement)</small></span>
+     <li><span class="dfn-paneled" id="term-for-dom-authenticatorselectioncriteria-residentkey">residentKey</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-timeout">timeout</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-transports">transports</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-type">type <small>(for PublicKeyCredentialDescriptor)</small></span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-userverification">userVerification</span>
+     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-userverification">userVerification <small>(for PublicKeyCredentialRequestOptions)</small></span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
@@ -1918,6 +1971,7 @@ with a random salt, making them non-consistent across calls.</p>
      <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
      <li><span class="dfn-paneled" id="term-for-idl-frozen-array">FrozenArray</span>
      <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
      <li><span class="dfn-paneled" id="term-for-idl-USVString">USVString</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long">unsigned long</span>

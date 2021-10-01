@@ -585,7 +585,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     : {{PublicKeyCredentialRequestOptions/extensions}}
     :: |extensions|
 
-    Note: This algorithm hard-codes "required" as the value for {{PublicKeyCredentialRequestOptions/userVerification}} and {{PublicKeyCredentialRequestOptions/residentKey}}, as well as "platform" for {{PublicKeyCredentialRequestOptions/authenticatorAttachment}}, because that is what Chrome's initial implementation supports. The current limitations may change. The Working Group invites implementers to share use cases that would benefit from support for other values (e.g., "preferred" or "discouraged" for userVerification).
+    Note: This algorithm hard-codes "required" as the value for {{PublicKeyCredentialRequestOptions/userVerification}}, because that is what Chrome's initial implementation supports. The current limitations may change. The Working Group invites implementers to share use cases that would benefit from support for other values (e.g., "preferred" or "discouraged").
 
 1. For each |id| in `data.credentialIds`:
 
@@ -690,6 +690,20 @@ directly; for authentication the extension can only be accessed via
          (see [[#sctn-permissions-policy]]). We could additionally require and
          consume a [=transient activation=] here, if we felt the permission policy
          is not sufficient.
+
+    1. After step 3, insert the following step:
+
+        * If any of the following are true:
+
+            * *options*.{{PublicKeyCredentialCreationOptions/authenticatorSelection}}.{{AuthenticatorSelectionCriteria/authenticatorAttachment}} is not "{{AuthenticatorAttachment/platform}}".
+            * *options*.{{PublicKeyCredentialCreationOptions/authenticatorSelection}}.{{AuthenticatorSelectionCriteria/residentKey}} is not "{{ResidentKeyRequirement/required}}".
+            * *options*.{{PublicKeyCredentialCreationOptions/authenticatorSelection}}.{{AuthenticatorSelectionCriteria/userVerification}} is not "{{UserVerificationRequirement/required}}".
+
+            then throw a {{TypeError}}.
+
+            Note: These values are hard-coded as that is what Chrome's initial implementation
+            supports. The current limitations may change. The Working Group invites implementers
+            to share use cases that would benefit from support for other values.
 
 :  Client extension processing ([=authentication extension|authentication=])
 :: When [[webauthn-3#sctn-getAssertion|making an assertion]] with a

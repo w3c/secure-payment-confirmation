@@ -846,7 +846,51 @@ they are invoked [=in parallel=] (by algorithms specified in
 
 ## Verifying an Authentication Assertion ## {#sctn-verifying-assertion}
 
-<div class="note">**TODO**: Write this section</div>
+In order to perform an [=authentication ceremony=] for Secure Payment
+Confirmation, the [=Relying Party=] MUST proceed as follows:
+
+1. Let |credential| be a {{PublicKeyCredential}} returned from a successful
+    invocation of the [=Secure Payment Confirmation payment handler=] by the
+    |SPC caller|.
+
+    Note: As SPC is designed to enable [[#sctn-use-case-merchant-authentication|merchant
+    control of authentication]], the entity that invokes SPC may not be the
+    [=Relying Party=]. This first step presumes that the SPC caller has returned
+    a credential obtained via SPC to the [=Relying Party=].
+
+1. Perform steps 3-21 [[webauthn-3#sctn-verifying-assertion| as specified in
+    WebAuthn]], with the following changes:
+
+    1. In step 5, verify that |credential|.{{Credential/id}} identifies one of
+        the public key credentials provided to the |SPC caller| by the [=Relying Party=].
+
+    1. In step 11, verify that the value of |C|.{{CollectedClientData/type}} is
+        the string `payment.get`.
+
+    1. In step 12, verify that the value of |C|.{{CollectedClientData/challenge}}
+        equals the base64url encoding of the challenge provided to the
+        |SPC caller| by the [=Relying Party=].
+
+    1. In step 13, verify that the value of |C|.{{CollectedClientData/origin}}
+        matches the origin that the [=Relying Party=] expects SPC to have been
+        called from.
+
+    1. After step 13, insert the following steps:
+
+        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/rp}}
+            matches the [=Relying Party=]'s origin.
+
+        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/topOrigin}}
+            matches the top-level origin that the [=Relying Party=] expects.
+
+        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/payeeOrigin}}
+            matches the origin of the payee that should have been displayed to the user.
+
+        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/total}}
+            matches the transaction amount that should have been displayed to the user.
+
+        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/instrument}}
+            matches the payment instrument details that should have been displayed to the user.
 
 # Security Considerations # {#sctn-security-considerations}
 

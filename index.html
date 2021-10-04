@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version a210b7d86, updated Thu Sep 16 13:45:19 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="ba809dbf01cd7ae026442d44e07cb9cb12ef7879" name="document-revision">
+  <meta content="1387d23b8e3da8cfd374ce916ae36ec17d5139fb" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -269,7 +269,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-01">1 October 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-04">4 October 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1118,7 +1118,46 @@ sameOriginWithAncestors)</a></code> <a data-link-type="dfn" href="https://tc39.g
 they are invoked <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a> (by algorithms specified in <a data-link-type="biblio" href="#biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]</a>).</p>
    <h2 class="heading settled" data-level="8" id="sctn-relying-party-operations"><span class="secno">8. </span><span class="content">SPC Relying Party Operations</span><a class="self-link" href="#sctn-relying-party-operations"></a></h2>
    <h3 class="heading settled" data-level="8.1" id="sctn-verifying-assertion"><span class="secno">8.1. </span><span class="content">Verifying an Authentication Assertion</span><a class="self-link" href="#sctn-verifying-assertion"></a></h3>
-   <div class="note" role="note"><strong>TODO</strong>: Write this section</div>
+   <p>In order to perform an <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-ceremony" id="ref-for-authentication-ceremony①">authentication ceremony</a> for Secure Payment
+Confirmation, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①③">Relying Party</a> MUST proceed as follows:</p>
+   <ol>
+    <li data-md>
+     <p>Let <var>credential</var> be a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#publickeycredential" id="ref-for-publickeycredential">PublicKeyCredential</a></code> returned from a successful
+invocation of the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler②">Secure Payment Confirmation payment handler</a> by the <var>SPC caller</var>.</p>
+     <p class="note" role="note"><span>Note:</span> As SPC is designed to enable <a href="#sctn-use-case-merchant-authentication">merchant
+control of authentication</a>, the entity that invokes SPC may not be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①④">Relying Party</a>. This first step presumes that the SPC caller has returned
+a credential obtained via SPC to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑤">Relying Party</a>.</p>
+    <li data-md>
+     <p>Perform steps 3-21 <a href="https://www.w3.org/TR/webauthn-3/#sctn-verifying-assertion"> as specified in
+WebAuthn</a>, with the following changes:</p>
+     <ol>
+      <li data-md>
+       <p>In step 5, verify that <var>credential</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credential-id" id="ref-for-dom-credential-id">id</a></code> identifies one of
+the public key credentials provided to the <var>SPC caller</var> by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑥">Relying Party</a>.</p>
+      <li data-md>
+       <p>In step 11, verify that the value of <var>C</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type" id="ref-for-dom-collectedclientdata-type①">type</a></code> is
+the string <code>payment.get</code>.</p>
+      <li data-md>
+       <p>In step 12, verify that the value of <var>C</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge" id="ref-for-dom-collectedclientdata-challenge">challenge</a></code> equals the base64url encoding of the challenge provided to the <var>SPC caller</var> by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑦">Relying Party</a>.</p>
+      <li data-md>
+       <p>In step 13, verify that the value of <var>C</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin" id="ref-for-dom-collectedclientdata-origin">origin</a></code> matches the origin that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑧">Relying Party</a> expects SPC to have been
+called from.</p>
+      <li data-md>
+       <p>After step 13, insert the following steps:</p>
+       <ul>
+        <li data-md>
+         <p>Verify that the value of <var>C</var>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment②">payment</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-rp" id="ref-for-dom-collectedclientadditionalpaymentdata-rp②">rp</a></code> matches the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑨">Relying Party</a>'s origin.</p>
+        <li data-md>
+         <p>Verify that the value of <var>C</var>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment③">payment</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin②">topOrigin</a></code> matches the top-level origin that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⓪">Relying Party</a> expects.</p>
+        <li data-md>
+         <p>Verify that the value of <var>C</var>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment④">payment</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin③">payeeOrigin</a></code> matches the origin of the payee that should have been displayed to the user.</p>
+        <li data-md>
+         <p>Verify that the value of <var>C</var>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment⑤">payment</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total③">total</a></code> matches the transaction amount that should have been displayed to the user.</p>
+        <li data-md>
+         <p>Verify that the value of <var>C</var>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment⑥">payment</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument③">instrument</a></code> matches the payment instrument details that should have been displayed to the user.</p>
+       </ul>
+     </ol>
+   </ol>
    <h2 class="heading settled" data-level="9" id="sctn-security-considerations"><span class="secno">9. </span><span class="content">Security Considerations</span><a class="self-link" href="#sctn-security-considerations"></a></h2>
    <p>As this specification builds on top of WebAuthn, the <a href="https://www.w3.org/TR/webauthn-3/#sctn-security-considerations">WebAuthn Security Considerations</a> are applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific security considerations, where this specification
@@ -1126,14 +1165,14 @@ diverges from WebAuthn.</p>
    <h3 class="heading settled" data-level="9.1" id="sctn-security-cross-origin-auth"><span class="secno">9.1. </span><span class="content">Cross-origin authentication ceremony</span><a class="self-link" href="#sctn-security-cross-origin-auth"></a></h3>
    <p>A significant departure that Secure Payment Confirmation makes from WebAuthn is
 in allowing a third-party (<code>a.com</code>) to initiate an authentication ceremony
-using credentials for a different <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①③">Relying Party</a> (<code>b.com</code>), and returning
-the assertion to <code>a.com</code>. This feature can expose <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①④">Relying Parties</a> to both
+using credentials for a different <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②①">Relying Party</a> (<code>b.com</code>), and returning
+the assertion to <code>a.com</code>. This feature can expose <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②②">Relying Parties</a> to both
 login and payment attacks, which are discussed here.</p>
    <h4 class="heading settled" data-level="9.1.1" id="sctn-security-login-attack"><span class="secno">9.1.1. </span><span class="content">Login Attack</span><a class="self-link" href="#sctn-security-login-attack"></a></h4>
    <p>As credentials created for Secure Payment Confirmation are valid WebAuthn
-credentials, it is possible that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑤">Relying Party</a> may wish to use the same
+credentials, it is possible that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②③">Relying Party</a> may wish to use the same
 credential for a given user for both login and payment. This allows a potential
-attack on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑥">Relying Party’s</a> login system, if they do not carefully verify
+attack on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②④">Relying Party’s</a> login system, if they do not carefully verify
 the assertion they receive.</p>
    <p>The attack is as follows:</p>
    <ol>
@@ -1156,28 +1195,28 @@ the assertion they receive.</p>
     <li data-md>
      <p><code>b.com</code> returns e.g. a login cookie to <code>a.com</code>. The user’s account at <code>b.com</code> has now been compromised.</p>
    </ol>
-   <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑦">Relying Parties</a> can guard against this attack in two ways.</p>
-   <p>Firstly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑧">Relying Party</a> must always follow the correct assertion
+   <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑤">Relying Parties</a> can guard against this attack in two ways.</p>
+   <p>Firstly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑥">Relying Party</a> must always follow the correct assertion
 validation steps either for <a href="https://www.w3.org/TR/webauthn-3/#sctn-verifying-assertion">WebAuthn
 login</a> or <a href="#sctn-verifying-assertion">SPC payment</a> as appropriate. In
 particular, the following fields can all be used to detect an inappropriate use
 of a credential:</p>
    <ul>
     <li data-md>
-     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑤">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type" id="ref-for-dom-collectedclientdata-type①">type</a></code> - "webauthn.get" for
+     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑤">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type" id="ref-for-dom-collectedclientdata-type②">type</a></code> - "webauthn.get" for
 login, "payment.get" for SPC.</p>
     <li data-md>
-     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑥">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge" id="ref-for-dom-collectedclientdata-challenge">challenge</a></code> - this value should
-be provided by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑨">Relying Party</a> server to the site ahead of any call
+     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑥">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge" id="ref-for-dom-collectedclientdata-challenge①">challenge</a></code> - this value should
+be provided by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑦">Relying Party</a> server to the site ahead of any call
 to either WebAuthn or SPC, and should be verified as matching an expected,
 appropriate, previously-provided value.</p>
     <li data-md>
-     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑦">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin" id="ref-for-dom-collectedclientdata-origin">origin</a></code> - if SPC is being
+     <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑦">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin" id="ref-for-dom-collectedclientdata-origin①">origin</a></code> - if SPC is being
 performed cross-origin, this value will contain the origin of the caller
 (e.g. <code>a.com</code> in the above example).</p>
    </ul>
-   <p>Secondly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⓪">Relying Party</a> can consider keeping their payment and login
-credentials separate. If doing this, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②①">Relying Party</a> should only register
+   <p>Secondly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑧">Relying Party</a> can consider keeping their payment and login
+credentials separate. If doing this, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑨">Relying Party</a> should only register
 credentials for Secure Payment Confirmation on a subdomain (e.g. <code>https//payment.b.com</code>), and should keep payment credentials and login
 credentials separate in their database.</p>
    <div class="note" role="note">
@@ -1203,19 +1242,19 @@ and amount). The user is very likely to reject this interface as invalid.</p>
     <li data-md>
      <p>If the user does agree to the transaction, and completes the subsequent
 WebAuthn authentication ceremony, the attacker now has a signed SPC
-assertion for the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②②">Relying Party</a>.</p>
+assertion for the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⓪">Relying Party</a>.</p>
     <li data-md>
-     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②③">Relying Party</a> is not expecting a transaction, it will reject the
+     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③①">Relying Party</a> is not expecting a transaction, it will reject the
 assertion.</p>
     <li data-md>
-     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②④">Relying Party</a> is expecting a transaction, it will detect an
+     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③②">Relying Party</a> is expecting a transaction, it will detect an
 unfamiliar <code>challenge</code> and reject the assertion.</p>
    </ul>
    <p>The general concept here is that a Secure Payment Confirmation assertion is
 essentially useless unless it is part of an ongoing online transaction.</p>
    <h3 class="heading settled" data-level="9.2" id="sctn-security-merchant-data"><span class="secno">9.2. </span><span class="content">Merchant-supplied authentication data</span><a class="self-link" href="#sctn-security-merchant-data"></a></h3>
    <p>A consequence of this specification’s third-party authentication ceremony is
-that even in a valid transaction (i.e. one that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑤">Relying Party</a> is
+that even in a valid transaction (i.e. one that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③③">Relying Party</a> is
 expecting), a third-party provides the transaction details that are shown to
 the user:</p>
    <ul>
@@ -1288,7 +1327,7 @@ interacted with an iframe attempting credential creation.</p>
    <h3 class="heading settled" data-level="10.2" id="sctn-privacy-probing-credential-ids"><span class="secno">10.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
    <p>As per WebAuthn’s section on <a href="https://www.w3.org/TR/webauthn-3/#sctn-assertion-privacy">Authentication
 Ceremony Privacy</a>, implementors of Secure Payment Confirmation must make sure
-not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑥">Relying Party</a> to distinguish between these cases:</p>
+not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③④">Relying Party</a> to distinguish between these cases:</p>
    <ul>
     <li data-md>
      <p>A credential is not available.</p>
@@ -1301,7 +1340,7 @@ unique URL that they control for the payment instrument icon. If the URL is
 accessed then the caller can conclude that at least one of the passed
 credentials is available to the user.</p>
    <h3 class="heading settled" data-level="10.3" id="sctn-privacy-joining-payment-instruments"><span class="secno">10.3. </span><span class="content">Joining different payment instruments</span><a class="self-link" href="#sctn-privacy-joining-payment-instruments"></a></h3>
-   <p>If a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑦">Relying Party</a> uses the same credentials for a given user across
+   <p>If a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑤">Relying Party</a> uses the same credentials for a given user across
 multiple payment instruments, this might allow a merchant to join information
 about payment instruments that might otherwise not be linked. That is, across
 two different transactions that a user U performs with payment instruments P1
@@ -1312,7 +1351,7 @@ the user already provides sufficient information to do this joining anyway
 (e.g. their address), however it could become a privacy attack if, e.g.,
 payment tokenization becomes commonplace.</p>
    <p>One possible way to defeat this may be to hash the credential IDs with a random
-salt from the Account Provider (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑧">Relying Party</a>):</p>
+salt from the Account Provider (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑥">Relying Party</a>):</p>
    <ol>
     <li data-md>
      <p>Merchant requests the list of credential IDs from the Account Provider.</p>
@@ -1335,10 +1374,10 @@ salt from the Account Provider (<a data-link-type="dfn" href="https://w3c.github
       a local list of credentials.</p>
    <p>See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">this issue</a> for more details.</p>
    <h3 class="heading settled" data-level="10.4" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">10.4. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
-   <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑨">Relying Party</a> could be used by a malicious entity as a tracking vector, as
+   <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑦">Relying Party</a> could be used by a malicious entity as a tracking vector, as
 they are strong, cross-site identifiers. However in order to obtain them from
-the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⓪">Relying Party</a>, the merchant already needs an as-strong identifier to
-give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③①">Relying Party</a> (e.g., the credit card number).</p>
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑧">Relying Party</a>, the merchant already needs an as-strong identifier to
+give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑨">Relying Party</a> (e.g., the credit card number).</p>
    <p>As above, a possible solution to this would be to hash the credential ID(s)
 with a random salt, making them non-consistent across calls.</p>
    <h2 class="heading settled" data-level="11" id="sctn-accessibility-considerations"><span class="secno">11. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
@@ -1453,6 +1492,12 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-credentialscontainer-get">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-credential-id">
+   <a href="https://w3c.github.io/webappsec-credential-management/#dom-credential-id">https://w3c.github.io/webappsec-credential-management/#dom-credential-id</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-credential-id">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-abstract-opdef-request-a-credential">
@@ -1617,6 +1662,7 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://w3c.github.io/webauthn/#authentication-ceremony">https://w3c.github.io/webauthn/#authentication-ceremony</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-authentication-ceremony">4. Authentication</a>
+    <li><a href="#ref-for-authentication-ceremony①">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-authentication-extension">
@@ -1648,13 +1694,14 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-relying-party⑨">4.1.5. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-relying-party①⓪">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-relying-party①①">(2)</a>
     <li><a href="#ref-for-relying-party①②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
-    <li><a href="#ref-for-relying-party①③">9.1. Cross-origin authentication ceremony</a> <a href="#ref-for-relying-party①④">(2)</a>
-    <li><a href="#ref-for-relying-party①⑤">9.1.1. Login Attack</a> <a href="#ref-for-relying-party①⑥">(2)</a> <a href="#ref-for-relying-party①⑦">(3)</a> <a href="#ref-for-relying-party①⑧">(4)</a> <a href="#ref-for-relying-party①⑨">(5)</a> <a href="#ref-for-relying-party②⓪">(6)</a> <a href="#ref-for-relying-party②①">(7)</a>
-    <li><a href="#ref-for-relying-party②②">9.1.2. Payment Attack</a> <a href="#ref-for-relying-party②③">(2)</a> <a href="#ref-for-relying-party②④">(3)</a>
-    <li><a href="#ref-for-relying-party②⑤">9.2. Merchant-supplied authentication data</a>
-    <li><a href="#ref-for-relying-party②⑥">10.2. Probing for credential ids</a>
-    <li><a href="#ref-for-relying-party②⑦">10.3. Joining different payment instruments</a> <a href="#ref-for-relying-party②⑧">(2)</a>
-    <li><a href="#ref-for-relying-party②⑨">10.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party③⓪">(2)</a> <a href="#ref-for-relying-party③①">(3)</a>
+    <li><a href="#ref-for-relying-party①③">8.1. Verifying an Authentication Assertion</a> <a href="#ref-for-relying-party①④">(2)</a> <a href="#ref-for-relying-party①⑤">(3)</a> <a href="#ref-for-relying-party①⑥">(4)</a> <a href="#ref-for-relying-party①⑦">(5)</a> <a href="#ref-for-relying-party①⑧">(6)</a> <a href="#ref-for-relying-party①⑨">(7)</a> <a href="#ref-for-relying-party②⓪">(8)</a>
+    <li><a href="#ref-for-relying-party②①">9.1. Cross-origin authentication ceremony</a> <a href="#ref-for-relying-party②②">(2)</a>
+    <li><a href="#ref-for-relying-party②③">9.1.1. Login Attack</a> <a href="#ref-for-relying-party②④">(2)</a> <a href="#ref-for-relying-party②⑤">(3)</a> <a href="#ref-for-relying-party②⑥">(4)</a> <a href="#ref-for-relying-party②⑦">(5)</a> <a href="#ref-for-relying-party②⑧">(6)</a> <a href="#ref-for-relying-party②⑨">(7)</a>
+    <li><a href="#ref-for-relying-party③⓪">9.1.2. Payment Attack</a> <a href="#ref-for-relying-party③①">(2)</a> <a href="#ref-for-relying-party③②">(3)</a>
+    <li><a href="#ref-for-relying-party③③">9.2. Merchant-supplied authentication data</a>
+    <li><a href="#ref-for-relying-party③④">10.2. Probing for credential ids</a>
+    <li><a href="#ref-for-relying-party③⑤">10.3. Joining different payment instruments</a> <a href="#ref-for-relying-party③⑥">(2)</a>
+    <li><a href="#ref-for-relying-party③⑦">10.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party③⑧">(2)</a> <a href="#ref-for-relying-party③⑨">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-webauthn-extensions">
@@ -1681,6 +1728,12 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dictdef-collectedclientdata②">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientdata③">(2)</a>
     <li><a href="#ref-for-dictdef-collectedclientdata④">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-dictdef-collectedclientdata⑤">9.1.1. Login Attack</a> <a href="#ref-for-dictdef-collectedclientdata⑥">(2)</a> <a href="#ref-for-dictdef-collectedclientdata⑦">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-publickeycredential">
+   <a href="https://w3c.github.io/webauthn/#publickeycredential">https://w3c.github.io/webauthn/#publickeycredential</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-publickeycredential">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dictdef-publickeycredentialdescriptor">
@@ -1754,7 +1807,8 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="term-for-dom-collectedclientdata-origin">
    <a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin">https://w3c.github.io/webauthn/#dom-collectedclientdata-origin</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-collectedclientdata-origin">9.1.1. Login Attack</a>
+    <li><a href="#ref-for-dom-collectedclientdata-origin">8.1. Verifying an Authentication Assertion</a>
+    <li><a href="#ref-for-dom-collectedclientdata-origin①">9.1.1. Login Attack</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-authenticatorattachment-platform">
@@ -1876,6 +1930,7 @@ with a random salt, making them non-consistent across calls.</p>
     <ul>
      <li><span class="dfn-paneled" id="term-for-dom-credentialscontainer-create">create()</span>
      <li><span class="dfn-paneled" id="term-for-dom-credentialscontainer-get">get()</span>
+     <li><span class="dfn-paneled" id="term-for-dom-credential-id">id</span>
      <li><span class="dfn-paneled" id="term-for-abstract-opdef-request-a-credential">request a credential</span>
     </ul>
    <li>
@@ -1941,6 +1996,7 @@ with a random salt, making them non-consistent across calls.</p>
     <ul>
      <li><span class="dfn-paneled" id="term-for-dictdef-authenticationextensionsclientinputs">AuthenticationExtensionsClientInputs</span>
      <li><span class="dfn-paneled" id="term-for-dictdef-collectedclientdata">CollectedClientData</span>
+     <li><span class="dfn-paneled" id="term-for-publickeycredential">PublicKeyCredential</span>
      <li><span class="dfn-paneled" id="term-for-dictdef-publickeycredentialdescriptor">PublicKeyCredentialDescriptor</span>
      <li><span class="dfn-paneled" id="term-for-dictdef-publickeycredentialrequestoptions">PublicKeyCredentialRequestOptions</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredential-create-slot">[[Create]](origin, options, sameOriginWithAncestors)</span>
@@ -2061,6 +2117,7 @@ with a random salt, making them non-consistent across calls.</p>
    <ul>
     <li><a href="#ref-for-secure-payment-confirmation-payment-handler">4.1.1. Payment Method Identifier</a>
     <li><a href="#ref-for-secure-payment-confirmation-payment-handler①">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-secure-payment-confirmation-payment-handler②">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="secure-payment-confirmation">
@@ -2194,6 +2251,7 @@ with a random salt, making them non-consistent across calls.</p>
    <ul>
     <li><a href="#ref-for-dom-collectedclientpaymentdata-payment">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientpaymentdata-payment①">5.1. CollectedClientPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientpaymentdata-payment②">8.1. Verifying an Authentication Assertion</a> <a href="#ref-for-dom-collectedclientpaymentdata-payment③">(2)</a> <a href="#ref-for-dom-collectedclientpaymentdata-payment④">(3)</a> <a href="#ref-for-dom-collectedclientpaymentdata-payment⑤">(4)</a> <a href="#ref-for-dom-collectedclientpaymentdata-payment⑥">(5)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-collectedclientadditionalpaymentdata">
@@ -2209,6 +2267,7 @@ with a random salt, making them non-consistent across calls.</p>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rp">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rp①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rp②">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-toporigin">
@@ -2216,6 +2275,7 @@ with a random salt, making them non-consistent across calls.</p>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin②">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeeorigin">
@@ -2224,6 +2284,7 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin">4.1.5. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin③">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-total">
@@ -2232,6 +2293,7 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total">4.1.5. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total③">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-instrument">
@@ -2240,6 +2302,7 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument">4.1.5. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument③">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-paymentcredentialinstrument">

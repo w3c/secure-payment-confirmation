@@ -1084,7 +1084,7 @@ interacted with an iframe attempting credential creation.
 
 As per WebAuthn's section on [[webauthn-3#sctn-assertion-privacy|Authentication
 Ceremony Privacy]], implementors of Secure Payment Confirmation must make sure
-not to enable malicious callers (who now may not even be the [=Relying Party=]
+not to enable malicious callers (who now may not even be the [=Relying Party=])
 to distinguish between these cases:
 
 * A credential is not available.

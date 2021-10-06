@@ -520,7 +520,7 @@ input {{SecurePaymentConfirmationRequest}} |request|, are:
     so, it must take care to maintain [[#sctn-privacy-probing-credential-ids|authentication
     ceremony privacy]], e.g. by presenting an alternative UI to the user such
     that the website cannot detect the difference between no-matching
-    credentials and the user declining to authorize.
+    credentials and the user declining to authenticate.
 
 1. Return `true`.
 

@@ -512,14 +512,15 @@ input {{SecurePaymentConfirmationRequest}} |request|, are:
     |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/icon}}]»
     for *image*. If this fails, return `false`.
 
-    Note: Performing this step here mitigates a privacy leak. **TODO**:
-    Document + link-to privacy section.
+    Note: The image resource must be fetched whether or not any credential
+    matches, to defeat attempts to [[#sctn-privacy-probing-credential-ids|probe
+    for credential existence]].
 
-1. Optionally, the user agent may elect to return `false`.
-
-    Note: This covers the current Chrome behavior of checking whether the passed
-    credentials match those on the system, and early-exit if so. This is a
-    potential privacy concern, and may be removed.
+1. Optionally, the user agent may elect to return `false`. If a user agent does
+    so, it must take care to maintain [[#sctn-privacy-probing-credential-ids|authentication
+    ceremony privacy]], e.g. by presenting an alternative UI to the user such
+    that the website cannot detect the difference between no-matching
+    credentials and the user declining to authorize.
 
 1. Return `true`.
 

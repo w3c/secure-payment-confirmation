@@ -518,7 +518,7 @@ input {{SecurePaymentConfirmationRequest}} |request|, are:
 
 1. Optionally, the user agent may elect to return `false`. If a user agent does
     so, it must take care to maintain [[#sctn-privacy-probing-credential-ids|authentication
-    ceremony privacy]], e.g. by presenting an alternative UI to the user such
+    ceremony privacy]], e.g., by presenting an alternative UI to the user such
     that the website cannot detect the difference between no-matching
     credentials and the user declining to authenticate.
 

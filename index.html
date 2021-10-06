@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version a210b7d86, updated Thu Sep 16 13:45:19 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="21ba242a26f2cbdb69c665d5823085acac0814f3" name="document-revision">
+  <meta content="453ac90badb6a967bb3421e2bcde24a0da1a2d53" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -269,7 +269,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-05">5 October 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-06">6 October 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -803,13 +803,15 @@ qualified <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/o
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource" id="ref-for-dfn-fetching-an-image-resource">Fetch the image resource</a> for the icon, passing «["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-dom-imageresource-src">src</a></code>" → <var>request</var>.<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument②">instrument</a></code>.<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon">icon</a></code>]»
 for <em>image</em>. If this fails, return <code>false</code>.</p>
-     <p class="note" role="note"><span>Note:</span> Performing this step here mitigates a privacy leak. <strong>TODO</strong>:
-Document + link-to privacy section.</p>
+     <p class="note" role="note"><span>Note:</span> The image resource must be fetched whether or not any credential
+matches, to defeat attempts to <a href="#sctn-privacy-probing-credential-ids">probe
+for credential existence</a>.</p>
     <li data-md>
-     <p>Optionally, the user agent may elect to return <code>false</code>.</p>
-     <p class="note" role="note"><span>Note:</span> This covers the current Chrome behavior of checking whether the passed
-credentials match those on the system, and early-exit if so. This is a
-potential privacy concern, and may be removed.</p>
+     <p>Optionally, the user agent may elect to return <code>false</code>. If a user agent does
+so, it must take care to maintain <a href="#sctn-privacy-probing-credential-ids">authentication
+ceremony privacy</a>, e.g., by presenting an alternative UI to the user such
+that the website cannot detect the difference between no-matching
+credentials and the user declining to authenticate.</p>
     <li data-md>
      <p>Return <code>true</code>.</p>
    </ol>

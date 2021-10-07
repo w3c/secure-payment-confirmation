@@ -1014,9 +1014,10 @@ trust that the merchant showed the user the correct amount in their checkout
 flow (and any fraud discoveries are post-payment, when the user checks their
 account statement).
 
-With Secure Payment Confirmation, the bank can (and should) instead
-[[#sctn-verifying-assertion|verify the cryptogram]] that they receive, to
-ensure that it aligns with the transaction details provided by the merchant.
+The bank can and should protect against spoofing by
+[[#sctn-verifying-assertion|verifying the cryptogram]] they receive to
+ensure it aligns with the transaction details provided by the
+merchant.
 
 # Privacy Considerations # {#sctn-privacy-considerations}
 

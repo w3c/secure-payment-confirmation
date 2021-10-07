@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version a210b7d86, updated Thu Sep 16 13:45:19 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="f1848a8975c9564c11fd1f3d21c149857d764d9a" name="document-revision">
+  <meta content="7ddfcd8eca8a56366a85247da7ae7eb718480b6c" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1234,15 +1234,17 @@ login credentials separate in their database.</p>
       for login, if the Relying Party wishes. This is not expected to change.</p>
    </div>
    <h4 class="heading settled" data-level="9.1.2" id="sctn-security-payment-attack"><span class="secno">9.1.2. </span><span class="content">Payment Attack</span><a class="self-link" href="#sctn-security-payment-attack"></a></h4>
-   <p>Instead of attempting to hijack a user account, a malicious third-party may
-also attempt to initiate an unauthorized payment using Secure Payment
-Confirmation credentials (obtained either legitimately or otherwise). Such an
-attack is infeasible:</p>
+   <p>A Secure Payment Confirmation assertion is essentially useless unless
+it is part of an ongoing online transaction.</p>
+   <p>A variety of mechanism protect against an attack where a malicious
+third-party, instead of attempting to hijack a user account, initiates
+an unauthorized payment using Secure Payment Confirmation credentials
+(obtained either legitimately or otherwise):</p>
    <ul>
     <li data-md>
-     <p>When the attacker initiates SPC, the user will be shown an interface by the
+     <p>When the attacker initiates SPC, the user will be shown UI by the
 User Agent that clearly states the transaction details (including the payee
-and amount). The user is very likely to reject this interface as invalid.</p>
+and amount). The user is very likely to "cancel" in this scenario.</p>
     <li data-md>
      <p>If the user does agree to the transaction, and completes the subsequent
 WebAuthn authentication ceremony, the attacker now has a signed SPC
@@ -1254,8 +1256,6 @@ assertion.</p>
      <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③②">Relying Party</a> is expecting a transaction, it will detect an
 unfamiliar <code>challenge</code> and reject the assertion.</p>
    </ul>
-   <p>The general concept here is that a Secure Payment Confirmation assertion is
-essentially useless unless it is part of an ongoing online transaction.</p>
    <h3 class="heading settled" data-level="9.2" id="sctn-security-merchant-data"><span class="secno">9.2. </span><span class="content">Merchant-supplied authentication data</span><a class="self-link" href="#sctn-security-merchant-data"></a></h3>
    <p>A consequence of this specification’s third-party authentication ceremony is
 that even in a valid transaction (i.e. one that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③③">Relying Party</a> is

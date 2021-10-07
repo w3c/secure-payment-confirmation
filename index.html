@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version a210b7d86, updated Thu Sep 16 13:45:19 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="453ac90badb6a967bb3421e2bcde24a0da1a2d53" name="document-revision">
+  <meta content="22a79585f66ddb1b8b59df405a413438dc466ee7" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -269,7 +269,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-06">6 October 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-07">7 October 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1166,10 +1166,10 @@ Confirmation-specific security considerations, where this specification
 diverges from WebAuthn.</p>
    <h3 class="heading settled" data-level="9.1" id="sctn-security-cross-origin-auth"><span class="secno">9.1. </span><span class="content">Cross-origin authentication ceremony</span><a class="self-link" href="#sctn-security-cross-origin-auth"></a></h3>
    <p>A significant departure that Secure Payment Confirmation makes from WebAuthn is
-in allowing a third-party (<code>a.com</code>) to initiate an authentication ceremony
-using credentials for a different <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②①">Relying Party</a> (<code>b.com</code>), and returning
-the assertion to <code>a.com</code>. This feature can expose <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②②">Relying Parties</a> to both
-login and payment attacks, which are discussed here.</p>
+in allowing a third-party to initiate an authentication ceremony using
+credentials for a different <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②①">Relying Party</a>, and returning the assertion to
+the third party. This feature can expose <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②②">Relying Parties</a> to both login and
+payment attacks, which are discussed here.</p>
    <h4 class="heading settled" data-level="9.1.1" id="sctn-security-login-attack"><span class="secno">9.1.1. </span><span class="content">Login Attack</span><a class="self-link" href="#sctn-security-login-attack"></a></h4>
    <p>As credentials created for Secure Payment Confirmation are valid WebAuthn
 credentials, it is possible that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②③">Relying Party</a> may wish to use the same
@@ -1179,23 +1179,25 @@ the assertion they receive.</p>
    <p>The attack is as follows:</p>
    <ol>
     <li data-md>
-     <p>The user visits <code>a.com</code>, which is or pretends to be a merchant site.</p>
+     <p>The user visits <code>attacker.com</code>, which is or pretends to be a merchant site.</p>
     <li data-md>
-     <p><code>a.com</code> obtains credentials for the user from <code>b.com</code>, either legitimately
- or by stealing them from <code>b.com</code> or another party with whom <code>b.com</code> had
- shared the credentials.</p>
+     <p><code>attacker.com</code> obtains credentials for the user from <code>relyingparty.com</code>,
+ either legitimately or by stealing them from <code>relyingparty.com</code> or another
+ party with whom <code>relyingparty.com</code> had shared the credentials.</p>
     <li data-md>
-     <p><code>a.com</code> initiates SPC authentication, and the user agrees to the transaction
- (which may or may not be legitimate).</p>
+     <p><code>attacker.com</code> initiates SPC authentication, and the user agrees to the
+ transaction (which may or may not be legitimate).</p>
     <li data-md>
-     <p><code>a.com</code> takes the payment assertion that they received from the API call,
- and sends it to the login endpoint for <code>b.com</code>, e.g. by sending a POST to <code>https://b.com/login</code>.</p>
+     <p><code>attacker.com</code> takes the payment assertion that they received from the API
+ call, and sends it to the login endpoint for <code>relyingparty.com</code>, e.g. by
+ sending a POST to <code>https://relyingparty.com/login</code>.</p>
     <li data-md>
-     <p><code>b.com</code> is employing faulty assertion validation code, which checks the
- signature but fails to validate the necessary fields (see below), and
- believes the login attempt to be legitimate.</p>
+     <p><code>relyingparty.com</code> is employing faulty assertion validation code, which
+ checks the signature but fails to validate the necessary fields (see
+ below), and believes the login attempt to be legitimate.</p>
     <li data-md>
-     <p><code>b.com</code> returns e.g. a login cookie to <code>a.com</code>. The user’s account at <code>b.com</code> has now been compromised.</p>
+     <p><code>relyingparty.com</code> returns e.g. a login cookie to <code>attacker.com</code>. The user’s
+ account at <code>relyingparty.com</code> has now been compromised.</p>
    </ol>
    <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑤">Relying Parties</a> can guard against this attack in two ways.</p>
    <p>Firstly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑥">Relying Party</a> must always follow the correct assertion
@@ -1215,12 +1217,12 @@ appropriate, previously-provided value.</p>
     <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑦">CollectedClientData</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin" id="ref-for-dom-collectedclientdata-origin①">origin</a></code> - if SPC is being
 performed cross-origin, this value will contain the origin of the caller
-(e.g. <code>a.com</code> in the above example).</p>
+(e.g. <code>attacker.com</code> in the above example).</p>
    </ul>
    <p>Secondly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑧">Relying Party</a> can consider keeping their payment and login
 credentials separate. If doing this, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑨">Relying Party</a> should only register
-credentials for Secure Payment Confirmation on a subdomain (e.g. <code>https//payment.b.com</code>), and should keep payment credentials and login
-credentials separate in their database.</p>
+credentials for Secure Payment Confirmation on a subdomain (e.g. <code>https//payment.relyingparty.com</code>), and should keep payment credentials and
+login credentials separate in their database.</p>
    <div class="note" role="note">
      NOTE: As currently written, the Secure Payment Confirmation specification
       allows any WebAuthn credential to be used in an SPC authentication.
@@ -2023,7 +2025,7 @@ with a random salt, making them non-consistent across calls.</p>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-userverification">userVerification <small>(for PublicKeyCredentialRequestOptions)</small></span>
     </ul>
    <li>
-    <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
+    <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-BufferSource">BufferSource</span>
      <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
@@ -2055,8 +2057,8 @@ with a random salt, making them non-consistent across calls.</p>
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-webauthn-1">[WEBAUTHN-1]
    <dd>Dirk Balfanz; et al. <a href="https://www.w3.org/TR/webauthn-1/"><cite>Web Authentication:An API for accessing Public Key Credentials Level 1</cite></a>. 4 March 2019. REC. URL: <a href="https://www.w3.org/TR/webauthn-1/">https://www.w3.org/TR/webauthn-1/</a>
-   <dt id="biblio-webidl">[WebIDL]
-   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/"><cite>Web IDL</cite></a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
+   <dt id="biblio-webidl">[WEBIDL]
+   <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>

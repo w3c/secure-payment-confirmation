@@ -78,9 +78,18 @@ involving a user. The first is [[#sctn-registration]] (formerly "enrollment"),
 where a relationship is created between the user and the [=Relying Party=]. The
 second is [[#sctn-authentication]], where the user responds to a challenge from
 the [=Relying Party=] (possibly via an intermediary payment service provider)
-to consent to a specific payment. An important feature of Secure Payment
-Confirmation is that the merchant (or another entity) may initiate the
-authentication ceremony on the [=Relying Party's=] behalf.
+to consent to a specific payment.
+
+It is a goal of this specification to reduce authentication friction during
+checkout, and one aspect of that is to maximize the number of authentications
+that the user can perform for a given registration. That is, with consent
+from the [=Relying Party=], ideally the user could "register once" and
+authenticate on any merchant origin (and via payment service provider),
+not just the merchant origin where the user first registered.
+
+To that end, an important feature of Secure Payment Confirmation is
+that the merchant (or another entity) may initiate the authentication
+ceremony on the [=Relying Party's=] behalf.
 
 Functionally, this specification defines a new [=payment method=] for the
 {{PaymentRequest}} API, and adds a [=WebAuthn Extension=] to extend
@@ -296,10 +305,6 @@ Payment Confirmation.
 1. The user visits `merchant.com`, selects an item to purchase, and proceeds
     to the checkout flow. They enter their payment instrument details, and
     indicate that they wish to pay (e.g., by pressing a "Pay" button).
-
-    Note: The cross-origin use of SPC credentials makes it possible for the
-    user to "register once" and authenticate on any merchant origin, not just
-    the merchant origin where the user first registered for SPC.
 
 1. The merchant communicates out-of-band with the issuing bank of the payment
     instrument (e.g., using another protocol). The issuing bank requests

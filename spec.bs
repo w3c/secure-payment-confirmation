@@ -904,10 +904,10 @@ diverges from WebAuthn.
 ## Cross-origin authentication ceremony ## {#sctn-security-cross-origin-auth}
 
 A significant departure that Secure Payment Confirmation makes from WebAuthn is
-in allowing a third-party (`a.com`) to initiate an authentication ceremony
-using credentials for a different [=Relying Party=] (`b.com`), and returning
-the assertion to `a.com`. This feature can expose [=Relying Parties=] to both
-login and payment attacks, which are discussed here.
+in allowing a third-party to initiate an authentication ceremony using
+credentials for a different [=Relying Party=], and returning the assertion to
+the third party. This feature can expose [=Relying Parties=] to both login and
+payment attacks, which are discussed here.
 
 ### Login Attack ### {#sctn-security-login-attack}
 
@@ -919,20 +919,20 @@ the assertion they receive.
 
 The attack is as follows:
 
-1. The user visits `a.com`, which is or pretends to be a merchant site.
-1. `a.com` obtains credentials for the user from `b.com`, either legitimately
-     or by stealing them from `b.com` or another party with whom `b.com` had
-     shared the credentials.
-1. `a.com` initiates SPC authentication, and the user agrees to the transaction
-     (which may or may not be legitimate).
-1. `a.com` takes the payment assertion that they received from the API call,
-     and sends it to the login endpoint for `b.com`, e.g. by sending a POST to
-     `https://b.com/login`.
-1. `b.com` is employing faulty assertion validation code, which checks the
-     signature but fails to validate the necessary fields (see below), and
-     believes the login attempt to be legitimate.
-1. `b.com` returns e.g. a login cookie to `a.com`. The user's account at
-     `b.com` has now been compromised.
+1. The user visits `attacker.com`, which is or pretends to be a merchant site.
+1. `attacker.com` obtains credentials for the user from `relyingparty.com`,
+     either legitimately or by stealing them from `relyingparty.com` or another
+     party with whom `relyingparty.com` had shared the credentials.
+1. `attacker.com` initiates SPC authentication, and the user agrees to the
+     transaction (which may or may not be legitimate).
+1. `attacker.com` takes the payment assertion that they received from the API
+     call, and sends it to the login endpoint for `relyingparty.com`, e.g. by
+     sending a POST to `https://relyingparty.com/login`.
+1. `relyingparty.com` is employing faulty assertion validation code, which
+     checks the signature but fails to validate the necessary fields (see
+     below), and believes the login attempt to be legitimate.
+1. `relyingparty.com` returns e.g. a login cookie to `attacker.com`. The user's
+     account at `relyingparty.com` has now been compromised.
 
 [=Relying Parties=] can guard against this attack in two ways.
 
@@ -950,13 +950,13 @@ of a credential:
     appropriate, previously-provided value.
 * {{CollectedClientData}}.{{CollectedClientData/origin}} - if SPC is being
     performed cross-origin, this value will contain the origin of the caller
-    (e.g. `a.com` in the above example).
+    (e.g. `attacker.com` in the above example).
 
 Secondly, a [=Relying Party=] can consider keeping their payment and login
 credentials separate. If doing this, the [=Relying Party=] should only register
 credentials for Secure Payment Confirmation on a subdomain (e.g.
-`https//payment.b.com`), and should keep payment credentials and login
-credentials separate in their database.
+`https//payment.relyingparty.com`), and should keep payment credentials and
+login credentials separate in their database.
 
 <div class="note">
 NOTE: As currently written, the Secure Payment Confirmation specification

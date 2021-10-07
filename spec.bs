@@ -973,14 +973,17 @@ NOTE: As currently written, the Secure Payment Confirmation specification
 
 ### Payment Attack ### {#sctn-security-payment-attack}
 
-Instead of attempting to hijack a user account, a malicious third-party may
-also attempt to initiate an unauthorized payment using Secure Payment
-Confirmation credentials (obtained either legitimately or otherwise). Such an
-attack is infeasible:
+A Secure Payment Confirmation assertion is essentially useless unless
+it is part of an ongoing online transaction.
 
-* When the attacker initiates SPC, the user will be shown an interface by the
+A variety of mechanism protect against an attack where a malicious
+third-party, instead of attempting to hijack a user account, initiates
+an unauthorized payment using Secure Payment Confirmation credentials
+(obtained either legitimately or otherwise):
+
+* When the attacker initiates SPC, the user will be shown UI by the
     User Agent that clearly states the transaction details (including the payee
-    and amount). The user is very likely to reject this interface as invalid.
+    and amount). The user is very likely to "cancel" in this scenario.
 * If the user does agree to the transaction, and completes the subsequent
     WebAuthn authentication ceremony, the attacker now has a signed SPC
     assertion for the [=Relying Party=].
@@ -988,9 +991,6 @@ attack is infeasible:
     assertion.
 * If the [=Relying Party=] is expecting a transaction, it will detect an
     unfamiliar `challenge` and reject the assertion.
-
-The general concept here is that a Secure Payment Confirmation assertion is
-essentially useless unless it is part of an ongoing online transaction.
 
 ## Merchant-supplied authentication data ## {#sctn-security-merchant-data}
 

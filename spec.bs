@@ -552,9 +552,7 @@ is communicated to the user:
 The [=steps to respond to a payment request=] for this payment method, for a given
 {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |data|, are:
 
-1. Let |topOrigin| be the origin of the top-level frame.
-
-    <div class="note">**TODO**: Specify this concretely</div>
+1. Let |topOrigin| be the [=top-level origin=] of the [=relevant settings object=] of |request|.
 
 1. Let |payment| be a new a {{AuthenticationExtensionsPaymentInputs}} dictionary,
     whose fields are:

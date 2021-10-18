@@ -60,6 +60,15 @@ spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
     type: dfn
         urlPrefix: origin.html
             text: origin; url: concept-origin
+
+spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
+    type: dfn
+        text: extension command; url: dfn-extension-command
+        text: no such alert; url: dfn-no-such-alert
+        text: remote end steps; url: dfn-remote-end-steps
+        text: success; url: dfn-success
+        text: WebDriver error; url: dfn-errors
+        text: WebDriver error code; url: dfn-error-code
 </pre>
 
 <div class="non-normative">
@@ -895,6 +904,81 @@ Confirmation, the [=Relying Party=] MUST proceed as follows:
 
         * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/instrument}}
             matches the payment instrument details that should have been displayed to the user.
+
+# User Agent Automation # {#sctn-automation}
+
+For the purposes of user agent automation and website testing, this document
+defines the below [[WebDriver]] [=extension commands=]. Interested parties
+should also consult the [[webauthn-3#sctn-automation|equivalent automation
+section]] in [[webauthn-3]].
+
+## <dfn>Accept SPC Transaction</dfn> ## {#sctn-automation-accept-spc}
+
+The [=Accept SPC Transaction=] WebDriver [=extension command=] instructs the
+user agent to simulate a user accepting the currently-open
+[[#sctn-transaction-confirmation-ux|transaction confirmation UX]].
+
+<figure id="table-acceptSPCTransaction" class="table">
+    <table class="data">
+        <thead>
+            <tr>
+                <th>HTTP Method</th>
+                <th>URI Template</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>POST</td>
+                <td>`/session/{session id}/secure-payment-confirmation/accept`</td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+
+The [=remote end steps=] are:
+
+1. If there is no [[#sctn-transaction-confirmation-ux|SPC transaction
+    confirmation UX]] showing currently, return a [=WebDriver error=] with
+    [=WebDriver error code=] [=no such alert=].
+
+1. Proceed as though the user has accepted the current
+    [[#sctn-transaction-confirmation-ux|SPC transaction UX]].
+
+1. Return [=success=] with data `null`.
+
+## <dfn>Reject SPC Transaction</dfn> ## {#sctn-automation-reject-spc}
+
+The [=Reject SPC Transaction=] WebDriver [=extension command=] instructs the
+user agent to simulate a user rejecting the currently-open
+[[#sctn-transaction-confirmation-ux|transaction confirmation UX]].
+
+<figure id="table-rejectSPCTransaction" class="table">
+    <table class="data">
+        <thead>
+            <tr>
+                <th>HTTP Method</th>
+                <th>URI Template</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>POST</td>
+                <td>`/session/{session id}/secure-payment-confirmation/reject`</td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+
+The [=remote end steps=] are:
+
+1. If there is no [[#sctn-transaction-confirmation-ux|SPC transaction
+    confirmation UX]] showing currently, return a [=WebDriver error=] with
+    [=WebDriver error code=] [=no such alert=].
+
+1. Proceed as though the user has rejected the current
+    [[#sctn-transaction-confirmation-ux|SPC transaction UX]].
+
+1. Return [=success=] with data `null`.
 
 # Security Considerations # {#sctn-security-considerations}
 

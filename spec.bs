@@ -828,6 +828,16 @@ contains the following members:
 
     :  <dfn>icon</dfn> member
     :: The URL of the icon of the payment instrument.
+
+         NOTE: The {{PaymentCredentialInstrument/icon}} URL may either identify
+         an image on an internet-accessible server (e.g., `https://bank.com/card.png`),
+         or directly encode the icon data via a Data URL [[RFC2397]]. Between
+         the two types of URLs, Data URLs offer several benefits to the
+         [=Relying Party=]. They can improve reliability (e.g., in the case that
+         the icon hosting server may be unavailable). They can also enhance
+         validation because the [=Relying Party=]  has cryptographic evidence of
+         what the browser displayed to the user: the icon URL is signed as part
+         of the {{CollectedClientAdditionalPaymentData}} structure.
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}

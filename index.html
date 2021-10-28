@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version d7036035b, updated Fri Oct 8 17:07:11 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="314b84984354081e7ebe66e85302ee96b1ed0f9f" name="document-revision">
+  <meta content="4c4652c10ee90100b5388c818ba158bf7e3e175c" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-26">26 October 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-28">28 October 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1119,6 +1119,7 @@ contains the following members:</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-displayname"><code>displayName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①">DOMString</a></span>
     <dd data-md>
      <p>The name of the payment instrument to be displayed to the user.</p>
+     <p class="note" role="note"><span>NOTE:</span> For discussion about internationalization of the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname③">displayName</a></code>, see <a href="https://github.com/w3c/secure-payment-confirmation/issues/93">issue 93</a>.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-icon"><code>icon</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑤">USVString</a></span>
     <dd data-md>
      <p>The URL of the icon of the payment instrument.</p>
@@ -2363,7 +2364,7 @@ with a random salt, making them non-consistent across calls.</p>
    <ul>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname">4.1.4. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname①">4.1.5. Displaying a transaction confirmation UX</a>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname②">6.1. PaymentCredentialInstrument Dictionary</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname③">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-icon">

@@ -826,6 +826,10 @@ contains the following members:
     :  <dfn>displayName</dfn> member
     :: The name of the payment instrument to be displayed to the user.
 
+         NOTE: For discussion about internationalization of the 
+         {{PaymentCredentialInstrument/displayName}}, see
+         <a href="https://github.com/w3c/secure-payment-confirmation/issues/93">issue 93</a>.
+
     :  <dfn>icon</dfn> member
     :: The URL of the icon of the payment instrument.
 

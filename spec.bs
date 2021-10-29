@@ -60,6 +60,17 @@ spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
     type: dfn
         urlPrefix: origin.html
             text: origin; url: concept-origin
+
+spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
+    type: dfn
+        text: extension command; url: dfn-extension-command
+        text: getting a property; url: dfn-getting-properties
+        text: invalid argument; url: dfn-invalid-argument
+        text: remote end steps; url: dfn-remote-end-steps
+        text: success; url: dfn-success
+        text: undefined; url: dfn-undefined
+        text: WebDriver error; url: dfn-errors
+        text: WebDriver error code; url: dfn-error-code
 </pre>
 
 <div class="non-normative">
@@ -537,7 +548,8 @@ not require a User Agent to display a particular user interface when
 Payment Confirmation payment handler=] is selected. However, so that a
 [=Relying Party=] can trust the information included in
 {{CollectedClientPaymentData}}, the User Agent MUST ensure that the following
-is communicated to the user:
+is communicated to the user and that the user's consent is collected for the
+authentication:
 
 * The {{CollectedClientAdditionalPaymentData/payeeOrigin}}.
 * The {{CollectedClientAdditionalPaymentData/total}}, that is the
@@ -546,6 +558,21 @@ is communicated to the user:
 * The {{CollectedClientAdditionalPaymentData/instrument}} details, that is the
     payment instrument {{PaymentCredentialInstrument/displayName}} and
     {{PaymentCredentialInstrument/icon}}.
+
+If the [=current transaction automation mode=] is not
+"{{TransactionAutomationMode/none}}", the user agent should first verify that
+it is in an automation context (see [[WebDriver#security|WebDriver's Security
+considerations]]). The user agent should then bypass the above communication of
+information and gathering of user consent, and instead do the following based
+on the value of the [=current transaction automation mode=]:
+
+    : "{{TransactionAutomationMode/autoaccept}}"
+    :: Act as if the user has seen the transaction details and accepted
+        the authentication.
+
+    : "{{TransactionAutomationMode/autoreject}}"
+    :: Act as if the user has seen the transaction details and rejected
+        the authentication.
 
 ### Steps to respond to a payment request ### {#sctn-steps-to-respond-to-a-payment-request}
 
@@ -909,6 +936,65 @@ Confirmation, the [=Relying Party=] MUST proceed as follows:
 
         * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/instrument}}
             matches the payment instrument details that should have been displayed to the user.
+
+# User Agent Automation # {#sctn-automation}
+
+For the purposes of user agent automation and website testing, this document
+defines the below [[WebDriver]] [=extension commands=]. Interested parties
+should also consult the [[webauthn-3#sctn-automation|equivalent automation
+section]] in [[webauthn-3]].
+
+## <dfn>Set SPC Transaction Mode</dfn> ## {#sctn-automation-set-spc-transaction-mode}
+
+The [=Set SPC Transaction Mode=] WebDriver [=extension command=] instructs the
+user agent to place Secure Payment Confirmation into a mode where it will
+automatically simulate a user either accepting or rejecting the
+[[#sctn-transaction-confirmation-ux|transaction confirmation UX]].
+
+The <dfn>current transaction automation mode</dfn> tracks what
+{{TransactionAutomationMode}} is currently active for SPC. It defaults to
+"{{TransactionAutomationMode/none}}".
+
+<xmp class="idl">
+    enum TransactionAutomationMode {
+      "none",
+      "autoaccept",
+      "autoreject"
+    };
+</xmp>
+
+<figure id="table-setSPCTransactionMode" class="table">
+    <table class="data">
+        <thead>
+            <tr>
+                <th>HTTP Method</th>
+                <th>URI Template</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>POST</td>
+                <td>`/session/{session id}/secure-payment-confirmation/set-mode`</td>
+            </tr>
+        </tbody>
+    </table>
+</figure>
+
+The [=remote end steps=] are:
+
+1. If |parameters| is not a JSON [=Object=], return a [=WebDriver error=] with
+     [=WebDriver error code=] [=invalid argument=].
+
+1. Let |mode| be the result of [=getting a property=] named `"mode"` from
+    |parameters|.
+
+1. If |mode| is [=undefined=] or is not a member of {{TransactionAutomationMode}},
+    return a [=WebDriver error=] with [=WebDriver error code=] [=invalid
+    argument=].
+
+1. Set the [=current transaction automation mode=] to |mode|.
+
+1. Return [=success=] with data `null`.
 
 # Security Considerations # {#sctn-security-considerations}
 

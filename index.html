@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version d7036035b, updated Fri Oct 8 17:07:11 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="4c4652c10ee90100b5388c818ba158bf7e3e175c" name="document-revision">
+  <meta content="1075da6ba41d08d243736fc98f7a300a64ed11ca" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-28">28 October 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-10-29">29 October 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -378,25 +378,30 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       <li><a href="#sctn-verifying-assertion"><span class="secno">8.1</span> <span class="content">Verifying an Authentication Assertion</span></a>
      </ol>
     <li>
-     <a href="#sctn-security-considerations"><span class="secno">9</span> <span class="content">Security Considerations</span></a>
+     <a href="#sctn-automation"><span class="secno">9</span> <span class="content">User Agent Automation</span></a>
      <ol class="toc">
-      <li>
-       <a href="#sctn-security-cross-origin-auth"><span class="secno">9.1</span> <span class="content">Cross-origin authentication ceremony</span></a>
-       <ol class="toc">
-        <li><a href="#sctn-security-login-attack"><span class="secno">9.1.1</span> <span class="content">Login Attack</span></a>
-        <li><a href="#sctn-security-payment-attack"><span class="secno">9.1.2</span> <span class="content">Payment Attack</span></a>
-       </ol>
-      <li><a href="#sctn-security-merchant-data"><span class="secno">9.2</span> <span class="content">Merchant-supplied authentication data</span></a>
+      <li><a href="#sctn-automation-set-spc-transaction-mode"><span class="secno">9.1</span> <span class="content"><span>Set SPC Transaction Mode</span></span></a>
      </ol>
     <li>
-     <a href="#sctn-privacy-considerations"><span class="secno">10</span> <span class="content">Privacy Considerations</span></a>
+     <a href="#sctn-security-considerations"><span class="secno">10</span> <span class="content">Security Considerations</span></a>
      <ol class="toc">
-      <li><a href="#sctn-security-cross-origin-registration"><span class="secno">10.1</span> <span class="content">Registration in a Cross-Origin iframe</span></a>
-      <li><a href="#sctn-privacy-probing-credential-ids"><span class="secno">10.2</span> <span class="content">Probing for credential ids</span></a>
-      <li><a href="#sctn-privacy-joining-payment-instruments"><span class="secno">10.3</span> <span class="content">Joining different payment instruments</span></a>
-      <li><a href="#sctn-privacy-credential-id-tracking-vector"><span class="secno">10.4</span> <span class="content">Credential ID(s) as a tracking vector</span></a>
+      <li>
+       <a href="#sctn-security-cross-origin-auth"><span class="secno">10.1</span> <span class="content">Cross-origin authentication ceremony</span></a>
+       <ol class="toc">
+        <li><a href="#sctn-security-login-attack"><span class="secno">10.1.1</span> <span class="content">Login Attack</span></a>
+        <li><a href="#sctn-security-payment-attack"><span class="secno">10.1.2</span> <span class="content">Payment Attack</span></a>
+       </ol>
+      <li><a href="#sctn-security-merchant-data"><span class="secno">10.2</span> <span class="content">Merchant-supplied authentication data</span></a>
      </ol>
-    <li><a href="#sctn-accessibility-considerations"><span class="secno">11</span> <span class="content">Accessibility Considerations</span></a>
+    <li>
+     <a href="#sctn-privacy-considerations"><span class="secno">11</span> <span class="content">Privacy Considerations</span></a>
+     <ol class="toc">
+      <li><a href="#sctn-security-cross-origin-registration"><span class="secno">11.1</span> <span class="content">Registration in a Cross-Origin iframe</span></a>
+      <li><a href="#sctn-privacy-probing-credential-ids"><span class="secno">11.2</span> <span class="content">Probing for credential ids</span></a>
+      <li><a href="#sctn-privacy-joining-payment-instruments"><span class="secno">11.3</span> <span class="content">Joining different payment instruments</span></a>
+      <li><a href="#sctn-privacy-credential-id-tracking-vector"><span class="secno">11.4</span> <span class="content">Credential ID(s) as a tracking vector</span></a>
+     </ol>
+    <li><a href="#sctn-accessibility-considerations"><span class="secno">12</span> <span class="content">Accessibility Considerations</span></a>
     <li>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
@@ -833,7 +838,8 @@ credentials and the user declining to authenticate.</p>
    <p>To avoid restricting User Agent implementation choice, this specification does
 not require a User Agent to display a particular user interface when <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show">PaymentRequest.show()</a></code> is called and the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler①">Secure
 Payment Confirmation payment handler</a> is selected. However, so that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⓪">Relying Party</a> can trust the information included in <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a></code>, the User Agent MUST ensure that the following
-is communicated to the user:</p>
+is communicated to the user and that the user’s consent is collected for the
+authentication:</p>
    <ul>
     <li data-md>
      <p>The <code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin">payeeOrigin</a></code>.</p>
@@ -844,6 +850,22 @@ transaction.</p>
      <p>The <code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument">instrument</a></code> details, that is the
 payment instrument <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname①">displayName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon①">icon</a></code>.</p>
    </ul>
+   <p>If the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode">current transaction automation mode</a> is not
+"<code class="idl"><a data-link-type="idl" href="#dom-transactionautomationmode-none" id="ref-for-dom-transactionautomationmode-none">none</a></code>", the user agent should first verify that
+it is in an automation context (see <a href="https://www.w3.org/TR/webdriver1/#security">WebDriver’s Security
+considerations</a>). The user agent should then bypass the above communication of
+information and gathering of user consent, and instead do the following based
+on the value of the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode①">current transaction automation mode</a>:</p>
+   <dl>
+    <dt data-md>"<code class="idl"><a data-link-type="idl" href="#dom-transactionautomationmode-autoaccept" id="ref-for-dom-transactionautomationmode-autoaccept">autoaccept</a></code>"
+    <dd data-md>
+     <p>Act as if the user has seen the transaction details and accepted
+the authentication.</p>
+    <dt data-md>"<code class="idl"><a data-link-type="idl" href="#dom-transactionautomationmode-autoreject" id="ref-for-dom-transactionautomationmode-autoreject">autoreject</a></code>"
+    <dd data-md>
+     <p>Act as if the user has seen the transaction details and rejected
+the authentication.</p>
+   </dl>
    <h4 class="heading settled" data-level="4.1.6" id="sctn-steps-to-respond-to-a-payment-request"><span class="secno">4.1.6. </span><span class="content">Steps to respond to a payment request</span><a class="self-link" href="#sctn-steps-to-respond-to-a-payment-request"></a></h4>
    <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request" id="ref-for-dfn-steps-to-respond-to-a-payment-request">steps to respond to a payment request</a> for this payment method, for a given <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest①">PaymentRequest</a></code> <var>request</var> and <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest③">SecurePaymentConfirmationRequest</a></code> <var>data</var>, are:</p>
    <ol>
@@ -1182,17 +1204,61 @@ called from.</p>
        </ul>
      </ol>
    </ol>
-   <h2 class="heading settled" data-level="9" id="sctn-security-considerations"><span class="secno">9. </span><span class="content">Security Considerations</span><a class="self-link" href="#sctn-security-considerations"></a></h2>
+   <h2 class="heading settled" data-level="9" id="sctn-automation"><span class="secno">9. </span><span class="content">User Agent Automation</span><a class="self-link" href="#sctn-automation"></a></h2>
+   <p>For the purposes of user agent automation and website testing, this document
+defines the below <a data-link-type="biblio" href="#biblio-webdriver">[WebDriver]</a> <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-extension-command" id="ref-for-dfn-extension-command">extension commands</a>. Interested parties
+should also consult the <a href="https://www.w3.org/TR/webauthn-3/#sctn-automation">equivalent automation
+section</a> in <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>.</p>
+   <h3 class="heading settled" data-level="9.1" id="sctn-automation-set-spc-transaction-mode"><span class="secno">9.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="set-spc-transaction-mode">Set SPC Transaction Mode</dfn></span><a class="self-link" href="#sctn-automation-set-spc-transaction-mode"></a></h3>
+   <p>The <a data-link-type="dfn" href="#set-spc-transaction-mode" id="ref-for-set-spc-transaction-mode">Set SPC Transaction Mode</a> WebDriver <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-extension-command" id="ref-for-dfn-extension-command①">extension command</a> instructs the
+user agent to place Secure Payment Confirmation into a mode where it will
+automatically simulate a user either accepting or rejecting the <a href="#sctn-transaction-confirmation-ux">transaction confirmation UX</a>.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="current-transaction-automation-mode">current transaction automation mode</dfn> tracks what <code class="idl"><a data-link-type="idl" href="#enumdef-transactionautomationmode" id="ref-for-enumdef-transactionautomationmode">TransactionAutomationMode</a></code> is currently active for SPC. It defaults to
+"<code class="idl"><a data-link-type="idl" href="#dom-transactionautomationmode-none" id="ref-for-dom-transactionautomationmode-none①">none</a></code>".</p>
+<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-transactionautomationmode"><code><c- g>TransactionAutomationMode</c-></code></dfn> {
+  <dfn class="dfn-paneled idl-code" data-dfn-for="TransactionAutomationMode" data-dfn-type="enum-value" data-export id="dom-transactionautomationmode-none"><code><c- s>"none"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="TransactionAutomationMode" data-dfn-type="enum-value" data-export id="dom-transactionautomationmode-autoaccept"><code><c- s>"autoaccept"</c-></code></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="TransactionAutomationMode" data-dfn-type="enum-value" data-export id="dom-transactionautomationmode-autoreject"><code><c- s>"autoreject"</c-></code></dfn>
+};
+</pre>
+   <figure class="table" id="table-setSPCTransactionMode">
+    <table class="data">
+     <thead>
+      <tr>
+       <th>HTTP Method
+       <th>URI Template
+     <tbody>
+      <tr>
+       <td>POST
+       <td><code>/session/{session id}/secure-payment-confirmation/set-mode</code>
+    </table>
+   </figure>
+   <p>The <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-remote-end-steps" id="ref-for-dfn-remote-end-steps">remote end steps</a> are:</p>
+   <ol>
+    <li data-md>
+     <p>If <var>parameters</var> is not a JSON <a data-link-type="dfn" href="https://w3c.github.io/FileAPI/#blob-url-entry-object" id="ref-for-blob-url-entry-object">Object</a>, return a <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-errors" id="ref-for-dfn-errors">WebDriver error</a> with <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-error-code" id="ref-for-dfn-error-code">WebDriver error code</a> <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-invalid-argument" id="ref-for-dfn-invalid-argument">invalid argument</a>.</p>
+    <li data-md>
+     <p>Let <var>mode</var> be the result of <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-getting-properties" id="ref-for-dfn-getting-properties">getting a property</a> named <code>"mode"</code> from <var>parameters</var>.</p>
+    <li data-md>
+     <p>If <var>mode</var> is <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-undefined" id="ref-for-dfn-undefined">undefined</a> or is not a member of <code class="idl"><a data-link-type="idl" href="#enumdef-transactionautomationmode" id="ref-for-enumdef-transactionautomationmode①">TransactionAutomationMode</a></code>,
+return a <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-errors" id="ref-for-dfn-errors①">WebDriver error</a> with <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-error-code" id="ref-for-dfn-error-code①">WebDriver error code</a> <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-invalid-argument" id="ref-for-dfn-invalid-argument①">invalid
+argument</a>.</p>
+    <li data-md>
+     <p>Set the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode②">current transaction automation mode</a> to <var>mode</var>.</p>
+    <li data-md>
+     <p>Return <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-success" id="ref-for-dfn-success">success</a> with data <code>null</code>.</p>
+   </ol>
+   <h2 class="heading settled" data-level="10" id="sctn-security-considerations"><span class="secno">10. </span><span class="content">Security Considerations</span><a class="self-link" href="#sctn-security-considerations"></a></h2>
    <p>As this specification builds on top of WebAuthn, the <a href="https://www.w3.org/TR/webauthn-3/#sctn-security-considerations">WebAuthn Security Considerations</a> are applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific security considerations, where this specification
 diverges from WebAuthn.</p>
-   <h3 class="heading settled" data-level="9.1" id="sctn-security-cross-origin-auth"><span class="secno">9.1. </span><span class="content">Cross-origin authentication ceremony</span><a class="self-link" href="#sctn-security-cross-origin-auth"></a></h3>
+   <h3 class="heading settled" data-level="10.1" id="sctn-security-cross-origin-auth"><span class="secno">10.1. </span><span class="content">Cross-origin authentication ceremony</span><a class="self-link" href="#sctn-security-cross-origin-auth"></a></h3>
    <p>A significant departure that Secure Payment Confirmation makes from WebAuthn is
 in allowing a third-party to initiate an authentication ceremony using
 credentials for a different <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②④">Relying Party</a>, and returning the assertion to
 the third party. This feature can expose <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑤">Relying Parties</a> to both login and
 payment attacks, which are discussed here.</p>
-   <h4 class="heading settled" data-level="9.1.1" id="sctn-security-login-attack"><span class="secno">9.1.1. </span><span class="content">Login Attack</span><a class="self-link" href="#sctn-security-login-attack"></a></h4>
+   <h4 class="heading settled" data-level="10.1.1" id="sctn-security-login-attack"><span class="secno">10.1.1. </span><span class="content">Login Attack</span><a class="self-link" href="#sctn-security-login-attack"></a></h4>
    <p>As credentials created for Secure Payment Confirmation are valid WebAuthn
 credentials, it is possible that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑥">Relying Party</a> may wish to use the same
 credential for a given user for both login and payment. This allows a potential
@@ -1255,7 +1321,7 @@ login credentials separate in their database.</p>
       with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment③">payment</a></code> can be used
       for login, if the Relying Party wishes. This is not expected to change.</p>
    </div>
-   <h4 class="heading settled" data-level="9.1.2" id="sctn-security-payment-attack"><span class="secno">9.1.2. </span><span class="content">Payment Attack</span><a class="self-link" href="#sctn-security-payment-attack"></a></h4>
+   <h4 class="heading settled" data-level="10.1.2" id="sctn-security-payment-attack"><span class="secno">10.1.2. </span><span class="content">Payment Attack</span><a class="self-link" href="#sctn-security-payment-attack"></a></h4>
    <p>A Secure Payment Confirmation assertion is essentially useless unless
 it is part of an ongoing online transaction.</p>
    <p>A variety of mechanism protect against an attack where a malicious
@@ -1278,7 +1344,7 @@ assertion.</p>
      <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑤">Relying Party</a> is expecting a transaction, it will detect an
 unfamiliar <code>challenge</code> and reject the assertion.</p>
    </ul>
-   <h3 class="heading settled" data-level="9.2" id="sctn-security-merchant-data"><span class="secno">9.2. </span><span class="content">Merchant-supplied authentication data</span><a class="self-link" href="#sctn-security-merchant-data"></a></h3>
+   <h3 class="heading settled" data-level="10.2" id="sctn-security-merchant-data"><span class="secno">10.2. </span><span class="content">Merchant-supplied authentication data</span><a class="self-link" href="#sctn-security-merchant-data"></a></h3>
    <p>A consequence of this specification’s third-party authentication ceremony is
 that even in a valid transaction (i.e. one that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑥">Relying Party</a> is
 expecting), a third-party provides the transaction details that are shown to
@@ -1302,12 +1368,12 @@ flow (and any fraud discoveries are post-payment, when the user checks their
 account statement).</p>
    <p>With Secure Payment Confirmation, the bank can (and should) instead <a href="#sctn-verifying-assertion">verify the cryptogram</a> that they receive, to
 ensure that it aligns with the transaction details provided by the merchant.</p>
-   <h2 class="heading settled" data-level="10" id="sctn-privacy-considerations"><span class="secno">10. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#sctn-privacy-considerations"></a></h2>
+   <h2 class="heading settled" data-level="11" id="sctn-privacy-considerations"><span class="secno">11. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#sctn-privacy-considerations"></a></h2>
    <p>As this specification builds on top of WebAuthn, the <a href="https://www.w3.org/TR/webauthn-3/#sctn-privacy-considerations">WebAuthn Privacy Considerations</a> are
 applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific privacy considerations, where this specification diverges
 from WebAuthn.</p>
-   <h3 class="heading settled" data-level="10.1" id="sctn-security-cross-origin-registration"><span class="secno">10.1. </span><span class="content">Registration in a Cross-Origin iframe</span><a class="self-link" href="#sctn-security-cross-origin-registration"></a></h3>
+   <h3 class="heading settled" data-level="11.1" id="sctn-security-cross-origin-registration"><span class="secno">11.1. </span><span class="content">Registration in a Cross-Origin iframe</span><a class="self-link" href="#sctn-security-cross-origin-registration"></a></h3>
    <p>Unlike WebAuthn, this specification allows the creation of credentials in a
 cross-origin iframe (as long as the appropriate <a href="#sctn-permissions-policy">Permission Policy</a> is set on the iframe). That is,
 if site A embeds an iframe from site B, with the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission②">payment</a>" policy set, then site B may initiate a credential creation
@@ -1350,7 +1416,7 @@ align their attack.</p>
 additionally require consuming a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation①">transient activation</a> for credential
 creation in a cross-origin iframe, to ensure that the user has at least
 interacted with an iframe attempting credential creation.</p>
-   <h3 class="heading settled" data-level="10.2" id="sctn-privacy-probing-credential-ids"><span class="secno">10.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
+   <h3 class="heading settled" data-level="11.2" id="sctn-privacy-probing-credential-ids"><span class="secno">11.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
    <p>As per WebAuthn’s section on <a href="https://www.w3.org/TR/webauthn-3/#sctn-assertion-privacy">Authentication
 Ceremony Privacy</a>, implementors of Secure Payment Confirmation must make sure
 not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑦">Relying Party</a>)
@@ -1366,7 +1432,7 @@ instrument icon unless a credential matches. A caller could then provide an
 unique URL that they control for the payment instrument icon. If the URL is
 accessed then the caller can conclude that at least one of the passed
 credentials is available to the user.</p>
-   <h3 class="heading settled" data-level="10.3" id="sctn-privacy-joining-payment-instruments"><span class="secno">10.3. </span><span class="content">Joining different payment instruments</span><a class="self-link" href="#sctn-privacy-joining-payment-instruments"></a></h3>
+   <h3 class="heading settled" data-level="11.3" id="sctn-privacy-joining-payment-instruments"><span class="secno">11.3. </span><span class="content">Joining different payment instruments</span><a class="self-link" href="#sctn-privacy-joining-payment-instruments"></a></h3>
    <p>If a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑧">Relying Party</a> uses the same credentials for a given user across
 multiple payment instruments, this might allow a merchant to join information
 about payment instruments that might otherwise not be linked. That is, across
@@ -1400,14 +1466,14 @@ salt from the Account Provider (<a data-link-type="dfn" href="https://w3c.github
       would have to support this salt-ing concept as the browser would not have
       a local list of credentials.</p>
    <p>See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">this issue</a> for more details.</p>
-   <h3 class="heading settled" data-level="10.4" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">10.4. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
+   <h3 class="heading settled" data-level="11.4" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">11.4. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
    <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⓪">Relying Party</a> could be used by a malicious entity as a tracking vector, as
 they are strong, cross-site identifiers. However in order to obtain them from
 the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④①">Relying Party</a>, the merchant already needs an as-strong identifier to
 give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④②">Relying Party</a> (e.g., the credit card number).</p>
    <p>As above, a possible solution to this would be to hash the credential ID(s)
 with a random salt, making them non-consistent across calls.</p>
-   <h2 class="heading settled" data-level="11" id="sctn-accessibility-considerations"><span class="secno">11. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
+   <h2 class="heading settled" data-level="12" id="sctn-accessibility-considerations"><span class="secno">12. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
    <p>User Agents implementing this specification should follow both <a href="https://www.w3.org/TR/webauthn-3/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
   </main>
   <div data-fill-with="conformance">
@@ -1456,10 +1522,13 @@ with a random salt, making them non-consistent across calls.</p>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
    <li><a href="#dictdef-authenticationextensionspaymentinputs">AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
+   <li><a href="#dom-transactionautomationmode-autoaccept">"autoaccept"</a><span>, in § 9.1</span>
+   <li><a href="#dom-transactionautomationmode-autoreject">"autoreject"</a><span>, in § 9.1</span>
    <li><a href="#dom-securepaymentconfirmationrequest-challenge">challenge</a><span>, in § 4.1.3</span>
    <li><a href="#dictdef-collectedclientadditionalpaymentdata">CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
    <li><a href="#dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a><span>, in § 5.1</span>
    <li><a href="#dom-securepaymentconfirmationrequest-credentialids">credentialIds</a><span>, in § 4.1.3</span>
+   <li><a href="#current-transaction-automation-mode">current transaction automation mode</a><span>, in § 9.1</span>
    <li><a href="#dom-paymentcredentialinstrument-displayname">displayName</a><span>, in § 6.1</span>
    <li><a href="#dom-securepaymentconfirmationrequest-extensions">extensions</a><span>, in § 4.1.3</span>
    <li><a href="#dom-paymentcredentialinstrument-icon">icon</a><span>, in § 6.1</span>
@@ -1471,6 +1540,7 @@ with a random salt, making them non-consistent across calls.</p>
      <li><a href="#dom-securepaymentconfirmationrequest-instrument">dict-member for SecurePaymentConfirmationRequest</a><span>, in § 4.1.3</span>
     </ul>
    <li><a href="#dom-authenticationextensionspaymentinputs-ispayment">isPayment</a><span>, in § 5</span>
+   <li><a href="#dom-transactionautomationmode-none">"none"</a><span>, in § 9.1</span>
    <li>
     payeeOrigin
     <ul>
@@ -1494,6 +1564,7 @@ with a random salt, making them non-consistent across calls.</p>
    <li><a href="#secure-payment-confirmation">secure-payment-confirmation</a><span>, in § 4.1.1</span>
    <li><a href="#secure-payment-confirmation-payment-handler">Secure Payment Confirmation payment handler</a><span>, in § 4.1</span>
    <li><a href="#dictdef-securepaymentconfirmationrequest">SecurePaymentConfirmationRequest</a><span>, in § 4.1.3</span>
+   <li><a href="#set-spc-transaction-mode">Set SPC Transaction Mode</a><span>, in § 9.1</span>
    <li><a href="#dom-securepaymentconfirmationrequest-timeout">timeout</a><span>, in § 4.1.3</span>
    <li>
     topOrigin
@@ -1507,6 +1578,7 @@ with a random salt, making them non-consistent across calls.</p>
      <li><a href="#dom-authenticationextensionspaymentinputs-total">dict-member for AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
      <li><a href="#dom-collectedclientadditionalpaymentdata-total">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
     </ul>
+   <li><a href="#enumdef-transactionautomationmode">TransactionAutomationMode</a><span>, in § 9.1</span>
    <li><a href="#webauthn-conditional-ui">WebAuthn Conditional UI</a><span>, in § 2</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-dom-credentialscontainer-create">
@@ -1537,6 +1609,12 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots">https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-sec-object-internal-methods-and-internal-slots">7. Permissions Policy integration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-blob-url-entry-object">
+   <a href="https://w3c.github.io/FileAPI/#blob-url-entry-object">https://w3c.github.io/FileAPI/#blob-url-entry-object</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-blob-url-entry-object">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-current-settings-object">
@@ -1574,7 +1652,7 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transient-activation">5. WebAuthn Extension - "payment"</a>
-    <li><a href="#ref-for-transient-activation①">10.1. Registration in a Cross-Origin iframe</a>
+    <li><a href="#ref-for-transient-activation①">11.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-fetching-an-image-resource">
@@ -1652,13 +1730,13 @@ with a random salt, making them non-consistent across calls.</p>
    <ul>
     <li><a href="#ref-for-dfn-payment-permission">1.2.1. Registration</a>
     <li><a href="#ref-for-dfn-payment-permission①">7. Permissions Policy integration</a>
-    <li><a href="#ref-for-dfn-payment-permission②">10.1. Registration in a Cross-Origin iframe</a>
+    <li><a href="#ref-for-dfn-payment-permission②">11.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-accessibility-considerations">
    <a href="https://w3c.github.io/payment-request/#accessibility-considerations">https://w3c.github.io/payment-request/#accessibility-considerations</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-accessibility-considerations">11. Accessibility Considerations</a>
+    <li><a href="#ref-for-accessibility-considerations">12. Accessibility Considerations</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-details">
@@ -1735,13 +1813,13 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-relying-party①③">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-relying-party①④">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-relying-party①⑤">(2)</a>
     <li><a href="#ref-for-relying-party①⑥">8.1. Verifying an Authentication Assertion</a> <a href="#ref-for-relying-party①⑦">(2)</a> <a href="#ref-for-relying-party①⑧">(3)</a> <a href="#ref-for-relying-party①⑨">(4)</a> <a href="#ref-for-relying-party②⓪">(5)</a> <a href="#ref-for-relying-party②①">(6)</a> <a href="#ref-for-relying-party②②">(7)</a> <a href="#ref-for-relying-party②③">(8)</a>
-    <li><a href="#ref-for-relying-party②④">9.1. Cross-origin authentication ceremony</a> <a href="#ref-for-relying-party②⑤">(2)</a>
-    <li><a href="#ref-for-relying-party②⑥">9.1.1. Login Attack</a> <a href="#ref-for-relying-party②⑦">(2)</a> <a href="#ref-for-relying-party②⑧">(3)</a> <a href="#ref-for-relying-party②⑨">(4)</a> <a href="#ref-for-relying-party③⓪">(5)</a> <a href="#ref-for-relying-party③①">(6)</a> <a href="#ref-for-relying-party③②">(7)</a>
-    <li><a href="#ref-for-relying-party③③">9.1.2. Payment Attack</a> <a href="#ref-for-relying-party③④">(2)</a> <a href="#ref-for-relying-party③⑤">(3)</a>
-    <li><a href="#ref-for-relying-party③⑥">9.2. Merchant-supplied authentication data</a>
-    <li><a href="#ref-for-relying-party③⑦">10.2. Probing for credential ids</a>
-    <li><a href="#ref-for-relying-party③⑧">10.3. Joining different payment instruments</a> <a href="#ref-for-relying-party③⑨">(2)</a>
-    <li><a href="#ref-for-relying-party④⓪">10.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party④①">(2)</a> <a href="#ref-for-relying-party④②">(3)</a>
+    <li><a href="#ref-for-relying-party②④">10.1. Cross-origin authentication ceremony</a> <a href="#ref-for-relying-party②⑤">(2)</a>
+    <li><a href="#ref-for-relying-party②⑥">10.1.1. Login Attack</a> <a href="#ref-for-relying-party②⑦">(2)</a> <a href="#ref-for-relying-party②⑧">(3)</a> <a href="#ref-for-relying-party②⑨">(4)</a> <a href="#ref-for-relying-party③⓪">(5)</a> <a href="#ref-for-relying-party③①">(6)</a> <a href="#ref-for-relying-party③②">(7)</a>
+    <li><a href="#ref-for-relying-party③③">10.1.2. Payment Attack</a> <a href="#ref-for-relying-party③④">(2)</a> <a href="#ref-for-relying-party③⑤">(3)</a>
+    <li><a href="#ref-for-relying-party③⑥">10.2. Merchant-supplied authentication data</a>
+    <li><a href="#ref-for-relying-party③⑦">11.2. Probing for credential ids</a>
+    <li><a href="#ref-for-relying-party③⑧">11.3. Joining different payment instruments</a> <a href="#ref-for-relying-party③⑨">(2)</a>
+    <li><a href="#ref-for-relying-party④⓪">11.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party④①">(2)</a> <a href="#ref-for-relying-party④②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-webauthn-extensions">
@@ -1767,7 +1845,7 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dictdef-collectedclientdata①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dictdef-collectedclientdata②">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientdata③">(2)</a>
     <li><a href="#ref-for-dictdef-collectedclientdata④">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
-    <li><a href="#ref-for-dictdef-collectedclientdata⑤">9.1.1. Login Attack</a> <a href="#ref-for-dictdef-collectedclientdata⑥">(2)</a> <a href="#ref-for-dictdef-collectedclientdata⑦">(3)</a>
+    <li><a href="#ref-for-dictdef-collectedclientdata⑤">10.1.1. Login Attack</a> <a href="#ref-for-dictdef-collectedclientdata⑥">(2)</a> <a href="#ref-for-dictdef-collectedclientdata⑦">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-publickeycredential">
@@ -1848,7 +1926,7 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin">https://w3c.github.io/webauthn/#dom-collectedclientdata-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientdata-origin">8.1. Verifying an Authentication Assertion</a>
-    <li><a href="#ref-for-dom-collectedclientdata-origin①">9.1.1. Login Attack</a>
+    <li><a href="#ref-for-dom-collectedclientdata-origin①">10.1.1. Login Attack</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-authenticatorattachment-platform">
@@ -1904,6 +1982,55 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-userverification">4.1.6. Steps to respond to a payment request</a> <a href="#ref-for-dom-publickeycredentialrequestoptions-userverification①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-extension-command">
+   <a href="https://w3c.github.io/webdriver/#dfn-extension-command">https://w3c.github.io/webdriver/#dfn-extension-command</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-extension-command">9. User Agent Automation</a>
+    <li><a href="#ref-for-dfn-extension-command①">9.1. Set SPC Transaction Mode</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-getting-properties">
+   <a href="https://w3c.github.io/webdriver/#dfn-getting-properties">https://w3c.github.io/webdriver/#dfn-getting-properties</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-getting-properties">9.1. Set SPC Transaction Mode</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-invalid-argument">
+   <a href="https://w3c.github.io/webdriver/#dfn-invalid-argument">https://w3c.github.io/webdriver/#dfn-invalid-argument</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-invalid-argument">9.1. Set SPC Transaction Mode</a> <a href="#ref-for-dfn-invalid-argument①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-remote-end-steps">
+   <a href="https://w3c.github.io/webdriver/#dfn-remote-end-steps">https://w3c.github.io/webdriver/#dfn-remote-end-steps</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-remote-end-steps">9.1. Set SPC Transaction Mode</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-success">
+   <a href="https://w3c.github.io/webdriver/#dfn-success">https://w3c.github.io/webdriver/#dfn-success</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-success">9.1. Set SPC Transaction Mode</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-undefined">
+   <a href="https://w3c.github.io/webdriver/#dfn-undefined">https://w3c.github.io/webdriver/#dfn-undefined</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-undefined">9.1. Set SPC Transaction Mode</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-errors">
+   <a href="https://w3c.github.io/webdriver/#dfn-errors">https://w3c.github.io/webdriver/#dfn-errors</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-errors">9.1. Set SPC Transaction Mode</a> <a href="#ref-for-dfn-errors①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-error-code">
+   <a href="https://w3c.github.io/webdriver/#dfn-error-code">https://w3c.github.io/webdriver/#dfn-error-code</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-error-code">9.1. Set SPC Transaction Mode</a> <a href="#ref-for-dfn-error-code①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-BufferSource">
@@ -1977,6 +2104,11 @@ with a random salt, making them non-consistent across calls.</p>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-sec-object-internal-methods-and-internal-slots">internal method</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[FileAPI]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-blob-url-entry-object">object</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
@@ -2062,6 +2194,18 @@ with a random salt, making them non-consistent across calls.</p>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-userverification">userVerification <small>(for PublicKeyCredentialRequestOptions)</small></span>
     </ul>
    <li>
+    <a data-link-type="biblio">[WebDriver]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-dfn-extension-command">extension command</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-getting-properties">getting a property</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-invalid-argument">invalid argument</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-remote-end-steps">remote end steps</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-success">success</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-undefined">undefined</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-errors">webdriver error</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-error-code">webdriver error code</span>
+    </ul>
+   <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-BufferSource">BufferSource</span>
@@ -2080,6 +2224,8 @@ with a random salt, making them non-consistent across calls.</p>
   <dl>
    <dt id="biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]
    <dd>Mike West. <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. 17 January 2019. WD. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
+   <dt id="biblio-fileapi">[FileAPI]
+   <dd>Marijn Kruisselbrink; Arun Ranganathan. <a href="https://www.w3.org/TR/FileAPI/"><cite>File API</cite></a>. 4 June 2021. WD. URL: <a href="https://www.w3.org/TR/FileAPI/">https://www.w3.org/TR/FileAPI/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-image-resource">[IMAGE-RESOURCE]
@@ -2094,6 +2240,8 @@ with a random salt, making them non-consistent across calls.</p>
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-webauthn-1">[WEBAUTHN-1]
    <dd>Dirk Balfanz; et al. <a href="https://www.w3.org/TR/webauthn-1/"><cite>Web Authentication:An API for accessing Public Key Credentials Level 1</cite></a>. 4 March 2019. REC. URL: <a href="https://www.w3.org/TR/webauthn-1/">https://www.w3.org/TR/webauthn-1/</a>
+   <dt id="biblio-webdriver">[WebDriver]
+   <dd>Simon Stewart; David Burns. <a href="https://www.w3.org/TR/webdriver1/"><cite>WebDriver</cite></a>. 5 June 2018. REC. URL: <a href="https://www.w3.org/TR/webdriver1/">https://www.w3.org/TR/webdriver1/</a>
    <dt id="biblio-webidl">[WEBIDL]
    <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
   </dl>
@@ -2148,12 +2296,18 @@ with a random salt, making them non-consistent across calls.</p>
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon"><c- g>icon</c-></a>;
 };
 
+<c- b>enum</c-> <a href="#enumdef-transactionautomationmode"><code><c- g>TransactionAutomationMode</c-></code></a> {
+  <a href="#dom-transactionautomationmode-none"><code><c- s>"none"</c-></code></a>,
+  <a href="#dom-transactionautomationmode-autoaccept"><code><c- s>"autoaccept"</c-></code></a>,
+  <a href="#dom-transactionautomationmode-autoreject"><code><c- s>"autoreject"</c-></code></a>
+};
+
 </pre>
   <aside class="dfn-panel" data-for="webauthn-conditional-ui">
    <b><a href="#webauthn-conditional-ui">#webauthn-conditional-ui</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-webauthn-conditional-ui">3. Registration</a>
-    <li><a href="#ref-for-webauthn-conditional-ui①">10.3. Joining different payment instruments</a>
+    <li><a href="#ref-for-webauthn-conditional-ui①">11.3. Joining different payment instruments</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="secure-payment-confirmation-payment-handler">
@@ -2230,7 +2384,7 @@ with a random salt, making them non-consistent across calls.</p>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment">3. Registration</a>
     <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment①">4.1.6. Steps to respond to a payment request</a>
-    <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment②">9.1.1. Login Attack</a> <a href="#ref-for-dom-authenticationextensionsclientinputs-payment③">(2)</a>
+    <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment②">10.1.1. Login Attack</a> <a href="#ref-for-dom-authenticationextensionsclientinputs-payment③">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-authenticationextensionspaymentinputs">
@@ -2373,6 +2527,44 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-icon">4.1.4. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-icon①">4.1.5. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-icon②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="set-spc-transaction-mode">
+   <b><a href="#set-spc-transaction-mode">#set-spc-transaction-mode</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-set-spc-transaction-mode">9.1. Set SPC Transaction Mode</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="current-transaction-automation-mode">
+   <b><a href="#current-transaction-automation-mode">#current-transaction-automation-mode</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-current-transaction-automation-mode">4.1.5. Displaying a transaction confirmation UX</a> <a href="#ref-for-current-transaction-automation-mode①">(2)</a>
+    <li><a href="#ref-for-current-transaction-automation-mode②">9.1. Set SPC Transaction Mode</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="enumdef-transactionautomationmode">
+   <b><a href="#enumdef-transactionautomationmode">#enumdef-transactionautomationmode</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-transactionautomationmode">9.1. Set SPC Transaction Mode</a> <a href="#ref-for-enumdef-transactionautomationmode①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-transactionautomationmode-none">
+   <b><a href="#dom-transactionautomationmode-none">#dom-transactionautomationmode-none</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-transactionautomationmode-none">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-transactionautomationmode-none①">9.1. Set SPC Transaction Mode</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-transactionautomationmode-autoaccept">
+   <b><a href="#dom-transactionautomationmode-autoaccept">#dom-transactionautomationmode-autoaccept</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-transactionautomationmode-autoaccept">4.1.5. Displaying a transaction confirmation UX</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-transactionautomationmode-autoreject">
+   <b><a href="#dom-transactionautomationmode-autoreject">#dom-transactionautomationmode-autoreject</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-transactionautomationmode-autoreject">4.1.5. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

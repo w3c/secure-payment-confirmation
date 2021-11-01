@@ -995,7 +995,7 @@ an unauthorized payment using Secure Payment Confirmation credentials
 ## Merchant-supplied authentication data ## {#sctn-security-merchant-data}
 
 The bank can and should protect against spoofing by
-[[#sctn-verifying-assertion|verifying the cryptogram]] they receive to
+[[#sctn-verifying-assertion|verifying the authentication assertion]] they receive to
 ensure it aligns with the transaction details provided by the
 merchant.
 

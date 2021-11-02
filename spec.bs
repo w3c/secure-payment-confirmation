@@ -1079,7 +1079,7 @@ NOTE: As currently written, the Secure Payment Confirmation specification
 A Secure Payment Confirmation assertion is essentially useless unless
 it is part of an ongoing online transaction.
 
-A variety of mechanism protect against an attack where a malicious
+A variety of mechanisms protect against an attack where a malicious
 third-party, instead of attempting to hijack a user account, initiates
 an unauthorized payment using Secure Payment Confirmation credentials
 (obtained either legitimately or otherwise):

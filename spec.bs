@@ -1095,6 +1095,11 @@ an unauthorized payment using Secure Payment Confirmation credentials
 * If the [=Relying Party=] is expecting a transaction, it will detect an
     unfamiliar `challenge` and reject the assertion.
 
+The same backend protections apply in the scenario where the caller
+intentionally or mistakenly provides the API with instrument
+information and Secure Payment Confirmation credentials not related
+through registration.
+
 ## Merchant-supplied authentication data ## {#sctn-security-merchant-data}
 
 A consequence of this specification's third-party authentication ceremony is

@@ -1109,7 +1109,10 @@ the user:
 This could lead to a spoofing attack, in which a merchant presents incorrect
 data to the user. For example, the merchant could tell the bank (in the
 backend) that it is initiating a purchase of $100, but then pass $1 to the SPC
-API (and thus show the user a $1 transaction to verify).
+API (and thus show the user a $1 transaction to verify). Or the merchant
+could provide the correct transaction details but pass Secure Payment
+Confirmation credentials that don't match what the [=Relying Party=]
+expects.
 
 Secure Payment Confirmation actually makes defeating this kind of attack easier
 than it currently is on the web. In online payments today, the bank has to

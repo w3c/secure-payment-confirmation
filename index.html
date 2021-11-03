@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version d7036035b, updated Fri Oct 8 17:07:11 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="4015745a298491ecc685647259da2b2c15bf7682" name="document-revision">
+  <meta content="ba3b5863e77410956f82ee50e6924238503dc06a" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-11-02">2 November 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-11-03">3 November 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1360,7 +1360,9 @@ the user:</p>
    <p>This could lead to a spoofing attack, in which a merchant presents incorrect
 data to the user. For example, the merchant could tell the bank (in the
 backend) that it is initiating a purchase of $100, but then pass $1 to the SPC
-API (and thus show the user a $1 transaction to verify).</p>
+API (and thus show the user a $1 transaction to verify). Or the merchant
+could provide the correct transaction details but pass Secure Payment
+Confirmation credentials that don’t match what the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑦">Relying Party</a> expects.</p>
    <p>Secure Payment Confirmation actually makes defeating this kind of attack easier
 than it currently is on the web. In online payments today, the bank has to
 trust that the merchant showed the user the correct amount in their checkout
@@ -1419,7 +1421,7 @@ interacted with an iframe attempting credential creation.</p>
    <h3 class="heading settled" data-level="11.2" id="sctn-privacy-probing-credential-ids"><span class="secno">11.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
    <p>As per WebAuthn’s section on <a href="https://www.w3.org/TR/webauthn-3/#sctn-assertion-privacy">Authentication
 Ceremony Privacy</a>, implementors of Secure Payment Confirmation must make sure
-not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑦">Relying Party</a>)
+not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑧">Relying Party</a>)
 to distinguish between these cases:</p>
    <ul>
     <li data-md>
@@ -1433,7 +1435,7 @@ unique URL that they control for the payment instrument icon. If the URL is
 accessed then the caller can conclude that at least one of the passed
 credentials is available to the user.</p>
    <h3 class="heading settled" data-level="11.3" id="sctn-privacy-joining-payment-instruments"><span class="secno">11.3. </span><span class="content">Joining different payment instruments</span><a class="self-link" href="#sctn-privacy-joining-payment-instruments"></a></h3>
-   <p>If a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑧">Relying Party</a> uses the same credentials for a given user across
+   <p>If a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑨">Relying Party</a> uses the same credentials for a given user across
 multiple payment instruments, this might allow a merchant to join information
 about payment instruments that might otherwise not be linked. That is, across
 two different transactions that a user U performs with payment instruments P1
@@ -1444,7 +1446,7 @@ the user already provides sufficient information to do this joining anyway
 (e.g. their address), however it could become a privacy attack if, e.g.,
 payment tokenization becomes commonplace.</p>
    <p>One possible way to defeat this may be to hash the credential IDs with a random
-salt from the Account Provider (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑨">Relying Party</a>):</p>
+salt from the Account Provider (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⓪">Relying Party</a>):</p>
    <ol>
     <li data-md>
      <p>Merchant requests the list of credential IDs from the Account Provider.</p>
@@ -1467,10 +1469,10 @@ salt from the Account Provider (<a data-link-type="dfn" href="https://w3c.github
       a local list of credentials.</p>
    <p>See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">this issue</a> for more details.</p>
    <h3 class="heading settled" data-level="11.4" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">11.4. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
-   <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⓪">Relying Party</a> could be used by a malicious entity as a tracking vector, as
+   <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④①">Relying Party</a> could be used by a malicious entity as a tracking vector, as
 they are strong, cross-site identifiers. However in order to obtain them from
-the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④①">Relying Party</a>, the merchant already needs an as-strong identifier to
-give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④②">Relying Party</a> (e.g., the credit card number).</p>
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④②">Relying Party</a>, the merchant already needs an as-strong identifier to
+give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④③">Relying Party</a> (e.g., the credit card number).</p>
    <p>As above, a possible solution to this would be to hash the credential ID(s)
 with a random salt, making them non-consistent across calls.</p>
    <h2 class="heading settled" data-level="12" id="sctn-accessibility-considerations"><span class="secno">12. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
@@ -1816,10 +1818,10 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-relying-party②④">10.1. Cross-origin authentication ceremony</a> <a href="#ref-for-relying-party②⑤">(2)</a>
     <li><a href="#ref-for-relying-party②⑥">10.1.1. Login Attack</a> <a href="#ref-for-relying-party②⑦">(2)</a> <a href="#ref-for-relying-party②⑧">(3)</a> <a href="#ref-for-relying-party②⑨">(4)</a> <a href="#ref-for-relying-party③⓪">(5)</a> <a href="#ref-for-relying-party③①">(6)</a> <a href="#ref-for-relying-party③②">(7)</a>
     <li><a href="#ref-for-relying-party③③">10.1.2. Payment Attack</a> <a href="#ref-for-relying-party③④">(2)</a> <a href="#ref-for-relying-party③⑤">(3)</a>
-    <li><a href="#ref-for-relying-party③⑥">10.2. Merchant-supplied authentication data</a>
-    <li><a href="#ref-for-relying-party③⑦">11.2. Probing for credential ids</a>
-    <li><a href="#ref-for-relying-party③⑧">11.3. Joining different payment instruments</a> <a href="#ref-for-relying-party③⑨">(2)</a>
-    <li><a href="#ref-for-relying-party④⓪">11.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party④①">(2)</a> <a href="#ref-for-relying-party④②">(3)</a>
+    <li><a href="#ref-for-relying-party③⑥">10.2. Merchant-supplied authentication data</a> <a href="#ref-for-relying-party③⑦">(2)</a>
+    <li><a href="#ref-for-relying-party③⑧">11.2. Probing for credential ids</a>
+    <li><a href="#ref-for-relying-party③⑨">11.3. Joining different payment instruments</a> <a href="#ref-for-relying-party④⓪">(2)</a>
+    <li><a href="#ref-for-relying-party④①">11.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party④②">(2)</a> <a href="#ref-for-relying-party④③">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-webauthn-extensions">

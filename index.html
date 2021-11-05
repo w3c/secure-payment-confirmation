@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="w3c/ED" name="w3c-status">
-  <meta content="Bikeshed version d7036035b, updated Fri Oct 8 17:07:11 2021 -0700" name="generator">
+  <meta content="Bikeshed version 83b904c2e, updated Wed Nov 3 17:20:53 2021 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="ba3b5863e77410956f82ee50e6924238503dc06a" name="document-revision">
+  <meta content="cd8781cfdc4ef7fc060e39ffa4c85871dc6ae3cb" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-11-03">3 November 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-11-05">5 November 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1345,10 +1345,13 @@ assertion.</p>
 unfamiliar <code>challenge</code> and reject the assertion.</p>
    </ul>
    <h3 class="heading settled" data-level="10.2" id="sctn-security-merchant-data"><span class="secno">10.2. </span><span class="content">Merchant-supplied authentication data</span><a class="self-link" href="#sctn-security-merchant-data"></a></h3>
-   <p>A consequence of this specification’s third-party authentication ceremony is
-that even in a valid transaction (i.e. one that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑥">Relying Party</a> is
-expecting), a third-party provides the transaction details that are shown to
-the user:</p>
+   <p>The bank can and should protect against spoofing by <a href="#sctn-verifying-assertion">verifying the authentication assertion</a> they receive to
+ensure it aligns with the transaction details provided by the
+merchant.</p>
+   <p>That is because a consequence of this specification’s third-party
+authentication ceremony is that even in a valid transaction (i.e. one
+that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑥">Relying Party</a> is expecting), a third-party provides the
+transaction details that are shown to the user:</p>
    <ul>
     <li data-md>
      <p>Transaction amount and currency</p>
@@ -1368,8 +1371,6 @@ than it currently is on the web. In online payments today, the bank has to
 trust that the merchant showed the user the correct amount in their checkout
 flow (and any fraud discoveries are post-payment, when the user checks their
 account statement).</p>
-   <p>With Secure Payment Confirmation, the bank can (and should) instead <a href="#sctn-verifying-assertion">verify the cryptogram</a> that they receive, to
-ensure that it aligns with the transaction details provided by the merchant.</p>
    <h2 class="heading settled" data-level="11" id="sctn-privacy-considerations"><span class="secno">11. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#sctn-privacy-considerations"></a></h2>
    <p>As this specification builds on top of WebAuthn, the <a href="https://www.w3.org/TR/webauthn-3/#sctn-privacy-considerations">WebAuthn Privacy Considerations</a> are
 applicable. The below subsections comprise the current Secure Payment

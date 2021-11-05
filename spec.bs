@@ -556,8 +556,8 @@ authentication:
     {{PaymentCurrencyAmount/currency}} and {{PaymentCurrencyAmount/value}} of the
     transaction.
 * The {{CollectedClientAdditionalPaymentData/instrument}} details, that is the
-    payment instrument {{PaymentCredentialInstrument/displayName}} and
-    {{PaymentCredentialInstrument/icon}}.
+    payment instrument {{PaymentCredentialInstrument/displayName}}, 
+    {{PaymentCredentialInstrument/icon}}, and {{PaymentCredentialInstrument/alt}} (if provided).
 
 If the [=current transaction automation mode=] is not
 "{{TransactionAutomationMode/none}}", the user agent should first verify that
@@ -842,6 +842,7 @@ The following data structures are shared between registration and authentication
     dictionary PaymentCredentialInstrument {
         required DOMString displayName;
         required USVString icon;
+                 USVString alt;
     };
 </xmp>
 
@@ -869,6 +870,16 @@ contains the following members:
          validation because the [=Relying Party=]  has cryptographic evidence of
          what the browser displayed to the user: the icon URL is signed as part
          of the {{CollectedClientAdditionalPaymentData}} structure.
+
+    :  <dfn>alt</dfn> member
+    :: An optional member that provides a text description of the icon.
+       This member should be used when
+       {{PaymentCredentialInstrument/displayName}} does not already
+       include a sufficient text description of the icon. For example,
+       if {{PaymentCredentialInstrument/displayName}} includes a card
+       payment network name but the icon is that of the issuing bank,
+       use this member to provide a text version of the name of the
+       bank.
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}
@@ -1250,6 +1261,11 @@ As above, a possible solution to this would be to hash the credential ID(s)
 with a random salt, making them non-consistent across calls.
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
+
+The {{PaymentCredentialInstrument/alt}} member of
+{{CollectedClientAdditionalPaymentData/instrument}} enables developers
+to increase the accessibility of information intended for the user
+(e.g., for use by screen readers).
 
 User Agents implementing this specification should follow both
 [[webauthn-3#sctn-accessiblility-considerations|WebAuthn's Accessibility Considerations]]

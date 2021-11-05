@@ -1262,10 +1262,10 @@ with a random salt, making them non-consistent across calls.
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 
-The {{PaymentCredentialInstrument/alt}} member of
-{{CollectedClientAdditionalPaymentData/instrument}} enables developers
-to increase the accessibility of information intended for the user
-(e.g., for use by screen readers).
+When {{PaymentCredentialInstrument/displayName}} is not sufficient to
+describe an {{PaymentCredentialInstrument/icon}},
+{{PaymentCredentialInstrument/alt}} is designed to increase the
+accessibility of the icon (e.g., for use by screen readers).
 
 User Agents implementing this specification should follow both
 [[webauthn-3#sctn-accessiblility-considerations|WebAuthn's Accessibility Considerations]]

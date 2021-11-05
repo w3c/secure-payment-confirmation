@@ -1097,10 +1097,15 @@ an unauthorized payment using Secure Payment Confirmation credentials
 
 ## Merchant-supplied authentication data ## {#sctn-security-merchant-data}
 
-A consequence of this specification's third-party authentication ceremony is
-that even in a valid transaction (i.e. one that the [=Relying Party=] is
-expecting), a third-party provides the transaction details that are shown to
-the user:
+The bank can and should protect against spoofing by
+[[#sctn-verifying-assertion|verifying the authentication assertion]] they receive to
+ensure it aligns with the transaction details provided by the
+merchant.
+
+That is because a consequence of this specification's third-party
+authentication ceremony is that even in a valid transaction (i.e. one
+that the [=Relying Party=] is expecting), a third-party provides the
+transaction details that are shown to the user:
 
 * Transaction amount and currency
 * Payment instrument name and icon
@@ -1119,10 +1124,6 @@ than it currently is on the web. In online payments today, the bank has to
 trust that the merchant showed the user the correct amount in their checkout
 flow (and any fraud discoveries are post-payment, when the user checks their
 account statement).
-
-With Secure Payment Confirmation, the bank can (and should) instead
-[[#sctn-verifying-assertion|verify the cryptogram]] that they receive, to
-ensure that it aligns with the transaction details provided by the merchant.
 
 # Privacy Considerations # {#sctn-privacy-considerations}
 

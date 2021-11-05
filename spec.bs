@@ -872,14 +872,8 @@ contains the following members:
          of the {{CollectedClientAdditionalPaymentData}} structure.
 
     :  <dfn>alt</dfn> member
-    :: An optional member that provides a text description of the icon.
-       This member should be used when
-       {{PaymentCredentialInstrument/displayName}} does not already
-       include a sufficient text description of the icon. For example,
-       if {{PaymentCredentialInstrument/displayName}} includes a card
-       payment network name but the icon is that of the issuing bank,
-       use this member to provide a text version of the name of the
-       bank.
+    :: An optional member that provides a text description of the icon. This member should be used when
+       {{PaymentCredentialInstrument/displayName}} does not already include a sufficient text description of the icon. For example, if {{PaymentCredentialInstrument/displayName}} includes a card payment network name but the icon is that of the issuing bank, use this member to provide a text version of the name of the bank.
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}

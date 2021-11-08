@@ -842,7 +842,7 @@ The following data structures are shared between registration and authentication
     dictionary PaymentCredentialInstrument {
         required DOMString displayName;
         required USVString icon;
-                 USVString alt;
+                 DOMString alt;
     };
 </xmp>
 

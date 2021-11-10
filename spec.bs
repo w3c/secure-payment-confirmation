@@ -255,7 +255,11 @@ const publicKey = {
 
   // User:
   user: {
-    // An id that the bank server can use to identify this user in future interactions.
+    // Part of WebAuthn. This information is not required by SPC
+    // but may be used by the bank server to identify this user in
+    // future transactions. Inconsistent values for the same user
+    // can result in the creation of multiple credentials for the user
+    // and thus potential UX friction due to credential selection.
     id: Uint8Array.from(window.atob("MIIBkzCCATigAwIBAjCCAZMwggE4oAMCAQIwggGTMII="), c=>c.charCodeAt(0)),
     name: "jane.doe@example.com",
     displayName: "Jane Doe",

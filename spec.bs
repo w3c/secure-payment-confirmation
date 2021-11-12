@@ -641,6 +641,8 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     [=Request a Credential=], passing «["{{CredentialRequestOptions/publicKey}}"
     → |publicKeyOpts|]».
 
+    Note: Chrome's initial implementation does not pass the full `data.credentialIds` list to [=Request a Credential=]. Instead, it chooses one credential in the list that matches the current device and passes only that in.
+
     Note: This triggers [[webauthn-3]]'s [[webauthn-3#sctn-getAssertion|Get]] behavior
 
 1. Return |outputCredential|.

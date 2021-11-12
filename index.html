@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version dfbc2b297, updated Thu Nov 11 15:52:32 2021 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="14e547149f28ebe72d4b89a9654d1a1a82315b0b" name="document-revision">
+  <meta content="9ec6e5acc2687790d13ff925a4aae2cc136ff763" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -945,6 +945,7 @@ whose fields are:</p>
     <li data-md>
      <p>Let <var>outputCredential</var> be the result of running the algorithm to <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential" id="ref-for-abstract-opdef-request-a-credential">Request a Credential</a>, passing «["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey" id="ref-for-dom-credentialrequestoptions-publickey">publicKey</a></code>"
 → <var>publicKeyOpts</var>]».</p>
+     <p class="note" role="note"><span>Note:</span> Chrome’s initial implementation does not pass the full <code>data.credentialIds</code> list to <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential" id="ref-for-abstract-opdef-request-a-credential①">Request a Credential</a>. Instead, it chooses one credential in the list that matches the current device and passes only that in.</p>
      <p class="note" role="note"><span>Note:</span> This triggers <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>'s <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">Get</a> behavior</p>
     <li data-md>
      <p>Return <var>outputCredential</var>.</p>
@@ -1612,7 +1613,7 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="term-for-abstract-opdef-request-a-credential">
    <a href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential">https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-abstract-opdef-request-a-credential">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-abstract-opdef-request-a-credential">4.1.6. Steps to respond to a payment request</a> <a href="#ref-for-abstract-opdef-request-a-credential①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-sec-object-internal-methods-and-internal-slots">

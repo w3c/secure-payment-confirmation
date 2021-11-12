@@ -874,7 +874,7 @@ contains the following members:
          what the browser displayed to the user: the icon URL is signed as part
          of the {{CollectedClientAdditionalPaymentData}} structure.
 
-	 NOTE: See related [[#sctn-accessibility-considerations|accessibility considerations]].
+         NOTE: See related [[#sctn-accessibility-considerations|accessibility considerations]].
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}

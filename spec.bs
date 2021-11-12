@@ -519,17 +519,17 @@ members:
 The [=steps to check if a payment can be made=] for this payment method, for an
 input {{SecurePaymentConfirmationRequest}} |request|, are:
 
-1. If |request|.{{SecurePaymentConfirmationRequest/credentialIds}} is empty,
-    return `false`.
+1. If |request|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is
+    empty, return `false`.
 
-1. If |request|.{{SecurePaymentConfirmationRequest/payeeOrigin}} is not a fully
-    qualified [=origin=], return `false`.
+1. If |request|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is not a
+    fully qualified [=origin=], return `false`.
 
-1. If |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/displayName}}
+1. If |request|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
     is empty, return `false`.
 
 1. [=fetch an image resource|Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
-    |request|.{{SecurePaymentConfirmationRequest/instrument}}.{{PaymentCredentialInstrument/icon}}]»
+    |request|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]]»
     for *image*. If this fails, return `false`.
 
     Note: The image resource must be fetched whether or not any credential
@@ -595,26 +595,26 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     : {{AuthenticationExtensionsPaymentInputs/topOrigin}}
     :: |topOrigin|
     : {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
-    :: |data|.{{SecurePaymentConfirmationRequest/payeeOrigin}}
+    :: |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"]
     : {{AuthenticationExtensionsPaymentInputs/total}}
-    :: |request|.[=payment request details|[[details]]=].{{PaymentDetailsInit/total}}
+    :: |request|.[=payment request details|[[details]]=]["{{PaymentDetailsInit/total}}"]
     : {{AuthenticationExtensionsPaymentInputs/instrument}}
-    :: |data|.{{SecurePaymentConfirmationRequest/instrument}}
+    :: |data|["{{SecurePaymentConfirmationRequest/instrument}}"]
 
     <div class="note">**TODO**: We do not have the rp id at this step; maybe that should just go in the extension processing steps?</div>
 
 1. Let |extensions| be a new {{AuthenticationExtensionsClientInputs}} dictionary
     whose {{AuthenticationExtensionsClientInputs/payment}} member is set to
     |payment|, and whose other members are set from
-    |data|.{{SecurePaymentConfirmationRequest/extensions}}.
+    |data|["{{SecurePaymentConfirmationRequest/extensions}}"].
 
 1. Let |publicKeyOpts| be a new {{PublicKeyCredentialRequestOptions}}
     dictionary, whose fields are:
 
     : {{PublicKeyCredentialRequestOptions/challenge}}
-    :: |data|.{{SecurePaymentConfirmationRequest/challenge}}
+    :: |data|["{{SecurePaymentConfirmationRequest/challenge}}"]
     : {{PublicKeyCredentialRequestOptions/timeout}}
-    :: |data|.{{SecurePaymentConfirmationRequest/timeout}}
+    :: |data|["{{SecurePaymentConfirmationRequest/timeout}}"]
     : {{PublicKeyCredentialRequestOptions/userVerification}}
     :: {{UserVerificationRequirement/required}}
     : {{PublicKeyCredentialRequestOptions/extensions}}
@@ -622,7 +622,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
 
     Note: This algorithm hard-codes "required" as the value for {{PublicKeyCredentialRequestOptions/userVerification}}, because that is what Chrome's initial implementation supports. The current limitations may change. The Working Group invites implementers to share use cases that would benefit from support for other values (e.g., "preferred" or "discouraged").
 
-1. For each |id| in `data.credentialIds`:
+1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
 
     1. Let |descriptor| be a new {{PublicKeyCredentialDescriptor}} dictionary,
         whose fields are:
@@ -635,7 +635,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
         :: A sequence of length 1 whose only member is
             {{AuthenticatorTransport/internal}}.
 
-    1. [=list/Append=] |descriptor| to |publicKeyOpts|.{{PublicKeyCredentialRequestOptions/allowCredentials}}.
+    1. [=list/Append=] |descriptor| to |publicKeyOpts|["{{PublicKeyCredentialRequestOptions/allowCredentials}}"].
 
 1. Let |outputCredential| be the result of running the algorithm to
     [=Request a Credential=], passing «["{{CredentialRequestOptions/publicKey}}"
@@ -732,9 +732,9 @@ directly; for authentication the extension can only be accessed via
 
         * If any of the following are true:
 
-            * *options*.{{PublicKeyCredentialCreationOptions/authenticatorSelection}}.{{AuthenticatorSelectionCriteria/authenticatorAttachment}} is not "{{AuthenticatorAttachment/platform}}".
-            * *options*.{{PublicKeyCredentialCreationOptions/authenticatorSelection}}.{{AuthenticatorSelectionCriteria/residentKey}} is not "{{ResidentKeyRequirement/required}}".
-            * *options*.{{PublicKeyCredentialCreationOptions/authenticatorSelection}}.{{AuthenticatorSelectionCriteria/userVerification}} is not "{{UserVerificationRequirement/required}}".
+            * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/authenticatorAttachment}}"] is not "{{AuthenticatorAttachment/platform}}".
+            * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/residentKey}}"] is not "{{ResidentKeyRequirement/required}}".
+            * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/userVerification}}"] is not "{{UserVerificationRequirement/required}}".
 
             then throw a {{TypeError}}.
 
@@ -768,15 +768,15 @@ directly; for authentication the extension can only be accessed via
                 {{CollectedClientAdditionalPaymentData}} whose fields are:
 
                 : {{CollectedClientAdditionalPaymentData/rp}}
-                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/rp}}
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/rp}}"]
                 : {{CollectedClientAdditionalPaymentData/topOrigin}}
-                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/topOrigin}}
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/topOrigin}}"]
                 : {{CollectedClientAdditionalPaymentData/payeeOrigin}}
-                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}"]
                 : {{CollectedClientAdditionalPaymentData/total}}
-                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/total}}
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/total}}"]
                 : {{CollectedClientAdditionalPaymentData/instrument}}
-                :: |extension_inputs|.{{AuthenticationExtensionsPaymentInputs/instrument}}
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/instrument}}"]
 
             1. All other fields set as per the original step 9.
 
@@ -915,32 +915,32 @@ Confirmation, the [=Relying Party=] MUST proceed as follows:
     1. In step 5, verify that |credential|.{{Credential/id}} identifies one of
         the public key credentials provided to the |SPC caller| by the [=Relying Party=].
 
-    1. In step 11, verify that the value of |C|.{{CollectedClientData/type}} is
-        the string `payment.get`.
+    1. In step 11, verify that the value of |C|["{{CollectedClientData/type}}"]
+        is the string `payment.get`.
 
-    1. In step 12, verify that the value of |C|.{{CollectedClientData/challenge}}
+    1. In step 12, verify that the value of |C|["{{CollectedClientData/challenge}}"]
         equals the base64url encoding of the challenge provided to the
         |SPC caller| by the [=Relying Party=].
 
-    1. In step 13, verify that the value of |C|.{{CollectedClientData/origin}}
+    1. In step 13, verify that the value of |C|["{{CollectedClientData/origin}}"]
         matches the origin that the [=Relying Party=] expects SPC to have been
         called from.
 
     1. After step 13, insert the following steps:
 
-        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/rp}}
+        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/rp}}"]
             matches the [=Relying Party=]'s origin.
 
-        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/topOrigin}}
+        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/topOrigin}}"]
             matches the top-level origin that the [=Relying Party=] expects.
 
-        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/payeeOrigin}}
+        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/payeeOrigin}}"]
             matches the origin of the payee that should have been displayed to the user.
 
-        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/total}}
+        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/total}}"]
             matches the transaction amount that should have been displayed to the user.
 
-        * Verify that the value of |C|.{{CollectedClientPaymentData/payment}}.{{CollectedClientAdditionalPaymentData/instrument}}
+        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/instrument}}"]
             matches the payment instrument details that should have been displayed to the user.
 
 # User Agent Automation # {#sctn-automation}
@@ -1051,13 +1051,13 @@ login]] or [[#sctn-verifying-assertion|SPC payment]] as appropriate. In
 particular, the following fields can all be used to detect an inappropriate use
 of a credential:
 
-* {{CollectedClientData}}.{{CollectedClientData/type}} - "webauthn.get" for
+* {{CollectedClientData}}["{{CollectedClientData/type}}"]- "webauthn.get" for
     login, "payment.get" for SPC.
-* {{CollectedClientData}}.{{CollectedClientData/challenge}} - this value should
+* {{CollectedClientData}}["{{CollectedClientData/challenge}}"] - this value should
     be provided by the [=Relying Party=] server to the site ahead of any call
     to either WebAuthn or SPC, and should be verified as matching an expected,
     appropriate, previously-provided value.
-* {{CollectedClientData}}.{{CollectedClientData/origin}} - if SPC is being
+* {{CollectedClientData}}["{{CollectedClientData/origin}}"] - if SPC is being
     performed cross-origin, this value will contain the origin of the caller
     (e.g. `attacker.com` in the above example).
 

@@ -1259,7 +1259,7 @@ with a random salt, making them non-consistent across calls.
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 
-User agents render the {{PaymentCredentialInstrument/icon}} and {{PaymentCredentialInstrument/displayName}} together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the {{PaymentCredentialInstrument/displayName}}. For example, if the icon represents a bank, include the bank name in the {{PaymentCredentialInstrument/displayName}}.
+User agents render the {{PaymentCredentialInstrument/icon}} and {{PaymentCredentialInstrument/displayName}} together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the {{PaymentCredentialInstrument/displayName}} (e.g., if the icon represents a bank, by including the bank name in the {{PaymentCredentialInstrument/displayName}}).
 
 User Agents implementing this specification should follow both
 [[webauthn-3#sctn-accessiblility-considerations|WebAuthn's Accessibility Considerations]]

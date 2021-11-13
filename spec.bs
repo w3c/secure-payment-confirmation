@@ -875,6 +875,8 @@ contains the following members:
          validation because the [=Relying Party=]  has cryptographic evidence of
          what the browser displayed to the user: the icon URL is signed as part
          of the {{CollectedClientAdditionalPaymentData}} structure.
+
+         NOTE: See related [[#sctn-accessibility-considerations|accessibility considerations]].
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}
@@ -1256,6 +1258,8 @@ As above, a possible solution to this would be to hash the credential ID(s)
 with a random salt, making them non-consistent across calls.
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
+
+User agents render the {{PaymentCredentialInstrument/icon}} and {{PaymentCredentialInstrument/displayName}} together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the {{PaymentCredentialInstrument/displayName}} (e.g., if the icon represents a bank, by including the bank name in the {{PaymentCredentialInstrument/displayName}}).
 
 User Agents implementing this specification should follow both
 [[webauthn-3#sctn-accessiblility-considerations|WebAuthn's Accessibility Considerations]]

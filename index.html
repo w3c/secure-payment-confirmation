@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version dfbc2b297, updated Thu Nov 11 15:52:32 2021 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="9ec6e5acc2687790d13ff925a4aae2cc136ff763" name="document-revision">
+  <meta content="f3176c4a7f2c07dabd55bc0ee90591a8f78810d3" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2021-11-12">12 November 2021</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2021-11-13">13 November 2021</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1161,6 +1161,7 @@ contains the following members:</p>
  validation because the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑤">Relying Party</a> has cryptographic evidence of
  what the browser displayed to the user: the icon URL is signed as part
  of the <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata⑥">CollectedClientAdditionalPaymentData</a></code> structure.</p>
+     <p class="note" role="note"><span>NOTE:</span> See related <a href="#sctn-accessibility-considerations">accessibility considerations</a>.</p>
    </dl>
    <h2 class="heading settled" data-level="7" id="sctn-permissions-policy"><span class="secno">7. </span><span class="content">Permissions Policy integration</span><a class="self-link" href="#sctn-permissions-policy"></a></h2>
    <p>This specification uses the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission①">payment</a>"
@@ -1485,6 +1486,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <p>As above, a possible solution to this would be to hash the credential ID(s)
 with a random salt, making them non-consistent across calls.</p>
    <h2 class="heading settled" data-level="12" id="sctn-accessibility-considerations"><span class="secno">12. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
+   <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon④">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
    <p>User Agents implementing this specification should follow both <a href="https://www.w3.org/TR/webauthn-3/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
   </main>
   <div data-fill-with="conformance">
@@ -2530,6 +2532,7 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname">4.1.4. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname①">4.1.5. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname③">(2)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname④">12. Accessibility Considerations</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname⑤">(2)</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname⑥">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-icon">
@@ -2538,6 +2541,7 @@ with a random salt, making them non-consistent across calls.</p>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-icon">4.1.4. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-icon①">4.1.5. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-icon②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon③">(2)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon④">12. Accessibility Considerations</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="set-spc-transaction-mode">

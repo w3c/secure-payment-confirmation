@@ -60,6 +60,8 @@ spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
     type: dfn
         urlPrefix: origin.html
             text: origin; url: concept-origin
+            text: scheme; url: concept-origin-scheme
+            text: serialization of an origin; url: ascii-serialisation-of-an-origin
 
 spec: url; urlPrefix: https://url.spec.whatwg.org/
     type: dfn
@@ -530,6 +532,11 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
     |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
 
 1. If |parsedURL| is failure, then return `false`.
+
+1. If |parsedURL|'s [=scheme=] is not "https", return `false`.
+
+1. Set |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] to the
+    [=serialization of an origin|serialization of=] |parsedURL|'s [=origin=].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
     is empty, return `false`.

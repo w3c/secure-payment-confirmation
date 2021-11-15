@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version dfbc2b297, updated Thu Nov 11 15:52:32 2021 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="8fbbe7688f8c12d24b6ba4e54dadc9bc6cd2c8e8" name="document-revision">
+  <meta content="ea5e611dff2e6ba1d4424fe3db42bb01c71aa8cd" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -806,8 +806,8 @@ registration and to be signed along with the transaction details.</p>
 details times out. At most 1 hour.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①">USVString</a></span>
     <dd data-md>
-     <p>The fully qualified <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin">origin</a> of the payee that this SPC call is for
-(e.g., the merchant).</p>
+     <p>The <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin">origin</a> of the payee that this SPC call is for (e.g., the
+merchant).</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-extensions"><code>extensions</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs①">AuthenticationExtensionsClientInputs</a></span>
     <dd data-md>
      <p>Any <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions②">WebAuthn extensions</a> that should be used for the passed
@@ -822,8 +822,13 @@ input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconf
      <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids①">credentialIds</a></code>"] is empty,
 return <code>false</code>.</p>
     <li data-md>
-     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">payeeOrigin</a></code>"] is not a fully
-qualified <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin①">origin</a>, return <code>false</code>.</p>
+     <p>Let <var>parsedURL</var> be the result of running the <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-parser" id="ref-for-concept-url-parser">URL parser</a> on <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">payeeOrigin</a></code>"].</p>
+    <li data-md>
+     <p>If <var>parsedURL</var> is failure, then return <code>false</code>.</p>
+    <li data-md>
+     <p>If <var>parsedURL</var>’s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-scheme" id="ref-for-concept-url-scheme">scheme</a> is not "<code>https</code>", then return <code>false</code>.</p>
+    <li data-md>
+     <p>Set <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">payeeOrigin</a></code>"] to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin" id="ref-for-ascii-serialisation-of-an-origin">serialization of</a> <var>parsedURL</var>’s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-origin" id="ref-for-concept-url-origin">origin</a>.</p>
     <li data-md>
      <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument①">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname">displayName</a></code>"]
 is empty, return <code>false</code>.</p>
@@ -894,7 +899,7 @@ whose fields are:</p>
        <p><var>topOrigin</var></p>
       <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">payeeOrigin</a></code>
       <dd data-md>
-       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">payeeOrigin</a></code>"]</p>
+       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin③">payeeOrigin</a></code>"]</p>
       <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total">total</a></code>
       <dd data-md>
        <p><var>request</var>.<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-details" id="ref-for-dfn-details">[[details]]</a>["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total" id="ref-for-dom-paymentdetailsinit-total">total</a></code>"]</p>
@@ -1654,13 +1659,18 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">https://html.spec.whatwg.org/multipage/origin.html#concept-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-origin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-concept-origin①">4.1.4. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-relevant-settings-object">
    <a href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-relevant-settings-object">4.1.6. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-ascii-serialisation-of-an-origin">
+   <a href="https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin">https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-ascii-serialisation-of-an-origin">4.1.4. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-concept-environment-top-level-origin">
@@ -1794,6 +1804,24 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount-value">https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount-value</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentcurrencyamount-value">4.1.5. Displaying a transaction confirmation UX</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-concept-url-origin">
+   <a href="https://url.spec.whatwg.org/#concept-url-origin">https://url.spec.whatwg.org/#concept-url-origin</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-concept-url-origin">4.1.4. Steps to check if a payment can be made</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-concept-url-scheme">
+   <a href="https://url.spec.whatwg.org/#concept-url-scheme">https://url.spec.whatwg.org/#concept-url-scheme</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-concept-url-scheme">4.1.4. Steps to check if a payment can be made</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-concept-url-parser">
+   <a href="https://url.spec.whatwg.org/#concept-url-parser">https://url.spec.whatwg.org/#concept-url-parser</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-concept-url-parser">4.1.4. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-authentication-ceremony">
@@ -2138,6 +2166,7 @@ with a random salt, making them non-consistent across calls.</p>
      <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
      <li><span class="dfn-paneled" id="term-for-concept-origin">origin</span>
      <li><span class="dfn-paneled" id="term-for-relevant-settings-object">relevant settings object</span>
+     <li><span class="dfn-paneled" id="term-for-ascii-serialisation-of-an-origin">serialization of an origin</span>
      <li><span class="dfn-paneled" id="term-for-concept-environment-top-level-origin">top-level origin</span>
      <li><span class="dfn-paneled" id="term-for-transient-activation">transient activation</span>
     </ul>
@@ -2175,6 +2204,13 @@ with a random salt, making them non-consistent across calls.</p>
      <li><span class="dfn-paneled" id="term-for-dfn-steps-to-respond-to-a-payment-request">steps to respond to a payment request</span>
      <li><span class="dfn-paneled" id="term-for-dom-paymentdetailsinit-total">total</span>
      <li><span class="dfn-paneled" id="term-for-dom-paymentcurrencyamount-value">value</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[URL]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-concept-url-origin">origin</span>
+     <li><span class="dfn-paneled" id="term-for-concept-url-scheme">scheme</span>
+     <li><span class="dfn-paneled" id="term-for-concept-url-parser">url parser</span>
     </ul>
    <li>
     <a data-link-type="biblio">[web-authn]</a> defines the following terms:
@@ -2259,6 +2295,8 @@ with a random salt, making them non-consistent across calls.</p>
    <dd>Marcos Caceres; Rouslan Solomakhin; Ian Jacobs. <a href="https://www.w3.org/TR/payment-request/"><cite>Payment Request API</cite></a>. 30 September 2021. PR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-url">[URL]
+   <dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-webauthn-1">[WEBAUTHN-1]
    <dd>Dirk Balfanz; et al. <a href="https://www.w3.org/TR/webauthn-1/"><cite>Web Authentication:An API for accessing Public Key Credentials Level 1</cite></a>. 4 March 2019. REC. URL: <a href="https://www.w3.org/TR/webauthn-1/">https://www.w3.org/TR/webauthn-1/</a>
    <dt id="biblio-webdriver">[WebDriver]
@@ -2390,8 +2428,8 @@ with a random salt, making them non-consistent across calls.</p>
    <b><a href="#dom-securepaymentconfirmationrequest-payeeorigin">#dom-securepaymentconfirmationrequest-payeeorigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">4.1.4. Steps to check if a payment can be made</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">(2)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin③">4.1.6. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-extensions">

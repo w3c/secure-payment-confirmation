@@ -56,11 +56,6 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: registration extension; url: registration-extension
         text: authentication extension; url: authentication-extension
 
-spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
-    type: dfn
-        urlPrefix: origin.html
-            text: origin; url: concept-origin
-
 spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
     type: dfn
         text: extension command; url: dfn-extension-command
@@ -504,8 +499,8 @@ members:
         details times out. At most 1 hour.
 
     :  <dfn>payeeOrigin</dfn> member
-    :: The fully qualified [=origin=] of the payee that this SPC call is for
-        (e.g., the merchant).
+    :: The [=/origin=] of the payee that this SPC call is for (e.g., the
+        merchant).
 
     :  <dfn>extensions</dfn> member
     :: Any [=WebAuthn extensions=] that should be used for the passed
@@ -522,8 +517,15 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
     return `false`.
 
-1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is not a fully
-    qualified [=origin=], return `false`.
+1. Let |parsedURL| be the result of running the [=URL parser=] on
+    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
+
+1. If |parsedURL| is failure, then return `false`.
+
+1. If |parsedURL|'s [=url/scheme=] is not "`https`", then return `false`.
+
+1. Set |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] to the
+    [=serialization of an origin|serialization of=] |parsedURL|'s [=url/origin=].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
     is empty, return `false`.

@@ -517,19 +517,19 @@ members:
 ### Steps to check if a payment can be made ### {#sctn-steps-to-check-if-a-payment-can-be-made}
 
 The [=steps to check if a payment can be made=] for this payment method, for an
-input {{SecurePaymentConfirmationRequest}} |request|, are:
+input {{SecurePaymentConfirmationRequest}} |data|, are:
 
-1. If |request|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is
-    empty, return `false`.
+1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
+    return `false`.
 
-1. If |request|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is not a
-    fully qualified [=origin=], return `false`.
+1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is not a fully
+    qualified [=origin=], return `false`.
 
-1. If |request|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
+1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
     is empty, return `false`.
 
 1. [=fetch an image resource|Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
-    |request|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]]»
+    |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]]»
     for *image*. If this fails, return `false`.
 
     Note: The image resource must be fetched whether or not any credential

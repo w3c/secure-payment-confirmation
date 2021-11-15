@@ -522,7 +522,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
 1. If |parsedURL| is failure, then return `false`.
 
-1. If |parsedURL|'s [=url/scheme=] is not "https", then return `false`.
+1. If |parsedURL|'s [=url/scheme=] is not "`https`", then return `false`.
 
 1. Set |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] to the
     [=serialization of an origin|serialization of=] |parsedURL|'s [=url/origin=].

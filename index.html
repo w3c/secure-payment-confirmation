@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="w3c/ED" name="w3c-status">
-  <meta content="Bikeshed version dfbc2b297, updated Thu Nov 11 15:52:32 2021 -0800" name="generator">
+  <meta content="Bikeshed version bbc364800, updated Mon Nov 15 13:57:55 2021 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="ea5e611dff2e6ba1d4424fe3db42bb01c71aa8cd" name="document-revision">
+  <meta content="c5f5828dfa7408faa9bca80314506dfe4e81dbb5" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2021-11-15">15 November 2021</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2021-11-19">19 November 2021</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1012,7 +1012,7 @@ directly; for authentication the extension can only be accessed via <code class=
       <dd data-md>
        <p>The instrument details that were displayed to the user. Only valid at authentication time.</p>
      </dl>
-    <dt data-md>Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension②">registration</a>)
+    <dt data-md><dfn data-dfn-type="dfn" data-export id="client-extension-processing-registration">Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension②">registration</a>)<a class="self-link" href="#client-extension-processing-registration"></a></dfn>
     <dd data-md>
      <p class="note" role="note"><span>Note:</span> Reading <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a> literally, these steps don’t work; extensions
 are injected at step 12 of <code>[[Create]]</code> and cannot really modify anything.
@@ -1046,7 +1046,7 @@ supports. The current limitations may change. The Working Group invites implemen
 to share use cases that would benefit from support for other values.</p>
        </ul>
      </ol>
-    <dt data-md>Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension②">authentication</a>)
+    <dt data-md><dfn data-dfn-type="dfn" data-export id="client-extension-processing-authentication">Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension②">authentication</a>)<a class="self-link" href="#client-extension-processing-authentication"></a></dfn>
     <dd data-md>
      <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">making an assertion</a> with a <code class="idl"><a data-link-type="idl" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs②">AuthenticationExtensionsPaymentInputs</a></code> <var>extension_inputs</var>:</p>
      <ol>
@@ -1551,6 +1551,8 @@ with a random salt, making them non-consistent across calls.</p>
    <li><a href="#dom-transactionautomationmode-autoaccept">"autoaccept"</a><span>, in § 9.1</span>
    <li><a href="#dom-transactionautomationmode-autoreject">"autoreject"</a><span>, in § 9.1</span>
    <li><a href="#dom-securepaymentconfirmationrequest-challenge">challenge</a><span>, in § 4.1.3</span>
+   <li><a href="#client-extension-processing-authentication">Client extension processing (authentication)</a><span>, in § 5</span>
+   <li><a href="#client-extension-processing-registration">Client extension processing (registration)</a><span>, in § 5</span>
    <li><a href="#dictdef-collectedclientadditionalpaymentdata">CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
    <li><a href="#dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a><span>, in § 5.1</span>
    <li><a href="#dom-securepaymentconfirmationrequest-credentialids">credentialIds</a><span>, in § 4.1.3</span>

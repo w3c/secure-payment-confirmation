@@ -714,7 +714,7 @@ directly; for authentication the extension can only be accessed via
 
     </dl>
 
-:  Client extension processing ([=registration extension|registration=])
+:  <dfn export>Client extension processing ([=registration extension|registration=])</dfn>
 :: Note: Reading [[webauthn-3]] literally, these steps don't work; extensions
     are injected at step 12 of `[[Create]]` and cannot really modify anything.
     However other extensions ignore that entirely and assume they can modify any
@@ -744,7 +744,7 @@ directly; for authentication the extension can only be accessed via
             supports. The current limitations may change. The Working Group invites implementers
             to share use cases that would benefit from support for other values.
 
-:  Client extension processing ([=authentication extension|authentication=])
+:  <dfn export>Client extension processing ([=authentication extension|authentication=])</dfn>
 :: When [[webauthn-3#sctn-getAssertion|making an assertion]] with a
     {{AuthenticationExtensionsPaymentInputs}} |extension_inputs|:
 

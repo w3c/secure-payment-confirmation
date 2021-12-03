@@ -9,7 +9,7 @@ Inline Github Issues: true
 Group: payments
 Status: w3c/ED
 Level:
-URL: https://w3c.github.io/secure-payment-confirmation
+URL: https://w3c.github.io/secure-payment-confirmation/
 Editor: Rouslan Solomakhin, w3cid 83784, Google https://www.google.com/, rouslan@chromium.org
 Editor: Stephen McGruer, w3cid 96463, Google https://www.google.com/, smcgruer@chromium.org
 Abstract: Secure Payment Confirmation (SPC) is a Web API to support streamlined

@@ -398,32 +398,33 @@ try {
 # Terminology # {#sctn-terminology}
 
 : <dfn export>SPC Credential</dfn>
-:: A WebAuthn credential that can be used for the behaviors defined in this specification.
-    Can be used as a normal credential (e.g. for authentication flows), as well
-    as for SPC behavior. A [=Relying Party=] must explicitly opt-in to making an
-    SPC credential during credential creation.
+:: A [=public key credential|WebAuthn credential=] that can be used for the
+    behaviors defined in this specification. When an SPC Credential is to be
+    used by a party other than the [=Relying Party=], the [=Relying Party=] must
+    explicitly opt in by declaring the credential for SPC at creation time.
+
+    This specification does not intend to limit how SPC credentials may (or may
+    not) be used by a [=Relying Party=] for other authentication flows (e.g.,
+    login).
 
 : <dfn>Steps to determine if a credential is SPC-enabled</dfn>
 :: An as-yet undefined process by which a user agent can, given a [=credential
     ID=], determine if the credential represented by that ID is an [=SPC
     Credential=].
 
-    This allows the user agent to ensure that the powers of an SPC credential 
-    are only applied to credentials created as SPC-enabled.
-
     NOTE: See <a href="https://github.com/w3c/webauthn/issues/1667">WebAuthn
     issue 1667</a>.
 
-: <dfn>Steps to silently determine if a credential is valid for the current device</dfn>
+: <dfn>Steps to silently determine if a credential is available for the current device</dfn>
 :: An as-yet undefined process by which a user agent can, given a [=credential
     ID=], silently (i.e., without user interaction) determine if the credential
-    represented by that credential ID is valid for the current device (i.e.,
+    represented by that credential ID is available for the current device (i.e.,
     could be successfully used as part of a WebAuthn
     [[webauthn-3#sctn-getAssertion|Get]] call).
 
-    This allows the user agent to only conditionally display a transaction UX to
-    the user if there is some chance that they can successfully complete the
-    transaction.
+    This allows the user agent to only conditionally display
+    [[#sctn-transaction-confirmation-ux|the transaction UX]] to the user if
+    there is some chance that they can successfully complete the transaction.
 
     NOTE: This property will likely require that [=SPC Credentials=] be
     [=discoverable credential|discoverable=]; as such this specification
@@ -446,8 +447,7 @@ Note: In this specification we define an extension in order to allow (1)
       [[webauthn-conditional-ui|Conditional UI]]. If these capabilities are
       available in future versions of WebAuthn, we may remove the requirement
       for the extension from SPC. Note that SPC credentials (with the extension)
-      are otherwise full-fledged WebAuthn credentials. This specification does
-      not preclude their use in other use-cases (e.g., login).
+      are otherwise full-fledged WebAuthn credentials.
 
 # Authentication # {#sctn-authentication}
 
@@ -572,9 +572,9 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
 
     1. Run the [=steps to determine if a credential is SPC-enabled=] and the
-        [=steps to silently determine if a credential is valid for the current
-        device=]. If the result of either of these is `false`, remove |id| from
-        |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]
+        [=steps to silently determine if a credential is available for the
+        current device=]. If the result of either of these is `false`, remove
+        |id| from |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is now empty,
     return `false`. The user agent must take care to maintain

@@ -74,7 +74,7 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
 {
     "webauthn-conditional-ui": {
         "title": "WebAuthn Conditional UI Proposal",
-        "href": "http://www.example.com/foo-bar/"
+        "href": "https://github.com/w3c/webauthn/issues/1545"
     }
 }
 </pre>

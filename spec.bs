@@ -49,6 +49,8 @@ spec: payment-method-id; urlPrefix: https://w3c.github.io/payment-method-id/
 spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
     type: dfn
         text: authentication ceremony; url: authentication-ceremony
+        text: credential ID; url: credential-id
+        text: discoverable credential; url: discoverable-credential
         text: relying party; url: relying-party
         text: public key credential; url: public-key-credential
         text: WebAuthn Extension; url: webauthn-extensions
@@ -66,6 +68,15 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
         text: undefined; url: dfn-undefined
         text: WebDriver error; url: dfn-errors
         text: WebDriver error code; url: dfn-error-code
+</pre>
+
+<pre class="biblio">
+{
+    "webauthn-conditional-ui": {
+        "title": "WebAuthn Conditional UI Proposal",
+        "href": "https://github.com/w3c/webauthn/issues/1545"
+    }
+}
 </pre>
 
 <div class="non-normative">
@@ -384,30 +395,44 @@ try {
 }
 </pre>
 
-# Dependencies # {#sctn-dependencies}
+# Terminology # {#sctn-terminology}
 
-This specification relies on several other underlying specifications, listed
-below and in [[#index-defined-elsewhere]].
+: <dfn export>SPC Credential</dfn>
+:: A [=public key credential|WebAuthn credential=] that can be used for the
+    behaviors defined in this specification. When an SPC Credential is to be
+    used by a party other than the [=Relying Party=], the [=Relying Party=] must
+    explicitly opt in by declaring the credential for SPC at creation time.
 
-: <dfn>WebAuthn Conditional UI</dfn>
-:: Secure Payment Confirmation only shows the transaction UX if one of the
-    passed credentials is valid for the current device, without requiring a user
-    interaction. This concept is not currently part of [[webauthn-3]], but is on
-    the roadmap for a future enhancement.
+    This specification does not intend to limit how SPC credentials may (or may
+    not) be used by a [=Relying Party=] for other authentication flows (e.g.,
+    login).
 
-    Until this is available, user agents can consider either storing a local
-    cache of WebAuthn credentials created for this device, or always showing the
-    transaction UX even if the user may be unable to complete the
-    authentication.
+: <dfn>Steps to determine if a credential is SPC-enabled</dfn>
+:: An as-yet undefined process by which a user agent can, given a [=credential
+    ID=], determine if the credential represented by that ID is an [=SPC
+    Credential=].
 
-    <div class="note">**TODO**: Bikeshed the name.</div>
+    NOTE: See <a href="https://github.com/w3c/webauthn/issues/1667">WebAuthn
+    issue 1667</a>.
 
-    NOTE: To quickly support an initial SPC experiment, this API was designed
-    atop existing implementations of the Payment Request and Payment Handler
-    APIs. There is now general agreement to explore a design of SPC independent
-    of Payment Request. We therefore expect (without a concrete timeline) that
-    SPC will move away from its Payment Request origins. For developers, this
-    should improve feature detection, invocation, and other aspects of the API.
+: <dfn>Steps to silently determine if a credential is available for the current device</dfn>
+:: An as-yet undefined process by which a user agent can, given a [=credential
+    ID=], silently (i.e., without user interaction) determine if the credential
+    represented by that credential ID is available for the current device (i.e.,
+    could be successfully used as part of a WebAuthn
+    [[webauthn-3#sctn-getAssertion|Get]] call).
+
+    This allows the user agent to only conditionally display
+    [[#sctn-transaction-confirmation-ux|the transaction UX]] to the user if
+    there is some chance that they can successfully complete the transaction.
+
+    NOTE: This property will likely require that [=SPC Credentials=] be
+    [=discoverable credential|discoverable=]; as such this specification
+    currently encodes that as a requirement.
+
+    NOTE: This property is very similar to that which is required for the
+    [[webauthn-conditional-ui inline]]. It is likely that both it and SPC could
+    be supported by the same underlying API.
 
 # Registration # {#sctn-registration}
 
@@ -419,11 +444,10 @@ specified.
 Note: In this specification we define an extension in order to allow (1)
       credential creation in a cross-origin iframe (which WebAuthn does not yet
       allow) and (2) the browser to cache SPC credentials in the absence of
-      [=WebAuthn Conditional UI=]. If these capabilities are available in future
-      versions of WebAuthn, we may remove the requirement for the extension from
-      SPC. Note that SPC credentials (with the extension) are otherwise
-      full-fledged WebAuthn credentials. This specification does not preclude
-      their use in other use-cases (e.g., login).
+      [[webauthn-conditional-ui|Conditional UI]]. If these capabilities are
+      available in future versions of WebAuthn, we may remove the requirement
+      for the extension from SPC. Note that SPC credentials (with the extension)
+      are otherwise full-fledged WebAuthn credentials.
 
 # Authentication # {#sctn-authentication}
 
@@ -445,6 +469,13 @@ from the Relying Party on some other unspecified channel. See
 This specification defines a new [=payment handler=], the <dfn>Secure Payment
 Confirmation payment handler</dfn>, which handles requests to authenticate a
 given payment.
+
+NOTE: To quickly support an initial SPC experiment, this API was designed atop
+existing implementations of the Payment Request and Payment Handler APIs. There
+is now general agreement to explore a design of SPC independent of Payment
+Request. We therefore expect (without a concrete timeline) that SPC will move
+away from its Payment Request origins. For developers, this should improve
+feature detection, invocation, and other aspects of the API.
 
 <div class="note">
 **TODO**: This specification also needs to monkey-patch step 12 of
@@ -538,11 +569,19 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
     matches, to defeat attempts to [[#sctn-privacy-probing-credential-ids|probe
     for credential existence]].
 
-1. Optionally, the user agent may elect to return `false`. If a user agent does
-    so, it must take care to maintain [[#sctn-privacy-probing-credential-ids|authentication
-    ceremony privacy]], e.g., by presenting an alternative UI to the user such
-    that the website cannot detect the difference between no-matching
-    credentials and the user declining to authenticate.
+1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
+
+    1. Run the [=steps to determine if a credential is SPC-enabled=] and the
+        [=steps to silently determine if a credential is available for the
+        current device=]. If the result of either of these is `false`, remove
+        |id| from |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
+
+1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is now empty,
+    return `false`. The user agent must take care to maintain
+    [[#sctn-privacy-probing-credential-ids|authentication ceremony privacy]],
+    e.g., by presenting an alternative UI to the user such that the website
+    cannot detect the difference between no-matching credentials and the user
+    declining to authenticate.
 
 1. Return `true`.
 
@@ -1241,9 +1280,9 @@ salt from the Account Provider ([=Relying Party=]):
 1. If any of the hashes match what the merchant provided, then a credential
      match has been found.
 
-NOTE: If SPC relies on [=WebAuthn Conditional UI=] in the future, that API
-      would have to support this salt-ing concept as the browser would not have
-      a local list of credentials.
+NOTE: If SPC relies on [[webauthn-conditional-ui|Conditional UI]] in the future,
+      that API would have to support this salt-ing concept as the browser would
+      not have a local list of credentials.
 
 See [this issue](https://github.com/w3c/secure-payment-confirmation/issues/77)
 for more details.

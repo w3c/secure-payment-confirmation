@@ -398,7 +398,7 @@ try {
 # Terminology # {#sctn-terminology}
 
 : <dfn export>SPC Credential</dfn>
-:: A WebAuthn credential that can be used for behavior defined in this spec.
+:: A WebAuthn credential that can be used for the behaviors defined in this specification.
     Can be used as a normal credential (e.g. for authentication flows), as well
     as for SPC behavior. A [=Relying Party=] must explicitly opt-in to making an
     SPC credential during credential creation.

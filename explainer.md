@@ -29,7 +29,7 @@ See also:
     - [Creating a credential](#creating-a-credential)
       - [Creating a SPC credential in a cross-origin iframe](#creating-a-spc-credential-in-a-cross-origin-iframe)
     - [Authenticating a payment](#authenticating-a-payment)
-- [User Experience in Failure Modes](#user-experience-in-failure-modes)    
+    - [User Experience in Failure Modes](#user-experience-in-failure-modes)    
 - [Other Considerations](#other-considerations)
   - [Initial Experimentation with Stripe](#initial-experimentation-with-stripe)
   - [Should SPC credentials be identical to WebAuthn credentials?](#should-spc-credentials-be-identical-to-webauthn-credentials)
@@ -358,24 +358,24 @@ Below are different failure modes and the corresponding expected user experience
 
 When the credential IDs provided as input do not match an available authenticator, the browser:
 
-* displays a notice to the user, and
-* returns false to the caller.
+* displays a notice to the user, then
+* returns an error message to the caller ("NotAllowedError").
 
 ### User Cancels Transaction Confirmation
 
 When the user cancels the transaction confirmation dialog, the browser:
 
-* returns an error message ("NotAllowedError").
+* returns an error message to the caller ("NotAllowedError").
 
 ### User Cancels Authentication Prompt
 
 When the user cancels the underlying platform prompt to authenticate, the browser:
 
-* returns an error message ("NotAllowedError").
+* returns an error message to the caller ("NotAllowedError").
 
 ### User Fails to Authenticate
 
-When the user fails to authenticate, the underlying platform behavior will typically involve providing multiple opportunities to retry.
+When the user fails to authenticate, the underlying platform behavior will typically involve providing multiple opportunities to retry. If the authenticator signals failure to the browser, the browser will return an error message to the caller.
 
 ### Other Failure Scenarios
 

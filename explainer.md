@@ -29,6 +29,7 @@ See also:
     - [Creating a credential](#creating-a-credential)
       - [Creating a SPC credential in a cross-origin iframe](#creating-a-spc-credential-in-a-cross-origin-iframe)
     - [Authenticating a payment](#authenticating-a-payment)
+- [User Experience in Failure Modes](#user-experience-in-failure-modes)    
 - [Other Considerations](#other-considerations)
   - [Initial Experimentation with Stripe](#initial-experimentation-with-stripe)
   - [Should SPC credentials be identical to WebAuthn credentials?](#should-spc-credentials-be-identical-to-webauthn-credentials)
@@ -347,6 +348,39 @@ try {
   /* SPC cannot be used; merchant should fallback to traditional flows */
 }
 ```
+## User Experience in Failure Modes
+
+As the diagram above illustrates, the SPC "happy path" involves presentation of a transaction confirmation dialog followed by biometric authentication via the underlying platform.
+
+Below are different failure modes and the corresponding expected user experience.
+
+### No Available Authenticator
+
+When the credential IDs provided as input do not match an available authenticator, the browser:
+
+* displays a notice to the user, and
+* returns false to the caller.
+
+### User Cancels Transaction Confirmation
+
+When the user cancels the transaction confirmation dialog, the browser:
+
+* returns an error message ("NotAllowedError").
+
+### User Cancels Authentication Prompt
+
+When the user cancels the underlying platform prompt to authenticate, the browser:
+
+* returns an error message ("NotAllowedError").
+
+### User Fails to Authenticate
+
+When the user fails to authenticate, the underlying platform behavior will typically involve providing multiple opportunities to retry.
+
+### Other Failure Scenarios
+
+The Web Authentication algorithm [Use an Existing Credential to Make an Assertion](https://www.w3.org/TR/webauthn-3/#sctn-getAssertion) describes additional failure modes. SPC passes messages on to the caller.
+
 ## Other Considerations
 
 ### Initial Experimentation with Stripe

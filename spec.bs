@@ -364,7 +364,6 @@ const request = new PaymentRequest([{
     instrument: {
       displayName: "Fancy Card ****1234",
       icon: "https://fancybank.com/card-art.png",
-      iconMustBeShown: true,
     },
 
     payeeOrigin: "https://merchant.com",
@@ -564,9 +563,17 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
 1. [=fetch an image resource|Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
     |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]]»
-    for *image*. If
-    |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/iconMustBeShown}}"]]
-    is `true` and the fetch fails, then return `false`.
+    for *image*. If this fails:
+
+    1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/iconMustBeShown}}"]
+        is `true`, then return `false`.
+
+    1. Otherwise, set |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]
+        to an empty string.
+
+        Note: This allows the RP to check whether the icon was shown, as the output
+        {{CollectedClientAdditionalPaymentData/instrument}} will have an empty icon
+        string.
 
     Note: The image resource must be fetched whether or not any credential
     matches, to defeat attempts to [[#sctn-privacy-probing-credential-ids|probe
@@ -605,10 +612,13 @@ authentication:
     transaction.
 * The {{CollectedClientAdditionalPaymentData/instrument}} details, that is the
     payment instrument {{PaymentCredentialInstrument/displayName}} and
-    {{PaymentCredentialInstrument/icon}}. If an image resource could not be
-    fetched or decoded from the input {{PaymentCredentialInstrument/icon}}, and
-    {{PaymentCredentialInstrument/iconMustBeShown}} is false, then the User
-    Agent may show no icon or a generic payment instrument icon in its place.
+    {{PaymentCredentialInstrument/icon}}.
+
+    NOTE: If the icon could not be fetched or decoded, then
+    {{PaymentCredentialInstrument/iconMustBeShown}} must be `false` here as
+    otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps to check if a payment can be made]]
+    would have failed. In this case, the User Agent may show no icon or a
+    generic payment instrument icon in its place.
 
 If the [=current transaction automation mode=] is not
 "{{TransactionAutomationMode/none}}", the user agent should first verify that
@@ -684,7 +694,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
 
     1. [=list/Append=] |descriptor| to |publicKeyOpts|["{{PublicKeyCredentialRequestOptions/allowCredentials}}"].
 
-1. Let |responseDetails| be the result of running the algorithm to
+1. Let |outputCredential| be the result of running the algorithm to
     [=Request a Credential=], passing «["{{CredentialRequestOptions/publicKey}}"
     → |publicKeyOpts|]».
 
@@ -692,15 +702,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
 
     Note: This triggers [[webauthn-3]]'s [[webauthn-3#sctn-getAssertion|Get]] behavior
 
-1. Insert a {{boolean}} attribute named `iconShown` to |responseDetails| with
-    the value indicating whether the instrument icon image was successfully
-    fetched and shown in [[#sctn-transaction-confirmation-ux]].
-
-    Note: This means if the value of
-    |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/iconMustBeShown}}"]]
-    is `true`, then a successful response must have `iconShown` equal to `true`.
-
-1. Return |responseDetails|.
+1. Return |outputCredential|.
 
 # WebAuthn Extension - "`payment`" # {#sctn-payment-extension-registration}
 

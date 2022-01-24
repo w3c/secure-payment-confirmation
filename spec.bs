@@ -612,13 +612,15 @@ authentication:
     transaction.
 * The {{CollectedClientAdditionalPaymentData/instrument}} details, that is the
     payment instrument {{PaymentCredentialInstrument/displayName}} and
-    {{PaymentCredentialInstrument/icon}}.
+    {{PaymentCredentialInstrument/icon}}. If an image resource could not be
+    fetched or decoded from the input {{PaymentCredentialInstrument/icon}},
+    then the User Agent may show no icon or a generic payment instrument
+    icon in its place.
 
     NOTE: If the icon could not be fetched or decoded, then
     {{PaymentCredentialInstrument/iconMustBeShown}} must be `false` here as
-    otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps to check if a payment can be made]]
-    would have failed. In this case, the User Agent may show no icon or a
-    generic payment instrument icon in its place.
+    otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps
+    to check if a payment can be made]] would have failed previously.
 
 If the [=current transaction automation mode=] is not
 "{{TransactionAutomationMode/none}}", the user agent should first verify that

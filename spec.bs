@@ -617,7 +617,7 @@ authentication:
     then the User Agent may show no icon or a generic payment instrument
     icon in its place.
 
-    NOTE: If the icon could not be fetched or decoded, then
+    NOTE: If the specified icon could not be fetched or decoded, then
     {{PaymentCredentialInstrument/iconMustBeShown}} must be `false` here as
     otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps
     to check if a payment can be made]] would have failed previously.

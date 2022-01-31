@@ -571,7 +571,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
     1. Otherwise, set |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]
         to an empty string.
 
-        Note: This allows the RP to check whether the icon was shown, as the output
+        Note: This allows the RP to check whether the specified icon was shown, as the output
         {{CollectedClientAdditionalPaymentData/instrument}} will have an empty icon
         string.
 

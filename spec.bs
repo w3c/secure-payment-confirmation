@@ -939,7 +939,7 @@ contains the following members:
          NOTE: See related [[#sctn-accessibility-considerations|accessibility considerations]].
 
     :  <dfn>iconMustBeShown</dfn> member
-    :: Indicates whether the icon must be successfully fetched and shown for the
+    :: Indicates whether the specified icon must be successfully fetched and shown for the
         request to succeed.
 </dl>
 

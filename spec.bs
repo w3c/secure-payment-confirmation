@@ -502,6 +502,7 @@ Add the following to the [=registry of standardized payment methods=] in
 <xmp class="idl">
     dictionary SecurePaymentConfirmationRequest {
         required BufferSource challenge;
+        required USVString rpId;
         required FrozenArray<BufferSource> credentialIds;
         required PaymentCredentialInstrument instrument;
         unsigned long timeout;
@@ -517,6 +518,10 @@ members:
     :  <dfn>challenge</dfn> member
     :: A random challenge that the relying party generates on the server side
         to prevent replay attacks.
+
+    :  <dfn>rpId</dfn> member
+    :: The [[webauthn-3#relying-party-identifier|Relying Party Identifier]] of
+        the credentials.
 
     :  <dfn>credentialIds</dfn> member
     :: The list of credential identifiers for the given instrument.
@@ -547,6 +552,11 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
     return `false`.
+
+1. Let |parsedRpId| be the result of running the [=URL parser=] on
+    |data|["{{SecurePaymentConfirmationRequest/rpId}}"].
+
+1. If |parsedRpId| is failure, then return `false`.
 
 1. Let |parsedURL| be the result of running the [=URL parser=] on
     |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
@@ -632,7 +642,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     : {{AuthenticationExtensionsPaymentInputs/isPayment}}
     :: The boolean value `true`.
     : {{AuthenticationExtensionsPaymentInputs/rp}}
-    :: **TODO**
+    :: |data|["{{SecurePaymentConfirmationRequest/rpId}}"]
     : {{AuthenticationExtensionsPaymentInputs/topOrigin}}
     :: |topOrigin|
     : {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}

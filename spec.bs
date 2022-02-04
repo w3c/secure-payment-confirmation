@@ -553,10 +553,8 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
     return `false`.
 
-1. Let |parsedRpId| be the result of running the [=URL parser=] on
-    |data|["{{SecurePaymentConfirmationRequest/rpId}}"].
-
-1. If |parsedRpId| is failure, then return `false`.
+1. If |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not a
+    [valid domain](https://url.spec.whatwg.org/#valid-domain), return `false`.
 
 1. Let |parsedURL| be the result of running the [=URL parser=] on
     |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
@@ -652,8 +650,6 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     : {{AuthenticationExtensionsPaymentInputs/instrument}}
     :: |data|["{{SecurePaymentConfirmationRequest/instrument}}"]
 
-    <div class="note">**TODO**: We do not have the rp id at this step; maybe that should just go in the extension processing steps?</div>
-
 1. Let |extensions| be a new {{AuthenticationExtensionsClientInputs}} dictionary
     whose {{AuthenticationExtensionsClientInputs/payment}} member is set to
     |payment|, and whose other members are set from
@@ -666,6 +662,8 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     :: |data|["{{SecurePaymentConfirmationRequest/challenge}}"]
     : {{PublicKeyCredentialRequestOptions/timeout}}
     :: |data|["{{SecurePaymentConfirmationRequest/timeout}}"]
+    : {{PublicKeyCredentialRequestOptions/rpId}}
+    :: |data|["{{SecurePaymentConfirmationRequest/rpId}}"]
     : {{PublicKeyCredentialRequestOptions/userVerification}}
     :: {{UserVerificationRequirement/required}}
     : {{PublicKeyCredentialRequestOptions/extensions}}

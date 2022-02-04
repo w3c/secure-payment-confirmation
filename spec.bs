@@ -70,6 +70,10 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
         text: WebDriver error code; url: dfn-error-code
 </pre>
 
+<pre class="link-defaults">
+spec:url; type:dfn; text:valid domain;
+</pre>
+
 <pre class="biblio">
 {
     "webauthn-conditional-ui": {
@@ -554,7 +558,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
     return `false`.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not a
-    [valid domain](https://url.spec.whatwg.org/#valid-domain), return `false`.
+    [=valid domain=], return `false`.
 
 1. Let |parsedURL| be the result of running the [=URL parser=] on
     |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].

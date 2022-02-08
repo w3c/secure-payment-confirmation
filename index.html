@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="w3c/ED" name="w3c-status">
-  <meta content="Bikeshed version cace53f8c, updated Tue Dec 7 12:12:54 2021 -0800" name="generator">
+  <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="edcdaa52a94e293f7eea8ab225f253c4a15df2a6" name="document-revision">
+  <meta content="5d58f61db81b42baa4849f679b2aaf0314661874" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2021-12-17">17 December 2021</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-02-08">8 February 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -297,7 +297,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2021 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2022 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -848,7 +848,17 @@ return <code>false</code>.</p>
 is empty, return <code>false</code>.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource" id="ref-for-dfn-fetching-an-image-resource">Fetch the image resource</a> for the icon, passing «["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-dom-imageresource-src">src</a></code>" → <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument②">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon">icon</a></code>"]]»
-for <em>image</em>. If this fails, return <code>false</code>.</p>
+for <em>image</em>. If this fails:</p>
+     <ol>
+      <li data-md>
+       <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument③">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-iconmustbeshown" id="ref-for-dom-paymentcredentialinstrument-iconmustbeshown">iconMustBeShown</a></code>"]
+is <code>true</code>, then return <code>false</code>.</p>
+      <li data-md>
+       <p>Otherwise, set <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument④">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon①">icon</a></code>"]
+to an empty string.</p>
+       <p class="note" role="note"><span>Note:</span> This lets the RP know that the specified icon was not shown, as the output <code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument">instrument</a></code> will have an empty icon
+string.</p>
+     </ol>
      <p class="note" role="note"><span>Note:</span> The image resource must be fetched whether or not any credential
 matches, to defeat attempts to <a href="#sctn-privacy-probing-credential-ids">probe
 for credential existence</a>.</p>
@@ -881,8 +891,14 @@ authentication:</p>
      <p>The <code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total">total</a></code>, that is the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount-currency" id="ref-for-dom-paymentcurrencyamount-currency">currency</a></code> and <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount-value" id="ref-for-dom-paymentcurrencyamount-value">value</a></code> of the
 transaction.</p>
     <li data-md>
-     <p>The <code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument">instrument</a></code> details, that is the
-payment instrument <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname①">displayName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon①">icon</a></code>.</p>
+     <p>The <code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument①">instrument</a></code> details, that is the
+payment instrument <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname①">displayName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon②">icon</a></code>. If an image resource could not be
+fetched or decoded from the input <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon③">icon</a></code>,
+then the User Agent may show no icon or a generic payment instrument
+icon in its place.</p>
+     <p class="note" role="note"><span>NOTE:</span> If the specified icon could not be fetched or decoded, then <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-iconmustbeshown" id="ref-for-dom-paymentcredentialinstrument-iconmustbeshown①">iconMustBeShown</a></code> must be <code>false</code> here as
+otherwise the <a href="#sctn-steps-to-check-if-a-payment-can-be-made">the steps
+to check if a payment can be made</a> would have failed previously.</p>
    </ul>
    <p>If the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode">current transaction automation mode</a> is not
 "<code class="idl"><a data-link-type="idl" href="#dom-transactionautomationmode-none" id="ref-for-dom-transactionautomationmode-none">none</a></code>", the user agent should first verify that
@@ -926,7 +942,7 @@ whose fields are:</p>
        <p><var>request</var>.<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-details" id="ref-for-dfn-details">[[details]]</a>["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total" id="ref-for-dom-paymentdetailsinit-total">total</a></code>"]</p>
       <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument">instrument</a></code>
       <dd data-md>
-       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument③">instrument</a></code>"]</p>
+       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument⑤">instrument</a></code>"]</p>
      </dl>
      <div class="note" role="note"><strong>TODO</strong>: We do not have the rp id at this step; maybe that should just go in the extension processing steps?</div>
     <li data-md>
@@ -1104,7 +1120,7 @@ create a <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclien
             <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total①">total</a></code>
             <dd data-md>
              <p><var>extension_inputs</var>["<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total②">total</a></code>"]</p>
-            <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument①">instrument</a></code>
+            <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument②">instrument</a></code>
             <dd data-md>
              <p><var>extension_inputs</var>["<code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument②">instrument</a></code>"]</p>
            </dl>
@@ -1137,7 +1153,7 @@ create a <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclien
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑨"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin①"><c- g>topOrigin</c-></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⓪"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin②"><c- g>payeeOrigin</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount②"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total②"><c- g>total</c-></a>;
-    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument④"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument②"><c- g>instrument</c-></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument④"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument③"><c- g>instrument</c-></a>;
 };
 </pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata④">CollectedClientAdditionalPaymentData</a></code> dictionary contains the following
@@ -1166,7 +1182,8 @@ frame is already included in <code class="idl"><a data-link-type="idl" href="htt
    <h3 class="heading settled" data-level="6.1" id="sctn-paymentcredentialinstrument-dictionary"><span class="secno">6.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-paymentcredentialinstrument"><code>PaymentCredentialInstrument</code></dfn> Dictionary</span><a class="self-link" href="#sctn-paymentcredentialinstrument-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑥"><c- g>PaymentCredentialInstrument</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname②"><c- g>displayName</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon②"><c- g>icon</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon④"><c- g>icon</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <a class="idl-code" data-default="true" data-link-type="dict-member" data-type="boolean " href="#dom-paymentcredentialinstrument-iconmustbeshown" id="ref-for-dom-paymentcredentialinstrument-iconmustbeshown②"><c- g>iconMustBeShown</c-></a> = <c- b>true</c->;
 };
 </pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑦">PaymentCredentialInstrument</a></code> dictionary contains the information to be
@@ -1180,7 +1197,7 @@ contains the following members:</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-icon"><code>icon</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑤">USVString</a></span>
     <dd data-md>
      <p>The URL of the icon of the payment instrument.</p>
-     <p class="note" role="note"><span>NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon③">icon</a></code> URL may either identify
+     <p class="note" role="note"><span>NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑤">icon</a></code> URL may either identify
  an image on an internet-accessible server (e.g., <code>https://bank.com/card.png</code>),
  or directly encode the icon data via a Data URL <a data-link-type="biblio" href="#biblio-rfc2397">[RFC2397]</a>. Between
  the two types of URLs, Data URLs offer several benefits to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑦">Relying Party</a>. They can improve reliability (e.g., in the case that
@@ -1189,6 +1206,10 @@ contains the following members:</p>
  what the browser displayed to the user: the icon URL is signed as part
  of the <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata⑥">CollectedClientAdditionalPaymentData</a></code> structure.</p>
      <p class="note" role="note"><span>NOTE:</span> See related <a href="#sctn-accessibility-considerations">accessibility considerations</a>.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-iconmustbeshown"><code>iconMustBeShown</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean③">boolean</a>, defaulting to <code>true</code></span>
+    <dd data-md>
+     <p>Indicates whether the specified icon must be successfully fetched and shown for the
+request to succeed.</p>
    </dl>
    <h2 class="heading settled" data-level="7" id="sctn-permissions-policy"><span class="secno">7. </span><span class="content">Permissions Policy integration</span><a class="self-link" href="#sctn-permissions-policy"></a></h2>
    <p>This specification uses the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission①">payment</a>"
@@ -1242,7 +1263,7 @@ matches the origin of the payee that should have been displayed to the user.</p>
          <p>Verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment⑤">payment</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total③">total</a></code>"]
 matches the transaction amount that should have been displayed to the user.</p>
         <li data-md>
-         <p>Verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment⑥">payment</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument③">instrument</a></code>"]
+         <p>Verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment⑥">payment</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument④">instrument</a></code>"]
 matches the payment instrument details that should have been displayed to the user.</p>
        </ul>
      </ol>
@@ -1520,7 +1541,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <p>As above, a possible solution to this would be to hash the credential ID(s)
 with a random salt, making them non-consistent across calls.</p>
    <h2 class="heading settled" data-level="12" id="sctn-accessibility-considerations"><span class="secno">12. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
-   <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon④">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
+   <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑥">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
    <p>User Agents implementing this specification should follow both <a href="https://www.w3.org/TR/webauthn-3/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
   </main>
   <div data-fill-with="conformance">
@@ -1581,6 +1602,7 @@ with a random salt, making them non-consistent across calls.</p>
    <li><a href="#dom-paymentcredentialinstrument-displayname">displayName</a><span>, in § 6.1</span>
    <li><a href="#dom-securepaymentconfirmationrequest-extensions">extensions</a><span>, in § 4.1.3</span>
    <li><a href="#dom-paymentcredentialinstrument-icon">icon</a><span>, in § 6.1</span>
+   <li><a href="#dom-paymentcredentialinstrument-iconmustbeshown">iconMustBeShown</a><span>, in § 6.1</span>
    <li>
     instrument
     <ul>
@@ -2175,6 +2197,7 @@ with a random salt, making them non-consistent across calls.</p>
    <a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-boolean">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-boolean①">(2)</a>
+    <li><a href="#ref-for-idl-boolean②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-boolean③">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
@@ -2402,6 +2425,7 @@ with a random salt, making them non-consistent across calls.</p>
 <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument"><c- g>PaymentCredentialInstrument</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-paymentcredentialinstrument-displayname"><c- g>displayName</c-></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon"><c- g>icon</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a class="idl-code" data-default="true" data-link-type="dict-member" data-type="boolean " href="#dom-paymentcredentialinstrument-iconmustbeshown"><c- g>iconMustBeShown</c-></a> = <c- b>true</c->;
 };
 
 <c- b>enum</c-> <a href="#enumdef-transactionautomationmode"><code><c- g>TransactionAutomationMode</c-></code></a> {
@@ -2473,8 +2497,8 @@ with a random salt, making them non-consistent across calls.</p>
    <b><a href="#dom-securepaymentconfirmationrequest-instrument">#dom-securepaymentconfirmationrequest-instrument</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument①">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument②">(2)</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument③">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument①">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument②">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument③">(3)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument④">(4)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument⑤">4.1.6. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-timeout">
@@ -2618,10 +2642,11 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-instrument">
    <b><a href="#dom-collectedclientadditionalpaymentdata-instrument">#dom-collectedclientadditionalpaymentdata-instrument</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument">4.1.5. Displaying a transaction confirmation UX</a>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument①">5. WebAuthn Extension - "payment"</a>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument③">8.1. Verifying an Authentication Assertion</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument①">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument②">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument③">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument④">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-paymentcredentialinstrument">
@@ -2645,10 +2670,18 @@ with a random salt, making them non-consistent across calls.</p>
   <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-icon">
    <b><a href="#dom-paymentcredentialinstrument-icon">#dom-paymentcredentialinstrument-icon</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon">4.1.4. Steps to check if a payment can be made</a>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon①">4.1.5. Displaying a transaction confirmation UX</a>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon③">(2)</a>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon④">12. Accessibility Considerations</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon①">(2)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon②">4.1.5. Displaying a transaction confirmation UX</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon③">(2)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon④">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon⑤">(2)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon⑥">12. Accessibility Considerations</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-iconmustbeshown">
+   <b><a href="#dom-paymentcredentialinstrument-iconmustbeshown">#dom-paymentcredentialinstrument-iconmustbeshown</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown①">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown②">6.1. PaymentCredentialInstrument Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="set-spc-transaction-mode">

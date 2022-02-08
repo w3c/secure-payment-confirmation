@@ -563,7 +563,17 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
 1. [=fetch an image resource|Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
     |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]]»
-    for *image*. If this fails, return `false`.
+    for *image*. If this fails:
+
+    1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/iconMustBeShown}}"]
+        is `true`, then return `false`.
+
+    1. Otherwise, set |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]
+        to an empty string.
+
+        Note: This lets the RP know that the specified icon was not shown, as the output
+        {{CollectedClientAdditionalPaymentData/instrument}} will have an empty icon
+        string.
 
     Note: The image resource must be fetched whether or not any credential
     matches, to defeat attempts to [[#sctn-privacy-probing-credential-ids|probe
@@ -602,7 +612,15 @@ authentication:
     transaction.
 * The {{CollectedClientAdditionalPaymentData/instrument}} details, that is the
     payment instrument {{PaymentCredentialInstrument/displayName}} and
-    {{PaymentCredentialInstrument/icon}}.
+    {{PaymentCredentialInstrument/icon}}. If an image resource could not be
+    fetched or decoded from the input {{PaymentCredentialInstrument/icon}},
+    then the User Agent may show no icon or a generic payment instrument
+    icon in its place.
+
+    NOTE: If the specified icon could not be fetched or decoded, then
+    {{PaymentCredentialInstrument/iconMustBeShown}} must be `false` here as
+    otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps
+    to check if a payment can be made]] would have failed previously.
 
 If the [=current transaction automation mode=] is not
 "{{TransactionAutomationMode/none}}", the user agent should first verify that
@@ -889,6 +907,7 @@ The following data structures are shared between registration and authentication
     dictionary PaymentCredentialInstrument {
         required DOMString displayName;
         required USVString icon;
+        boolean iconMustBeShown = true;
     };
 </xmp>
 
@@ -918,6 +937,10 @@ contains the following members:
          of the {{CollectedClientAdditionalPaymentData}} structure.
 
          NOTE: See related [[#sctn-accessibility-considerations|accessibility considerations]].
+
+    :  <dfn>iconMustBeShown</dfn> member
+    :: Indicates whether the specified icon must be successfully fetched and shown for the
+        request to succeed.
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}

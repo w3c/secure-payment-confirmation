@@ -30,7 +30,7 @@ Contributors:
 * Adrian Hope-Bailie (Coil)
 * Benjamin Tidor (Stripe)
 * Danyao Wang (Google)
-* Christian Brand (Google)
+* Christiaan Brand (Google)
 * Rouslan Solomakhin (Google)
 * Nick Burris (Google)
 * Gerhard Oosthuizen (Entersekt)

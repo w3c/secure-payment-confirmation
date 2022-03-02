@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="ccf52c9914349449c63c0dc0f15cc50652666e72" name="document-revision">
+  <meta content="72907d8d2283a9d67ee87636eaa9a898583e53ca" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -546,7 +546,7 @@ may still do so using SPC from an iframe.</p>
 and the corresponding sample code for using this API. Note that these are
 example flows and do not limit the scope of how the API can be used.</p>
     <h4 class="heading settled" data-level="1.2.1" id="sctn-sample-registration"><span class="secno">1.2.1. </span><span class="content">Registration</span><a class="self-link" href="#sctn-sample-registration"></a></h4>
-    <p>This is the first-time flow, in which a new credential is created and stored by
+    <p>This is a first-time flow, in which a new credential is created and stored by
 an issuing bank.</p>
     <ol>
      <li data-md>
@@ -576,7 +576,7 @@ database associated with the user and payment instrument(s).</p>
       <p>The verification completes; the bank iframe closes and the merchant finishes
 the checkout process for the user.</p>
     </ol>
-    <p>The sample code for registering the user follows:</p>
+    <p>Sample code for registering the user in this way follows:</p>
 <pre class="example highlight" id="registration-example"><a class="self-link" href="#registration-example"></a><c- k>if</c-> <c- p>(</c-><c- o>!</c->window<c- p>.</c->PublicKeyCredential<c- p>)</c-> <c- p>{</c-> <c- d>/* Client not capable. Handle error. */</c-> <c- p>}</c->
 
 <c- a>const</c-> publicKey <c- o>=</c-> <c- p>{</c->
@@ -622,12 +622,12 @@ the checkout process for the user.</p>
 
   timeout<c- o>:</c-> <c- mf>360000</c-><c- p>,</c->  <c- c1>// 6 minutes</c->
 
-  <c- c1>// Indicate that this is an SPC credential. This is currently required to</c->
-  <c- c1>// allow credential creation in an iframe, and so that the browser knows this</c->
-  <c- c1>// credential relates to SPC.</c->
+  <c- c1>// Indicate that this is an SPC credential. This is currently required so</c->
+  <c- c1>// that the browser knows this credential relates to SPC. It also enables</c->
+  <c- c1>// credential creation in a cross-origin iframe, which is required for this</c->
+  <c- c1>// example.</c->
   <c- c1>//</c->
-  <c- c1>// It is expected that a future version of the spec may remove the need for</c->
-  <c- c1>// this extension.</c->
+  <c- c1>// A future version of the spec may remove the need for this extension.</c->
   extensions<c- o>:</c-> <c- p>{</c->
     <c- u>"payment"</c-><c- o>:</c-> <c- p>{</c->
       isPayment<c- o>:</c-> <c- kc>true</c-><c- p>,</c->

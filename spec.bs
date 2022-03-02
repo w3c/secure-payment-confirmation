@@ -1284,11 +1284,9 @@ to distinguish between these cases:
 * A credential is not available.
 * A credential is available, but the user does not consent to use it.
 
-For example, consider an implementation that does not download the payment
-instrument icon unless a credential matches. A caller could then provide an
-unique URL that they control for the payment instrument icon. If the URL is
-accessed then the caller can conclude that at least one of the passed
-credentials is available to the user.
+If the above cases are distinguishable, information is leaked by which a
+malicious [=Relying Party=] could identify the user by probing for which
+[=public key credential|credentials=] are available.
 
 ## Joining different payment instruments ## {#sctn-privacy-joining-payment-instruments}
 

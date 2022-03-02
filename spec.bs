@@ -220,7 +220,7 @@ example flows and do not limit the scope of how the API can be used.
 
 ### Registration ### {#sctn-sample-registration}
 
-This is the first-time flow, in which a new credential is created and stored by
+This is a first-time flow, in which a new credential is created and stored by
 an issuing bank.
 
 1. The user visits `merchant.com`, selects an item to purchase, and proceeds to
@@ -249,7 +249,7 @@ an issuing bank.
 1. The verification completes; the bank iframe closes and the merchant finishes
     the checkout process for the user.
 
-The sample code for registering the user follows:
+Sample code for registering the user in this way follows:
 
 <pre class="example" id="registration-example" highlight="js">
 if (!window.PublicKeyCredential) { /* Client not capable. Handle error. */ }
@@ -297,12 +297,12 @@ const publicKey = {
 
   timeout: 360000,  // 6 minutes
 
-  // Indicate that this is an SPC credential. This is currently required to
-  // allow credential creation in an iframe, and so that the browser knows this
-  // credential relates to SPC.
+  // Indicate that this is an SPC credential. This is currently required so
+  // that the browser knows this credential relates to SPC. It also enables
+  // credential creation in a cross-origin iframe, which is required for this
+  // example.
   //
-  // It is expected that a future version of the spec may remove the need for
-  // this extension.
+  // A future version of the spec may remove the need for this extension.
   extensions: {
     "payment": {
       isPayment: true,

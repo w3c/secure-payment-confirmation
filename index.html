@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="2d0c9a264ac5046b1fd6fba92b24d88017132b7f" name="document-revision">
+  <meta content="ccf52c9914349449c63c0dc0f15cc50652666e72" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1518,36 +1518,16 @@ the merchant(s) may now be able to learn that P1 and P2 are for the same user.</
 the user already provides sufficient information to do this joining anyway
 (e.g. their address), however it could become a privacy attack if, e.g.,
 payment tokenization becomes commonplace.</p>
-   <p>One possible way to defeat this may be to hash the credential IDs with a random
-salt from the Account Provider (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④④">Relying Party</a>):</p>
-   <ol>
-    <li data-md>
-     <p>Merchant requests the list of credential IDs from the Account Provider.</p>
-    <li data-md>
-     <p>Account Provider generates a random salt.</p>
-    <li data-md>
-     <p>Account Provider sends <code>[salt, hash(salt || credential ID)]</code> to the merchant.</p>
-    <li data-md>
-     <p>Merchant invokes SPC with the hashed credential ID and additionally passes
- the <code>salt</code> into the API.</p>
-    <li data-md>
-     <p>The browser generates <code>hash(salt || credential ID)</code> for each of the
- credential IDs that it has stored in the user profile.</p>
-    <li data-md>
-     <p>If any of the hashes match what the merchant provided, then a credential
- match has been found.</p>
-   </ol>
-   <p class="note" role="note"><span>NOTE:</span> If SPC relies on <a data-link-type="biblio" href="#biblio-webauthn-conditional-ui">Conditional UI</a> in the future,
-      that API would have to support this salt-ing concept as the browser would
-      not have a local list of credentials.</p>
-   <p>See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">this issue</a> for more details.</p>
+   <p>One way a user may mitigate this concern is to use distinct user accounts for
+each payment instrument. It is not, however, guaranteed that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④④">Relying
+Party</a> (e.g., a bank) will not join those accounts internally.</p>
+   <p class="note" role="note"><span>NOTE:</span> See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">issue #77</a> for discussion on possible spec changes related to this section.</p>
    <h3 class="heading settled" data-level="11.4" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">11.4. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
    <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑤">Relying Party</a> could be used by a malicious entity as a tracking vector, as
 they are strong, cross-site identifiers. However in order to obtain them from
 the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑥">Relying Party</a>, the merchant already needs an as-strong identifier to
 give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑦">Relying Party</a> (e.g., the credit card number).</p>
-   <p>As above, a possible solution to this would be to hash the credential ID(s)
-with a random salt, making them non-consistent across calls.</p>
+   <p class="note" role="note"><span>NOTE:</span> See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">issue #77</a> for discussion on possible spec changes related to this section.</p>
    <h2 class="heading settled" data-level="12" id="sctn-accessibility-considerations"><span class="secno">12. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
    <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑥">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
    <p>User Agents implementing this specification should follow both <a href="https://www.w3.org/TR/webauthn-3/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>

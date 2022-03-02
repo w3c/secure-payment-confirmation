@@ -1306,8 +1306,7 @@ payment tokenization becomes commonplace.
 
 One way a user may mitigate this concern is to use distinct user accounts for
 each payment instrument. It is not, however, guaranteed that a [=Relying
-Party=] (e.g., a bank) will not join those accounts internally for the purposes
-of SPC.
+Party=] (e.g., a bank) will not join those accounts internally.
 
 NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
       for discussion on possible spec changes related to this section.

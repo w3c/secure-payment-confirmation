@@ -1304,25 +1304,13 @@ the user already provides sufficient information to do this joining anyway
 (e.g. their address), however it could become a privacy attack if, e.g.,
 payment tokenization becomes commonplace.
 
-One possible way to defeat this may be to hash the credential IDs with a random
-salt from the Account Provider ([=Relying Party=]):
+One way a user may mitigate this concern is to use distinct user accounts for
+each payment instrument. It is not, however, guaranteed that a [=Relying
+Party=] (e.g., a bank) will not join those accounts internally for the purposes
+of SPC.
 
-1. Merchant requests the list of credential IDs from the Account Provider.
-1. Account Provider generates a random salt.
-1. Account Provider sends `[salt, hash(salt || credential ID)]` to the merchant.
-1. Merchant invokes SPC with the hashed credential ID and additionally passes
-     the `salt` into the API.
-1. The browser generates `hash(salt || credential ID)` for each of the
-     credential IDs that it has stored in the user profile.
-1. If any of the hashes match what the merchant provided, then a credential
-     match has been found.
-
-NOTE: If SPC relies on [[webauthn-conditional-ui|Conditional UI]] in the future,
-      that API would have to support this salt-ing concept as the browser would
-      not have a local list of credentials.
-
-See [this issue](https://github.com/w3c/secure-payment-confirmation/issues/77)
-for more details.
+NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
+      for discussion on possible spec changes related to this section.
 
 ## Credential ID(s) as a tracking vector ## {#sctn-privacy-credential-id-tracking-vector}
 
@@ -1332,8 +1320,8 @@ they are strong, cross-site identifiers. However in order to obtain them from
 the [=Relying Party=], the merchant already needs an as-strong identifier to
 give to the [=Relying Party=] (e.g., the credit card number).
 
-As above, a possible solution to this would be to hash the credential ID(s)
-with a random salt, making them non-consistent across calls.
+NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
+      for discussion on possible spec changes related to this section.
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 

@@ -842,6 +842,21 @@ directly; for authentication the extension can only be accessed via
 
     When [[webauthn-3#sctn-createCredential|creating a new credential]]:
 
+    1. Before step 2, insert two new steps:
+
+        * If the [=relevant global object=], as determined by the calling
+            {{CredentialsContainer/create()}} implementation, does not have
+            [=transient activation=]:
+
+             * Return a {{DOMException}} whose name is "{{SecurityError}}", and
+                terminate this algorithm.
+
+        * [=Consume user activation=] of the [=relevant global object=].
+
+         Note: These steps aim to protect the user against malicious iframes
+         attempting to trick the user into registering. See
+         [[#sctn-privacy-user-activation]].
+
     1. Remove the check for *sameOriginWithAncestors* in step 2.
 
          Note: This allows for creating SPC credentials in a cross-origin
@@ -858,7 +873,7 @@ directly; for authentication the extension can only be accessed via
             * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/residentKey}}"] is not "{{ResidentKeyRequirement/required}}".
             * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/userVerification}}"] is not "{{UserVerificationRequirement/required}}".
 
-            then throw a {{TypeError}}.
+            then return a {{TypeError}}.
 
             Note: These values are hard-coded as that is what Chrome's initial implementation
             supports. The current limitations may change. The Working Group invites implementers
@@ -1382,6 +1397,21 @@ give to the [=Relying Party=] (e.g., the credit card number).
 
 NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
       for discussion on possible spec changes related to this section.
+
+## User activation for SPC Credential registration ## {#sctn-privacy-user-activation}
+
+As this specification allows the creation of credentials in a cross-origin
+iframe, there is an increased risk that an iframe may attempt to trick a user
+into registering a credential. To protect the user against this, this
+specification requires that a call to
+{{CredentialsContainer/create()|navigator.credentials.create()}} with the
+[[#sctn-payment-extension-registration| payment extension]] specified must only
+be invoked while the relevant {Window} has [=transient activation=] (e.g., via
+click or press).
+
+NOTE: Requiring user activation for WebAuthn APIs in general is under discussion
+      in the WebAuthn WG too; see [issue #1293](https://github.com/w3c/webauthn/issues/1293).
+
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 

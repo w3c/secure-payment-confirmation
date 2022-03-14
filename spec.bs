@@ -552,9 +552,6 @@ members:
         merchant). Optional, may be provided alongside or instead of
         {{SecurePaymentConfirmationRequest/payeeName}}.
 
-    Note: Either one or both of {{SecurePaymentConfirmationRequest/payeeName}}
-    or {{SecurePaymentConfirmationRequest/payeeOrigin}} must be provided.
-
     :  <dfn>extensions</dfn> member
     :: Any [=WebAuthn extensions=] that should be used for the passed
         credential(s). The caller does not need to specify the
@@ -687,9 +684,11 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     : {{AuthenticationExtensionsPaymentInputs/topOrigin}}
     :: |topOrigin|
     : {{AuthenticationExtensionsPaymentInputs/payeeName}}
-    :: |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] if it is present, otherwise omitted.
+    :: |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] if it is
+        present, otherwise omitted.
     : {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
-    :: |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] if it is present, otherwise omitted.
+    :: |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] if it is
+        present, otherwise omitted.
     : {{AuthenticationExtensionsPaymentInputs/total}}
     :: |request|.[=payment request details|[[details]]=]["{{PaymentDetailsInit/total}}"]
     : {{AuthenticationExtensionsPaymentInputs/instrument}}
@@ -870,9 +869,11 @@ directly; for authentication the extension can only be accessed via
                 : {{CollectedClientAdditionalPaymentData/topOrigin}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/topOrigin}}"]
                 : {{CollectedClientAdditionalPaymentData/payeeName}}
-                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeName}}"] if it is present, otherwise omitted.
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeName}}"]
+                    if it is present, otherwise omitted.
                 : {{CollectedClientAdditionalPaymentData/payeeOrigin}}
-                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}"] if it is present, otherwise omitted.
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}"]
+                    if it is present, otherwise omitted.
                 : {{CollectedClientAdditionalPaymentData/total}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/total}}"]
                 : {{CollectedClientAdditionalPaymentData/instrument}}

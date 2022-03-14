@@ -372,6 +372,7 @@ const request = new PaymentRequest([{
       icon: "https://fancybank.com/card-art.png",
     },
 
+    payeeName: "Merchant Shop",
     payeeOrigin: "https://merchant.com",
 
     timeout: 360000,  // 6 minutes
@@ -512,7 +513,8 @@ Add the following to the [=registry of standardized payment methods=] in
         required FrozenArray<BufferSource> credentialIds;
         required PaymentCredentialInstrument instrument;
         unsigned long timeout;
-        required USVString payeeOrigin;
+        DOMString payeeName;
+        USVString payeeOrigin;
         AuthenticationExtensionsClientInputs extensions;
     };
 </xmp>
@@ -540,9 +542,18 @@ members:
     :: The number of milliseconds before the request to sign the transaction
         details times out. At most 1 hour.
 
+    :  <dfn>payeeName</dfn> member
+    :: The display name of the payee that this SPC call is for (e.g., the
+        merchant). Optional, may be provided alongside or instead of
+        {{SecurePaymentConfirmationRequest/payeeOrigin}}.
+
     :  <dfn>payeeOrigin</dfn> member
     :: The [=/origin=] of the payee that this SPC call is for (e.g., the
-        merchant).
+        merchant). Optional, may be provided alongside or instead of
+        {{SecurePaymentConfirmationRequest/payeeName}}.
+
+    Note: Either one or both of {{SecurePaymentConfirmationRequest/payeeName}}
+    or {{SecurePaymentConfirmationRequest/payeeOrigin}} must be provided.
 
     :  <dfn>extensions</dfn> member
     :: Any [=WebAuthn extensions=] that should be used for the passed
@@ -562,15 +573,22 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 1. If |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not a
     [=valid domain=], return `false`.
 
-1. Let |parsedURL| be the result of running the [=URL parser=] on
-    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
+1. If both |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] and
+    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] are omitted or
+    empty, return `false`.
 
-1. If |parsedURL| is failure, then return `false`.
+1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present and
+    non-empty:
 
-1. If |parsedURL|'s [=url/scheme=] is not "`https`", then return `false`.
+    1. Let |parsedURL| be the result of running the [=URL parser=] on
+        |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
 
-1. Set |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] to the
-    [=serialization of an origin|serialization of=] |parsedURL|'s [=url/origin=].
+    1. If |parsedURL| is failure, then return `false`.
+
+    1. If |parsedURL|'s [=url/scheme=] is not "`https`", then return `false`.
+
+    1. Set |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] to the
+        [=serialization of an origin|serialization of=] |parsedURL|'s [=url/origin=].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
     is empty, return `false`.
@@ -620,7 +638,8 @@ Payment Confirmation payment handler=] is selected. However, so that a
 is communicated to the user and that the user's consent is collected for the
 authentication:
 
-* The {{CollectedClientAdditionalPaymentData/payeeOrigin}}.
+* The {{CollectedClientAdditionalPaymentData/payeeName}} if it is present.
+* The {{CollectedClientAdditionalPaymentData/payeeOrigin}} if it is present.
 * The {{CollectedClientAdditionalPaymentData/total}}, that is the
     {{PaymentCurrencyAmount/currency}} and {{PaymentCurrencyAmount/value}} of the
     transaction.
@@ -667,8 +686,10 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     :: |data|["{{SecurePaymentConfirmationRequest/rpId}}"]
     : {{AuthenticationExtensionsPaymentInputs/topOrigin}}
     :: |topOrigin|
+    : {{AuthenticationExtensionsPaymentInputs/payeeName}}
+    :: |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] if it is present, otherwise omitted.
     : {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
-    :: |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"]
+    :: |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] if it is present, otherwise omitted.
     : {{AuthenticationExtensionsPaymentInputs/total}}
     :: |request|.[=payment request details|[[details]]=]["{{PaymentDetailsInit/total}}"]
     : {{AuthenticationExtensionsPaymentInputs/instrument}}
@@ -756,6 +777,7 @@ directly; for authentication the extension can only be accessed via
       // Only used for authentication.
       USVString rp;
       USVString topOrigin;
+      DOMString payeeName;
       USVString payeeOrigin;
       PaymentCurrencyAmount total;
       PaymentCredentialInstrument instrument;
@@ -774,8 +796,11 @@ directly; for authentication the extension can only be accessed via
       :  <dfn>topOrigin</dfn> member
       :: The origin of the top-level frame. Only valid at authentication time.
 
+      :  <dfn>payeeName</dfn> member
+      :: The payee name, if present, that was displayed to the user. Only valid at authentication time.
+
       :  <dfn>payeeOrigin</dfn> member
-      :: The payee origin that was displayed to the user. Only valid at authentication time.
+      :: The payee origin, if present, that was displayed to the user. Only valid at authentication time.
 
       :  <dfn>total</dfn> member
       :: The transaction amount that was displayed to the user. Only valid at authentication time.
@@ -844,8 +869,10 @@ directly; for authentication the extension can only be accessed via
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/rp}}"]
                 : {{CollectedClientAdditionalPaymentData/topOrigin}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/topOrigin}}"]
+                : {{CollectedClientAdditionalPaymentData/payeeName}}
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeName}}"] if it is present, otherwise omitted.
                 : {{CollectedClientAdditionalPaymentData/payeeOrigin}}
-                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}"]
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}"] if it is present, otherwise omitted.
                 : {{CollectedClientAdditionalPaymentData/total}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/total}}"]
                 : {{CollectedClientAdditionalPaymentData/instrument}}
@@ -881,7 +908,8 @@ The {{CollectedClientPaymentData}} dictionary inherits from
     dictionary CollectedClientAdditionalPaymentData {
         required USVString rp;
         required USVString topOrigin;
-        required USVString payeeOrigin;
+        DOMString payeeName;
+        USVString payeeOrigin;
         required PaymentCurrencyAmount total;
         required PaymentCredentialInstrument instrument;
     };
@@ -897,8 +925,11 @@ fields:
     :  <dfn>topOrigin</dfn> member
     :: The origin of the top level context that requested to sign the transaction details.
 
+    :  <dfn>payeeName</dfn> member
+    :: The name of the payee, if present, that was displayed to the user.
+
     :  <dfn>payeeOrigin</dfn> member
-    :: The origin of the payee that was displayed to the user.
+    :: The origin of the payee, if present, that was displayed to the user.
 
     :  <dfn>total</dfn> member
     :: The {{PaymentCurrencyAmount}} of the [[payment-request]] `total` field.
@@ -1013,6 +1044,9 @@ Confirmation, the [=Relying Party=] MUST proceed as follows:
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/topOrigin}}"]
             matches the top-level origin that the [=Relying Party=] expects.
+
+        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/payeeName}}"]
+            matches the name of the payee that should have been displayed to the user.
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/payeeOrigin}}"]
             matches the origin of the payee that should have been displayed to the user.

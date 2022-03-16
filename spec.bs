@@ -571,11 +571,14 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
     [=valid domain=], return `false`.
 
 1. If both |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] and
-    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] are omitted or
+    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] are omitted,
+    return `false`.
+
+1. If either of |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] or
+    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present and
     empty, return `false`.
 
-1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present and
-    non-empty:
+1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present:
 
     1. Let |parsedURL| be the result of running the [=URL parser=] on
         |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
@@ -1047,10 +1050,10 @@ Confirmation, the [=Relying Party=] MUST proceed as follows:
             matches the top-level origin that the [=Relying Party=] expects.
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/payeeName}}"]
-            matches the name of the payee that should have been displayed to the user.
+            matches the name of the payee that should have been displayed to the user, if any.
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/payeeOrigin}}"]
-            matches the origin of the payee that should have been displayed to the user.
+            matches the origin of the payee that should have been displayed to the user, if any.
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/total}}"]
             matches the transaction amount that should have been displayed to the user.

@@ -1233,7 +1233,7 @@ transaction details that are shown to the user:
 
 * Transaction amount and currency
 * Payment instrument name and icon
-* Payee origin
+* Payee name and origin
 
 This could lead to a spoofing attack, in which a merchant presents incorrect
 data to the user. For example, the merchant could tell the bank (in the

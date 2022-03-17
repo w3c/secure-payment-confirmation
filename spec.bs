@@ -793,22 +793,22 @@ directly; for authentication the extension can only be accessed via
         <div class="note">**TODO**: Find a better way to do this. Needed currently because other members are auth-time only.</div>
 
       :  <dfn>rp</dfn> member
-      :: The [=Relying Party=] id of the credential(s) being used. Only valid at authentication time.
+      :: The [=Relying Party=] id of the credential(s) being used. Only used at authentication time; not registration.
 
       :  <dfn>topOrigin</dfn> member
-      :: The origin of the top-level frame. Only valid at authentication time.
+      :: The origin of the top-level frame. Only used at authentication time; not registration.
 
       :  <dfn>payeeName</dfn> member
-      :: The payee name, if present, that was displayed to the user. Only valid at authentication time.
+      :: The payee name, if present, that was displayed to the user. Only used at authentication time; not registration.
 
       :  <dfn>payeeOrigin</dfn> member
-      :: The payee origin, if present, that was displayed to the user. Only valid at authentication time.
+      :: The payee origin, if present, that was displayed to the user. Only used at authentication time; not registration.
 
       :  <dfn>total</dfn> member
-      :: The transaction amount that was displayed to the user. Only valid at authentication time.
+      :: The transaction amount that was displayed to the user. Only used at authentication time; not registration.
 
       :  <dfn>instrument</dfn> member
-      :: The instrument details that were displayed to the user. Only valid at authentication time.
+      :: The instrument details that were displayed to the user. Only used at authentication time; not registration.
 
     </dl>
 

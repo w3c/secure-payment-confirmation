@@ -386,6 +386,10 @@ const request = new PaymentRequest([{
     },
   });
 
+  /* canMakePayment indicates whether the browser supports SPC. */
+  /* canMakePayment does not indicate whether the user has a credential */
+  /* ready to go on this device. */
+
 try {
   const canMakePayment = await request.canMakePayment();
   if (!canMakePayment) { throw new Error('Cannot make payment'); }

@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="654c78a18ad5783589c582110a78aa09915f9fb9" name="document-revision">
+  <meta content="bf15f8436ddf2a99332efa73baff0e2cf99a0e12" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-03-23">23 March 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-04-07">7 April 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -706,6 +706,10 @@ presumes access to await/async, for easier to read promise handling.</p>
       <c- p>},</c->
     <c- p>},</c->
   <c- p>});</c->
+
+  <c- d>/* canMakePayment indicates whether the browser supports SPC. */</c->
+  <c- d>/* canMakePayment does not indicate whether the user has a credential */</c->
+  <c- d>/* ready to go on this device. */</c->
 
 <c- k>try</c-> <c- p>{</c->
   <c- a>const</c-> canMakePayment <c- o>=</c-> <c- k>await</c-> request<c- p>.</c->canMakePayment<c- p>();</c->

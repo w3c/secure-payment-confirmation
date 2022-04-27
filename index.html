@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="bf15f8436ddf2a99332efa73baff0e2cf99a0e12" name="document-revision">
+  <meta content="57317ac6603d7780fd6253233258e3ec7c067fae" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-04-07">7 April 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-04-27">27 April 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -900,16 +900,23 @@ current device</a>. If the result of either of these is <code>false</code>, remo
      </ol>
     <li data-md>
      <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids④">credentialIds</a></code>"] is now empty,
-return <code>false</code>. The user agent must take care to maintain <a href="#sctn-privacy-probing-credential-ids">authentication ceremony privacy</a>,
-e.g., by presenting an alternative UI to the user such that the website
-cannot detect the difference between no-matching credentials and the user
-declining to authenticate.</p>
+return <code>false</code>. The user agent must maintain <a href="#sctn-privacy-probing-credential-ids">authentication ceremony privacy</a> and not leak this lack of matching credentials to the caller, by:</p>
+     <ol>
+      <li data-md>
+       <p>Not allowing the caller to perform a timing attack on this outcome versus
+the user declining to authenticate on the <a href="#sctn-transaction-confirmation-ux">transaction confirmation UX</a>, e.g.,
+by presenting an alternative interstitial that the user must interact
+with.</p>
+      <li data-md>
+       <p>Rejecting the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show">show()</a></code> promise with a
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
+     </ol>
     <li data-md>
      <p>Return <code>true</code>.</p>
    </ol>
    <h4 class="heading settled" data-level="4.1.5" id="sctn-transaction-confirmation-ux"><span class="secno">4.1.5. </span><span class="content">Displaying a transaction confirmation UX</span><a class="self-link" href="#sctn-transaction-confirmation-ux"></a></h4>
    <p>To avoid restricting User Agent implementation choice, this specification does
-not require a User Agent to display a particular user interface when <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show">PaymentRequest.show()</a></code> is called and the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler①">Secure
+not require a User Agent to display a particular user interface when <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show①">PaymentRequest.show()</a></code> is called and the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler①">Secure
 Payment Confirmation payment handler</a> is selected. However, so that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①③">Relying Party</a> can trust the information included in <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a></code>, the User Agent MUST ensure that the following
 is communicated to the user and that the user’s consent is collected for the
 authentication:</p>
@@ -1131,7 +1138,7 @@ to share use cases that would benefit from support for other values.</p>
      <ol>
       <li data-md>
        <p>If not in a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation④">secure-payment-confirmation</a>" payment handler, return a
-"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code>.</p>
        <p class="note" role="note"><span>Note:</span> This guards against websites trying to access the extended powers of
 SPC without going through <a href="#sctn-transaction-confirmation-ux">the
 transaction UX</a>.</p>
@@ -1865,7 +1872,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-dom-paymentrequest-show">
    <a href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-show">https://www.w3.org/TR/payment-request/#dom-paymentrequest-show</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-paymentrequest-show">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-paymentrequest-show">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-paymentrequest-show①">4.1.5. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-steps-to-check-if-a-payment-can-be-made">
@@ -2209,7 +2217,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-idl-DOMException">
    <a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-DOMException">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-idl-DOMException">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-idl-DOMException①">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-DOMString">
@@ -2230,7 +2239,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-notallowederror">
    <a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-notallowederror">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-notallowederror">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-notallowederror①">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-exceptiondef-typeerror">

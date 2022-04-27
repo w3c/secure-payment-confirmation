@@ -623,11 +623,17 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
         |id| from |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is now empty,
-    return `false`. The user agent must take care to maintain
-    [[#sctn-privacy-probing-credential-ids|authentication ceremony privacy]],
-    e.g., by presenting an alternative UI to the user such that the website
-    cannot detect the difference between no-matching credentials and the user
-    declining to authenticate.
+    return `false`. The user agent must maintain
+    [[#sctn-privacy-probing-credential-ids|authentication ceremony privacy]]
+    and not leak this lack of matching credentials to the caller, by:
+
+    1. Not allowing the caller to perform a timing attack on this outcome versus
+        the user declining to authenticate on the
+        [[#sctn-transaction-confirmation-ux|transaction confirmation UX]], e.g.,
+        by presenting an alternative interstitial that the user must interact
+        with.
+    1. Rejecting the {{PaymentRequest/show|show()}} promise with a
+        "{{NotAllowedError}}" {{DOMException}}.
 
 1. Return `true`.
 

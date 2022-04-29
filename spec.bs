@@ -219,10 +219,10 @@ In this section, we walk through some scenarios for Secure Payment Confirmation
 and the corresponding sample code for using this API. Note that these are
 example flows and do not limit the scope of how the API can be used.
 
-### Registration during a purchase ### {#sctn-sample-registration}
+### Registration during a checkout ### {#sctn-sample-registration}
 
 This is a first-time flow, in which a new credential is created and stored by
-an issuing bank during a purchase by the user on some merchant.
+an issuing bank during a checkout by the user on some merchant.
 
 1. The user visits `merchant.com`, selects an item to purchase, and proceeds to
     the checkout flow. They enter their payment instrument details, and indicate
@@ -276,8 +276,8 @@ const publicKey = {
     displayName: "Jane Doe",
   },
 
-  // This example Relying Party will accept either an ES256 or RS256 credential,
-  // but prefers an ES256 credential.
+  // In this example the Relying Party accepts either an ES256 or RS256
+  // credential, but prefers an ES256 credential.
   pubKeyCredParams: [
     {
       type: "public-key",
@@ -419,7 +419,7 @@ try {
     login).
 
     Note: The current version of this specification requires the [=Relying
-          Party=] to explicitly opt in for a credential to be used in SPC in
+          Party=] to explicitly opt in for a credential to be used in
           either a first-party or third-party context. Longer-term, our
           intention is that all [=public key credential|WebAuthn credentials=]
           will be usable for SPC in a first-party context (e.g., on the

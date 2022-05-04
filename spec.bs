@@ -855,7 +855,7 @@ directly; for authentication the extension can only be accessed via
 
          Note: These steps aim to protect the user against malicious iframes
          attempting to trick the user into registering. See
-         [[#sctn-privacy-user-activation]].
+         [[#sctn-security-cross-origin-registration]].
 
     1. Remove the check for *sameOriginWithAncestors* in step 2.
 

@@ -1348,6 +1348,9 @@ If the above cases are distinguishable, information is leaked by which a
 malicious [=Relying Party=] could identify the user by probing for which
 [=public key credential|credentials=] are available.
 
+Section [[#sctn-steps-to-check-if-a-payment-can-be-made]] gives normative steps
+to mitigate this risk.
+
 ## Joining different payment instruments ## {#sctn-privacy-joining-payment-instruments}
 
 If a [=Relying Party=] uses the same credentials for a given user across

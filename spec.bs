@@ -1308,46 +1308,18 @@ NOTE: Allowing credential creation in cross-origin iframes is currently [under
       Working Group, and thus may move from this specification to WebAuthn in
       the future.
 
-A [previously described
-attack](https://github.com/w3c/webauthn/issues/1336#issue-513568855) on this
-feature exists. In it, a malicious iframe (`https://website.tracker`) initiates
-credential creation, attempting to trick the user into thinking that the
-WebAuthn credential creation is for logging into the legitimate parent site
-(`https://example.org`). The user creates the credential. The malicious actor
-can then later utilize `get()` in a cross-origin iframe (again, timing the call
-to coincide with a login attempt to `https://example.org`) to have the user
-accidentally identify themselves to the tracker iframe.
+Allowing credential creation in a cross-origin iframe presents a risk that an
+iframe may attempt to trick a user into registering a credential. That
+credential could then be used for tracking (see [WebAuthn issue
+1336](https://github.com/w3c/webauthn/issues/1336#issue-513568855)). To
+mitigate such an attack, this specification requires that a call to
+{{CredentialsContainer/create()|navigator.credentials.create()}} with the
+[[#sctn-payment-extension-registration| payment extension]] specified must only
+be invoked while the relevant {{Window}} has [=transient activation=] (e.g., via
+a click or press from the user).
 
-This attack, however, presumes that `https://website.tracker` already has
-script access to `https://example.org` (in order to create the attacker iframe,
-with the appropriate permissions set). If this is true, then
-`https://website.tracker` can already directly track the user, for example by:
-
-* Identifying them from the username they provide when logging in to
-    `https://example.org`, OR
-* Creating a WebAuthn credential for `https://example.org` (in the main frame),
-    saving that to a `https://website.tracker` server, and later using that
-    credential (again in the main frame) to identify and track the user.
-
-<div class="note">
-**TODO**: The above-described attack does allow `https://website.tracker` to
-          track the user across multiple parent sites that it is directly
-          included in, using the credential as a cross-site identifier. The
-          above counter-claims stand up less well there, so we should perhaps
-          remove them.
-</div>
-
-In the absence of script access to the main frame, the ability for a malicious
-iframe to perform an attack like this seems far less feasible.  Firstly, the
-main frame must have granted the malicious iframe
-[[#sctn-permissions-policy|permission]] to call the API. Secondly, the iframe
-has no way to know when the user is logging into `https://example.org`, to
-align their attack. 
-
-A consideration for a future version of this specification might be to
-additionally require consuming a [=transient activation=] for credential
-creation in a cross-origin iframe, to ensure that the user has at least
-interacted with an iframe attempting credential creation.
+NOTE: Requiring user activation for WebAuthn APIs in general is under discussion
+      in the WebAuthn WG too; see [issue #1293](https://github.com/w3c/webauthn/issues/1293).
 
 ## Probing for credential ids ## {#sctn-privacy-probing-credential-ids}
 
@@ -1397,21 +1369,6 @@ give to the [=Relying Party=] (e.g., the credit card number).
 
 NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
       for discussion on possible spec changes related to this section.
-
-## User activation for SPC Credential registration ## {#sctn-privacy-user-activation}
-
-As this specification allows the creation of credentials in a cross-origin
-iframe, there is an increased risk that an iframe may attempt to trick a user
-into registering a credential. To protect the user against this, this
-specification requires that a call to
-{{CredentialsContainer/create()|navigator.credentials.create()}} with the
-[[#sctn-payment-extension-registration| payment extension]] specified must only
-be invoked while the relevant {Window} has [=transient activation=] (e.g., via
-click or press).
-
-NOTE: Requiring user activation for WebAuthn APIs in general is under discussion
-      in the WebAuthn WG too; see [issue #1293](https://github.com/w3c/webauthn/issues/1293).
-
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 

@@ -1352,8 +1352,7 @@ ecosystem stakeholders take non-technical steps to preserve user
 privacy. For example:
 
 * Payment systems might establish rules that place limits on storage of credential ID(s) by third parties.
-* When a [=Relying Party=] assigns multiple instruments to a single SPC credential, it might choose not to share that credential ID with other parties. In this case, the [=Relying Party=] could still use the SPC credential itself to
-authenticate the user.
+* When a [=Relying Party=] assigns multiple instruments to a single SPC credential, it might choose not to share that credential ID with other parties. In this case, the [=Relying Party=] could still use the SPC credential itself (in either a first-party or third-party context) to authenticate the user.
 * A [=Relying Party=] (e.g., a bank) might enable the user to register a distinct SPC credential per payment instrument. This would not prevent the [=Relying Party=] from joining those accounts internally.
 
 NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)

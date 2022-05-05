@@ -842,28 +842,24 @@ directly; for authentication the extension can only be accessed via
 
     When [[webauthn-3#sctn-createCredential|creating a new credential]]:
 
-    1. Before step 2, insert two new steps:
+    1. Modify step 2 (the check for *sameOriginWithAncestors*) as follows:
 
-        * If the [=relevant global object=], as determined by the calling
-            {{CredentialsContainer/create()}} implementation, does not have
-            [=transient activation=]:
+        * If *sameOriginWithAncestors* is `false`:
 
-             * Return a {{DOMException}} whose name is "{{SecurityError}}", and
-                terminate this algorithm.
+            * If the [=relevant global object=], as determined by the calling
+                {{CredentialsContainer/create()}} implementation, does not have
+                [=transient activation=]:
 
-        * [=Consume user activation=] of the [=relevant global object=].
+                 * Return a {{DOMException}} whose name is "{{SecurityError}}", and
+                    terminate this algorithm.
 
-         Note: These steps aim to protect the user against malicious iframes
-         attempting to trick the user into registering. See
-         [[#sctn-security-cross-origin-registration]].
-
-    1. Remove the check for *sameOriginWithAncestors* in step 2.
+            * [=Consume user activation=] of the [=relevant global object=].
 
          Note: This allows for creating SPC credentials in a cross-origin
          iframe, as long as the correct permission policy is set
-         (see [[#sctn-permissions-policy]]). We could additionally require and
-         consume a [=transient activation=] here, if we felt the permission policy
-         is not sufficient.
+         (see [[#sctn-permissions-policy]]). A [=transient activation=] is
+         also required in this case to mitigate privacy risks; see
+         [[#sctn-security-cross-origin-registration]].
 
     1. After step 3, insert the following step:
 

@@ -1342,14 +1342,18 @@ two different transactions that a user U performs with payment instruments P1
 and P2 (either on the same merchant M, or two colluding merchants M1 and M2),
 the merchant(s) may now be able to learn that P1 and P2 are for the same user.
 
-For many current online payment flows this may not be a significant concern, as
-the user already provides sufficient information to do this joining anyway
-(e.g. their address), however it could become a privacy attack if, e.g.,
-payment tokenization becomes commonplace.
+For many current online payment flows this may not be a significant
+risk, as the user often provides sufficient information to do
+this joining anyway (e.g., name, email address, shipping address).
 
-One way a user may mitigate this concern is to use distinct user accounts for
-each payment instrument. It is not, however, guaranteed that a [=Relying
-Party=] (e.g., a bank) will not join those accounts internally.
+However, if payment methods that involve less identifying information
+(e.g., tokenization) become commonplace, it is important that
+ecosystem stakeholders take steps to preserve user privacy. For example:
+
+* Payment systems might establish rules that place limits on storage of credential ID(s) by third parties.
+* When a [=Relying Party=] assigns multiple instruments to a single SPC credential, it might choose not to share that credential ID with other parties. In this case, the [=Relying Party=] could still use the SPC credential itself to
+authenticate the user.
+* A [=Relying Party=] (e.g., a bank) might enable the user to register a distinct SPC credential per payment instrument. This would not prevent the [=Relying Party=] from joining those accounts internally.
 
 NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
       for discussion on possible spec changes related to this section.

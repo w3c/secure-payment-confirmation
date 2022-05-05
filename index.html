@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="8689cdb2a93dfe843f3313742cc205727a4c7f9f" name="document-revision">
+  <meta content="82712d2b4cd9b906484f078e55e88c24aa7f5e7e" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-05-04">4 May 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-05-05">5 May 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1112,12 +1112,26 @@ part of any WebAuthn algorithm!</p>
      <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-createCredential">creating a new credential</a>:</p>
      <ol>
       <li data-md>
-       <p>Remove the check for <em>sameOriginWithAncestors</em> in step 2.</p>
+       <p>Modify step 2 (the check for <em>sameOriginWithAncestors</em>) as follows:</p>
+       <ul>
+        <li data-md>
+         <p>If <em>sameOriginWithAncestors</em> is <code>false</code>:</p>
+         <ul>
+          <li data-md>
+           <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global">relevant global object</a>, as determined by the calling <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create①">create()</a></code> implementation, does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a>:</p>
+           <ul>
+            <li data-md>
+             <p>Return a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code> whose name is "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#securityerror" id="ref-for-securityerror">SecurityError</a></code>", and
+terminate this algorithm.</p>
+           </ul>
+          <li data-md>
+           <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-consume-user-activation">Consume user activation</a> of the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global①">relevant global object</a>.</p>
+         </ul>
+       </ul>
        <p class="note" role="note"><span>Note:</span> This allows for creating SPC credentials in a cross-origin
  iframe, as long as the correct permission policy is set
- (see <a href="#sctn-permissions-policy">§ 7 Permissions Policy integration</a>). We could additionally require and
- consume a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a> here, if we felt the permission policy
- is not sufficient.</p>
+ (see <a href="#sctn-permissions-policy">§ 7 Permissions Policy integration</a>). A <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation①">transient activation</a> is
+ also required in this case to mitigate privacy risks; see <a href="#sctn-security-cross-origin-registration">§ 11.1 Registration in a Cross-Origin iframe</a>.</p>
       <li data-md>
        <p>After step 3, insert the following step:</p>
        <ul>
@@ -1131,7 +1145,7 @@ part of any WebAuthn algorithm!</p>
           <li data-md>
            <p><em>options</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection②">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification" id="ref-for-dom-authenticatorselectioncriteria-userverification">userVerification</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required" id="ref-for-dom-userverificationrequirement-required①">required</a></code>".</p>
          </ul>
-         <p>then throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code>.</p>
+         <p>then return a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code>.</p>
          <p class="note" role="note"><span>Note:</span> These values are hard-coded as that is what Chrome’s initial implementation
 supports. The current limitations may change. The Working Group invites implementers
 to share use cases that would benefit from support for other values.</p>
@@ -1143,7 +1157,7 @@ to share use cases that would benefit from support for other values.</p>
      <ol>
       <li data-md>
        <p>If not in a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation④">secure-payment-confirmation</a>" payment handler, return a
-"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code>.</p>
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code>.</p>
        <p class="note" role="note"><span>Note:</span> This guards against websites trying to access the extended powers of
 SPC without going through <a href="#sctn-transaction-confirmation-ux">the
 transaction UX</a>.</p>
@@ -1515,40 +1529,15 @@ for site B within that iframe.</p>
       discussion</a> in the WebAuthn
       Working Group, and thus may move from this specification to WebAuthn in
       the future.</p>
-   <p>A <a href="https://github.com/w3c/webauthn/issues/1336#issue-513568855">previously described
-attack</a> on this
-feature exists. In it, a malicious iframe (<code>https://website.tracker</code>) initiates
-credential creation, attempting to trick the user into thinking that the
-WebAuthn credential creation is for logging into the legitimate parent site
-(<code>https://example.org</code>). The user creates the credential. The malicious actor
-can then later utilize <code>get()</code> in a cross-origin iframe (again, timing the call
-to coincide with a login attempt to <code>https://example.org</code>) to have the user
-accidentally identify themselves to the tracker iframe.</p>
-   <p>This attack, however, presumes that <code>https://website.tracker</code> already has
-script access to <code>https://example.org</code> (in order to create the attacker iframe,
-with the appropriate permissions set). If this is true, then <code>https://website.tracker</code> can already directly track the user, for example by:</p>
-   <ul>
-    <li data-md>
-     <p>Identifying them from the username they provide when logging in to <code>https://example.org</code>, OR</p>
-    <li data-md>
-     <p>Creating a WebAuthn credential for <code>https://example.org</code> (in the main frame),
-saving that to a <code>https://website.tracker</code> server, and later using that
-credential (again in the main frame) to identify and track the user.</p>
-   </ul>
-   <div class="note" role="note"> <strong>TODO</strong>: The above-described attack does allow <code>https://website.tracker</code> to
-          track the user across multiple parent sites that it is directly
-          included in, using the credential as a cross-site identifier. The
-          above counter-claims stand up less well there, so we should perhaps
-          remove them. </div>
-   <p>In the absence of script access to the main frame, the ability for a malicious
-iframe to perform an attack like this seems far less feasible.  Firstly, the
-main frame must have granted the malicious iframe <a href="#sctn-permissions-policy">permission</a> to call the API. Secondly, the iframe
-has no way to know when the user is logging into <code>https://example.org</code>, to
-align their attack.</p>
-   <p>A consideration for a future version of this specification might be to
-additionally require consuming a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation①">transient activation</a> for credential
-creation in a cross-origin iframe, to ensure that the user has at least
-interacted with an iframe attempting credential creation.</p>
+   <p>Allowing credential creation in a cross-origin iframe presents a risk that an
+iframe may attempt to trick a user into registering a credential. That
+credential could then be used for tracking (see <a href="https://github.com/w3c/webauthn/issues/1336#issue-513568855">WebAuthn issue
+1336</a>). To
+mitigate such an attack, this specification requires that a call to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create②">navigator.credentials.create()</a></code> with the <a href="#sctn-payment-extension-registration"> payment extension</a> specified must only
+be invoked while the relevant <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a></code> has <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation②">transient activation</a> (e.g., via
+a click or press from the user).</p>
+   <p class="note" role="note"><span>NOTE:</span> Requiring user activation for WebAuthn APIs in general is under discussion
+      in the WebAuthn WG too; see <a href="https://github.com/w3c/webauthn/issues/1293">issue #1293</a>.</p>
    <h3 class="heading settled" data-level="11.2" id="sctn-privacy-probing-credential-ids"><span class="secno">11.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
    <p>As per WebAuthn’s section on <a href="https://www.w3.org/TR/webauthn-3/#sctn-assertion-privacy">Authentication
 Ceremony Privacy</a>, implementors of Secure Payment Confirmation must make sure
@@ -1711,6 +1700,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-credentialscontainer-create">3. Registration</a>
+    <li><a href="#ref-for-dom-credentialscontainer-create①">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-credentialscontainer-create②">11.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-credentialscontainer-get">
@@ -1743,6 +1734,18 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     <li><a href="#ref-for-blob-url-entry-object">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-window">
+   <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">https://html.spec.whatwg.org/multipage/window-object.html#window</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-window">11.1. Registration in a Cross-Origin iframe</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-consume-user-activation">
+   <a href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation">https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-consume-user-activation">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-current-settings-object">
    <a href="https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object</a><b>Referenced in:</b>
    <ul>
@@ -1759,6 +1762,12 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">https://html.spec.whatwg.org/multipage/origin.html#concept-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-origin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-concept-relevant-global">
+   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global">https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-concept-relevant-global">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-concept-relevant-global①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-relevant-settings-object">
@@ -1782,8 +1791,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-transient-activation">
    <a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-transient-activation">5. WebAuthn Extension - "payment"</a>
-    <li><a href="#ref-for-transient-activation①">11.1. Registration in a Cross-Origin iframe</a>
+    <li><a href="#ref-for-transient-activation">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-transient-activation①">(2)</a>
+    <li><a href="#ref-for-transient-activation②">11.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-fetching-an-image-resource">
@@ -2225,7 +2234,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-DOMException">4.1.4. Steps to check if a payment can be made</a>
-    <li><a href="#ref-for-idl-DOMException①">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-idl-DOMException①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-DOMException②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-DOMString">
@@ -2248,6 +2257,12 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <ul>
     <li><a href="#ref-for-notallowederror">4.1.4. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-notallowederror①">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-securityerror">
+   <a href="https://webidl.spec.whatwg.org/#securityerror">https://webidl.spec.whatwg.org/#securityerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-securityerror">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-exceptiondef-typeerror">
@@ -2301,9 +2316,12 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
+     <li><span class="dfn-paneled" id="term-for-window">Window</span>
+     <li><span class="dfn-paneled" id="term-for-consume-user-activation">consume user activation</span>
      <li><span class="dfn-paneled" id="term-for-current-settings-object">current settings object</span>
      <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
      <li><span class="dfn-paneled" id="term-for-concept-origin">origin</span>
+     <li><span class="dfn-paneled" id="term-for-concept-relevant-global">relevant global object</span>
      <li><span class="dfn-paneled" id="term-for-relevant-settings-object">relevant settings object</span>
      <li><span class="dfn-paneled" id="term-for-ascii-serialisation-of-an-origin">serialization of an origin</span>
      <li><span class="dfn-paneled" id="term-for-concept-environment-top-level-origin">top-level origin</span>
@@ -2414,6 +2432,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
      <li><span class="dfn-paneled" id="term-for-idl-frozen-array">FrozenArray</span>
      <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="term-for-securityerror">SecurityError</span>
      <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
      <li><span class="dfn-paneled" id="term-for-idl-USVString">USVString</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>

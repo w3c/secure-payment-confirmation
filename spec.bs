@@ -1309,10 +1309,9 @@ iframe may attempt to trick a user into registering a credential. That
 credential could then be used for tracking (see [WebAuthn issue
 1336](https://github.com/w3c/webauthn/issues/1336#issue-513568855)). To
 mitigate such an attack, this specification requires that a call to
-{{CredentialsContainer/create()|navigator.credentials.create()}} with the
-[[#sctn-payment-extension-registration| payment extension]] specified must only
-be invoked while the relevant {{Window}} has [=transient activation=] (e.g., via
-a click or press from the user).
+{{CredentialsContainer/create()|navigator.credentials.create()}} inside a
+cross-origin iframe may only be invoked when the iframe has [=transient
+activation=] (e.g., via a click or press from the user).
 
 NOTE: Requiring user activation for WebAuthn APIs in general is under discussion
       in the WebAuthn WG too; see [issue #1293](https://github.com/w3c/webauthn/issues/1293).

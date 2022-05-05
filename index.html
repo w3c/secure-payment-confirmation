@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="82712d2b4cd9b906484f078e55e88c24aa7f5e7e" name="document-revision">
+  <meta content="325d0ad720018f1e22bcce08cb5306b2392bdf8c" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1533,9 +1533,9 @@ for site B within that iframe.</p>
 iframe may attempt to trick a user into registering a credential. That
 credential could then be used for tracking (see <a href="https://github.com/w3c/webauthn/issues/1336#issue-513568855">WebAuthn issue
 1336</a>). To
-mitigate such an attack, this specification requires that a call to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create②">navigator.credentials.create()</a></code> with the <a href="#sctn-payment-extension-registration"> payment extension</a> specified must only
-be invoked while the relevant <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window">Window</a></code> has <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation②">transient activation</a> (e.g., via
-a click or press from the user).</p>
+mitigate such an attack, this specification requires that a call to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create②">navigator.credentials.create()</a></code> inside a
+cross-origin iframe may only be invoked when the iframe has <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation②">transient
+activation</a> (e.g., via a click or press from the user).</p>
    <p class="note" role="note"><span>NOTE:</span> Requiring user activation for WebAuthn APIs in general is under discussion
       in the WebAuthn WG too; see <a href="https://github.com/w3c/webauthn/issues/1293">issue #1293</a>.</p>
    <h3 class="heading settled" data-level="11.2" id="sctn-privacy-probing-credential-ids"><span class="secno">11.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
@@ -1732,12 +1732,6 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <a href="https://w3c.github.io/FileAPI/#blob-url-entry-object">https://w3c.github.io/FileAPI/#blob-url-entry-object</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-blob-url-entry-object">9.1. Set SPC Transaction Mode</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-window">
-   <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">https://html.spec.whatwg.org/multipage/window-object.html#window</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-window">11.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-consume-user-activation">
@@ -2316,7 +2310,6 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-window">Window</span>
      <li><span class="dfn-paneled" id="term-for-consume-user-activation">consume user activation</span>
      <li><span class="dfn-paneled" id="term-for-current-settings-object">current settings object</span>
      <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>

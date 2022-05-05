@@ -1348,7 +1348,8 @@ this joining anyway (e.g., name, email address, shipping address).
 
 However, if payment methods that involve less identifying information
 (e.g., tokenization) become commonplace, it is important that
-ecosystem stakeholders take steps to preserve user privacy. For example:
+ecosystem stakeholders take non-technical steps to preserve user
+privacy. For example:
 
 * Payment systems might establish rules that place limits on storage of credential ID(s) by third parties.
 * When a [=Relying Party=] assigns multiple instruments to a single SPC credential, it might choose not to share that credential ID with other parties. In this case, the [=Relying Party=] could still use the SPC credential itself to

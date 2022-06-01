@@ -1,5 +1,9 @@
 # Secure Payment Confirmation Developer Guide
 
+> **NOTE**: This guide was written for an earlier version of SPC, and is now
+> out of date. A more up-to-date guide can be found [on
+> developer.chrome.com](https://developer.chrome.com/payments/).
+
 This guide was written by members of the Google Chrome team, to support web
 developers experimenting with Secure Payment Confirmation (SPC) as part of the
 [SPC v0.2 Origin

@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 37b7e7e68, updated Fri May 27 15:08:11 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="29e93b795f4412abb3062870d76c39a1a40df501" name="document-revision">
+  <meta content="efd6ab9a66e5d3884cb6ddbd03116f8083c1fd98" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -279,7 +279,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-05-30">30 May 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-06-01">1 June 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1560,19 +1560,26 @@ about payment instruments that might otherwise not be linked. That is, across
 two different transactions that a user U performs with payment instruments P1
 and P2 (either on the same merchant M, or two colluding merchants M1 and M2),
 the merchant(s) may now be able to learn that P1 and P2 are for the same user.</p>
-   <p>For many current online payment flows this may not be a significant concern, as
-the user already provides sufficient information to do this joining anyway
-(e.g. their address), however it could become a privacy attack if, e.g.,
-payment tokenization becomes commonplace.</p>
-   <p>One way a user may mitigate this concern is to use distinct user accounts for
-each payment instrument. It is not, however, guaranteed that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑦">Relying
-Party</a> (e.g., a bank) will not join those accounts internally.</p>
+   <p>For many current online payment flows this may not be a significant
+risk, as the user often provides sufficient information to do
+this joining anyway (e.g., name, email address, shipping address).</p>
+   <p>However, if payment methods that involve less identifying information
+(e.g., tokenization) become commonplace, it is important that
+ecosystem stakeholders take steps to preserve user privacy. For example:</p>
+   <ul>
+    <li data-md>
+     <p>Payment systems might establish rules that place limits on storage of credential ID(s) by third parties.</p>
+    <li data-md>
+     <p>When a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑦">Relying Party</a> assigns multiple instruments to a single SPC credential, it might choose not to share that credential ID with other parties. In this case, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑧">Relying Party</a> could still use the SPC credential itself (in either a first-party or third-party context) to authenticate the user.</p>
+    <li data-md>
+     <p>A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑨">Relying Party</a> (e.g., a bank) might enable the user to register a distinct SPC credential per payment instrument. This would not prevent the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤⓪">Relying Party</a> from joining those accounts internally.</p>
+   </ul>
    <p class="note" role="note"><span>NOTE:</span> See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">issue #77</a> for discussion on possible spec changes related to this section.</p>
    <h3 class="heading settled" data-level="11.4" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">11.4. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
-   <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑧">Relying Party</a> could be used by a malicious entity as a tracking vector, as
+   <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤①">Relying Party</a> could be used by a malicious entity as a tracking vector, as
 they are strong, cross-site identifiers. However in order to obtain them from
-the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑨">Relying Party</a>, the merchant already needs an as-strong identifier to
-give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤⓪">Relying Party</a> (e.g., the credit card number).</p>
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤②">Relying Party</a>, the merchant already needs an as-strong identifier to
+give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤③">Relying Party</a> (e.g., the credit card number).</p>
    <p class="note" role="note"><span>NOTE:</span> See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">issue #77</a> for discussion on possible spec changes related to this section.</p>
    <h2 class="heading settled" data-level="12" id="sctn-accessibility-considerations"><span class="secno">12. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
    <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑥">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
@@ -1997,8 +2004,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     <li><a href="#ref-for-relying-party③⑨">10.1.2. Payment Attack</a> <a href="#ref-for-relying-party④⓪">(2)</a> <a href="#ref-for-relying-party④①">(3)</a>
     <li><a href="#ref-for-relying-party④②">10.2. Merchant-supplied authentication data</a> <a href="#ref-for-relying-party④③">(2)</a>
     <li><a href="#ref-for-relying-party④④">11.2. Probing for credential ids</a> <a href="#ref-for-relying-party④⑤">(2)</a>
-    <li><a href="#ref-for-relying-party④⑥">11.3. Joining different payment instruments</a> <a href="#ref-for-relying-party④⑦">(2)</a>
-    <li><a href="#ref-for-relying-party④⑧">11.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party④⑨">(2)</a> <a href="#ref-for-relying-party⑤⓪">(3)</a>
+    <li><a href="#ref-for-relying-party④⑥">11.3. Joining different payment instruments</a> <a href="#ref-for-relying-party④⑦">(2)</a> <a href="#ref-for-relying-party④⑧">(3)</a> <a href="#ref-for-relying-party④⑨">(4)</a> <a href="#ref-for-relying-party⑤⓪">(5)</a>
+    <li><a href="#ref-for-relying-party⑤①">11.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party⑤②">(2)</a> <a href="#ref-for-relying-party⑤③">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-webauthn-extensions">

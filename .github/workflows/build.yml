@@ -17,4 +17,3 @@ jobs:
           TOOLCHAIN: bikeshed
           SOURCE: spec.bs
           DESTINATION: index.html
-          VALIDATE_MARKUP: false

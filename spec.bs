@@ -692,6 +692,8 @@ on the value of the [=current transaction automation mode=]:
     :: Act as if the user has seen the transaction details and rejected
         the authentication.
 
+NOTE: The language and direction of the {{CollectedClientAdditionalPaymentData/payeeName} and {{PaymentCredentialInstrument/displayName}} may often be determined from information inherited from the document. For discussion about enhanced support in JavaScript for language and direction of these displayable strings, see<a href="https://github.com/w3c/secure-payment-confirmation/issues/93">issue 93</a>.
+
 ### Steps to respond to a payment request ### {#sctn-steps-to-respond-to-a-payment-request}
 
 The [=steps to respond to a payment request=] for this payment method, for a given
@@ -1000,10 +1002,6 @@ contains the following members:
 <dl dfn-type="dict-member" dfn-for="PaymentCredentialInstrument">
     :  <dfn>displayName</dfn> member
     :: The name of the payment instrument to be displayed to the user.
-
-         NOTE: For discussion about internationalization of the 
-         {{PaymentCredentialInstrument/displayName}}, see
-         <a href="https://github.com/w3c/secure-payment-confirmation/issues/93">issue 93</a>.
 
     :  <dfn>icon</dfn> member
     :: The URL of the icon of the payment instrument.

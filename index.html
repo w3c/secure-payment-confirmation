@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 37b7e7e68, updated Fri May 27 15:08:11 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="efd6ab9a66e5d3884cb6ddbd03116f8083c1fd98" name="document-revision">
+  <meta content="12f96d52cd7c209d97e49e79c5e8f4b3e6de5962" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -274,12 +274,150 @@ c-[vg] { color: #0077aa } /* Name.Variable.Global */
 c-[vi] { color: #0077aa } /* Name.Variable.Instance */
 c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </style>
+<style>/* style-wpt */
+
+:root {
+    --wpt-border: hsl(0, 0%, 60%);
+    --wpt-bg: hsl(0, 0%, 95%);
+    --wpt-text: var(--text);
+    --wptheading-text: hsl(0, 0%, 30%);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --wpt-border: hsl(0, 0%, 30%);
+        --wpt-bg: var(--borderedblock-bg);
+        --wpt-text: var(--text);
+        --wptheading-text: hsl(0, 0%, 60%);
+    }
+}
+.wpt-tests-block {
+    list-style: none;
+    border-left: .5em solid var(--wpt-border);
+    background: var(--wpt-bg);
+    color: var(--wpt-text);
+    margin: 1em auto;
+    padding: .5em;
+}
+.wpt-tests-block summary {
+    color: var(--wptheading-text);
+    font-weight: normal;
+    text-transform: uppercase;
+}
+.wpt-tests-block summary::marker{
+    color: var(--wpt-border);
+}
+.wpt-tests-block summary:hover::marker{
+    color: var(--wpt-text);
+}
+/*
+   The only content  of a wpt test block in its closed state is the <summary>,
+   which contains the word TESTS,
+   and that is absolutely positioned.
+   In that closed state, wpt test blocks are styled
+   to have a top margin whose height is exactly equal
+   to the height of the absolutely positioned <summary>,
+   and no other background/padding/margin/border.
+   The wpt test block elements will therefore allow the maring
+   of the previous/next block elements
+   to collapse through them;
+   if this combined margin would be larger than its own top margin,
+   it stays as is,
+   and therefore the pre-existing vertical rhythm of the document is undisturbed.
+   If that combined margin would be smaller, it is grown to that size.
+   This means that the wpt test block ensures
+   that there's always enough vertical space to insert the summary,
+   without adding more than is needed.
+*/
+.wpt-tests-block:not([open]){
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 0.75em;
+    line-height: 1;
+    position: relative;
+    margin: 1em 0 0;
+}
+.wpt-tests-block:not([open]) summary {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+/*
+   It is possible that both the last child of a block element
+   and the block element itself
+   would be annotated with a <wpt> block each.
+   If the block element has a padding or a border,
+   that's fine, but otherwise
+   the bottom margin of the block and of its last child would collapse
+   and both <wpt> elements would overlap, being both placed there.
+   To avoid that, add 1px of padding to the <wpt> element annotating the last child
+   to prevent the bottom margin of the block and of its last child from collapsing
+   (and as much negative margin,
+   as wel only want to prevent margin collapsing,
+   but are not trying to actually take more space).
+*/
+.wpt-tests-block:not([open]):last-child {
+    padding-bottom: 1px;
+    margin-bottom: -1px;
+}
+/*
+   Exception to the previous rule:
+   don't do that in non-last list items,
+   because it's not necessary,
+   and would therefore consume more space than strictly needed.
+   Lists must have list items as children, not <wpt> elements,
+   so a <wpt> element cannot be a sibling of a list item,
+   and the collision that the previous rule avoids cannot happen.
+*/
+li:not(:last-child) > .wpt-tests-block:not([open]):last-child,
+dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+.wpt-tests-block:not([open]):not(:hover){
+    opacity: 0.5;
+}
+.wpt-tests-list {
+    list-style: none;
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: 1fr max-content auto auto;
+    grid-column-gap: .5em;
+}
+.wpt-tests-block hr:last-child {
+    display: none;
+}
+.wpt-test {
+    display: contents;
+}
+.wpt-test > a {
+    text-decoration: underline;
+    border: none;
+}
+.wpt-test > .wpt-name { grid-column: 1; }
+.wpt-test > .wpt-results { grid-column: 2; }
+.wpt-test > .wpt-live { grid-column: 3; }
+.wpt-test > .wpt-source { grid-column: 4; }
+
+.wpt-test > .wpt-results {
+    display: flex;
+    gap: .1em;
+}
+.wpt-test .wpt-result {
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    border-radius: 50%;
+    position: relative;
+}
+</style>
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-06-01">1 June 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-06-22">22 June 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -293,6 +431,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       <dt class="editor">Editors:
       <dd class="editor p-author h-card vcard" data-editor-id="83784"><a class="p-name fn u-email email" href="mailto:rouslan@chromium.org">Rouslan Solomakhin</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
       <dd class="editor p-author h-card vcard" data-editor-id="96463"><a class="p-name fn u-email email" href="mailto:smcgruer@chromium.org">Stephen McGruer</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
+      <dt>Test Suite:
+      <dd class="wpt-overview"><a href="https://wpt.fyi/results/secure-payment-confirmation/">https://wpt.fyi/results/secure-payment-confirmation/</a>
      </dl>
     </div>
    </details>
@@ -762,6 +902,13 @@ be supported by the same underlying API.</p>
    </dl>
    <h2 class="heading settled" data-level="3" id="sctn-registration"><span class="secno">3. </span><span class="content">Registration</span><a class="self-link" href="#sctn-registration"></a></h2>
    <p>To register a user for Secure Payment Confirmation, relying parties should call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create">navigator.credentials.create()</a></code>, with the <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionsclientinputs-payment" id="ref-for-dom-authenticationextensionsclientinputs-payment">payment</a></code> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions①">WebAuthn Extension</a> specified.</p>
+   <details class="wpt-tests-block" dir="ltr" lang="en">
+    <summary>Tests</summary>
+    <ul class="wpt-tests-list">
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/enrollment.https.html" title="secure-payment-confirmation/enrollment.https.html">enrollment.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/enrollment.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/enrollment.https.html"><small>(source)</small></a>
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/enrollment-in-iframe.sub.https.html" title="secure-payment-confirmation/enrollment-in-iframe.sub.https.html">enrollment-in-iframe.sub.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/enrollment-in-iframe.sub.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/enrollment-in-iframe.sub.https.html"><small>(source)</small></a>
+    </ul>
+   </details>
    <p class="note" role="note"><span>Note:</span> In this specification we define an extension in order to allow (1)
       credential creation in a cross-origin iframe (which WebAuthn does not yet
       allow) and (2) the browser to cache SPC credentials in the absence of <a data-link-type="biblio" href="#biblio-webauthn-conditional-ui">Conditional UI</a>. If these capabilities are
@@ -777,6 +924,18 @@ representing the authentication ceremony.</p>
 allows a third-party (e.g., the merchant) to trigger an authentication ceremony
 on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑤">Relying Party</a>, passing in credentials that it has obtained
 from the Relying Party on some other unspecified channel. See <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
+   <details class="wpt-tests-block" dir="ltr" lang="en">
+    <summary>Tests</summary>
+    <p>This test file tests inherited behavior from the PaymentRequest
+            specification; that a user activation is required to call show()
+            (and thus to trigger SPC authentication). We test it explicitly for
+            SPC to make it clear that this behavior is desirable even if the
+            API shape for SPC changes in the future.</p>
+    <ul class="wpt-tests-list">
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-requires-user-activation.https.html" title="secure-payment-confirmation/authentication-requires-user-activation.https.html">authentication-requires-user-activation.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-requires-user-activation.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-requires-user-activation.https.html"><small>(source)</small></a>
+    </ul>
+    <hr>
+   </details>
    <h3 class="heading settled" data-level="4.1" id="sctn-payment-method-spc"><span class="secno">4.1. </span><span class="content">Payment Method: Secure Payment Confirmation</span><a class="self-link" href="#sctn-payment-method-spc"></a></h3>
    <p>This specification defines a new <a data-link-type="dfn" href="https://www.w3.org/TR/payment-request/#dfn-payment-handler" id="ref-for-dfn-payment-handler">payment handler</a>, the <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Secure Payment Confirmation payment handler" data-noexport id="secure-payment-confirmation-payment-handler">Secure Payment
 Confirmation payment handler</dfn>, which handles requests to authenticate a
@@ -851,6 +1010,15 @@ automatically.</p>
    <h4 class="heading settled" data-level="4.1.4" id="sctn-steps-to-check-if-a-payment-can-be-made"><span class="secno">4.1.4. </span><span class="content">Steps to check if a payment can be made</span><a class="self-link" href="#sctn-steps-to-check-if-a-payment-can-be-made"></a></h4>
    <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made" id="ref-for-dfn-steps-to-check-if-a-payment-can-be-made">steps to check if a payment can be made</a> for this payment method, for an
 input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest②">SecurePaymentConfirmationRequest</a></code> <var>data</var>, are:</p>
+   <details class="wpt-tests-block" dir="ltr" lang="en">
+    <summary>Tests</summary>
+    <ul class="wpt-tests-list">
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/constructor.https.html" title="secure-payment-confirmation/constructor.https.html">constructor.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/constructor.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/constructor.https.html"><small>(source)</small></a>
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-invalid-icon.https.html" title="secure-payment-confirmation/authentication-invalid-icon.https.html">authentication-invalid-icon.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-invalid-icon.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-invalid-icon.https.html"><small>(source)</small></a>
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-icon-data-url.https.html" title="secure-payment-confirmation/authentication-icon-data-url.https.html">authentication-icon-data-url.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-icon-data-url.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-icon-data-url.https.html"><small>(source)</small></a>
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-rejected.https.html" title="secure-payment-confirmation/authentication-rejected.https.html">authentication-rejected.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-rejected.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-rejected.https.html"><small>(source)</small></a>
+    </ul>
+   </details>
    <ol>
     <li data-md>
      <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids①">credentialIds</a></code>"] is empty,
@@ -1054,6 +1222,17 @@ behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#rely
 signed cryptogram.</p>
    <p>Notably, a website should not call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get" id="ref-for-dom-credentialscontainer-get">navigator.credentials.get()</a></code> with this extension
 directly; for authentication the extension can only be accessed via <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest②">PaymentRequest</a></code> with a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation③">secure-payment-confirmation</a>" payment method.</p>
+   <details class="wpt-tests-block" dir="ltr" lang="en">
+    <summary>Tests</summary>
+    <p>This test does not directly correspond to a spec line, but instead
+            tests that authentication can be triggered from inside a
+            cross-origin iframe. That behavior is specified by the lack of any
+            line forbidding it.</p>
+    <ul class="wpt-tests-list">
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-in-iframe.sub.https.html" title="secure-payment-confirmation/authentication-in-iframe.sub.https.html">authentication-in-iframe.sub.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-in-iframe.sub.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-in-iframe.sub.https.html"><small>(source)</small></a>
+    </ul>
+    <hr>
+   </details>
    <dl>
     <dt data-md>Extension identifier
     <dd data-md>
@@ -1127,6 +1306,12 @@ terminate this algorithm.</p>
           <li data-md>
            <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-consume-user-activation">Consume user activation</a> of the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global①">relevant global object</a>.</p>
          </ul>
+         <details class="wpt-tests-block" dir="ltr" lang="en">
+          <summary>Tests</summary>
+          <ul class="wpt-tests-list">
+           <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/enrollment-in-iframe.sub.https.html" title="secure-payment-confirmation/enrollment-in-iframe.sub.https.html">enrollment-in-iframe.sub.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/enrollment-in-iframe.sub.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/enrollment-in-iframe.sub.https.html"><small>(source)</small></a>
+          </ul>
+         </details>
        </ul>
        <p class="note" role="note"><span>Note:</span> This allows for creating SPC credentials in a cross-origin
  iframe, as long as the correct permission policy is set
@@ -1149,6 +1334,12 @@ terminate this algorithm.</p>
          <p class="note" role="note"><span>Note:</span> These values are hard-coded as that is what Chrome’s initial implementation
 supports. The current limitations may change. The Working Group invites implementers
 to share use cases that would benefit from support for other values.</p>
+         <details class="wpt-tests-block" dir="ltr" lang="en">
+          <summary>Tests</summary>
+          <ul class="wpt-tests-list">
+           <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/enrollment.https.html" title="secure-payment-confirmation/enrollment.https.html">enrollment.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/enrollment.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/enrollment.https.html"><small>(source)</small></a>
+          </ul>
+         </details>
        </ul>
      </ol>
     <dt data-md><dfn data-dfn-type="dfn" data-export id="client-extension-processing-authentication">Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension②">authentication</a>)<a class="self-link" href="#client-extension-processing-authentication"></a></dfn>
@@ -1158,6 +1349,12 @@ to share use cases that would benefit from support for other values.</p>
       <li data-md>
        <p>If not in a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation④">secure-payment-confirmation</a>" payment handler, return a
 "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code>.</p>
+       <details class="wpt-tests-block" dir="ltr" lang="en">
+        <summary>Tests</summary>
+        <ul class="wpt-tests-list">
+         <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-cannot-bypass-spc.https.html" title="secure-payment-confirmation/authentication-cannot-bypass-spc.https.html">authentication-cannot-bypass-spc.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-cannot-bypass-spc.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-cannot-bypass-spc.https.html"><small>(source)</small></a>
+        </ul>
+       </details>
        <p class="note" role="note"><span>Note:</span> This guards against websites trying to access the extended powers of
 SPC without going through <a href="#sctn-transaction-confirmation-ux">the
 transaction UX</a>.</p>
@@ -1166,7 +1363,15 @@ transaction UX</a>.</p>
        <ol>
         <li data-md>
          <p>Skip step 6.1, which compares <em>options.rpId</em> to <em>effectiveDomain</em></p>
-         <p class="note" role="note"><span>Note:</span> This enables cross-domain authentication ceremonies; see <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
+       </ol>
+       <details class="wpt-tests-block" dir="ltr" lang="en">
+        <summary>Tests</summary>
+        <ul class="wpt-tests-list">
+         <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-cross-origin.sub.https.html" title="secure-payment-confirmation/authentication-cross-origin.sub.https.html">authentication-cross-origin.sub.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-cross-origin.sub.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-cross-origin.sub.https.html"><small>(source)</small></a>
+        </ul>
+       </details>
+       <p class="note" role="note"><span>Note:</span> This enables cross-domain authentication ceremonies; see <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
+       <ol>
         <li data-md>
          <p>In step 9, instead of creating a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata①">CollectedClientData</a></code>, instead
 create a <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata①">CollectedClientPaymentData</a></code> with:</p>
@@ -1200,6 +1405,12 @@ if it is present, otherwise omitted.</p>
           <li data-md>
            <p>All other fields set as per the original step 9.</p>
          </ol>
+         <details class="wpt-tests-block" dir="ltr" lang="en">
+          <summary>Tests</summary>
+          <ul class="wpt-tests-list">
+           <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-accepted.https.html" title="secure-payment-confirmation/authentication-accepted.https.html">authentication-accepted.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-accepted.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-accepted.https.html"><small>(source)</small></a>
+          </ul>
+         </details>
        </ol>
      </ol>
     <dt data-md>Client extension output
@@ -1291,6 +1502,12 @@ request to succeed.</p>
    <h2 class="heading settled" data-level="7" id="sctn-permissions-policy"><span class="secno">7. </span><span class="content">Permissions Policy integration</span><a class="self-link" href="#sctn-permissions-policy"></a></h2>
    <p>This specification uses the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission①">payment</a>"
 policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-request">[payment-request]</a> to control access to <strong>both</strong> registration and authentication. This extends the <a href="https://www.w3.org/TR/webauthn-3/#sctn-permissions-policy">WebAuthn Permission Policy</a>.</p>
+   <details class="wpt-tests-block" dir="ltr" lang="en">
+    <summary>Tests</summary>
+    <ul class="wpt-tests-list">
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/enrollment-in-iframe.sub.https.html" title="secure-payment-confirmation/enrollment-in-iframe.sub.https.html">enrollment-in-iframe.sub.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/enrollment-in-iframe.sub.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/enrollment-in-iframe.sub.https.html"><small>(source)</small></a>
+    </ul>
+   </details>
    <p class="note" role="note"><span>Note:</span> Algorithms specified in <a data-link-type="biblio" href="#biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]</a> perform the actual
 permissions policy evaluation. This is because such policy evaluation needs to
 occur when there is access to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object" id="ref-for-current-settings-object">current settings object</a>. The <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot" id="ref-for-dom-publickeycredential-create-slot">[[Create]](origin, options, sameOriginWithAncestors)</a></code> and <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot" id="ref-for-dom-publickeycredential-discoverfromexternalsource-slot①">[[DiscoverFromExternalSource]](origin, options,
@@ -1610,7 +1827,15 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     and are set apart from the normative text
     with <code>class="note"</code>,
     like this: </p>
-   <p class="note" role="note">Note, this is an informative note. </p>
+   <p class="note" role="note">Note, this is an informative note.</p>
+   <details class="wpt-tests-block" dir="ltr" lang="en" open>
+    <summary>Tests</summary>
+    <p>Tests relating to the content of this specification
+                     may be documented in “Tests” blocks like this one.
+                     Any such block is non-normative.</p>
+    <ul class="wpt-tests-list"></ul>
+    <hr>
+   </details>
    <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
    <p>Requirements phrased in the imperative as part of algorithms
     (such as "strip any leading space characters"
@@ -2907,3 +3132,108 @@ document.body.addEventListener("click", function(e) {
 
 });
 </script>
+<script>/* script-wpt */
+let wptPath = "/secure-payment-confirmation/";
+"use strict";
+
+document.addEventListener("DOMContentLoaded", async ()=>{
+    if(wptPath == "/") return;
+
+    const runsUrl = "https://wpt.fyi/api/runs?label=master&label=stable&max-count=1&product=chrome&product=firefox&product=safari&product=edge";
+    const runs = await (await fetch(runsUrl)).json();
+
+    const testResults = await( await fetch("https://wpt.fyi/api/search", {
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify({
+            "run_ids": runs.map(x=>x.id),
+            "query": {"path": wptPath},
+        })
+    })).json();
+
+    const browsers = runs.map(x=>({name:x.browser_name, version:x.browser_version, passes:0, total: 0}));
+    const resultsFromPath = new Map(testResults.results.map(result=>{
+        const testPath = result.test;
+        const passes = result.legacy_status.map(x=>[x.passes, x.total]);
+        return [testPath, passes];
+    }));
+    document.querySelectorAll(".wpt-name").forEach(nameEl=>{
+        const passData = resultsFromPath.get("/" + nameEl.getAttribute("title"));
+        const numTests = passData[0][1];
+        if(numTests > 1) {
+            nameEl.insertAdjacentElement("beforeend",
+                el("small", {}, ` (${numTests} tests)`));
+        }
+        if(passData == undefined) return;
+        passData.forEach((p,i) => {
+            browsers[i].passes += p[0];
+            browsers[i].total += p[1];
+        })
+        const resultsEl = el("span",{"class":"wpt-results"},
+            ...passData.map((p,i) => el("span",
+            {
+                "title": `${browsers[i].name} ${p[0]}/${p[1]}`,
+                "class": "wpt-result",
+                "style": `background: conic-gradient(forestgreen ${p[0]/p[1]*360}deg, darkred 0deg);`,
+            })),
+        );
+        nameEl.insertAdjacentElement("afterend", resultsEl);
+    });
+    const overview = document.querySelector(".wpt-overview");
+    if(overview) {
+        overview.appendChild(el('ul',{}, ...browsers.map(formatWptResult)));
+        document.head.appendChild(el('style', {},
+            `.wpt-overview ul { display: flex; flex-flow: row wrap; gap: .2em; justify-content: start; list-style: none; padding: 0; margin: 0;}
+             .wpt-overview li { padding: .25em 1em; color: black; text-align: center; }
+             .wpt-overview img { height: 1.5em; height: max(1.5em, 32px); background: transparent; }
+             .wpt-overview .browser { font-weight: bold; }
+             .wpt-overview .passes-none { background: #e57373; }
+             .wpt-overview .passes-hardly { background: #ffb74d; }
+             .wpt-overview .passes-a-few { background: #ffd54f; }
+             .wpt-overview .passes-half { background: #fff176; }
+             .wpt-overview .passes-lots { background: #dce775; }
+             .wpt-overview .passes-most { background: #aed581; }
+             .wpt-overview .passes-all { background: #81c784; }`));
+    }
+});
+function el(name, attrs, ...content) {
+    const x = document.createElement(name);
+    for(const [k,v] of Object.entries(attrs)) {
+        x.setAttribute(k, v);
+    }
+    for(let child of content) {
+        if(typeof child == "string") child = document.createTextNode(child);
+        try {
+        x.appendChild(child);
+        } catch(e) { console.log({x, child}); }
+    }
+    return x;
+}
+function formatWptResult({name, version, passes, total}) {
+    const passRate = passes/total;
+    let passClass = "";
+    if(passRate == 0)      passClass = "passes-none";
+    else if(passRate < .2) passClass = "passes-hardly";
+    else if(passRate < .4) passClass = "passes-a-few";
+    else if(passRate < .6) passClass = "passes-half";
+    else if(passRate < .8) passClass = "passes-lots";
+    else if(passRate < 1)  passClass = "passes-most";
+    else                   passClass = "passes-all";
+
+    name = name[0].toUpperCase() + name.slice(1);
+    const shortVersion = /^\d+/.exec(version);
+    const icon = []
+
+    if(name == "Chrome") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/chrome-dev_64x64.png"}));
+    if(name == "Edge") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/edge-dev_64x64.png"}));
+    if(name == "Safari") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/safari-preview_64x64.png"}));
+    if(name == "Firefox") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/firefox-nightly_64x64.png"}));
+
+    return el('li', {"class":passClass},
+        el('nobr', {'class':'browser'}, ...icon, ` ${name} ${shortVersion}`),
+        el('br', {}),
+        el('nobr', {'class':'pass-rate'}, `${passes}/${total}`)
+    );
+}</script>

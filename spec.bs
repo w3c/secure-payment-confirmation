@@ -19,6 +19,8 @@ Abstract: Secure Payment Confirmation (SPC) is a Web API to support streamlined
 Complain About: missing-example-ids true
 Local Boilerplate: status yes
 Markup Shorthands: markdown yes
+WPT Display: closed
+WPT Path Prefix: /secure-payment-confirmation/
 </pre>
 
 <pre class="anchors">
@@ -462,6 +464,11 @@ To register a user for Secure Payment Confirmation, relying parties should call
 {{AuthenticationExtensionsClientInputs/payment}} [=WebAuthn Extension=]
 specified.
 
+<wpt>
+  enrollment.https.html
+  enrollment-in-iframe.sub.https.html
+</wpt>
+
 Note: In this specification we define an extension in order to allow (1)
       credential creation in a cross-origin iframe (which WebAuthn does not yet
       allow) and (2) the browser to cache SPC credentials in the absence of
@@ -484,6 +491,14 @@ allows a third-party (e.g., the merchant) to trigger an authentication ceremony
 on behalf of the [=Relying Party=], passing in credentials that it has obtained
 from the Relying Party on some other unspecified channel. See
 [[#sctn-use-case-merchant-authentication]].
+
+<wpt title="This test file tests inherited behavior from the PaymentRequest
+            specification; that a user activation is required to call show()
+            (and thus to trigger SPC authentication). We test it explicitly for
+            SPC to make it clear that this behavior is desirable even if the
+            API shape for SPC changes in the future.">
+  authentication-requires-user-activation.https.html
+</wpt>
 
 ## Payment Method: Secure Payment Confirmation ## {#sctn-payment-method-spc}
 
@@ -577,6 +592,14 @@ members:
 
 The [=steps to check if a payment can be made=] for this payment method, for an
 input {{SecurePaymentConfirmationRequest}} |data|, are:
+
+<wpt>
+  constructor.https.html
+  authentication-invalid-icon.https.html
+  authentication-icon-data-url.https.html
+  authentication-rejected.https.html
+</wpt>
+
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
     return `false`.
@@ -785,6 +808,13 @@ Notably, a website should not call
 directly; for authentication the extension can only be accessed via
 {{PaymentRequest}} with a "[=secure-payment-confirmation=]" payment method.
 
+<wpt title="This test does not directly correspond to a spec line, but instead
+            tests that authentication can be triggered from inside a
+            cross-origin iframe. That behavior is specified by the lack of any
+            line forbidding it.">
+  authentication-in-iframe.sub.https.html
+</wpt>
+
 :  Extension identifier
 :: `payment`
 
@@ -857,6 +887,10 @@ directly; for authentication the extension can only be accessed via
 
             * [=Consume user activation=] of the [=relevant global object=].
 
+            <wpt>
+              enrollment-in-iframe.sub.https.html
+            </wpt>
+
          Note: This allows for creating SPC credentials in a cross-origin
          iframe, as long as the correct permission policy is set
          (see [[#sctn-permissions-policy]]). A [=transient activation=] is
@@ -877,12 +911,20 @@ directly; for authentication the extension can only be accessed via
             supports. The current limitations may change. The Working Group invites implementers
             to share use cases that would benefit from support for other values.
 
+            <wpt>
+              enrollment.https.html
+            </wpt>
+
 :  <dfn export>Client extension processing ([=authentication extension|authentication=])</dfn>
 :: When [[webauthn-3#sctn-getAssertion|making an assertion]] with a
     {{AuthenticationExtensionsPaymentInputs}} |extension_inputs|:
 
     1. If not in a "[=secure-payment-confirmation=]" payment handler, return a
         "{{NotAllowedError}}" {{DOMException}}.
+
+        <wpt>
+          authentication-cannot-bypass-spc.https.html
+        </wpt>
 
         Note: This guards against websites trying to access the extended powers of
         SPC without going through [[#sctn-transaction-confirmation-ux|the
@@ -891,6 +933,10 @@ directly; for authentication the extension can only be accessed via
     1. During {{PublicKeyCredential/[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)}}:
 
         1. Skip step 6.1, which compares *options.rpId* to *effectiveDomain*
+
+           <wpt>
+             authentication-cross-origin.sub.https.html
+           </wpt>
 
             Note: This enables cross-domain authentication ceremonies; see
                   [[#sctn-use-case-merchant-authentication]].
@@ -918,6 +964,10 @@ directly; for authentication the extension can only be accessed via
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/instrument}}"]
 
             1. All other fields set as per the original step 9.
+
+            <wpt>
+              authentication-accepted.https.html
+            </wpt>
 
 :  Client extension output
 :: None
@@ -1029,6 +1079,10 @@ This specification uses the "[=payment permission string|payment=]"
 policy-identifier string from [[payment-request]] to control access to **both**
 registration and authentication. This extends the
 [[webauthn-3#sctn-permissions-policy|WebAuthn Permission Policy]].
+
+<wpt>
+enrollment-in-iframe.sub.https.html
+</wpt>
 
 Note: Algorithms specified in [[!CREDENTIAL-MANAGEMENT-1]] perform the actual
 permissions policy evaluation. This is because such policy evaluation needs to

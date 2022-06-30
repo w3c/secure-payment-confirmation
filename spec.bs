@@ -588,21 +588,28 @@ members:
         automatically.
 </dl>
 
-### Steps to check if a payment can be made ### {#sctn-steps-to-check-if-a-payment-can-be-made}
+### Payment Method additional data type ### {#sctn-payment-method-additional-data-type}
 
-The [=steps to check if a payment can be made=] for this payment method, for an
+The `payment method additional data type` for this payment method is {{SecurePaymentConfirmationRequest}}.
+
+NOTE: **TODO**: Link to PaymentRequest spec concept before landing this PR.
+
+### Steps to validate payment method data ### {#sctn-steps-to-validate-payment-method-data}
+
+The `steps to validate payment method data` for this payment method, for an
 input {{SecurePaymentConfirmationRequest}} |data|, are:
+
+NOTE: **TODO**: Link to PaymentRequest spec concept before landing this PR.
 
 <wpt>
   constructor.https.html
-  authentication-invalid-icon.https.html
-  authentication-icon-data-url.https.html
-  authentication-rejected.https.html
 </wpt>
-
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
     return `false`.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/challenge}}"] is null or
+    empty, return `false`.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not a
     [=valid domain=], return `false`.
@@ -624,11 +631,36 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
     1. If |parsedURL|'s [=url/scheme=] is not "`https`", then return `false`.
 
-    1. Set |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] to the
-        [=serialization of an origin|serialization of=] |parsedURL|'s [=url/origin=].
-
 1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
     is empty, return `false`.
+
+### Steps to check if a payment can be made ### {#sctn-steps-to-check-if-a-payment-can-be-made}
+
+The [=steps to check if a payment can be made=] for this payment method, for an
+input {{SecurePaymentConfirmationRequest}} |data|, are:
+
+<wpt>
+  constructor.https.html
+  authentication-invalid-icon.https.html
+  authentication-icon-data-url.https.html
+  authentication-rejected.https.html
+</wpt>
+
+1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present:
+
+    1. Let |parsedURL| be the result of running the [=URL parser=] on
+        |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
+
+    1. Assert that |parsedURL| is not failure.
+
+    1. Assert that |parsedURL|'s [=url/scheme=] is "`https`".
+
+       NOTE: These pre-conditions were previously checked in the
+       [[#sctn-steps-to-validate-payment-method-data|steps to validate payment
+       method data]].
+
+    1. Set |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] to the
+        [=serialization of an origin|serialization of=] |parsedURL|'s [=url/origin=].
 
 1. [=fetch an image resource|Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
     |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]]»

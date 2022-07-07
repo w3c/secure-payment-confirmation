@@ -607,8 +607,18 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
     throw a {{RangeError}}.
 
+1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
+
+    1. If |id| is empty, throw a {{RangeError}}.
+
 1. If |data|["{{SecurePaymentConfirmationRequest/challenge}}"] is null or
     empty, throw a {{TypeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
+    is empty, throw a {{TypeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]
+    is empty, throw a {{TypeError}}.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not a
     [=valid domain=], throw a {{TypeError}}.
@@ -629,9 +639,6 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
     1. If |parsedURL| is failure, then throw a {{TypeError}}.
 
     1. If |parsedURL|'s [=url/scheme=] is not "`https`", then throw a {{TypeError}}.
-
-1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
-    is empty, throw a {{TypeError}}.
 
 ### Steps to check if a payment can be made ### {#sctn-steps-to-check-if-a-payment-can-be-made}
 

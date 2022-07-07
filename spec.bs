@@ -620,6 +620,10 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]
     is empty, throw a {{TypeError}}.
 
+1. Run the URL parser on data["{{SecurePaymentConfirmationRequest/instrument}}"]
+    ["{{PaymentCredentialInstrument/icon}}"]. If this returns failure, throw a
+    {{TypeError}}.
+
 1. If |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not a
     [=valid domain=], throw a {{TypeError}}.
 

@@ -38,7 +38,9 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
 spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
     type: dfn
         text: payment method; url: dfn-payment-method
+        text: payment method additional data type; url: dfn-additional-data-type
         text: payment request details; url: dfn-details
+        text: steps to validate payment method data; url: dfn-steps-to-validate-payment-method-data
         text: steps to check if a payment can be made; url: dfn-steps-to-check-if-a-payment-can-be-made
         text: steps to respond to a payment request; url: dfn-steps-to-respond-to-a-payment-request
         text: payment permission string; url: dfn-payment-permission
@@ -588,6 +590,60 @@ members:
         automatically.
 </dl>
 
+### Payment Method additional data type ### {#sctn-payment-method-additional-data-type}
+
+The [=payment method additional data type=] for this payment method is
+{{SecurePaymentConfirmationRequest}}.
+
+### Steps to validate payment method data ### {#sctn-steps-to-validate-payment-method-data}
+
+The [=steps to validate payment method data=] for this payment method, for an
+input {{SecurePaymentConfirmationRequest}} |data|, are:
+
+<wpt>
+  constructor.https.html
+</wpt>
+
+1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
+    throw a {{RangeError}}.
+
+1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
+
+    1. If |id| is empty, throw a {{RangeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/challenge}}"] is null or
+    empty, throw a {{TypeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
+    is empty, throw a {{TypeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]
+    is empty, throw a {{TypeError}}.
+
+1. Run the URL parser on data["{{SecurePaymentConfirmationRequest/instrument}}"]
+    ["{{PaymentCredentialInstrument/icon}}"]. If this returns failure, throw a
+    {{TypeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not a
+    [=valid domain=], throw a {{TypeError}}.
+
+1. If both |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] and
+    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] are omitted,
+    throw a {{TypeError}}.
+
+1. If either of |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] or
+    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present and
+    empty, throw a {{TypeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present:
+
+    1. Let |parsedURL| be the result of running the [=URL parser=] on
+        |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
+
+    1. If |parsedURL| is failure, then throw a {{TypeError}}.
+
+    1. If |parsedURL|'s [=url/scheme=] is not "`https`", then throw a {{TypeError}}.
+
 ### Steps to check if a payment can be made ### {#sctn-steps-to-check-if-a-payment-can-be-made}
 
 The [=steps to check if a payment can be made=] for this payment method, for an
@@ -600,35 +656,21 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
   authentication-rejected.https.html
 </wpt>
 
-
-1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
-    return `false`.
-
-1. If |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not a
-    [=valid domain=], return `false`.
-
-1. If both |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] and
-    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] are omitted,
-    return `false`.
-
-1. If either of |data|["{{SecurePaymentConfirmationRequest/payeeName}}"] or
-    |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present and
-    empty, return `false`.
-
 1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present:
 
     1. Let |parsedURL| be the result of running the [=URL parser=] on
         |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"].
 
-    1. If |parsedURL| is failure, then return `false`.
+    1. Assert that |parsedURL| is not failure.
 
-    1. If |parsedURL|'s [=url/scheme=] is not "`https`", then return `false`.
+    1. Assert that |parsedURL|'s [=url/scheme=] is "`https`".
+
+       NOTE: These pre-conditions were previously checked in the
+       [[#sctn-steps-to-validate-payment-method-data|steps to validate payment
+       method data]].
 
     1. Set |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] to the
         [=serialization of an origin|serialization of=] |parsedURL|'s [=url/origin=].
-
-1. If |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/displayName}}"]
-    is empty, return `false`.
 
 1. [=fetch an image resource|Fetch the image resource=] for the icon, passing «["{{ImageResource/src}}" →
     |data|["{{SecurePaymentConfirmationRequest/instrument}}"]["{{PaymentCredentialInstrument/icon}}"]]»

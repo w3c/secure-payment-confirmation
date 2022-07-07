@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 37b7e7e68, updated Fri May 27 15:08:11 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="12f96d52cd7c209d97e49e79c5e8f4b3e6de5962" name="document-revision">
+  <meta content="d002a0f23fdfce63d3e9760bc437f974f35ce909" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -417,7 +417,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-06-22">22 June 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-07-07">7 July 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -498,9 +498,11 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
         <li><a href="#sctn-payment-method-identifier"><span class="secno">4.1.1</span> <span class="content">Payment Method Identifier</span></a>
         <li><a href="#sctn-monkey-patch-payment-method-id"><span class="secno">4.1.2</span> <span class="content">Monkey-patch to <span>[payment-method-id]</span></span></a>
         <li><a href="#sctn-securepaymentconfirmationrequest-dictionary"><span class="secno">4.1.3</span> <span class="content"><span><code>SecurePaymentConfirmationRequest</code></span> Dictionary</span></a>
-        <li><a href="#sctn-steps-to-check-if-a-payment-can-be-made"><span class="secno">4.1.4</span> <span class="content">Steps to check if a payment can be made</span></a>
-        <li><a href="#sctn-transaction-confirmation-ux"><span class="secno">4.1.5</span> <span class="content">Displaying a transaction confirmation UX</span></a>
-        <li><a href="#sctn-steps-to-respond-to-a-payment-request"><span class="secno">4.1.6</span> <span class="content">Steps to respond to a payment request</span></a>
+        <li><a href="#sctn-payment-method-additional-data-type"><span class="secno">4.1.4</span> <span class="content">Payment Method additional data type</span></a>
+        <li><a href="#sctn-steps-to-validate-payment-method-data"><span class="secno">4.1.5</span> <span class="content">Steps to validate payment method data</span></a>
+        <li><a href="#sctn-steps-to-check-if-a-payment-can-be-made"><span class="secno">4.1.6</span> <span class="content">Steps to check if a payment can be made</span></a>
+        <li><a href="#sctn-transaction-confirmation-ux"><span class="secno">4.1.7</span> <span class="content">Displaying a transaction confirmation UX</span></a>
+        <li><a href="#sctn-steps-to-respond-to-a-payment-request"><span class="secno">4.1.8</span> <span class="content">Steps to respond to a payment request</span></a>
        </ol>
      </ol>
     <li>
@@ -1007,9 +1009,61 @@ merchant). Optional, may be provided alongside or instead of <code class="idl"><
 credential(s). The caller does not need to specify the <a href="#sctn-payment-extension-registration"> payment extension</a>; it is added
 automatically.</p>
    </dl>
-   <h4 class="heading settled" data-level="4.1.4" id="sctn-steps-to-check-if-a-payment-can-be-made"><span class="secno">4.1.4. </span><span class="content">Steps to check if a payment can be made</span><a class="self-link" href="#sctn-steps-to-check-if-a-payment-can-be-made"></a></h4>
+   <h4 class="heading settled" data-level="4.1.4" id="sctn-payment-method-additional-data-type"><span class="secno">4.1.4. </span><span class="content">Payment Method additional data type</span><a class="self-link" href="#sctn-payment-method-additional-data-type"></a></h4>
+   <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-additional-data-type" id="ref-for-dfn-additional-data-type">payment method additional data type</a> for this payment method is <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest②">SecurePaymentConfirmationRequest</a></code>.</p>
+   <h4 class="heading settled" data-level="4.1.5" id="sctn-steps-to-validate-payment-method-data"><span class="secno">4.1.5. </span><span class="content">Steps to validate payment method data</span><a class="self-link" href="#sctn-steps-to-validate-payment-method-data"></a></h4>
+   <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data" id="ref-for-dfn-steps-to-validate-payment-method-data">steps to validate payment method data</a> for this payment method, for an
+input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest③">SecurePaymentConfirmationRequest</a></code> <var>data</var>, are:</p>
+   <details class="wpt-tests-block" dir="ltr" lang="en">
+    <summary>Tests</summary>
+    <ul class="wpt-tests-list">
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/constructor.https.html" title="secure-payment-confirmation/constructor.https.html">constructor.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/constructor.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/constructor.https.html"><small>(source)</small></a>
+    </ul>
+   </details>
+   <ol>
+    <li data-md>
+     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids①">credentialIds</a></code>"] is empty,
+throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror" id="ref-for-exceptiondef-rangeerror">RangeError</a></code>.</p>
+    <li data-md>
+     <p>For each <var>id</var> in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids②">credentialIds</a></code>"]:</p>
+     <ol>
+      <li data-md>
+       <p>If <var>id</var> is empty, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror" id="ref-for-exceptiondef-rangeerror①">RangeError</a></code>.</p>
+     </ol>
+    <li data-md>
+     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-challenge" id="ref-for-dom-securepaymentconfirmationrequest-challenge①">challenge</a></code>"] is null or
+empty, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code>.</p>
+    <li data-md>
+     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument①">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname">displayName</a></code>"]
+is empty, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror①">TypeError</a></code>.</p>
+    <li data-md>
+     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument②">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon">icon</a></code>"]
+is empty, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror②">TypeError</a></code>.</p>
+    <li data-md>
+     <p>Run the URL parser on data["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument③">instrument</a></code>"]
+["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon①">icon</a></code>"]. If this returns failure, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror③">TypeError</a></code>.</p>
+    <li data-md>
+     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid①">rpId</a></code>"] is not a <a data-link-type="dfn" href="https://url.spec.whatwg.org/#valid-domain" id="ref-for-valid-domain">valid domain</a>, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror④">TypeError</a></code>.</p>
+    <li data-md>
+     <p>If both <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeename" id="ref-for-dom-securepaymentconfirmationrequest-payeename②">payeeName</a></code>"] and <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">payeeOrigin</a></code>"] are omitted,
+throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror⑤">TypeError</a></code>.</p>
+    <li data-md>
+     <p>If either of <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeename" id="ref-for-dom-securepaymentconfirmationrequest-payeename③">payeeName</a></code>"] or <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin③">payeeOrigin</a></code>"] is present and
+empty, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror⑥">TypeError</a></code>.</p>
+    <li data-md>
+     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin④">payeeOrigin</a></code>"] is present:</p>
+     <ol>
+      <li data-md>
+       <p>Let <var>parsedURL</var> be the result of running the <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-parser" id="ref-for-concept-url-parser">URL parser</a> on <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑤">payeeOrigin</a></code>"].</p>
+      <li data-md>
+       <p>If <var>parsedURL</var> is failure, then throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror⑦">TypeError</a></code>.</p>
+      <li data-md>
+       <p>If <var>parsedURL</var>’s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-scheme" id="ref-for-concept-url-scheme">scheme</a> is not "<code>https</code>", then throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror⑧">TypeError</a></code>.</p>
+     </ol>
+   </ol>
+   <h4 class="heading settled" data-level="4.1.6" id="sctn-steps-to-check-if-a-payment-can-be-made"><span class="secno">4.1.6. </span><span class="content">Steps to check if a payment can be made</span><a class="self-link" href="#sctn-steps-to-check-if-a-payment-can-be-made"></a></h4>
    <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made" id="ref-for-dfn-steps-to-check-if-a-payment-can-be-made">steps to check if a payment can be made</a> for this payment method, for an
-input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest②">SecurePaymentConfirmationRequest</a></code> <var>data</var>, are:</p>
+input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest④">SecurePaymentConfirmationRequest</a></code> <var>data</var>, are:</p>
    <details class="wpt-tests-block" dir="ltr" lang="en">
     <summary>Tests</summary>
     <ul class="wpt-tests-list">
@@ -1021,40 +1075,30 @@ input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconf
    </details>
    <ol>
     <li data-md>
-     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids①">credentialIds</a></code>"] is empty,
-return <code>false</code>.</p>
-    <li data-md>
-     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid①">rpId</a></code>"] is not a <a data-link-type="dfn" href="https://url.spec.whatwg.org/#valid-domain" id="ref-for-valid-domain">valid domain</a>, return <code>false</code>.</p>
-    <li data-md>
-     <p>If both <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeename" id="ref-for-dom-securepaymentconfirmationrequest-payeename②">payeeName</a></code>"] and <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">payeeOrigin</a></code>"] are omitted,
-return <code>false</code>.</p>
-    <li data-md>
-     <p>If either of <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeename" id="ref-for-dom-securepaymentconfirmationrequest-payeename③">payeeName</a></code>"] or <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin③">payeeOrigin</a></code>"] is present and
-empty, return <code>false</code>.</p>
-    <li data-md>
-     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin④">payeeOrigin</a></code>"] is present:</p>
+     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑥">payeeOrigin</a></code>"] is present:</p>
      <ol>
       <li data-md>
-       <p>Let <var>parsedURL</var> be the result of running the <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-parser" id="ref-for-concept-url-parser">URL parser</a> on <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑤">payeeOrigin</a></code>"].</p>
+       <p>Let <var>parsedURL</var> be the result of running the <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-parser" id="ref-for-concept-url-parser①">URL parser</a> on <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑦">payeeOrigin</a></code>"].</p>
       <li data-md>
-       <p>If <var>parsedURL</var> is failure, then return <code>false</code>.</p>
+       <p>Assert that <var>parsedURL</var> is not failure.</p>
       <li data-md>
-       <p>If <var>parsedURL</var>’s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-scheme" id="ref-for-concept-url-scheme">scheme</a> is not "<code>https</code>", then return <code>false</code>.</p>
+       <p>Assert that <var>parsedURL</var>’s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-scheme" id="ref-for-concept-url-scheme①">scheme</a> is "<code>https</code>".</p>
+     </ol>
+     <p class="note" role="note"><span>NOTE:</span> These pre-conditions were previously checked in the <a href="#sctn-steps-to-validate-payment-method-data">steps to validate payment
+   method data</a>.</p>
+     <ol>
       <li data-md>
-       <p>Set <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑥">payeeOrigin</a></code>"] to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin" id="ref-for-ascii-serialisation-of-an-origin">serialization of</a> <var>parsedURL</var>’s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-origin" id="ref-for-concept-url-origin">origin</a>.</p>
+       <p>Set <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑧">payeeOrigin</a></code>"] to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin" id="ref-for-ascii-serialisation-of-an-origin">serialization of</a> <var>parsedURL</var>’s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-origin" id="ref-for-concept-url-origin">origin</a>.</p>
      </ol>
     <li data-md>
-     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument①">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname">displayName</a></code>"]
-is empty, return <code>false</code>.</p>
-    <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource" id="ref-for-dfn-fetching-an-image-resource">Fetch the image resource</a> for the icon, passing «["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-dom-imageresource-src">src</a></code>" → <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument②">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon">icon</a></code>"]]»
+     <p><a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource" id="ref-for-dfn-fetching-an-image-resource">Fetch the image resource</a> for the icon, passing «["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-dom-imageresource-src">src</a></code>" → <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument④">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon②">icon</a></code>"]]»
 for <em>image</em>. If this fails:</p>
      <ol>
       <li data-md>
-       <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument③">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-iconmustbeshown" id="ref-for-dom-paymentcredentialinstrument-iconmustbeshown">iconMustBeShown</a></code>"]
+       <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument⑤">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-iconmustbeshown" id="ref-for-dom-paymentcredentialinstrument-iconmustbeshown">iconMustBeShown</a></code>"]
 is <code>true</code>, then return <code>false</code>.</p>
       <li data-md>
-       <p>Otherwise, set <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument④">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon①">icon</a></code>"]
+       <p>Otherwise, set <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument⑥">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon③">icon</a></code>"]
 to an empty string.</p>
        <p class="note" role="note"><span>Note:</span> This lets the RP know that the specified icon was not shown, as the output <code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument">instrument</a></code> will have an empty icon
 string.</p>
@@ -1063,16 +1107,16 @@ string.</p>
 matches, to defeat attempts to <a href="#sctn-privacy-probing-credential-ids">probe
 for credential existence</a>.</p>
     <li data-md>
-     <p>For each <var>id</var> in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids②">credentialIds</a></code>"]:</p>
+     <p>For each <var>id</var> in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids③">credentialIds</a></code>"]:</p>
      <ol>
       <li data-md>
        <p>Run the <a data-link-type="dfn" href="#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device" id="ref-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">steps to silently determine if a credential is available for
 the current device</a> and the <a data-link-type="dfn" href="#steps-to-silently-determine-if-a-credential-is-spc-enabled" id="ref-for-steps-to-silently-determine-if-a-credential-is-spc-enabled">steps to silently determine if a
 credential is SPC-enabled</a>, passing in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid②">rpId</a></code>"] and <var>id</var>. If the
-result of either of these is <code>false</code>, remove <var>id</var> from <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids③">credentialIds</a></code>"].</p>
+result of either of these is <code>false</code>, remove <var>id</var> from <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids④">credentialIds</a></code>"].</p>
      </ol>
     <li data-md>
-     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids④">credentialIds</a></code>"] is now empty,
+     <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑤">credentialIds</a></code>"] is now empty,
 return <code>false</code>. The user agent must maintain <a href="#sctn-privacy-probing-credential-ids">authentication ceremony privacy</a> and not leak this lack of matching credentials to the caller, by:</p>
      <ol>
       <li data-md>
@@ -1087,7 +1131,7 @@ with.</p>
     <li data-md>
      <p>Return <code>true</code>.</p>
    </ol>
-   <h4 class="heading settled" data-level="4.1.5" id="sctn-transaction-confirmation-ux"><span class="secno">4.1.5. </span><span class="content">Displaying a transaction confirmation UX</span><a class="self-link" href="#sctn-transaction-confirmation-ux"></a></h4>
+   <h4 class="heading settled" data-level="4.1.7" id="sctn-transaction-confirmation-ux"><span class="secno">4.1.7. </span><span class="content">Displaying a transaction confirmation UX</span><a class="self-link" href="#sctn-transaction-confirmation-ux"></a></h4>
    <p>To avoid restricting User Agent implementation choice, this specification does
 not require a User Agent to display a particular user interface when <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show①">PaymentRequest.show()</a></code> is called and the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler①">Secure
 Payment Confirmation payment handler</a> is selected. However, so that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑥">Relying Party</a> can trust the information included in <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a></code>, the User Agent MUST ensure that the following
@@ -1103,8 +1147,8 @@ authentication:</p>
 transaction.</p>
     <li data-md>
      <p>The <code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument①">instrument</a></code> details, that is the
-payment instrument <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname①">displayName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon②">icon</a></code>. If an image resource could not be
-fetched or decoded from the input <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon③">icon</a></code>,
+payment instrument <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname①">displayName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon④">icon</a></code>. If an image resource could not be
+fetched or decoded from the input <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑤">icon</a></code>,
 then the User Agent may show no icon or a generic payment instrument
 icon in its place.</p>
      <p class="note" role="note"><span>NOTE:</span> If the specified icon could not be fetched or decoded, then <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-iconmustbeshown" id="ref-for-dom-paymentcredentialinstrument-iconmustbeshown①">iconMustBeShown</a></code> must be <code>false</code> here as
@@ -1127,8 +1171,8 @@ the authentication.</p>
      <p>Act as if the user has seen the transaction details and rejected
 the authentication.</p>
    </dl>
-   <h4 class="heading settled" data-level="4.1.6" id="sctn-steps-to-respond-to-a-payment-request"><span class="secno">4.1.6. </span><span class="content">Steps to respond to a payment request</span><a class="self-link" href="#sctn-steps-to-respond-to-a-payment-request"></a></h4>
-   <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request" id="ref-for-dfn-steps-to-respond-to-a-payment-request">steps to respond to a payment request</a> for this payment method, for a given <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest①">PaymentRequest</a></code> <var>request</var> and <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest③">SecurePaymentConfirmationRequest</a></code> <var>data</var>, are:</p>
+   <h4 class="heading settled" data-level="4.1.8" id="sctn-steps-to-respond-to-a-payment-request"><span class="secno">4.1.8. </span><span class="content">Steps to respond to a payment request</span><a class="self-link" href="#sctn-steps-to-respond-to-a-payment-request"></a></h4>
+   <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request" id="ref-for-dfn-steps-to-respond-to-a-payment-request">steps to respond to a payment request</a> for this payment method, for a given <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest①">PaymentRequest</a></code> <var>request</var> and <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest⑤">SecurePaymentConfirmationRequest</a></code> <var>data</var>, are:</p>
    <ol>
     <li data-md>
      <p>Let <var>topOrigin</var> be the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-environment-top-level-origin" id="ref-for-concept-environment-top-level-origin">top-level origin</a> of the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object">relevant settings object</a> of <var>request</var>.</p>
@@ -1151,14 +1195,14 @@ whose fields are:</p>
 present, otherwise omitted.</p>
       <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">payeeOrigin</a></code>
       <dd data-md>
-       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑦">payeeOrigin</a></code>"] if it is
+       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑨">payeeOrigin</a></code>"] if it is
 present, otherwise omitted.</p>
       <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total">total</a></code>
       <dd data-md>
        <p><var>request</var>.<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-details" id="ref-for-dfn-details">[[details]]</a>["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total" id="ref-for-dom-paymentdetailsinit-total">total</a></code>"]</p>
       <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument">instrument</a></code>
       <dd data-md>
-       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument⑤">instrument</a></code>"]</p>
+       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument⑦">instrument</a></code>"]</p>
      </dl>
     <li data-md>
      <p>Let <var>extensions</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs②">AuthenticationExtensionsClientInputs</a></code> dictionary
@@ -1168,7 +1212,7 @@ whose <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensi
      <dl>
       <dt data-md><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge" id="ref-for-dom-publickeycredentialrequestoptions-challenge①">challenge</a></code>
       <dd data-md>
-       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-challenge" id="ref-for-dom-securepaymentconfirmationrequest-challenge①">challenge</a></code>"]</p>
+       <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-challenge" id="ref-for-dom-securepaymentconfirmationrequest-challenge②">challenge</a></code>"]</p>
       <dt data-md><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout" id="ref-for-dom-publickeycredentialrequestoptions-timeout">timeout</a></code>
       <dd data-md>
        <p><var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-timeout" id="ref-for-dom-securepaymentconfirmationrequest-timeout①">timeout</a></code>"]</p>
@@ -1184,7 +1228,7 @@ whose <code class="idl"><a data-link-type="idl" href="#dom-authenticationextensi
      </dl>
      <p class="note" role="note"><span>Note:</span> This algorithm hard-codes "required" as the value for <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification" id="ref-for-dom-publickeycredentialrequestoptions-userverification①">userVerification</a></code>, because that is what Chrome’s initial implementation supports. The current limitations may change. The Working Group invites implementers to share use cases that would benefit from support for other values (e.g., "preferred" or "discouraged").</p>
     <li data-md>
-     <p>For each <var>id</var> in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑤">credentialIds</a></code>"]:</p>
+     <p>For each <var>id</var> in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑥">credentialIds</a></code>"]:</p>
      <ol>
       <li data-md>
        <p>Let <var>descriptor</var> be a new <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor" id="ref-for-dictdef-publickeycredentialdescriptor">PublicKeyCredentialDescriptor</a></code> dictionary,
@@ -1330,7 +1374,7 @@ terminate this algorithm.</p>
           <li data-md>
            <p><em>options</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection②">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification" id="ref-for-dom-authenticatorselectioncriteria-userverification">userVerification</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required" id="ref-for-dom-userverificationrequirement-required①">required</a></code>".</p>
          </ul>
-         <p>then return a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code>.</p>
+         <p>then return a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror⑨">TypeError</a></code>.</p>
          <p class="note" role="note"><span>Note:</span> These values are hard-coded as that is what Chrome’s initial implementation
 supports. The current limitations may change. The Working Group invites implementers
 to share use cases that would benefit from support for other values.</p>
@@ -1470,7 +1514,7 @@ frame is already included in <code class="idl"><a data-link-type="idl" href="htt
    <h3 class="heading settled" data-level="6.1" id="sctn-paymentcredentialinstrument-dictionary"><span class="secno">6.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-paymentcredentialinstrument"><code>PaymentCredentialInstrument</code></dfn> Dictionary</span><a class="self-link" href="#sctn-paymentcredentialinstrument-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑥"><c- g>PaymentCredentialInstrument</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑥"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname②"><c- g>displayName</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑥"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon④"><c- g>icon</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑥"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑥"><c- g>icon</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <a class="idl-code" data-default="true" data-link-type="dict-member" data-type="boolean " href="#dom-paymentcredentialinstrument-iconmustbeshown" id="ref-for-dom-paymentcredentialinstrument-iconmustbeshown②"><c- g>iconMustBeShown</c-></a> = <c- b>true</c->;
 };
 </pre>
@@ -1485,7 +1529,7 @@ contains the following members:</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-icon"><code>icon</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑦">USVString</a></span>
     <dd data-md>
      <p>The URL of the icon of the payment instrument.</p>
-     <p class="note" role="note"><span>NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑤">icon</a></code> URL may either identify
+     <p class="note" role="note"><span>NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑦">icon</a></code> URL may either identify
  an image on an internet-accessible server (e.g., <code>https://bank.com/card.png</code>),
  or directly encode the icon data via a Data URL <a data-link-type="biblio" href="#biblio-rfc2397">[RFC2397]</a>. Between
  the two types of URLs, Data URLs offer several benefits to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⓪">Relying Party</a>. They can improve reliability (e.g., in the case that
@@ -1768,7 +1812,7 @@ to distinguish between these cases:</p>
    </ul>
    <p>If the above cases are distinguishable, information is leaked by which a
 malicious <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑤">Relying Party</a> could identify the user by probing for which <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential②">credentials</a> are available.</p>
-   <p>Section <a href="#sctn-steps-to-check-if-a-payment-can-be-made">§ 4.1.4 Steps to check if a payment can be made</a> gives normative steps
+   <p>Section <a href="#sctn-steps-to-check-if-a-payment-can-be-made">§ 4.1.6 Steps to check if a payment can be made</a> gives normative steps
 to mitigate this risk.</p>
    <h3 class="heading settled" data-level="11.3" id="sctn-privacy-joining-payment-instruments"><span class="secno">11.3. </span><span class="content">Joining different payment instruments</span><a class="self-link" href="#sctn-privacy-joining-payment-instruments"></a></h3>
    <p>If a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑥">Relying Party</a> uses the same credentials for a given user across
@@ -1799,7 +1843,7 @@ the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party"
 give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤③">Relying Party</a> (e.g., the credit card number).</p>
    <p class="note" role="note"><span>NOTE:</span> See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">issue #77</a> for discussion on possible spec changes related to this section.</p>
    <h2 class="heading settled" data-level="12" id="sctn-accessibility-considerations"><span class="secno">12. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
-   <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑥">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
+   <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑧">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
    <p>User Agents implementing this specification should follow both <a href="https://www.w3.org/TR/webauthn-3/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
   </main>
   <div data-fill-with="conformance">
@@ -1951,7 +1995,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-abstract-opdef-request-a-credential">
    <a href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential">https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-abstract-opdef-request-a-credential">4.1.6. Steps to respond to a payment request</a> <a href="#ref-for-abstract-opdef-request-a-credential①">(2)</a>
+    <li><a href="#ref-for-abstract-opdef-request-a-credential">4.1.8. Steps to respond to a payment request</a> <a href="#ref-for-abstract-opdef-request-a-credential①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-sec-object-internal-methods-and-internal-slots">
@@ -1999,19 +2043,19 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-relevant-settings-object">
    <a href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-relevant-settings-object">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-relevant-settings-object">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-ascii-serialisation-of-an-origin">
    <a href="https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin">https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-ascii-serialisation-of-an-origin">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-ascii-serialisation-of-an-origin">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-concept-environment-top-level-origin">
    <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-environment-top-level-origin">https://html.spec.whatwg.org/multipage/webappapis.html#concept-environment-top-level-origin</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-concept-environment-top-level-origin">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-concept-environment-top-level-origin">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-transient-activation">
@@ -2024,19 +2068,19 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-dfn-fetching-an-image-resource">
    <a href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource">https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dfn-fetching-an-image-resource">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dfn-fetching-an-image-resource">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-imageresource-src">
    <a href="https://www.w3.org/TR/image-resource/#dom-imageresource-src">https://www.w3.org/TR/image-resource/#dom-imageresource-src</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-imageresource-src">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-imageresource-src">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-list-append">
    <a href="https://infra.spec.whatwg.org/#list-append">https://infra.spec.whatwg.org/#list-append</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-list-append">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-list-append">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-registry">
@@ -2062,7 +2106,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <a href="https://www.w3.org/TR/payment-request/#dom-paymentrequest">https://www.w3.org/TR/payment-request/#dom-paymentrequest</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentrequest">1. Introduction</a>
-    <li><a href="#ref-for-dom-paymentrequest①">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-paymentrequest①">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-paymentrequest②">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
@@ -2075,7 +2119,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-dom-paymentcurrencyamount-currency">
    <a href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount-currency">https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount-currency</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-paymentcurrencyamount-currency">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-paymentcurrencyamount-currency">4.1.7. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-payment-handler">
@@ -2089,6 +2133,12 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <ul>
     <li><a href="#ref-for-dfn-payment-method">1. Introduction</a>
     <li><a href="#ref-for-dfn-payment-method①">4. Authentication</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-additional-data-type">
+   <a href="https://w3c.github.io/payment-request/#dfn-additional-data-type">https://w3c.github.io/payment-request/#dfn-additional-data-type</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-additional-data-type">4.1.4. Payment Method additional data type</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-payment-permission">
@@ -2108,62 +2158,70 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-dfn-details">
    <a href="https://w3c.github.io/payment-request/#dfn-details">https://w3c.github.io/payment-request/#dfn-details</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dfn-details">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dfn-details">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-paymentrequest-show">
    <a href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-show">https://www.w3.org/TR/payment-request/#dom-paymentrequest-show</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-paymentrequest-show">4.1.4. Steps to check if a payment can be made</a>
-    <li><a href="#ref-for-dom-paymentrequest-show①">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-paymentrequest-show">4.1.6. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-paymentrequest-show①">4.1.7. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-steps-to-check-if-a-payment-can-be-made">
    <a href="https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made">https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dfn-steps-to-check-if-a-payment-can-be-made">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dfn-steps-to-check-if-a-payment-can-be-made">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-steps-to-respond-to-a-payment-request">
    <a href="https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request">https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dfn-steps-to-respond-to-a-payment-request">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dfn-steps-to-respond-to-a-payment-request">4.1.8. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dfn-steps-to-validate-payment-method-data">
+   <a href="https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data">https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dfn-steps-to-validate-payment-method-data">4.1.5. Steps to validate payment method data</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-paymentdetailsinit-total">
    <a href="https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total">https://www.w3.org/TR/payment-request/#dom-paymentdetailsinit-total</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-paymentdetailsinit-total">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-paymentdetailsinit-total">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-paymentcurrencyamount-value">
    <a href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount-value">https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount-value</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-paymentcurrencyamount-value">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-paymentcurrencyamount-value">4.1.7. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-concept-url-origin">
    <a href="https://url.spec.whatwg.org/#concept-url-origin">https://url.spec.whatwg.org/#concept-url-origin</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-concept-url-origin">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-concept-url-origin">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-concept-url-scheme">
    <a href="https://url.spec.whatwg.org/#concept-url-scheme">https://url.spec.whatwg.org/#concept-url-scheme</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-concept-url-scheme">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-concept-url-scheme">4.1.5. Steps to validate payment method data</a>
+    <li><a href="#ref-for-concept-url-scheme①">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-concept-url-parser">
    <a href="https://url.spec.whatwg.org/#concept-url-parser">https://url.spec.whatwg.org/#concept-url-parser</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-concept-url-parser">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-concept-url-parser">4.1.5. Steps to validate payment method data</a>
+    <li><a href="#ref-for-concept-url-parser①">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-valid-domain">
    <a href="https://url.spec.whatwg.org/#valid-domain">https://url.spec.whatwg.org/#valid-domain</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-valid-domain">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-valid-domain">4.1.5. Steps to validate payment method data</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-authentication-ceremony">
@@ -2219,7 +2277,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     <li><a href="#ref-for-relying-party⑦">1.1.3. Merchant control of authentication</a> <a href="#ref-for-relying-party⑧">(2)</a> <a href="#ref-for-relying-party⑨">(3)</a>
     <li><a href="#ref-for-relying-party①⓪">2. Terminology</a> <a href="#ref-for-relying-party①①">(2)</a> <a href="#ref-for-relying-party①②">(3)</a> <a href="#ref-for-relying-party①③">(4)</a> <a href="#ref-for-relying-party①④">(5)</a>
     <li><a href="#ref-for-relying-party①⑤">4. Authentication</a>
-    <li><a href="#ref-for-relying-party①⑥">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-relying-party①⑥">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-relying-party①⑦">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-relying-party①⑧">(2)</a>
     <li><a href="#ref-for-relying-party①⑨">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-relying-party②⓪">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-relying-party②①">(2)</a>
@@ -2245,7 +2303,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <a href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs">https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dictdef-authenticationextensionsclientinputs①">(2)</a>
-    <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs②">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs②">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs③">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
@@ -2268,13 +2326,13 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-dictdef-publickeycredentialdescriptor">
    <a href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor">https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-publickeycredentialdescriptor">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dictdef-publickeycredentialdescriptor">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dictdef-publickeycredentialrequestoptions">
    <a href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions">https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-publickeycredentialrequestoptions">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dictdef-publickeycredentialrequestoptions">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredential-create-slot">
@@ -2293,7 +2351,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-allowcredentials">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-allowcredentials">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-allowcredentials">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-authenticatorselectioncriteria-authenticatorattachment">
@@ -2312,25 +2370,25 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-challenge">1.1.1. Cryptographic evidence of transaction confirmation</a>
-    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-challenge①">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-challenge①">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-extensions">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-extensions">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-extensions">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-id">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialdescriptor-id">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-publickeycredentialdescriptor-id">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-authenticatortransport-internal">
    <a href="https://w3c.github.io/webauthn/#dom-authenticatortransport-internal">https://w3c.github.io/webauthn/#dom-authenticatortransport-internal</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-authenticatortransport-internal">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticatortransport-internal">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-collectedclientdata-origin">
@@ -2349,19 +2407,19 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialtype-public-key">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key">https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialtype-public-key">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-publickeycredentialtype-public-key">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-credentialrequestoptions-publickey">
    <a href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey">https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-credentialrequestoptions-publickey">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-credentialrequestoptions-publickey">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-userverificationrequirement-required">
    <a href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required">https://w3c.github.io/webauthn/#dom-userverificationrequirement-required</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-userverificationrequirement-required">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-userverificationrequirement-required">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-userverificationrequirement-required①">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
@@ -2374,31 +2432,31 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-rpid">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-rpid">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-rpid">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-timeout">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-timeout">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-timeout">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-transports">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialdescriptor-transports">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-publickeycredentialdescriptor-transports">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-type">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialdescriptor-type">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-publickeycredentialdescriptor-type">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-userverification">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-userverification">4.1.6. Steps to respond to a payment request</a> <a href="#ref-for-dom-publickeycredentialrequestoptions-userverification①">(2)</a>
+    <li><a href="#ref-for-dom-publickeycredentialrequestoptions-userverification">4.1.8. Steps to respond to a payment request</a> <a href="#ref-for-dom-publickeycredentialrequestoptions-userverification①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-extension-command">
@@ -2459,7 +2517,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-idl-DOMException">
    <a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-DOMException">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-idl-DOMException">4.1.6. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-idl-DOMException①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-DOMException②">(2)</a>
    </ul>
   </aside>
@@ -2481,8 +2539,14 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-notallowederror">
    <a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-notallowederror">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-notallowederror">4.1.6. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-notallowederror①">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-exceptiondef-rangeerror">
+   <a href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror">https://webidl.spec.whatwg.org/#exceptiondef-rangeerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-exceptiondef-rangeerror">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-exceptiondef-rangeerror①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-securityerror">
@@ -2494,7 +2558,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-exceptiondef-typeerror">
    <a href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror">https://webidl.spec.whatwg.org/#exceptiondef-typeerror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-exceptiondef-typeerror">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-exceptiondef-typeerror">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-exceptiondef-typeerror①">(2)</a> <a href="#ref-for-exceptiondef-typeerror②">(3)</a> <a href="#ref-for-exceptiondef-typeerror③">(4)</a> <a href="#ref-for-exceptiondef-typeerror④">(5)</a> <a href="#ref-for-exceptiondef-typeerror⑤">(6)</a> <a href="#ref-for-exceptiondef-typeerror⑥">(7)</a> <a href="#ref-for-exceptiondef-typeerror⑦">(8)</a> <a href="#ref-for-exceptiondef-typeerror⑧">(9)</a>
+    <li><a href="#ref-for-exceptiondef-typeerror⑨">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-USVString">
@@ -2578,12 +2643,14 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-dom-paymentcurrencyamount-currency">currency</span>
      <li><span class="dfn-paneled" id="term-for-dfn-payment-handler">payment handler</span>
      <li><span class="dfn-paneled" id="term-for-dfn-payment-method">payment method</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-additional-data-type">payment method additional data type</span>
      <li><span class="dfn-paneled" id="term-for-dfn-payment-permission">payment permission string</span>
      <li><span class="dfn-paneled" id="term-for-accessibility-considerations">payment request accessibility considerations</span>
      <li><span class="dfn-paneled" id="term-for-dfn-details">payment request details</span>
      <li><span class="dfn-paneled" id="term-for-dom-paymentrequest-show">show()</span>
      <li><span class="dfn-paneled" id="term-for-dfn-steps-to-check-if-a-payment-can-be-made">steps to check if a payment can be made</span>
      <li><span class="dfn-paneled" id="term-for-dfn-steps-to-respond-to-a-payment-request">steps to respond to a payment request</span>
+     <li><span class="dfn-paneled" id="term-for-dfn-steps-to-validate-payment-method-data">steps to validate payment method data</span>
      <li><span class="dfn-paneled" id="term-for-dom-paymentdetailsinit-total">total</span>
      <li><span class="dfn-paneled" id="term-for-dom-paymentcurrencyamount-value">value</span>
     </ul>
@@ -2657,6 +2724,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
      <li><span class="dfn-paneled" id="term-for-idl-frozen-array">FrozenArray</span>
      <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="term-for-exceptiondef-rangeerror">RangeError</span>
      <li><span class="dfn-paneled" id="term-for-securityerror">SecurityError</span>
      <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
      <li><span class="dfn-paneled" id="term-for-idl-USVString">USVString</span>
@@ -2766,20 +2834,20 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="steps-to-silently-determine-if-a-credential-is-spc-enabled">
    <b><a href="#steps-to-silently-determine-if-a-credential-is-spc-enabled">#steps-to-silently-determine-if-a-credential-is-spc-enabled</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-steps-to-silently-determine-if-a-credential-is-spc-enabled">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-steps-to-silently-determine-if-a-credential-is-spc-enabled">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">
    <b><a href="#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">4.1.4. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="secure-payment-confirmation-payment-handler">
    <b><a href="#secure-payment-confirmation-payment-handler">#secure-payment-confirmation-payment-handler</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-secure-payment-confirmation-payment-handler">4.1.1. Payment Method Identifier</a>
-    <li><a href="#ref-for-secure-payment-confirmation-payment-handler①">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-secure-payment-confirmation-payment-handler①">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-secure-payment-confirmation-payment-handler②">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
@@ -2796,139 +2864,146 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <b><a href="#dictdef-securepaymentconfirmationrequest">#dictdef-securepaymentconfirmationrequest</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dictdef-securepaymentconfirmationrequest①">(2)</a>
-    <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest②">4.1.4. Steps to check if a payment can be made</a>
-    <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest③">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest②">4.1.4. Payment Method additional data type</a>
+    <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest③">4.1.5. Steps to validate payment method data</a>
+    <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest④">4.1.6. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest⑤">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-challenge">
    <b><a href="#dom-securepaymentconfirmationrequest-challenge">#dom-securepaymentconfirmationrequest-challenge</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-challenge">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-challenge①">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-challenge①">4.1.5. Steps to validate payment method data</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-challenge②">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-rpid">
    <b><a href="#dom-securepaymentconfirmationrequest-rpid">#dom-securepaymentconfirmationrequest-rpid</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-rpid">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-rpid①">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-rpid②">(2)</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-rpid③">4.1.6. Steps to respond to a payment request</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-rpid④">(2)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-rpid①">4.1.5. Steps to validate payment method data</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-rpid②">4.1.6. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-rpid③">4.1.8. Steps to respond to a payment request</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-rpid④">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-credentialids">
    <b><a href="#dom-securepaymentconfirmationrequest-credentialids">#dom-securepaymentconfirmationrequest-credentialids</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids①">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids②">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids③">(3)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids④">(4)</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids⑤">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids①">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids②">(2)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids③">4.1.6. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids④">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids⑤">(3)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids⑥">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-instrument">
    <b><a href="#dom-securepaymentconfirmationrequest-instrument">#dom-securepaymentconfirmationrequest-instrument</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument①">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument②">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument③">(3)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument④">(4)</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument⑤">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument①">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument②">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument③">(3)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument④">4.1.6. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument⑤">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument⑥">(3)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument⑦">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-timeout">
    <b><a href="#dom-securepaymentconfirmationrequest-timeout">#dom-securepaymentconfirmationrequest-timeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-timeout">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-timeout①">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-timeout①">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-payeename">
    <b><a href="#dom-securepaymentconfirmationrequest-payeename">#dom-securepaymentconfirmationrequest-payeename</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeename">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeename①">(2)</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeename②">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeename③">(2)</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeename④">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeename②">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeename③">(2)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeename④">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-payeeorigin">
    <b><a href="#dom-securepaymentconfirmationrequest-payeeorigin">#dom-securepaymentconfirmationrequest-payeeorigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">(2)</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin③">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin④">(3)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑤">(4)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑥">(5)</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑦">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin③">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin④">(3)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑤">(4)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑥">4.1.6. Steps to check if a payment can be made</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑦">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑧">(3)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑨">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-extensions">
    <b><a href="#dom-securepaymentconfirmationrequest-extensions">#dom-securepaymentconfirmationrequest-extensions</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-extensions">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-extensions①">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-extensions①">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionsclientinputs-payment">
    <b><a href="#dom-authenticationextensionsclientinputs-payment">#dom-authenticationextensionsclientinputs-payment</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment">3. Registration</a>
-    <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment①">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment①">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment②">10.1.1. Login Attack</a> <a href="#ref-for-dom-authenticationextensionsclientinputs-payment③">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-authenticationextensionspaymentinputs">
    <b><a href="#dictdef-authenticationextensionspaymentinputs">#dictdef-authenticationextensionspaymentinputs</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dictdef-authenticationextensionspaymentinputs②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-ispayment">
    <b><a href="#dom-authenticationextensionspaymentinputs-ispayment">#dom-authenticationextensionspaymentinputs-ispayment</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-ispayment">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-ispayment">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-ispayment①">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-rp">
    <b><a href="#dom-authenticationextensionspaymentinputs-rp">#dom-authenticationextensionspaymentinputs-rp</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-rp">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-rp">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-rp①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-rp②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-toporigin">
    <b><a href="#dom-authenticationextensionspaymentinputs-toporigin">#dom-authenticationextensionspaymentinputs-toporigin</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-payeename">
    <b><a href="#dom-authenticationextensionspaymentinputs-payeename">#dom-authenticationextensionspaymentinputs-payeename</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeename">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeename">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeename①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-payeename②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-payeeorigin">
    <b><a href="#dom-authenticationextensionspaymentinputs-payeeorigin">#dom-authenticationextensionspaymentinputs-payeeorigin</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-total">
    <b><a href="#dom-authenticationextensionspaymentinputs-total">#dom-authenticationextensionspaymentinputs-total</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-total">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-total">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-total①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-total②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-instrument">
    <b><a href="#dom-authenticationextensionspaymentinputs-instrument">#dom-authenticationextensionspaymentinputs-instrument</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument">4.1.6. Steps to respond to a payment request</a>
+    <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-collectedclientpaymentdata">
    <b><a href="#dictdef-collectedclientpaymentdata">#dictdef-collectedclientpaymentdata</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-collectedclientpaymentdata">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dictdef-collectedclientpaymentdata">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dictdef-collectedclientpaymentdata①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dictdef-collectedclientpaymentdata②">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientpaymentdata③">(2)</a>
    </ul>
@@ -2969,7 +3044,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeename">
    <b><a href="#dom-collectedclientadditionalpaymentdata-payeename">#dom-collectedclientadditionalpaymentdata-payeename</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeename">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeename">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeename①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeename②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeename③">8.1. Verifying an Authentication Assertion</a>
@@ -2978,7 +3053,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeeorigin">
    <b><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">#dom-collectedclientadditionalpaymentdata-payeeorigin</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin③">8.1. Verifying an Authentication Assertion</a>
@@ -2987,7 +3062,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-total">
    <b><a href="#dom-collectedclientadditionalpaymentdata-total">#dom-collectedclientadditionalpaymentdata-total</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total②">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total③">8.1. Verifying an Authentication Assertion</a>
@@ -2996,8 +3071,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-instrument">
    <b><a href="#dom-collectedclientadditionalpaymentdata-instrument">#dom-collectedclientadditionalpaymentdata-instrument</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument">4.1.4. Steps to check if a payment can be made</a>
-    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument①">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument">4.1.6. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument①">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument②">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument③">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument④">8.1. Verifying an Authentication Assertion</a>
@@ -3015,8 +3090,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-displayname">
    <b><a href="#dom-paymentcredentialinstrument-displayname">#dom-paymentcredentialinstrument-displayname</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname">4.1.4. Steps to check if a payment can be made</a>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname①">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname">4.1.5. Steps to validate payment method data</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname①">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname③">(2)</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname④">12. Accessibility Considerations</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname⑤">(2)</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname⑥">(3)</a>
    </ul>
@@ -3024,17 +3099,18 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-icon">
    <b><a href="#dom-paymentcredentialinstrument-icon">#dom-paymentcredentialinstrument-icon</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon">4.1.4. Steps to check if a payment can be made</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon①">(2)</a>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon②">4.1.5. Displaying a transaction confirmation UX</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon③">(2)</a>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon④">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon⑤">(2)</a>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon⑥">12. Accessibility Considerations</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon①">(2)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon②">4.1.6. Steps to check if a payment can be made</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon③">(2)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon④">4.1.7. Displaying a transaction confirmation UX</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon⑤">(2)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon⑥">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon⑦">(2)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-icon⑧">12. Accessibility Considerations</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-iconmustbeshown">
    <b><a href="#dom-paymentcredentialinstrument-iconmustbeshown">#dom-paymentcredentialinstrument-iconmustbeshown</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown">4.1.4. Steps to check if a payment can be made</a>
-    <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown①">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown">4.1.6. Steps to check if a payment can be made</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown①">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown②">6.1. PaymentCredentialInstrument Dictionary</a>
    </ul>
   </aside>
@@ -3047,7 +3123,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="current-transaction-automation-mode">
    <b><a href="#current-transaction-automation-mode">#current-transaction-automation-mode</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-current-transaction-automation-mode">4.1.5. Displaying a transaction confirmation UX</a> <a href="#ref-for-current-transaction-automation-mode①">(2)</a>
+    <li><a href="#ref-for-current-transaction-automation-mode">4.1.7. Displaying a transaction confirmation UX</a> <a href="#ref-for-current-transaction-automation-mode①">(2)</a>
     <li><a href="#ref-for-current-transaction-automation-mode②">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
@@ -3060,20 +3136,20 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="dom-transactionautomationmode-none">
    <b><a href="#dom-transactionautomationmode-none">#dom-transactionautomationmode-none</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-transactionautomationmode-none">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-transactionautomationmode-none">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-transactionautomationmode-none①">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-transactionautomationmode-autoaccept">
    <b><a href="#dom-transactionautomationmode-autoaccept">#dom-transactionautomationmode-autoaccept</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-transactionautomationmode-autoaccept">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-transactionautomationmode-autoaccept">4.1.7. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-transactionautomationmode-autoreject">
    <b><a href="#dom-transactionautomationmode-autoreject">#dom-transactionautomationmode-autoreject</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-transactionautomationmode-autoreject">4.1.5. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-transactionautomationmode-autoreject">4.1.7. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

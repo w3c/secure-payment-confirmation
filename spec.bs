@@ -602,6 +602,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
 <wpt>
   constructor.https.html
+  constructor-validate-payment-method-data.https.html
 </wpt>
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,

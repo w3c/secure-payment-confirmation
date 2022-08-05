@@ -943,7 +943,7 @@ directly; for authentication the extension can only be accessed via
         * If any of the following are true:
 
             * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/authenticatorAttachment}}"] is not "{{AuthenticatorAttachment/platform}}".
-            * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/residentKey}}"] is not "{{ResidentKeyRequirement/required}}".
+            * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/residentKey}}"] is not "{{ResidentKeyRequirement/required}}" or "{{ResidentKeyRequirement/preferred}}".
             * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/userVerification}}"] is not "{{UserVerificationRequirement/required}}".
 
             then return a {{TypeError}}.

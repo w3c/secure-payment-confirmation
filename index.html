@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="w3c/ED" name="w3c-status">
-  <meta content="Bikeshed version 37b7e7e68, updated Fri May 27 15:08:11 2022 -0700" name="generator">
+  <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="248a60a4740c02c4064a516fdf281cbc4f4b6118" name="document-revision">
+  <meta content="2e9a90fc71faee92adeb74b1969fd62f4abd2c03" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -417,7 +417,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-07-11">11 July 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-08-05">5 August 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -886,15 +886,15 @@ login).</p>
       a credential to be used by a third-party.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="steps-to-silently-determine-if-a-credential-is-spc-enabled">Steps to silently determine if a credential is SPC-enabled</dfn>
     <dd data-md>
-     <p>An as-yet undefined process by which a user agent can, given a <a href="https://www.w3.org/TR/webauthn-3/#relying-party-identifier">Relying Party Identifier</a> and a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id">credential ID</a>, silently (i.e., without user interaction) determine if
+     <p>An as-yet undefined process by which a user agent can, given a <a href="https://w3c.github.io/webauthn/#relying-party-identifier">Relying Party Identifier</a> and a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id">credential ID</a>, silently (i.e., without user interaction) determine if
 the credential represented by that ID is an <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential">SPC Credential</a>.</p>
      <p class="note" role="note"><span>NOTE:</span> See <a href="https://github.com/w3c/webauthn/issues/1667">WebAuthn
 issue 1667</a>.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">Steps to silently determine if a credential is available for the current device</dfn>
     <dd data-md>
-     <p>An as-yet undefined process by which a user agent can, given a <a href="https://www.w3.org/TR/webauthn-3/#relying-party-identifier">Relying Party Identifier</a> and a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id①">credential ID</a>, silently (i.e., without user interaction) determine if
+     <p>An as-yet undefined process by which a user agent can, given a <a href="https://w3c.github.io/webauthn/#relying-party-identifier">Relying Party Identifier</a> and a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id①">credential ID</a>, silently (i.e., without user interaction) determine if
 the credential represented by that credential ID is available for the
-current device (i.e., could be successfully used as part of a WebAuthn <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">Get</a> call).</p>
+current device (i.e., could be successfully used as part of a WebAuthn <a href="https://w3c.github.io/webauthn/#sctn-getAssertion">Get</a> call).</p>
      <p>This allows the user agent to only conditionally display <a href="#sctn-transaction-confirmation-ux">the transaction UX</a> to the user if
 there is some chance that they can successfully complete the transaction.</p>
      <p class="note" role="note"><span>NOTE:</span> This property will likely require that <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential①">SPC Credentials</a> be <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#discoverable-credential" id="ref-for-discoverable-credential">discoverable</a>; as such this specification
@@ -982,7 +982,7 @@ members:</p>
 to prevent replay attacks.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-rpid"><code>rpId</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②">USVString</a></span>
     <dd data-md>
-     <p>The <a href="https://www.w3.org/TR/webauthn-3/#relying-party-identifier">Relying Party Identifier</a> of
+     <p>The <a href="https://w3c.github.io/webauthn/#relying-party-identifier">Relying Party Identifier</a> of
 the credentials.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-credentialids"><code>credentialIds</code></dfn> member, <span> of type FrozenArray&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource③">BufferSource</a>></span>
     <dd data-md>
@@ -1158,7 +1158,7 @@ to check if a payment can be made</a> would have failed previously.</p>
    </ul>
    <p>If the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode">current transaction automation mode</a> is not
 "<code class="idl"><a data-link-type="idl" href="#dom-transactionautomationmode-none" id="ref-for-dom-transactionautomationmode-none">none</a></code>", the user agent should first verify that
-it is in an automation context (see <a href="https://www.w3.org/TR/webdriver1/#security">WebDriver’s Security
+it is in an automation context (see <a href="https://w3c.github.io/webdriver/#security">WebDriver’s Security
 considerations</a>). The user agent should then bypass the above communication of
 information and gathering of user consent, and instead do the following based
 on the value of the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode①">current transaction automation mode</a>:</p>
@@ -1252,7 +1252,7 @@ whose fields are:</p>
      <p>Let <var>outputCredential</var> be the result of running the algorithm to <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential" id="ref-for-abstract-opdef-request-a-credential">Request a Credential</a>, passing «["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey" id="ref-for-dom-credentialrequestoptions-publickey">publicKey</a></code>"
 → <var>publicKeyOpts</var>]».</p>
      <p class="note" role="note"><span>Note:</span> Chrome’s initial implementation does not pass the full <code>data.credentialIds</code> list to <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential" id="ref-for-abstract-opdef-request-a-credential①">Request a Credential</a>. Instead, it chooses one credential in the list that matches the current device and passes only that in.</p>
-     <p class="note" role="note"><span>Note:</span> This triggers <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>'s <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">Get</a> behavior</p>
+     <p class="note" role="note"><span>Note:</span> This triggers <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>'s <a href="https://w3c.github.io/webauthn/#sctn-getAssertion">Get</a> behavior</p>
     <li data-md>
      <p>Return <var>outputCredential</var>.</p>
    </ol>
@@ -1333,7 +1333,7 @@ directly; for authentication the extension can only be accessed via <code class=
 are injected at step 12 of <code>[[Create]]</code> and cannot really modify anything.
 However other extensions ignore that entirely and assume they can modify any
 part of any WebAuthn algorithm!</p>
-     <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-createCredential">creating a new credential</a>:</p>
+     <p>When <a href="https://w3c.github.io/webauthn/#sctn-createCredential">creating a new credential</a>:</p>
      <ol>
       <li data-md>
        <p>Modify step 2 (the check for <em>sameOriginWithAncestors</em>) as follows:</p>
@@ -1371,7 +1371,7 @@ terminate this algorithm.</p>
           <li data-md>
            <p><em>options</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment" id="ref-for-dom-authenticatorselectioncriteria-authenticatorattachment">authenticatorAttachment</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform" id="ref-for-dom-authenticatorattachment-platform">platform</a></code>".</p>
           <li data-md>
-           <p><em>options</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection①">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey" id="ref-for-dom-authenticatorselectioncriteria-residentkey">residentKey</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required" id="ref-for-dom-residentkeyrequirement-required">required</a></code>".</p>
+           <p><em>options</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection①">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey" id="ref-for-dom-authenticatorselectioncriteria-residentkey">residentKey</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required" id="ref-for-dom-residentkeyrequirement-required">required</a></code>" or "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred" id="ref-for-dom-residentkeyrequirement-preferred">preferred</a></code>".</p>
           <li data-md>
            <p><em>options</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection②">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification" id="ref-for-dom-authenticatorselectioncriteria-userverification">userVerification</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required" id="ref-for-dom-userverificationrequirement-required①">required</a></code>".</p>
          </ul>
@@ -1389,7 +1389,7 @@ to share use cases that would benefit from support for other values.</p>
      </ol>
     <dt data-md><dfn data-dfn-type="dfn" data-export id="client-extension-processing-authentication">Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension②">authentication</a>)<a class="self-link" href="#client-extension-processing-authentication"></a></dfn>
     <dd data-md>
-     <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">making an assertion</a> with a <code class="idl"><a data-link-type="idl" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs②">AuthenticationExtensionsPaymentInputs</a></code> <var>extension_inputs</var>:</p>
+     <p>When <a href="https://w3c.github.io/webauthn/#sctn-getAssertion">making an assertion</a> with a <code class="idl"><a data-link-type="idl" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs②">AuthenticationExtensionsPaymentInputs</a></code> <var>extension_inputs</var>:</p>
      <ol>
       <li data-md>
        <p>If not in a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation④">secure-payment-confirmation</a>" payment handler, return a
@@ -1546,7 +1546,7 @@ request to succeed.</p>
    </dl>
    <h2 class="heading settled" data-level="7" id="sctn-permissions-policy"><span class="secno">7. </span><span class="content">Permissions Policy integration</span><a class="self-link" href="#sctn-permissions-policy"></a></h2>
    <p>This specification uses the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-permission" id="ref-for-dfn-payment-permission①">payment</a>"
-policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-request">[payment-request]</a> to control access to <strong>both</strong> registration and authentication. This extends the <a href="https://www.w3.org/TR/webauthn-3/#sctn-permissions-policy">WebAuthn Permission Policy</a>.</p>
+policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-request">[payment-request]</a> to control access to <strong>both</strong> registration and authentication. This extends the <a href="https://w3c.github.io/webauthn/#sctn-permissions-policy">WebAuthn Permission Policy</a>.</p>
    <details class="wpt-tests-block" dir="ltr" lang="en">
     <summary>Tests</summary>
     <ul class="wpt-tests-list">
@@ -1570,7 +1570,7 @@ invocation of the <a data-link-type="dfn" href="#secure-payment-confirmation-pay
 control of authentication</a>, the entity that invokes SPC may not be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②③">Relying Party</a>. This first step presumes that the SPC caller has returned
 a credential obtained via SPC to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②④">Relying Party</a>.</p>
     <li data-md>
-     <p>Perform steps 3-21 <a href="https://www.w3.org/TR/webauthn-3/#sctn-verifying-assertion"> as specified in
+     <p>Perform steps 3-21 <a href="https://w3c.github.io/webauthn/#sctn-verifying-assertion"> as specified in
 WebAuthn</a>, with the following changes:</p>
      <ol>
       <li data-md>
@@ -1613,7 +1613,7 @@ matches the payment instrument details that should have been displayed to the us
    <h2 class="heading settled" data-level="9" id="sctn-automation"><span class="secno">9. </span><span class="content">User Agent Automation</span><a class="self-link" href="#sctn-automation"></a></h2>
    <p>For the purposes of user agent automation and website testing, this document
 defines the below <a data-link-type="biblio" href="#biblio-webdriver">[WebDriver]</a> <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-extension-command" id="ref-for-dfn-extension-command">extension commands</a>. Interested parties
-should also consult the <a href="https://www.w3.org/TR/webauthn-3/#sctn-automation">equivalent automation
+should also consult the <a href="https://w3c.github.io/webauthn/#sctn-automation">equivalent automation
 section</a> in <a data-link-type="biblio" href="#biblio-webauthn-3">[webauthn-3]</a>.</p>
    <h3 class="heading settled" data-level="9.1" id="sctn-automation-set-spc-transaction-mode"><span class="secno">9.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="set-spc-transaction-mode">Set SPC Transaction Mode</dfn></span><a class="self-link" href="#sctn-automation-set-spc-transaction-mode"></a></h3>
    <p>The <a data-link-type="dfn" href="#set-spc-transaction-mode" id="ref-for-set-spc-transaction-mode">Set SPC Transaction Mode</a> WebDriver <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-extension-command" id="ref-for-dfn-extension-command①">extension command</a> instructs the
@@ -1655,7 +1655,7 @@ argument</a>.</p>
      <p>Return <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-success" id="ref-for-dfn-success">success</a> with data <code>null</code>.</p>
    </ol>
    <h2 class="heading settled" data-level="10" id="sctn-security-considerations"><span class="secno">10. </span><span class="content">Security Considerations</span><a class="self-link" href="#sctn-security-considerations"></a></h2>
-   <p>As this specification builds on top of WebAuthn, the <a href="https://www.w3.org/TR/webauthn-3/#sctn-security-considerations">WebAuthn Security Considerations</a> are applicable. The below subsections comprise the current Secure Payment
+   <p>As this specification builds on top of WebAuthn, the <a href="https://w3c.github.io/webauthn/#sctn-security-considerations">WebAuthn Security Considerations</a> are applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific security considerations, where this specification
 diverges from WebAuthn.</p>
    <h3 class="heading settled" data-level="10.1" id="sctn-security-cross-origin-auth"><span class="secno">10.1. </span><span class="content">Cross-origin authentication ceremony</span><a class="self-link" href="#sctn-security-cross-origin-auth"></a></h3>
@@ -1695,7 +1695,7 @@ the assertion they receive.</p>
    </ol>
    <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③④">Relying Parties</a> can guard against this attack in two ways.</p>
    <p>Firstly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑤">Relying Party</a> must always follow the correct assertion
-validation steps either for <a href="https://www.w3.org/TR/webauthn-3/#sctn-verifying-assertion">WebAuthn
+validation steps either for <a href="https://w3c.github.io/webauthn/#sctn-verifying-assertion">WebAuthn
 login</a> or <a href="#sctn-verifying-assertion">SPC payment</a> as appropriate. In
 particular, the following fields can all be used to detect an inappropriate use
 of a credential:</p>
@@ -1778,7 +1778,7 @@ trust that the merchant showed the user the correct amount in their checkout
 flow (and any fraud discoveries are post-payment, when the user checks their
 account statement).</p>
    <h2 class="heading settled" data-level="11" id="sctn-privacy-considerations"><span class="secno">11. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#sctn-privacy-considerations"></a></h2>
-   <p>As this specification builds on top of WebAuthn, the <a href="https://www.w3.org/TR/webauthn-3/#sctn-privacy-considerations">WebAuthn Privacy Considerations</a> are
+   <p>As this specification builds on top of WebAuthn, the <a href="https://w3c.github.io/webauthn/#sctn-privacy-considerations">WebAuthn Privacy Considerations</a> are
 applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific privacy considerations, where this specification diverges
 from WebAuthn.</p>
@@ -1801,7 +1801,7 @@ activation</a> (e.g., via a click or press from the user).</p>
    <p class="note" role="note"><span>NOTE:</span> Requiring user activation for WebAuthn APIs in general is under discussion
       in the WebAuthn WG too; see <a href="https://github.com/w3c/webauthn/issues/1293">issue #1293</a>.</p>
    <h3 class="heading settled" data-level="11.2" id="sctn-privacy-probing-credential-ids"><span class="secno">11.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
-   <p>As per WebAuthn’s section on <a href="https://www.w3.org/TR/webauthn-3/#sctn-assertion-privacy">Authentication
+   <p>As per WebAuthn’s section on <a href="https://w3c.github.io/webauthn/#sctn-assertion-privacy">Authentication
 Ceremony Privacy</a>, implementors of Secure Payment Confirmation must make sure
 not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④④">Relying Party</a>)
 to distinguish between these cases:</p>
@@ -1845,7 +1845,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <p class="note" role="note"><span>NOTE:</span> See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">issue #77</a> for discussion on possible spec changes related to this section.</p>
    <h2 class="heading settled" data-level="12" id="sctn-accessibility-considerations"><span class="secno">12. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
    <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑧">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
-   <p>User Agents implementing this specification should follow both <a href="https://www.w3.org/TR/webauthn-3/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
+   <p>User Agents implementing this specification should follow both <a href="https://w3c.github.io/webauthn/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
@@ -2405,6 +2405,12 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     <li><a href="#ref-for-dom-authenticatorattachment-platform">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-residentkeyrequirement-preferred">
+   <a href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred">https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-residentkeyrequirement-preferred">5. WebAuthn Extension - "payment"</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialtype-public-key">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key">https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key</a><b>Referenced in:</b>
    <ul>
@@ -2619,7 +2625,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-transient-activation">transient activation</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[image-resource]</a> defines the following terms:
+    <a data-link-type="biblio">[IMAGE-RESOURCE]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-dfn-fetching-an-image-resource">fetching an image resource</span>
      <li><span class="dfn-paneled" id="term-for-dom-imageresource-src">src</span>
@@ -2630,13 +2636,13 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-list-append">append</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[payment-method-id]</a> defines the following terms:
+    <a data-link-type="biblio">[PAYMENT-METHOD-ID]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-registry">registry of standardized payment methods</span>
      <li><span class="dfn-paneled" id="term-for-dfn-standardized-payment-method-identifier">standardized payment method identifier</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[payment-request]</a> defines the following terms:
+    <a data-link-type="biblio">[PAYMENT-REQUEST]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-dom-paymentcurrencyamount">PaymentCurrencyAmount</span>
      <li><span class="dfn-paneled" id="term-for-dom-paymentrequest">PaymentRequest</span>
@@ -2677,7 +2683,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-webauthn-extensions">webauthn extension</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[webauthn-1]</a> defines the following terms:
+    <a data-link-type="biblio">[WEBAUTHN-1]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-dictdef-authenticationextensionsclientinputs">AuthenticationExtensionsClientInputs</span>
      <li><span class="dfn-paneled" id="term-for-dictdef-collectedclientdata">CollectedClientData</span>
@@ -2695,6 +2701,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-dom-authenticatortransport-internal">internal</span>
      <li><span class="dfn-paneled" id="term-for-dom-collectedclientdata-origin">origin</span>
      <li><span class="dfn-paneled" id="term-for-dom-authenticatorattachment-platform">platform</span>
+     <li><span class="dfn-paneled" id="term-for-dom-residentkeyrequirement-preferred">preferred</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialtype-public-key">public-key</span>
      <li><span class="dfn-paneled" id="term-for-dom-credentialrequestoptions-publickey">publicKey</span>
      <li><span class="dfn-paneled" id="term-for-dom-userverificationrequirement-required">required <small>(for UserVerificationRequirement)</small></span>
@@ -2737,29 +2744,29 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]
-   <dd>Mike West. <a href="https://www.w3.org/TR/credential-management-1/"><cite>Credential Management Level 1</cite></a>. 17 January 2019. WD. URL: <a href="https://www.w3.org/TR/credential-management-1/">https://www.w3.org/TR/credential-management-1/</a>
+   <dd>Mike West. <a href="https://w3c.github.io/webappsec-credential-management/"><cite>Credential Management Level 1</cite></a>. URL: <a href="https://w3c.github.io/webappsec-credential-management/">https://w3c.github.io/webappsec-credential-management/</a>
    <dt id="biblio-fileapi">[FileAPI]
-   <dd>Marijn Kruisselbrink; Arun Ranganathan. <a href="https://www.w3.org/TR/FileAPI/"><cite>File API</cite></a>. 4 June 2021. WD. URL: <a href="https://www.w3.org/TR/FileAPI/">https://www.w3.org/TR/FileAPI/</a>
+   <dd>Marijn Kruisselbrink; Arun Ranganathan. <a href="https://w3c.github.io/FileAPI/"><cite>File API</cite></a>. URL: <a href="https://w3c.github.io/FileAPI/">https://w3c.github.io/FileAPI/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-image-resource">[IMAGE-RESOURCE]
-   <dd>Aaron Gustafson; Rayan Kanso; Marcos Caceres. <a href="https://www.w3.org/TR/image-resource/"><cite>Image Resource</cite></a>. 4 June 2021. WD. URL: <a href="https://www.w3.org/TR/image-resource/">https://www.w3.org/TR/image-resource/</a>
+   <dd>Aaron Gustafson; Rayan Kanso; Marcos Caceres. <a href="https://w3c.github.io/image-resource/"><cite>Image Resource</cite></a>. URL: <a href="https://w3c.github.io/image-resource/">https://w3c.github.io/image-resource/</a>
    <dt id="biblio-infra">[INFRA]
    <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
    <dt id="biblio-payment-method-id">[PAYMENT-METHOD-ID]
-   <dd>Marcos Caceres. <a href="https://www.w3.org/TR/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. 30 September 2021. PR. URL: <a href="https://www.w3.org/TR/payment-method-id/">https://www.w3.org/TR/payment-method-id/</a>
+   <dd>Marcos Caceres. <a href="https://w3c.github.io/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. URL: <a href="https://w3c.github.io/payment-method-id/">https://w3c.github.io/payment-method-id/</a>
    <dt id="biblio-payment-request">[PAYMENT-REQUEST]
-   <dd>Marcos Caceres; Rouslan Solomakhin; Ian Jacobs. <a href="https://www.w3.org/TR/payment-request/"><cite>Payment Request API</cite></a>. 30 September 2021. PR. URL: <a href="https://www.w3.org/TR/payment-request/">https://www.w3.org/TR/payment-request/</a>
+   <dd>Marcos Caceres; Rouslan Solomakhin; Ian Jacobs. <a href="https://w3c.github.io/payment-request/"><cite>Payment Request API</cite></a>. URL: <a href="https://w3c.github.io/payment-request/">https://w3c.github.io/payment-request/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-url">[URL]
    <dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-webauthn-1">[WEBAUTHN-1]
-   <dd>Dirk Balfanz; et al. <a href="https://www.w3.org/TR/webauthn-1/"><cite>Web Authentication:An API for accessing Public Key Credentials Level 1</cite></a>. 4 March 2019. REC. URL: <a href="https://www.w3.org/TR/webauthn-1/">https://www.w3.org/TR/webauthn-1/</a>
+   <dd>Dirk Balfanz; et al. <a href="https://w3c.github.io/webauthn/"><cite>Web Authentication:An API for accessing Public Key Credentials Level 1</cite></a>. URL: <a href="https://w3c.github.io/webauthn/">https://w3c.github.io/webauthn/</a>
    <dt id="biblio-webauthn-3">[WEBAUTHN-3]
-   <dd>Jeff Hodges; et al. <a href="https://www.w3.org/TR/webauthn-3/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. 27 April 2021. WD. URL: <a href="https://www.w3.org/TR/webauthn-3/">https://www.w3.org/TR/webauthn-3/</a>
+   <dd>Jeff Hodges; et al. <a href="https://w3c.github.io/webauthn/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. URL: <a href="https://w3c.github.io/webauthn/">https://w3c.github.io/webauthn/</a>
    <dt id="biblio-webdriver">[WebDriver]
-   <dd>Simon Stewart; David Burns. <a href="https://www.w3.org/TR/webdriver1/"><cite>WebDriver</cite></a>. 5 June 2018. REC. URL: <a href="https://www.w3.org/TR/webdriver1/">https://www.w3.org/TR/webdriver1/</a>
+   <dd>Simon Stewart; David Burns. <a href="https://w3c.github.io/webdriver/"><cite>WebDriver</cite></a>. URL: <a href="https://w3c.github.io/webdriver/">https://w3c.github.io/webdriver/</a>
    <dt id="biblio-webidl">[WEBIDL]
    <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
   </dl>
@@ -3219,7 +3226,7 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     const runsUrl = "https://wpt.fyi/api/runs?label=master&label=stable&max-count=1&product=chrome&product=firefox&product=safari&product=edge";
     const runs = await (await fetch(runsUrl)).json();
 
-    const testResults = await( await fetch("https://wpt.fyi/api/search", {
+    const testResults = await (await fetch("https://wpt.fyi/api/search", {
         method:"POST",
         headers:{
             "Content-Type":"application/json",
@@ -3236,18 +3243,19 @@ document.addEventListener("DOMContentLoaded", async ()=>{
         const passes = result.legacy_status.map(x=>[x.passes, x.total]);
         return [testPath, passes];
     }));
+    const seenTests = new Set();
     document.querySelectorAll(".wpt-name").forEach(nameEl=>{
         const passData = resultsFromPath.get("/" + nameEl.getAttribute("title"));
+        if(!passData) {
+            console.log("Couldn't find test in results:", nameEl);
+            return
+        }
         const numTests = passData[0][1];
         if(numTests > 1) {
             nameEl.insertAdjacentElement("beforeend",
                 el("small", {}, ` (${numTests} tests)`));
         }
         if(passData == undefined) return;
-        passData.forEach((p,i) => {
-            browsers[i].passes += p[0];
-            browsers[i].total += p[1];
-        })
         const resultsEl = el("span",{"class":"wpt-results"},
             ...passData.map((p,i) => el("span",
             {
@@ -3257,6 +3265,17 @@ document.addEventListener("DOMContentLoaded", async ()=>{
             })),
         );
         nameEl.insertAdjacentElement("afterend", resultsEl);
+
+        // Only update the summary pass/total count if we haven't seen this
+        // test before, to support authors listing the same test multiple times
+        // in a spec.
+        if (!seenTests.has(nameEl.getAttribute("title"))) {
+            seenTests.add(nameEl.getAttribute("title"));
+            passData.forEach((p,i) => {
+                browsers[i].passes += p[0];
+                browsers[i].total += p[1];
+            });
+        }
     });
     const overview = document.querySelector(".wpt-overview");
     if(overview) {
@@ -3303,14 +3322,15 @@ function formatWptResult({name, version, passes, total}) {
     const shortVersion = /^\d+/.exec(version);
     const icon = []
 
-    if(name == "Chrome") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/chrome-dev_64x64.png"}));
-    if(name == "Edge") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/edge-dev_64x64.png"}));
-    if(name == "Safari") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/safari-preview_64x64.png"}));
-    if(name == "Firefox") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/firefox-nightly_64x64.png"}));
+    if(name == "Chrome") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/chrome_64x64.png"}));
+    if(name == "Edge") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/edge_64x64.png"}));
+    if(name == "Safari") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/safari_64x64.png"}));
+    if(name == "Firefox") icon.push(el('img', {alt:"", src:"https://wpt.fyi/static/firefox_64x64.png"}));
 
     return el('li', {"class":passClass},
         el('nobr', {'class':'browser'}, ...icon, ` ${name} ${shortVersion}`),
         el('br', {}),
         el('nobr', {'class':'pass-rate'}, `${passes}/${total}`)
     );
-}</script>
+}
+</script>

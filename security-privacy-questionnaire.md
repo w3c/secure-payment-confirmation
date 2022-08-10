@@ -1,6 +1,6 @@
 # Self-Review Questionnaire: Security and Privacy
 
-## 1. What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary?
+## 1.  What information might this feature expose to Web sites or other parties, and for what purposes is that exposure necessary? 
 
 This feature allows a web site that is not the original Relying Party of a
 `PublicKeyCredential` to exercise the credential in order to sign over
@@ -14,13 +14,13 @@ authenticate the user for fraud protection; SPC allows them to fulfill the
 requirement to validate the authentication while enabling the merchant to
 manage the user experience.
 
-## 2. Is this specification exposing the minimum amount of information necessary to power the feature?
+## 2. Do features in your specification expose the minimum amount of information necessary to enable their intended uses? 
 
 Yes.
 
-## 3. How does this specification deal with personal information or personally-identifiable information or information derived thereof?
+## 3. How do the features in your specification deal with personal information, personally-identifiable information (PII), or information derived from them?
 
-This feature does not collect or expose any such information.
+The features does not collect or expose any such information.
 
 ## 4. How does this specification deal with sensitive information?
 
@@ -32,16 +32,20 @@ credential ID, presumably via a trusted server integration with the issuing
 bank, can provide it to the user agent via [Payment Request API] to exercise
 the corresponding `PublicKeyCredential`.
 
-## 5. Does this specification introduce new state for an origin that persists across browsing sessions?
+## 5. Do the features in your specification introduce new state for an origin that persists across browsing sessions? 
 
 No.
 
-## 6. What information from the underlying platform, e.g. configuration data, is exposed by this specification to an origin?
+## 6. Do the features in your specification expose information about the underlying platform to origins? 
 
-None; as with WebAuthn we take care not to expose e.g. credential existence (or
+No. As with WebAuthn we take care not to expose e.g. credential existence (or
 lack thereof) to any caller.
 
-## 7. Does this specification allow an origin access to sensors on a user’s device
+## 7. Does this specification allow an origin to send data to the underlying platform? 
+
+(TO COMPLETE)
+
+## 8. Do features in this specification enable access to device sensors? 
 
 This feature allows an origin to access the user's authenticator to create or
 exercise a public key credential.
@@ -58,15 +62,15 @@ origin gains access to a [PublicKeyCredential] that contains an
 which is information the caller already has, and a crytographic signature, which
 is not useful unless the caller has access to the relevant public key.
 
-## 9. Does this specification enable new script execution/loading mechanisms?
+## 9. Do features in this specification enable new script execution/loading mechanisms? 
 
 No.
 
-## 10. Does this specification allow an origin to access other devices?
+## 10. Do features in this specification allow an origin to access other devices? 
 
 No.
 
-## 11. Does this specification allow an origin some measure of control over a user agent's native UI?
+## 11. Do features in this specification allow an origin some measure of control over a user agent’s native UI? 
 
 Yes. This feature allows an origin (usually a bank) to provide a set of
 information that will be shown to the user in a native UI:
@@ -80,12 +84,12 @@ this credential is exercised. If the merchant provides incorrect or fraudulent
 data to the API for confirmation by the user, the Relying Party can detect this
 when validating the assertion and reject the transaction.
 
-## 12. What temporary identifiers might this this specification create or expose to the web?
+## 12. What temporary identifiers do the features in this specification create or expose to the web? 
 
 This specification does not create any temporary identifier beyond what is
 created by [Web Authentication].
 
-## 13. How does this specification distinguish between behavior in first-party and third-party contexts?
+## 13. How does this specification distinguish between behavior in first-party and third-party contexts? 
 
 This feature mostly inherits the behavior from [Web Authentication], with the
 following exceptions:
@@ -100,16 +104,16 @@ following exceptions:
 
 [delegated permission]: https://w3c.github.io/payment-request/#permissions-policy
 
-## 14. How does this specification work in the context of a user agent’s Private Browsing or "incognito" mode?
+## 14. How do the features in this specification work in the context of a browser’s Private Browsing or Incognito mode? 
 
 This feature behaves identically regardless of Private Browsing or "incognito"
 mode. This is identical to [Web Authentication].
 
-## 15. Does this specification have a "Security Considerations" and "Privacy Considerations" section?
+## 15. Does this specification have both "Security Considerations" and "Privacy Considerations" sections? 
 
 Yes.
 
-## 16. Does this specification allow downgrading default security characteristics?
+## 16. Do features in your specification enable origins to downgrade default security protections?
 
 This feature downgrades the Relying Party restriction of [Web Authentication]
 when a credential is exercised inside a payment context. The original
@@ -118,7 +122,11 @@ increase phishing risk because the user agent shows a native UI to clearly
 inform the user the parties involved in a payment transaction who are seeking to
 authenticate the user.
 
-## 17. What should this questionnaire have asked?
+## 17. How does your feature handle non-"fully active" documents?
+
+(TO COMPLETE)
+
+## 18. What should this questionnaire have asked?
 
 None.
 

@@ -6,7 +6,7 @@ TR: https://www.w3.org/TR/secure-payment-confirmation/
 ED: https://w3c.github.io/secure-payment-confirmation/
 Prepare for TR: true
 Inline Github Issues: true
-Group: payments
+Group: web-payments
 Status: w3c/ED
 Level:
 URL: https://w3c.github.io/secure-payment-confirmation/

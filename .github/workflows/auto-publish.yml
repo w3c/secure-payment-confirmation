@@ -1,0 +1,25 @@
+# Workflow based on the w3c/spec-prod action example to deploy to W3C using Echidna:
+# https://github.com/w3c/spec-prod/blob/main/docs/examples.md#deploy-to-w3c-using-echidna
+
+name: CI
+
+on:
+  pull_request: {}
+  push:
+    branches: [main]
+
+jobs:
+  main:
+    name: Build, Validate and Deploy
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: w3c/spec-prod@v2
+        with:
+          GH_PAGES_BRANCH: gh
+          W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
+          # Replace following with appropriate value. See options.md for details.
+          W3C_WG_DECISION_URL: https://www.w3.org/2016/04/14-wpwg-minutes.html
+          W3C_BUILD_OVERRIDE: |
+            status: WD
+            shortname: secure-payment-confirmation

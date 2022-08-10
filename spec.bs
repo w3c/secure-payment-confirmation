@@ -770,7 +770,7 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
 
     : {{AuthenticationExtensionsPaymentInputs/isPayment}}
     :: The boolean value `true`.
-    : {{AuthenticationExtensionsPaymentInputs/rp}}
+    : {{AuthenticationExtensionsPaymentInputs/rpId}}
     :: |data|["{{SecurePaymentConfirmationRequest/rpId}}"]
     : {{AuthenticationExtensionsPaymentInputs/topOrigin}}
     :: |topOrigin|
@@ -872,7 +872,7 @@ directly; for authentication the extension can only be accessed via
       boolean isPayment;
 
       // Only used for authentication.
-      USVString rp;
+      USVString rpId;
       USVString topOrigin;
       DOMString payeeName;
       USVString payeeOrigin;
@@ -887,7 +887,7 @@ directly; for authentication the extension can only be accessed via
 
         <div class="note">**TODO**: Find a better way to do this. Needed currently because other members are auth-time only.</div>
 
-      :  <dfn>rp</dfn> member
+      :  <dfn>rpId</dfn> member
       :: The [=Relying Party=] id of the credential(s) being used. Only used at authentication time; not registration.
 
       :  <dfn>topOrigin</dfn> member
@@ -989,8 +989,8 @@ directly; for authentication the extension can only be accessed via
             1. {{CollectedClientPaymentData/payment}} set to a new
                 {{CollectedClientAdditionalPaymentData}} whose fields are:
 
-                : {{CollectedClientAdditionalPaymentData/rp}}
-                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/rp}}"]
+                : {{CollectedClientAdditionalPaymentData/rpId}}
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/rpId}}"]
                 : {{CollectedClientAdditionalPaymentData/topOrigin}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/topOrigin}}"]
                 : {{CollectedClientAdditionalPaymentData/payeeName}}
@@ -1036,7 +1036,7 @@ The {{CollectedClientPaymentData}} dictionary inherits from
 
 <xmp class="idl">
     dictionary CollectedClientAdditionalPaymentData {
-        required USVString rp;
+        required USVString rpId;
         required USVString topOrigin;
         DOMString payeeName;
         USVString payeeOrigin;
@@ -1049,8 +1049,12 @@ The {{CollectedClientAdditionalPaymentData}} dictionary contains the following
 fields:
 
 <dl dfn-type="dict-member" dfn-for="CollectedClientAdditionalPaymentData">
-    :  <dfn>rp</dfn> member
+    :  <dfn>rpId</dfn> member
     :: The id of the [=Relying Party=] that created the credential.
+
+           NOTE: For historical reasons, some implementations may additionally
+                 include this parameter with the name `rp`. The values of `rp` and
+                 `rpId` must be the same if both are present.
 
     :  <dfn>topOrigin</dfn> member
     :: The origin of the top level context that requested to sign the transaction details.
@@ -1173,7 +1177,7 @@ Confirmation, the [=Relying Party=] MUST proceed as follows:
 
     1. After step 13, insert the following steps:
 
-        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/rp}}"]
+        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/rpId}}"]
             matches the [=Relying Party=]'s origin.
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/topOrigin}}"]

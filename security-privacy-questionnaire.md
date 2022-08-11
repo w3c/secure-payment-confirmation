@@ -14,53 +14,51 @@ authenticate the user for fraud protection; SPC allows them to fulfill the
 requirement to validate the authentication while enabling the merchant to
 manage the user experience.
 
+Thus, following a browser prompt and user consent, the information
+that is exposed to the Web site is the Web Authentication assertion
+that includes signed transaction data.
+
 ## 2. Do features in your specification expose the minimum amount of information necessary to enable their intended uses? 
 
 Yes.
 
 ## 3. How do the features in your specification deal with personal information, personally-identifiable information (PII), or information derived from them?
 
-The features does not collect or expose any such information.
+Any information displayed through this feature is provided by the
+caller (e.g., the merchant). The Web Authentication credentialID in
+the assertion that is generated after a browser prompt and user
+consent is considered public information (not PII).
 
 ## 4. How does this specification deal with sensitive information?
 
-The only sensitive information this feature handles relates to the (WebAuthn)
-credential ID of the created credential. This credential ID is saved in the
-user agent along side the Relying Party ID when the issuing bank creates an
-SPC-enabled `PublicKeyCredential`. Later, an origin that has access to this
-credential ID, presumably via a trusted server integration with the issuing
-bank, can provide it to the user agent via [Payment Request API] to exercise
-the corresponding `PublicKeyCredential`.
+Although the credentialID that results from Web Authentication is not considered
+PII, it may be considered sensitive. credentialIDs are provided as input
+to the API. The API reveals that the user has an associated authenticator only
+after a browser prompt and user consent.
 
 ## 5. Do the features in your specification introduce new state for an origin that persists across browsing sessions? 
 
-No.
+Secure Payment Confirmation relies on Web Authentication, which introduces state. Secure Payment Confirmation
+does not introduce additional state.
 
-## 6. Do the features in your specification expose information about the underlying platform to origins? 
+## 6. Do the features in your specification expose information about the underlying platform to origins?
 
-No. As with WebAuthn we take care not to expose e.g. credential existence (or
-lack thereof) to any caller.
+Secure Payment Confirmation relies on Web Authentication, which
+exposes some underlying information.  Secure Payment Confirmation,
+like Web Authentication, takes care not to expose e.g. credential
+existence (or lack thereof) to any caller.
 
 ## 7. Does this specification allow an origin to send data to the underlying platform? 
 
-(TO COMPLETE)
+Secure Payment Confirmation relies on Web Authentication, which supports interactions with the
+underlying platform (that is, authenticators). Secure Payment Confirmation sends transaction
+data to authenticators to be included in the resulting assertion using a standard Web
+Authentication mechanism (clientData).
 
 ## 8. Do features in this specification enable access to device sensors? 
 
-This feature allows an origin to access the user's authenticator to create or
-exercise a public key credential.
-
-## 8. What data does this specification expose to an origin?  Please also document what data is identical to data exposed by other features, in the same or different contexts.
-
-This feature exposes the same data as [Web Authentication] with one exception:
-it allows any origin to exercise a credential via Payment Request API, provided
-that the user consents on a user agent's native UI that clearly indicates that
-the calling origin is requesting payment using a specific payment instrument.
-When the user consents and provides an authentication gesture, the calling
-origin gains access to a [PublicKeyCredential] that contains an
-[AuthenticatorAssertionResponse]. This data structure contains a credential ID,
-which is information the caller already has, and a crytographic signature, which
-is not useful unless the caller has access to the relevant public key.
+Secure Payment Confirmation relies on Web Authentication, which supports interactions with the
+underlying platform (that is, authenticators).
 
 ## 9. Do features in this specification enable new script execution/loading mechanisms? 
 
@@ -68,7 +66,8 @@ No.
 
 ## 10. Do features in this specification allow an origin to access other devices? 
 
-No.
+Secure Payment Confirmation relies on Web Authentication; discussions about multidevice
+credentials in Web Authentication are ongoing.
 
 ## 11. Do features in this specification allow an origin some measure of control over a user agent’s native UI? 
 
@@ -86,28 +85,26 @@ when validating the assertion and reject the transaction.
 
 ## 12. What temporary identifiers do the features in this specification create or expose to the web? 
 
-This specification does not create any temporary identifier beyond what is
-created by [Web Authentication].
+None.
 
 ## 13. How does this specification distinguish between behavior in first-party and third-party contexts? 
 
 This feature mostly inherits the behavior from [Web Authentication], with the
 following exceptions:
 
-- When a Relying Party is embedded in a cross-origin iframe that has [delegated
-  permission], that Relying Party is able to register an SPC-enabled
-  `PublicKeyCredential` for itself.
+- Web Authentication Level 2 does not allow credential creation in a cross-origin iframe; Secure Payment Confirmation does (with delegated permission and user activation). Discussions about whether Web Authentication Level 3 should allow credential creation in a cross-origin iframe are ongoing.
 - A SPC-enabled `PublicKeyCredential` can be exercised in any context where
   Payment Request API is allowed, i.e. a first-party secure context, or a
   third-party secure context with [delegated permission] from the top-level
-  context.
+  context and user activation.
 
 [delegated permission]: https://w3c.github.io/payment-request/#permissions-policy
 
-## 14. How do the features in this specification work in the context of a browser’s Private Browsing or Incognito mode? 
+## 14. How do the features in this specification work in the context of a browser’s Private Browsing or Incognito mode?
 
-This feature behaves identically regardless of Private Browsing or "incognito"
-mode. This is identical to [Web Authentication].
+Secure Payment Confirmation relies on [Web Authentication], which
+behaves identically regardless of Private Browsing or "incognito"
+mode.
 
 ## 15. Does this specification have both "Security Considerations" and "Privacy Considerations" sections? 
 
@@ -115,16 +112,15 @@ Yes.
 
 ## 16. Do features in your specification enable origins to downgrade default security protections?
 
-This feature downgrades the Relying Party restriction of [Web Authentication]
-when a credential is exercised inside a payment context. The original
-restriction was meant to prevent phishing. We believe this feature does not
-increase phishing risk because the user agent shows a native UI to clearly
-inform the user the parties involved in a payment transaction who are seeking to
-authenticate the user.
+Secure Payment Confirmation differs (currently) from Web Authentication in two ways related to default security protections:
+
+* Web Authentication Level 2 does not allow credential creation in a cross-origin iframe; Secure Payment Confirmation does (with delegated permission and user activation).
+* Web Authentication Level 2 credentials may only be used at authentication time by the Relying Party that created them. If a Relying Party approves (at credential creation time), Secure Payment Confirmation allows other parties to use credentials, with an associated user agent prompt and user consent.
 
 ## 17. How does your feature handle non-"fully active" documents?
 
-(TO COMPLETE)
+Secure Payment Confirmation inherits behavior from Payment Request API related
+to non-"fully active" documents (see sections on show(), retry(), and complete()).
 
 ## 18. What should this questionnaire have asked?
 

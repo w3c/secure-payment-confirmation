@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="279b7a38573eaf5f6a1a57f9fd2a35f41a413598" name="document-revision">
+  <meta content="fcbc77dab008b508effe545e4dcb9be26a54d8cc" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -417,7 +417,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-08-11">11 August 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-08-12">12 August 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -965,7 +965,7 @@ Confirmation payment handler</a> is "<dfn class="dfn-paneled" data-dfn-type="dfn
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest"><c- g>SecurePaymentConfirmationRequest</c-></a> {
     <c- b>required</c-> <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource"><c- n>BufferSource</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="BufferSource " href="#dom-securepaymentconfirmationrequest-challenge" id="ref-for-dom-securepaymentconfirmationrequest-challenge"><c- g>challenge</c-></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid"><c- g>rpId</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array" id="ref-for-idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource①"><c- n>BufferSource</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="FrozenArray<BufferSource> " href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids"><c- g>credentialIds</c-></a>;
+    <c- b>required</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource①"><c- n>BufferSource</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<BufferSource> " href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids"><c- g>credentialIds</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument"><c- g>instrument</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-securepaymentconfirmationrequest-timeout" id="ref-for-dom-securepaymentconfirmationrequest-timeout"><c- g>timeout</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-securepaymentconfirmationrequest-payeename" id="ref-for-dom-securepaymentconfirmationrequest-payeename"><c- g>payeeName</c-></a>;
@@ -984,7 +984,7 @@ to prevent replay attacks.</p>
     <dd data-md>
      <p>The <a href="https://w3c.github.io/webauthn/#relying-party-identifier">Relying Party Identifier</a> of
 the credentials.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-credentialids"><code>credentialIds</code></dfn> member, <span> of type FrozenArray&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource③">BufferSource</a>></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-credentialids"><code>credentialIds</code></dfn> member, <span> of type sequence&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource③">BufferSource</a>></span>
     <dd data-md>
      <p>The list of credential identifiers for the given instrument.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-instrument"><code>instrument</code></dfn> member, <span> of type <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument①">PaymentCredentialInstrument</a></span>
@@ -2537,12 +2537,6 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     <li><a href="#ref-for-idl-DOMString⑥">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-DOMString⑦">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-frozen-array">
-   <a href="https://webidl.spec.whatwg.org/#idl-frozen-array">https://webidl.spec.whatwg.org/#idl-frozen-array</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-frozen-array">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-notallowederror">
    <a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
    <ul>
@@ -2583,6 +2577,12 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <ul>
     <li><a href="#ref-for-idl-boolean">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-boolean①">(2)</a>
     <li><a href="#ref-for-idl-boolean②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-boolean③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-sequence">
+   <a href="https://webidl.spec.whatwg.org/#idl-sequence">https://webidl.spec.whatwg.org/#idl-sequence</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-sequence">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
@@ -2730,13 +2730,13 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-BufferSource">BufferSource</span>
      <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
      <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
-     <li><span class="dfn-paneled" id="term-for-idl-frozen-array">FrozenArray</span>
      <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
      <li><span class="dfn-paneled" id="term-for-exceptiondef-rangeerror">RangeError</span>
      <li><span class="dfn-paneled" id="term-for-securityerror">SecurityError</span>
      <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
      <li><span class="dfn-paneled" id="term-for-idl-USVString">USVString</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
+     <li><span class="dfn-paneled" id="term-for-idl-sequence">sequence</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long">unsigned long</span>
     </ul>
   </ul>
@@ -2783,7 +2783,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-securepaymentconfirmationrequest"><c- g>SecurePaymentConfirmationRequest</c-></a> {
     <c- b>required</c-> <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource"><c- n>BufferSource</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="BufferSource " href="#dom-securepaymentconfirmationrequest-challenge"><c- g>challenge</c-></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-rpid"><c- g>rpId</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource"><c- n>BufferSource</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="FrozenArray<BufferSource> " href="#dom-securepaymentconfirmationrequest-credentialids"><c- g>credentialIds</c-></a>;
+    <c- b>required</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource"><c- n>BufferSource</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<BufferSource> " href="#dom-securepaymentconfirmationrequest-credentialids"><c- g>credentialIds</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-securepaymentconfirmationrequest-instrument"><c- g>instrument</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-securepaymentconfirmationrequest-timeout"><c- g>timeout</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-securepaymentconfirmationrequest-payeename"><c- g>payeeName</c-></a>;

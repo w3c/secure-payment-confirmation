@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="c4962dfaa505c86899a841bfd95f1629d9be8a1c" name="document-revision">
+  <meta content="10c4b304fb9abc7877827a51eefa2f9485977343" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -417,7 +417,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-08-25">25 August 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-08-31">31 August 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1644,7 +1644,7 @@ automatically simulate a user either accepting or rejecting the <a href="#sctn-t
    <p>The <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-remote-end-steps" id="ref-for-dfn-remote-end-steps">remote end steps</a> are:</p>
    <ol>
     <li data-md>
-     <p>If <var>parameters</var> is not a JSON <a data-link-type="dfn" href="https://w3c.github.io/FileAPI/#blob-url-entry-object" id="ref-for-blob-url-entry-object">Object</a>, return a <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-errors" id="ref-for-dfn-errors">WebDriver error</a> with <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-error-code" id="ref-for-dfn-error-code">WebDriver error code</a> <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-invalid-argument" id="ref-for-dfn-invalid-argument">invalid argument</a>.</p>
+     <p>If <var>parameters</var> is not a JSON <a href="https://tc39.es/ecma262/multipage/#sec-json-object">Object</a>, return a <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-errors" id="ref-for-dfn-errors">WebDriver error</a> with <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-error-code" id="ref-for-dfn-error-code">WebDriver error code</a> <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-invalid-argument" id="ref-for-dfn-invalid-argument">invalid argument</a>.</p>
     <li data-md>
      <p>Let <var>mode</var> be the result of <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-getting-properties" id="ref-for-dfn-getting-properties">getting a property</a> named <code>"mode"</code> from <var>parameters</var>.</p>
     <li data-md>
@@ -2005,12 +2005,6 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <a href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots">https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-sec-object-internal-methods-and-internal-slots">7. Permissions Policy integration</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-blob-url-entry-object">
-   <a href="https://w3c.github.io/FileAPI/#blob-url-entry-object">https://w3c.github.io/FileAPI/#blob-url-entry-object</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-blob-url-entry-object">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-consume-user-activation">
@@ -2609,11 +2603,6 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-sec-object-internal-methods-and-internal-slots">internal method</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[FileAPI]</a> defines the following terms:
-    <ul>
-     <li><span class="dfn-paneled" id="term-for-blob-url-entry-object">object</span>
-    </ul>
-   <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-consume-user-activation">consume user activation</span>
@@ -2747,8 +2736,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <dl>
    <dt id="biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]
    <dd>Mike West. <a href="https://w3c.github.io/webappsec-credential-management/"><cite>Credential Management Level 1</cite></a>. URL: <a href="https://w3c.github.io/webappsec-credential-management/">https://w3c.github.io/webappsec-credential-management/</a>
-   <dt id="biblio-fileapi">[FileAPI]
-   <dd>Marijn Kruisselbrink; Arun Ranganathan. <a href="https://w3c.github.io/FileAPI/"><cite>File API</cite></a>. URL: <a href="https://w3c.github.io/FileAPI/">https://w3c.github.io/FileAPI/</a>
+   <dt id="biblio-ecmascript">[ECMASCRIPT]
+   <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-image-resource">[IMAGE-RESOURCE]
@@ -2774,8 +2763,6 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
-   <dt id="biblio-ecmascript">[ECMASCRIPT]
-   <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
    <dt id="biblio-rfc2397">[RFC2397]
    <dd>L. Masinter. <a href="https://www.rfc-editor.org/rfc/rfc2397"><cite>The "data" URL scheme</cite></a>. August 1998. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2397">https://www.rfc-editor.org/rfc/rfc2397</a>
    <dt id="biblio-webauthn-conditional-ui">[WEBAUTHN-CONDITIONAL-UI]

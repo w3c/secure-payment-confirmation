@@ -1240,8 +1240,8 @@ The <dfn>current transaction automation mode</dfn> tracks what
 
 The [=remote end steps=] are:
 
-1. If |parameters| is not a JSON [=Object=], return a [=WebDriver error=] with
-     [=WebDriver error code=] [=invalid argument=].
+1. If |parameters| is not a JSON [[ECMASCRIPT#sec-json-object|Object]], return a
+     [=WebDriver error=] with [=WebDriver error code=] [=invalid argument=].
 
 1. Let |mode| be the result of [=getting a property=] named `"mode"` from
     |parameters|.

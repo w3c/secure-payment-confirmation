@@ -516,9 +516,9 @@ away from its Payment Request origins. For developers, this should improve
 feature detection, invocation, and other aspects of the API.
 
 <div class="note">
-**TODO**: This specification also needs to monkey-patch step 12 of
+**TODO**: This specification also needs to constrain
 {{PaymentRequest/constructor|PaymentRequest's constructor}} somehow, to enforce
-that when "[=secure-payment-confirmation=]" is used, exactly one method is
+that when "[=secure-payment-confirmation=]" is used exactly one method is
 given.
 </div>
 
@@ -527,7 +527,7 @@ given.
 The [=standardized payment method identifier=] for the [=Secure Payment
 Confirmation payment handler=] is "<dfn>secure-payment-confirmation</dfn>".
 
-### Monkey-patch to [[payment-method-id]] ### {#sctn-monkey-patch-payment-method-id}
+### Registration in [[payment-method-id]] ### {#sctn-registration-in-payment-method-id}
 
 Add the following to the [=registry of standardized payment methods=] in
 [[payment-method-id]]:

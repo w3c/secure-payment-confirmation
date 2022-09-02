@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="10c4b304fb9abc7877827a51eefa2f9485977343" name="document-revision">
+  <meta content="50f0e7ccecd5a23b650cea3dc5e9f3219e6c69a7" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -417,7 +417,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-08-31">31 August 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-02">2 September 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -496,7 +496,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
        <a href="#sctn-payment-method-spc"><span class="secno">4.1</span> <span class="content">Payment Method: Secure Payment Confirmation</span></a>
        <ol class="toc">
         <li><a href="#sctn-payment-method-identifier"><span class="secno">4.1.1</span> <span class="content">Payment Method Identifier</span></a>
-        <li><a href="#sctn-monkey-patch-payment-method-id"><span class="secno">4.1.2</span> <span class="content">Monkey-patch to <span>[payment-method-id]</span></span></a>
+        <li><a href="#sctn-registration-in-payment-method-id"><span class="secno">4.1.2</span> <span class="content">Registration in <span>[payment-method-id]</span></span></a>
         <li><a href="#sctn-securepaymentconfirmationrequest-dictionary"><span class="secno">4.1.3</span> <span class="content"><span><code>SecurePaymentConfirmationRequest</code></span> Dictionary</span></a>
         <li><a href="#sctn-payment-method-additional-data-type"><span class="secno">4.1.4</span> <span class="content">Payment Method additional data type</span></a>
         <li><a href="#sctn-steps-to-validate-payment-method-data"><span class="secno">4.1.5</span> <span class="content">Steps to validate payment method data</span></a>
@@ -948,13 +948,13 @@ is now general agreement to explore a design of SPC independent of Payment
 Request. We therefore expect (without a concrete timeline) that SPC will move
 away from its Payment Request origins. For developers, this should improve
 feature detection, invocation, and other aspects of the API.</p>
-   <div class="note" role="note"> <strong>TODO</strong>: This specification also needs to monkey-patch step 12 of <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-constructor" id="ref-for-dom-paymentrequest-constructor">PaymentRequest’s constructor</a></code> somehow, to enforce
-that when "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation①">secure-payment-confirmation</a>" is used, exactly one method is
+   <div class="note" role="note"> <strong>TODO</strong>: This specification also needs to constrain <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/payment-request/#dom-paymentrequest-constructor" id="ref-for-dom-paymentrequest-constructor">PaymentRequest’s constructor</a></code> somehow, to enforce
+that when "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation①">secure-payment-confirmation</a>" is used exactly one method is
 given. </div>
    <h4 class="heading settled" data-level="4.1.1" id="sctn-payment-method-identifier"><span class="secno">4.1.1. </span><span class="content">Payment Method Identifier</span><a class="self-link" href="#sctn-payment-method-identifier"></a></h4>
    <p>The <a data-link-type="dfn" href="https://www.w3.org/TR/payment-method-id/#dfn-standardized-payment-method-identifier" id="ref-for-dfn-standardized-payment-method-identifier">standardized payment method identifier</a> for the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler">Secure Payment
 Confirmation payment handler</a> is "<dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="secure-payment-confirmation">secure-payment-confirmation</dfn>".</p>
-   <h4 class="heading settled" data-level="4.1.2" id="sctn-monkey-patch-payment-method-id"><span class="secno">4.1.2. </span><span class="content">Monkey-patch to <a data-link-type="biblio" href="#biblio-payment-method-id">[payment-method-id]</a></span><a class="self-link" href="#sctn-monkey-patch-payment-method-id"></a></h4>
+   <h4 class="heading settled" data-level="4.1.2" id="sctn-registration-in-payment-method-id"><span class="secno">4.1.2. </span><span class="content">Registration in <a data-link-type="biblio" href="#biblio-payment-method-id">[payment-method-id]</a></span><a class="self-link" href="#sctn-registration-in-payment-method-id"></a></h4>
    <p>Add the following to the <a data-link-type="dfn" href="https://w3c.github.io/payment-method-id/#registry" id="ref-for-registry">registry of standardized payment methods</a> in <a data-link-type="biblio" href="#biblio-payment-method-id">[payment-method-id]</a>:</p>
    <dl>
     <dt data-md>"<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation②">secure-payment-confirmation</a>"
@@ -2083,7 +2083,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-registry">
    <a href="https://w3c.github.io/payment-method-id/#registry">https://w3c.github.io/payment-method-id/#registry</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-registry">4.1.2. Monkey-patch to [payment-method-id]</a>
+    <li><a href="#ref-for-registry">4.1.2. Registration in [payment-method-id]</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-standardized-payment-method-identifier">
@@ -2853,7 +2853,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <ul>
     <li><a href="#ref-for-secure-payment-confirmation">4. Authentication</a>
     <li><a href="#ref-for-secure-payment-confirmation①">4.1. Payment Method: Secure Payment Confirmation</a>
-    <li><a href="#ref-for-secure-payment-confirmation②">4.1.2. Monkey-patch to [payment-method-id]</a>
+    <li><a href="#ref-for-secure-payment-confirmation②">4.1.2. Registration in [payment-method-id]</a>
     <li><a href="#ref-for-secure-payment-confirmation③">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-secure-payment-confirmation④">(2)</a>
    </ul>
   </aside>

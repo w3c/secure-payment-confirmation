@@ -544,7 +544,7 @@ Add the following to the [=registry of standardized payment methods=] in
         required sequence<BufferSource> credentialIds;
         required PaymentCredentialInstrument instrument;
         unsigned long timeout;
-        DOMString payeeName;
+        USVString payeeName;
         USVString payeeOrigin;
         AuthenticationExtensionsClientInputs extensions;
     };
@@ -874,7 +874,7 @@ directly; for authentication the extension can only be accessed via
       // Only used for authentication.
       USVString rpId;
       USVString topOrigin;
-      DOMString payeeName;
+      USVString payeeName;
       USVString payeeOrigin;
       PaymentCurrencyAmount total;
       PaymentCredentialInstrument instrument;
@@ -1038,7 +1038,7 @@ The {{CollectedClientPaymentData}} dictionary inherits from
     dictionary CollectedClientAdditionalPaymentData {
         required USVString rpId;
         required USVString topOrigin;
-        DOMString payeeName;
+        USVString payeeName;
         USVString payeeOrigin;
         required PaymentCurrencyAmount total;
         required PaymentCredentialInstrument instrument;
@@ -1084,7 +1084,7 @@ The following data structures are shared between registration and authentication
 
 <xmp class="idl">
     dictionary PaymentCredentialInstrument {
-        required DOMString displayName;
+        required USVString displayName;
         required USVString icon;
         boolean iconMustBeShown = true;
     };

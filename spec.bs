@@ -547,6 +547,7 @@ Add the following to the [=registry of standardized payment methods=] in
         DOMString payeeName;
         USVString payeeOrigin;
         AuthenticationExtensionsClientInputs extensions;
+        sequence<USVString> localeHint;
     };
 </xmp>
 
@@ -588,6 +589,14 @@ members:
         credential(s). The caller does not need to specify the
         [[#sctn-payment-extension-registration| payment extension]]; it is added
         automatically.
+
+    :  <dfn>localeHint</dfn> member
+    :: An optional list of **TODO, ISO-something?** locale descriptors, in
+        decreasing order of priority, that act as a hint from the website as to
+        what locale the users experience on that website is currently in.
+
+        NOTE: **TODO** - add a note as to how this is distinct from the dir/lang
+              for specific input members.
 </dl>
 
 ### Payment Method additional data type ### {#sctn-payment-method-additional-data-type}
@@ -742,6 +751,11 @@ authentication:
     {{PaymentCredentialInstrument/iconMustBeShown}} must be `false` here as
     otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps
     to check if a payment can be made]] would have failed previously.
+
+The user agent MAY utilize the information in
+{{SecurePaymentConfirmationRequest/localeHint}}, if any, to display a UX in a
+matching language and locale-based formatting to that which the website is
+using for its interactions with the user.
 
 If the [=current transaction automation mode=] is not
 "{{TransactionAutomationMode/none}}", the user agent should first verify that

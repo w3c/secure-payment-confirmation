@@ -396,7 +396,7 @@ const request = new PaymentRequest([{
 
 try {
   const canMakePayment = await request.canMakePayment();
-  if (!canMakePayment) { throw new Error('Cannot make payment'); }
+  if (!canMakePayment) { /* Browser does not support SPC. Handle error. */ }
 
   const response = await request.show();
   await response.complete('success');

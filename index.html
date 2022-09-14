@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="50f0e7ccecd5a23b650cea3dc5e9f3219e6c69a7" name="document-revision">
+  <meta content="7f1a27ca3a82b04bda31cca0dde295ccac8fb13b" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -417,7 +417,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-02">2 September 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-14">14 September 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -855,7 +855,7 @@ presumes access to await/async, for easier to read promise handling.</p>
 
 <c- k>try</c-> <c- p>{</c->
   <c- a>const</c-> canMakePayment <c- o>=</c-> <c- k>await</c-> request<c- p>.</c->canMakePayment<c- p>();</c->
-  <c- k>if</c-> <c- p>(</c-><c- o>!</c->canMakePayment<c- p>)</c-> <c- p>{</c-> <c- k>throw</c-> <c- ow>new</c-> <c- ne>Error</c-><c- p>(</c-><c- t>'Cannot make payment'</c-><c- p>);</c-> <c- p>}</c->
+  <c- k>if</c-> <c- p>(</c-><c- o>!</c->canMakePayment<c- p>)</c-> <c- p>{</c-> <c- d>/* Browser does not support SPC. Handle error. */</c-> <c- p>}</c->
 
   <c- a>const</c-> response <c- o>=</c-> <c- k>await</c-> request<c- p>.</c->show<c- p>();</c->
   <c- k>await</c-> response<c- p>.</c->complete<c- p>(</c-><c- t>'success'</c-><c- p>);</c->

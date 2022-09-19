@@ -35,6 +35,12 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
             text: internal slot
             text: internal method
 
+spec: i18n-glossary; urlPrefix: https://w3c.github.io/i18n-glossary/
+    type: dfn
+        text: locale; url: locale
+        text: language priority list; url: language-priority-list
+        text: language negotiation; url: language-negotiation
+
 spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
     type: dfn
         text: payment method; url: dfn-payment-method
@@ -547,6 +553,7 @@ Add the following to the [=registry of standardized payment methods=] in
         USVString payeeName;
         USVString payeeOrigin;
         AuthenticationExtensionsClientInputs extensions;
+        sequence<USVString> locale;
     };
 </xmp>
 
@@ -588,6 +595,18 @@ members:
         credential(s). The caller does not need to specify the
         [[#sctn-payment-extension-registration| payment extension]]; it is added
         automatically.
+
+    :  <dfn>locale</dfn> member
+    :: An optional list of well-formed [[BCP47]] language tags, in descending
+        order of priority, that identify the [=locale=] preferences of the
+        website, i.e. a [=language priority list=] [[RFC4647]], which the user
+        agent can use to perform [=language negotiation=] and locale-affected
+        formatting with the caller.
+
+        NOTE: The {{SecurePaymentConfirmationRequest/locale}} is distinct from
+              language or direction metadata associated with specific input
+              members, in that it represents the caller's requested localized
+              experience rather than assertion about a specific string value.
 </dl>
 
 ### Payment Method additional data type ### {#sctn-payment-method-additional-data-type}
@@ -742,6 +761,11 @@ authentication:
     {{PaymentCredentialInstrument/iconMustBeShown}} must be `false` here as
     otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps
     to check if a payment can be made]] would have failed previously.
+
+The user agent MAY utilize the information in
+{{SecurePaymentConfirmationRequest/locale}}, if any, to display a UX localized
+into a language and using locale-based formatting consistent with that of the
+website.
 
 If the [=current transaction automation mode=] is not
 "{{TransactionAutomationMode/none}}", the user agent should first verify that

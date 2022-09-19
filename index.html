@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="c3d7357a129eabaa46f0851c5b57a03498c2f0aa" name="document-revision">
+  <meta content="be5980222333d112887949f21a4e56d3d7c10c58" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -417,7 +417,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-14">14 September 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-19">19 September 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -971,6 +971,7 @@ Confirmation payment handler</a> is "<dfn class="dfn-paneled" data-dfn-type="dfn
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-payeename" id="ref-for-dom-securepaymentconfirmationrequest-payeename"><c- g>payeeName</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin"><c- g>payeeOrigin</c-></a>;
     <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs"><c- n>AuthenticationExtensionsClientInputs</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="AuthenticationExtensionsClientInputs " href="#dom-securepaymentconfirmationrequest-extensions" id="ref-for-dom-securepaymentconfirmationrequest-extensions"><c- g>extensions</c-></a>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString③"><c- b>USVString</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<USVString> " href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale"><c- g>locale</c-></a>;
 };
 </pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest①">SecurePaymentConfirmationRequest</a></code> dictionary contains the following
@@ -980,7 +981,7 @@ members:</p>
     <dd data-md>
      <p>A random challenge that the relying party generates on the server side
 to prevent replay attacks.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-rpid"><code>rpId</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString③">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-rpid"><code>rpId</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString④">USVString</a></span>
     <dd data-md>
      <p>The <a href="https://w3c.github.io/webauthn/#relying-party-identifier">Relying Party Identifier</a> of
 the credentials.</p>
@@ -995,11 +996,11 @@ registration and to be signed along with the transaction details.</p>
     <dd data-md>
      <p>The number of milliseconds before the request to sign the transaction
 details times out. At most 1 hour.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-payeename"><code>payeeName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString④">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-payeename"><code>payeeName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑤">USVString</a></span>
     <dd data-md>
      <p>The display name of the payee that this SPC call is for (e.g., the
 merchant). Optional, may be provided alongside or instead of <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">payeeOrigin</a></code>.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑤">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑥">USVString</a></span>
     <dd data-md>
      <p>The <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin">origin</a> of the payee that this SPC call is for (e.g., the
 merchant). Optional, may be provided alongside or instead of <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeename" id="ref-for-dom-securepaymentconfirmationrequest-payeename①">payeeName</a></code>.</p>
@@ -1008,6 +1009,17 @@ merchant). Optional, may be provided alongside or instead of <code class="idl"><
      <p>Any <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#webauthn-extensions" id="ref-for-webauthn-extensions②">WebAuthn extensions</a> that should be used for the passed
 credential(s). The caller does not need to specify the <a href="#sctn-payment-extension-registration"> payment extension</a>; it is added
 automatically.</p>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-locale"><code>locale</code></dfn> member, <span> of type sequence&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑦">USVString</a>></span>
+    <dd data-md>
+     <p>An optional list of well-formed <a data-link-type="biblio" href="#biblio-bcp47">[BCP47]</a> language tags, in descending
+order of priority, that identify the <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#locale" id="ref-for-locale">locale</a> preferences of the
+website, i.e. a <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#language-priority-list" id="ref-for-language-priority-list">language priority list</a> <a data-link-type="biblio" href="#biblio-rfc4647">[RFC4647]</a>, which the user
+agent can use to perform <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#language-negotiation" id="ref-for-language-negotiation">language negotiation</a> and locale-affected
+formatting with the caller.</p>
+     <p class="note" role="note"><span>NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale①">locale</a></code> is distinct from
+      language or direction metadata associated with specific input
+      members, in that it represents the caller’s requested localized
+      experience rather than assertion about a specific string value.</p>
    </dl>
    <h4 class="heading settled" data-level="4.1.4" id="sctn-payment-method-additional-data-type"><span class="secno">4.1.4. </span><span class="content">Payment Method additional data type</span><a class="self-link" href="#sctn-payment-method-additional-data-type"></a></h4>
    <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-additional-data-type" id="ref-for-dfn-additional-data-type">payment method additional data type</a> for this payment method is <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest②">SecurePaymentConfirmationRequest</a></code>.</p>
@@ -1156,6 +1168,9 @@ icon in its place.</p>
 otherwise the <a href="#sctn-steps-to-check-if-a-payment-can-be-made">the steps
 to check if a payment can be made</a> would have failed previously.</p>
    </ul>
+   <p>The user agent MAY utilize the information in <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale②">locale</a></code>, if any, to display a UX localized
+into a language and using locale-based formatting consistent with that of the
+website.</p>
    <p>If the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode">current transaction automation mode</a> is not
 "<code class="idl"><a data-link-type="idl" href="#dom-transactionautomationmode-none" id="ref-for-dom-transactionautomationmode-none">none</a></code>", the user agent should first verify that
 it is in an automation context (see <a href="https://w3c.github.io/webdriver/#security">WebDriver’s Security
@@ -1295,10 +1310,10 @@ directly; for authentication the extension can only be accessed via <code class=
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="boolean " href="#dom-authenticationextensionspaymentinputs-ispayment" id="ref-for-dom-authenticationextensionspaymentinputs-ispayment①"><c- g>isPayment</c-></a>;
 
   // Only used for authentication.
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑥"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-rpid" id="ref-for-dom-authenticationextensionspaymentinputs-rpid①"><c- g>rpId</c-></a>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑦"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin①"><c- g>topOrigin</c-></a>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑧"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-payeename" id="ref-for-dom-authenticationextensionspaymentinputs-payeename①"><c- g>payeeName</c-></a>;
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑨"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin①"><c- g>payeeOrigin</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑧"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-rpid" id="ref-for-dom-authenticationextensionspaymentinputs-rpid①"><c- g>rpId</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑨"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-toporigin" id="ref-for-dom-authenticationextensionspaymentinputs-toporigin①"><c- g>topOrigin</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⓪"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-payeename" id="ref-for-dom-authenticationextensionspaymentinputs-payeename①"><c- g>payeeName</c-></a>;
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①①"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin①"><c- g>payeeOrigin</c-></a>;
   <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total①"><c- g>total</c-></a>;
   <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument②"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument①"><c- g>instrument</c-></a>;
 };
@@ -1308,16 +1323,16 @@ directly; for authentication the extension can only be accessed via <code class=
       <dd data-md>
        <p>Indicates that the extension is active.</p>
        <div class="note" role="note"><strong>TODO</strong>: Find a better way to do this. Needed currently because other members are auth-time only.</div>
-      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-rpid"><code>rpId</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⓪">USVString</a></span>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-rpid"><code>rpId</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①②">USVString</a></span>
       <dd data-md>
        <p>The <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑧">Relying Party</a> id of the credential(s) being used. Only used at authentication time; not registration.</p>
-      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①①">USVString</a></span>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①③">USVString</a></span>
       <dd data-md>
        <p>The origin of the top-level frame. Only used at authentication time; not registration.</p>
-      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-payeename"><code>payeeName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①②">USVString</a></span>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-payeename"><code>payeeName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①④">USVString</a></span>
       <dd data-md>
        <p>The payee name, if present, that was displayed to the user. Only used at authentication time; not registration.</p>
-      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①③">USVString</a></span>
+      <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑤">USVString</a></span>
       <dd data-md>
        <p>The payee origin, if present, that was displayed to the user. Only used at authentication time; not registration.</p>
       <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-total"><code>total</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount①">PaymentCurrencyAmount</a></span>
@@ -1478,10 +1493,10 @@ if it is present, otherwise omitted.</p>
    </dl>
    <h3 class="heading settled" data-level="5.2" id="sctn-collectedclientadditionalpaymentdata-dictionary"><span class="secno">5.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientadditionalpaymentdata"><code>CollectedClientAdditionalPaymentData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientadditionalpaymentdata-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata③"><c- g>CollectedClientAdditionalPaymentData</c-></a> {
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rpid" id="ref-for-dom-collectedclientadditionalpaymentdata-rpid①"><c- g>rpId</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑤"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin①"><c- g>topOrigin</c-></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑥"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeename" id="ref-for-dom-collectedclientadditionalpaymentdata-payeename②"><c- g>payeeName</c-></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑦"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin②"><c- g>payeeOrigin</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑥"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rpid" id="ref-for-dom-collectedclientadditionalpaymentdata-rpid①"><c- g>rpId</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑦"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin①"><c- g>topOrigin</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑧"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeename" id="ref-for-dom-collectedclientadditionalpaymentdata-payeename②"><c- g>payeeName</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑨"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin②"><c- g>payeeOrigin</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount②"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total②"><c- g>total</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument④"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument③"><c- g>instrument</c-></a>;
 };
@@ -1489,18 +1504,18 @@ if it is present, otherwise omitted.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata④">CollectedClientAdditionalPaymentData</a></code> dictionary contains the following
 fields:</p>
    <dl>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-rpid"><code>rpId</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑧">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-rpid"><code>rpId</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⓪">USVString</a></span>
     <dd data-md>
      <p>The id of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑨">Relying Party</a> that created the credential.</p>
      <p class="note" role="note"><span>NOTE:</span> For historical reasons, some implementations may additionally
          include this parameter with the name <code>rp</code>. The values of <code>rp</code> and <code>rpId</code> must be the same if both are present.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑨">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②①">USVString</a></span>
     <dd data-md>
      <p>The origin of the top level context that requested to sign the transaction details.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-payeename"><code>payeeName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⓪">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-payeename"><code>payeeName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②②">USVString</a></span>
     <dd data-md>
      <p>The name of the payee, if present, that was displayed to the user.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②①">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②③">USVString</a></span>
     <dd data-md>
      <p>The origin of the payee, if present, that was displayed to the user.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-total"><code>total</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://www.w3.org/TR/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount③">PaymentCurrencyAmount</a></span>
@@ -1516,8 +1531,8 @@ frame is already included in <code class="idl"><a data-link-type="idl" href="htt
    <p>The following data structures are shared between registration and authentication.</p>
    <h3 class="heading settled" data-level="6.1" id="sctn-paymentcredentialinstrument-dictionary"><span class="secno">6.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-paymentcredentialinstrument"><code>PaymentCredentialInstrument</code></dfn> Dictionary</span><a class="self-link" href="#sctn-paymentcredentialinstrument-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑥"><c- g>PaymentCredentialInstrument</c-></a> {
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②②"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname②"><c- g>displayName</c-></a>;
-    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②③"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑥"><c- g>icon</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname②"><c- g>displayName</c-></a>;
+    <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⑤"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑥"><c- g>icon</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <a class="idl-code" data-default="true" data-link-type="dict-member" data-type="boolean " href="#dom-paymentcredentialinstrument-iconmustbeshown" id="ref-for-dom-paymentcredentialinstrument-iconmustbeshown②"><c- g>iconMustBeShown</c-></a> = <c- b>true</c->;
 };
 </pre>
@@ -1525,11 +1540,11 @@ frame is already included in <code class="idl"><a data-link-type="idl" href="htt
 displayed to the user and signed together with the transaction details. It
 contains the following members:</p>
    <dl>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-displayname"><code>displayName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②④">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-displayname"><code>displayName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⑥">USVString</a></span>
     <dd data-md>
      <p>The name of the payment instrument to be displayed to the user.</p>
      <p class="note" role="note"><span>NOTE:</span> For discussion about internationalization of the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname③">displayName</a></code>, see <a href="https://github.com/w3c/secure-payment-confirmation/issues/93">issue 93</a>.</p>
-    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-icon"><code>icon</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⑤">USVString</a></span>
+    <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-icon"><code>icon</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⑦">USVString</a></span>
     <dd data-md>
      <p>The URL of the icon of the payment instrument.</p>
      <p class="note" role="note"><span>NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑦">icon</a></code> URL may either identify
@@ -1924,6 +1939,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><a href="#dom-securepaymentconfirmationrequest-instrument">dict-member for SecurePaymentConfirmationRequest</a><span>, in § 4.1.3</span>
     </ul>
    <li><a href="#dom-authenticationextensionspaymentinputs-ispayment">isPayment</a><span>, in § 5</span>
+   <li><a href="#dom-securepaymentconfirmationrequest-locale">locale</a><span>, in § 4.1.3</span>
    <li><a href="#dom-transactionautomationmode-none">"none"</a><span>, in § 9.1</span>
    <li>
     payeeName
@@ -2060,6 +2076,24 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <ul>
     <li><a href="#ref-for-transient-activation">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-transient-activation①">(2)</a>
     <li><a href="#ref-for-transient-activation②">11.1. Registration in a Cross-Origin iframe</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-language-negotiation">
+   <a href="https://w3c.github.io/i18n-glossary/#language-negotiation">https://w3c.github.io/i18n-glossary/#language-negotiation</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-language-negotiation">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-language-priority-list">
+   <a href="https://w3c.github.io/i18n-glossary/#language-priority-list">https://w3c.github.io/i18n-glossary/#language-priority-list</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-language-priority-list">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-locale">
+   <a href="https://w3c.github.io/i18n-glossary/#locale">https://w3c.github.io/i18n-glossary/#locale</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-locale">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dfn-fetching-an-image-resource">
@@ -2553,10 +2587,10 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-idl-USVString">
    <a href="https://webidl.spec.whatwg.org/#idl-USVString">https://webidl.spec.whatwg.org/#idl-USVString</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-USVString">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-USVString①">(2)</a> <a href="#ref-for-idl-USVString②">(3)</a> <a href="#ref-for-idl-USVString③">(4)</a> <a href="#ref-for-idl-USVString④">(5)</a> <a href="#ref-for-idl-USVString⑤">(6)</a>
-    <li><a href="#ref-for-idl-USVString⑥">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-USVString⑦">(2)</a> <a href="#ref-for-idl-USVString⑧">(3)</a> <a href="#ref-for-idl-USVString⑨">(4)</a> <a href="#ref-for-idl-USVString①⓪">(5)</a> <a href="#ref-for-idl-USVString①①">(6)</a> <a href="#ref-for-idl-USVString①②">(7)</a> <a href="#ref-for-idl-USVString①③">(8)</a>
-    <li><a href="#ref-for-idl-USVString①④">5.2. CollectedClientAdditionalPaymentData Dictionary</a> <a href="#ref-for-idl-USVString①⑤">(2)</a> <a href="#ref-for-idl-USVString①⑥">(3)</a> <a href="#ref-for-idl-USVString①⑦">(4)</a> <a href="#ref-for-idl-USVString①⑧">(5)</a> <a href="#ref-for-idl-USVString①⑨">(6)</a> <a href="#ref-for-idl-USVString②⓪">(7)</a> <a href="#ref-for-idl-USVString②①">(8)</a>
-    <li><a href="#ref-for-idl-USVString②②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-USVString②③">(2)</a> <a href="#ref-for-idl-USVString②④">(3)</a> <a href="#ref-for-idl-USVString②⑤">(4)</a>
+    <li><a href="#ref-for-idl-USVString">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-USVString①">(2)</a> <a href="#ref-for-idl-USVString②">(3)</a> <a href="#ref-for-idl-USVString③">(4)</a> <a href="#ref-for-idl-USVString④">(5)</a> <a href="#ref-for-idl-USVString⑤">(6)</a> <a href="#ref-for-idl-USVString⑥">(7)</a> <a href="#ref-for-idl-USVString⑦">(8)</a>
+    <li><a href="#ref-for-idl-USVString⑧">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-USVString⑨">(2)</a> <a href="#ref-for-idl-USVString①⓪">(3)</a> <a href="#ref-for-idl-USVString①①">(4)</a> <a href="#ref-for-idl-USVString①②">(5)</a> <a href="#ref-for-idl-USVString①③">(6)</a> <a href="#ref-for-idl-USVString①④">(7)</a> <a href="#ref-for-idl-USVString①⑤">(8)</a>
+    <li><a href="#ref-for-idl-USVString①⑥">5.2. CollectedClientAdditionalPaymentData Dictionary</a> <a href="#ref-for-idl-USVString①⑦">(2)</a> <a href="#ref-for-idl-USVString①⑧">(3)</a> <a href="#ref-for-idl-USVString①⑨">(4)</a> <a href="#ref-for-idl-USVString②⓪">(5)</a> <a href="#ref-for-idl-USVString②①">(6)</a> <a href="#ref-for-idl-USVString②②">(7)</a> <a href="#ref-for-idl-USVString②③">(8)</a>
+    <li><a href="#ref-for-idl-USVString②④">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-USVString②⑤">(2)</a> <a href="#ref-for-idl-USVString②⑥">(3)</a> <a href="#ref-for-idl-USVString②⑦">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
@@ -2569,7 +2603,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   <aside class="dfn-panel" data-for="term-for-idl-sequence">
    <a href="https://webidl.spec.whatwg.org/#idl-sequence">https://webidl.spec.whatwg.org/#idl-sequence</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-sequence">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-idl-sequence">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-sequence①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
@@ -2605,6 +2639,13 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-ascii-serialisation-of-an-origin">serialization of an origin</span>
      <li><span class="dfn-paneled" id="term-for-concept-environment-top-level-origin">top-level origin</span>
      <li><span class="dfn-paneled" id="term-for-transient-activation">transient activation</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[I18N-GLOSSARY]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-language-negotiation">language negotiation</span>
+     <li><span class="dfn-paneled" id="term-for-language-priority-list">language priority list</span>
+     <li><span class="dfn-paneled" id="term-for-locale">locale</span>
     </ul>
    <li>
     <a data-link-type="biblio">[IMAGE-RESOURCE]</a> defines the following terms:
@@ -2730,6 +2771,8 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dt id="biblio-i18n-glossary">[I18N-GLOSSARY]
+   <dd>Richard Ishida; Addison Phillips. <a href="https://w3c.github.io/i18n-glossary/"><cite>Internationalization Glossary</cite></a>. URL: <a href="https://w3c.github.io/i18n-glossary/">https://w3c.github.io/i18n-glossary/</a>
    <dt id="biblio-image-resource">[IMAGE-RESOURCE]
    <dd>Aaron Gustafson; Rayan Kanso; Marcos Caceres. <a href="https://w3c.github.io/image-resource/"><cite>Image Resource</cite></a>. URL: <a href="https://w3c.github.io/image-resource/">https://w3c.github.io/image-resource/</a>
    <dt id="biblio-infra">[INFRA]
@@ -2753,8 +2796,12 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
+   <dt id="biblio-bcp47">[BCP47]
+   <dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
    <dt id="biblio-rfc2397">[RFC2397]
    <dd>L. Masinter. <a href="https://www.rfc-editor.org/rfc/rfc2397"><cite>The "data" URL scheme</cite></a>. August 1998. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2397">https://www.rfc-editor.org/rfc/rfc2397</a>
+   <dt id="biblio-rfc4647">[RFC4647]
+   <dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://www.rfc-editor.org/rfc/rfc4647"><cite>Matching of Language Tags</cite></a>. September 2006. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc4647">https://www.rfc-editor.org/rfc/rfc4647</a>
    <dt id="biblio-webauthn-conditional-ui">[WEBAUTHN-CONDITIONAL-UI]
    <dd><a href="https://github.com/w3c/webauthn/issues/1545"><cite>WebAuthn Conditional UI Proposal</cite></a>. URL: <a href="https://github.com/w3c/webauthn/issues/1545">https://github.com/w3c/webauthn/issues/1545</a>
   </dl>
@@ -2768,6 +2815,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-payeename"><c- g>payeeName</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-securepaymentconfirmationrequest-payeeorigin"><c- g>payeeOrigin</c-></a>;
     <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs"><c- n>AuthenticationExtensionsClientInputs</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="AuthenticationExtensionsClientInputs " href="#dom-securepaymentconfirmationrequest-extensions"><c- g>extensions</c-></a>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<USVString> " href="#dom-securepaymentconfirmationrequest-locale"><c- g>locale</c-></a>;
 };
 
 <c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs"><c- g>AuthenticationExtensionsClientInputs</c-></a> {
@@ -2921,6 +2969,13 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-extensions">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-extensions①">4.1.8. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-locale">
+   <b><a href="#dom-securepaymentconfirmationrequest-locale">#dom-securepaymentconfirmationrequest-locale</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-locale">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-locale①">(2)</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-locale②">4.1.7. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-authenticationextensionsclientinputs-payment">

@@ -515,6 +515,9 @@ following ways:
 1. The CollectedClientData will also have an additional `payment` member for
      an SPC-generated assertion.
 
+A Relying Party can and should verify these fields as part of verifying any
+WebAuthn-generated cryptogram, allowing them to avoid login attacks.
+
 In addition to the above, a Relying Party should also record what type of
 interaction (i.e. login or payment) a given `challenge` is generated for and
 ensure that the use of the assertion matches the expected interaction type.
@@ -548,7 +551,7 @@ able to influence the:
 
 * Transaction amount and currency
 * Payment instrument name and icon
-* Payee origin
+* Payee name and origin
 
 For example, the Merchant could tell the Account Provider (in the backend) that
 it is initiating a purchase of $100, but then pass $1 to the SPC API (and thus
@@ -584,10 +587,16 @@ exists, which leads to a tracking vector. The attack does presume script access
 by the malicious party on the main frame and also the ability to trick a user
 into (regularly) completing a WebAuthn interaction, but it is feasible.
 
-One possible mitigation might be to require a transient user activation for
-credential creation in a cross-origin iframe. This may still not suffice if the
-malicious party has root-frame script access, as it could - for example -
-overlay a transparent iframe on-top of a legitimate button.
+SPC mitigates this attack in the following ways:
+
+1. Requiring a payment policy be set on the iframe, as noted above.
+1. Requiring that the iframe has a user activation.
+
+The former mitigates against a malicious iframe, whilst the latter mitigates
+the case where the top-level frame is colluding. The user will also be able to
+see in the WebAuthn UI that the relying party is not the top-level site (and a
+user agent could choose to draw more singificant WebAuthn UX in this case, if
+they wished).
 
 ### Probing for credential IDs
 
@@ -597,6 +606,10 @@ not matching versus the user declining to use it). The potential privacy leak
 is worse than WebAuthn, as a third-party can now perform the attack rather than
 just the Relying Party, but a conforming implementation should be able to avoid
 leaks.
+
+[Section 4.1.6 of the
+specification](https://w3c.github.io/secure-payment-confirmation/#sctn-steps-to-check-if-a-payment-can-be-made)
+gives normative steps to avoid such leaks.
 
 ### Joining different payment instruments
 
@@ -609,10 +622,23 @@ P1 and P2 are for the same user.
 
 For many current online payment flows this may not be a significant concern, as
 the user already provides sufficient information to do this joining anyway
-(e.g. their address), however it could become a privacy attack if, e.g.,
-payment tokenization becomes commonplace.
+(e.g. their address) However, if payment methods that involve less identifying
+information (e.g., tokenization) become commonplace, it is important that
+ecosystem stakeholders take steps to preserve user privacy. For example:
 
-For potential ways to defeat such an attack, [see issue
+- Payment systems might establish rules that place limits on storage of
+  credential ID(s) by third parties.
+
+- When a Relying Party assigns multiple instruments to a single SPC credential,
+  it might choose not to share that credential ID with other parties. In this
+  case, the Relying Party could still use the SPC credential itself (in either a
+  first-party or third-party context) to authenticate the user.
+
+- A Relying Party (e.g., a bank) might enable the user to register a distinct
+  SPC credential per payment instrument. This would not prevent the Relying
+  Party from joining those accounts internally.
+
+For potential future spec changes to defeat such an attack, [see issue
 77](https://github.com/w3c/secure-payment-confirmation/issues/77).
 
 ### Credential ID(s) as a tracking vector

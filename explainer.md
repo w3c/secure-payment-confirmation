@@ -638,7 +638,7 @@ ecosystem stakeholders take steps to preserve user privacy. For example:
   SPC credential per payment instrument. This would not prevent the Relying
   Party from joining those accounts internally.
 
-For potential future spec changes to defeat such an attack, [see issue
+See also [issue
 77](https://github.com/w3c/secure-payment-confirmation/issues/77).
 
 ### Credential ID(s) as a tracking vector
@@ -649,9 +649,8 @@ cross-site identifiers. However in order to obtain them from the Relying
 Party, the Merchant already needs an as-strong identifier to give to the
 Relying Party (e.g., the credit card number).
 
-Again the ideas in [issue
-77](https://github.com/w3c/secure-payment-confirmation/issues/77) could be used
-to mitigate this.
+Again see also [issue
+77](https://github.com/w3c/secure-payment-confirmation/issues/77).
 
 [SCA]: https://en.wikipedia.org/wiki/Strong_customer_authentication
 [webauthn]: https://www.w3.org/TR/webauthn

@@ -1374,8 +1374,13 @@ an unauthorized payment using Secure Payment Confirmation credentials
     assertion for the [=Relying Party=].
 * If the [=Relying Party=] is not expecting a transaction, it will reject the
     assertion.
-* If the [=Relying Party=] is expecting a transaction, it will detect an
-    unfamiliar `challenge` and reject the assertion.
+* If the [=Relying Party=] is expecting a transaction, it will detect at least
+    one of the following and reject the assertion:
+    * An incorrect {{CollectedClientData}}["{{CollectedClientData/challenge}}"],
+        if an attacker attempts to race against a valid ongoing payment.
+    * An incorrect {{CollectedClientData}}["{{CollectedClientData/origin}}"],
+        if an attacker attempts to sit between the user and a valid merchant
+        site and forward the assertion.
 
 ## Merchant-supplied authentication data ## {#sctn-security-merchant-data}
 

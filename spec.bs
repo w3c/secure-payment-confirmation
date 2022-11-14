@@ -559,6 +559,7 @@ Add the following to the [=registry of standardized payment methods=] in
         USVString payeeOrigin;
         AuthenticationExtensionsClientInputs extensions;
         sequence<USVString> locale;
+        boolean showOptOut;
     };
 </xmp>
 
@@ -612,6 +613,10 @@ members:
               language or direction metadata associated with specific input
               members, in that it represents the caller's requested localized
               experience rather than assertion about a specific string value.
+
+    :  <dfn>showOptOut</dfn> member
+    :: Whether the user should be shown a button to opt-out. Optional, default
+        false.
 </dl>
 
 ### Payment Method additional data type ### {#sctn-payment-method-additional-data-type}
@@ -772,6 +777,12 @@ The user agent MAY utilize the information in
 into a language and using locale-based formatting consistent with that of the
 website.
 
+If {{SecurePaymentConfirmationRequest/showOptOut}} is `true`, the user agent
+MUST provide an additional button for the user to indicate that they want to
+opt out of the process. If this button is selected, then the user agent must
+reject the {{PaymentRequest/show|show()}} promise with an
+"{{OptOutError}}" {{DOMException}}. See [[#sctn-user-opt-out]].
+
 If the [=current transaction automation mode=] is not
 "{{TransactionAutomationMode/none}}", the user agent should first verify that
 it is in an automation context (see [[WebDriver2#security|WebDriver's Security
@@ -786,6 +797,10 @@ on the value of the [=current transaction automation mode=]:
     : "{{TransactionAutomationMode/autoreject}}"
     :: Act as if the user has seen the transaction details and rejected
         the authentication.
+
+    : "{{TransactionAutomationMode/autooptout}}"
+    :: Act as if the user has seen the transaction details and clicked
+        the opt-out button.
 
 ### Steps to respond to a payment request ### {#sctn-steps-to-respond-to-a-payment-request}
 
@@ -1246,7 +1261,8 @@ The <dfn>current transaction automation mode</dfn> tracks what
     enum TransactionAutomationMode {
       "none",
       "autoaccept",
-      "autoreject"
+      "autoreject",
+      "autooptout"
     };
 </xmp>
 
@@ -1502,6 +1518,21 @@ give to the [=Relying Party=] (e.g., the credit card number).
 
 NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
       for discussion on possible spec changes related to this section.
+
+## User opt out ## {#sctn-user-opt-out}
+
+The API provides an option {{SecurePaymentConfirmationRequest/showOptOut}} for
+the developer to indicate to the user agent that that the user should be
+provided with a button to opt out of the process. When the button is selected,
+and an {{OptOutError}} is returned to the caller to indicate the user's intent
+to opt out, it is then up to the caller to act on the opt out, e.g. by clearing
+payment information stored for the user.
+
+NOTE: This is not intended to be a mechanism to delete browser data or
+      credentials, it is for the developer to prompt for opt out via the user
+      agent. The user agent should make this clear to the user, for example with
+      some clarifying text: "This provider may have stored information about
+      your payment method, which you can request to be deleted."
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 

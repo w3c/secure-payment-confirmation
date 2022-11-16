@@ -615,8 +615,9 @@ members:
               experience rather than assertion about a specific string value.
 
     :  <dfn>showOptOut</dfn> member
-    :: Whether the user should be shown a button to opt-out. Optional, default
-        false.
+    :: Whether the user should be given a chance to opt-out during the
+        [[#sctn-transaction-confirmation-ux|transaction confirmation UX]].
+        Optional, default false.
 </dl>
 
 ### Payment Method additional data type ### {#sctn-payment-method-additional-data-type}
@@ -778,9 +779,9 @@ into a language and using locale-based formatting consistent with that of the
 website.
 
 If {{SecurePaymentConfirmationRequest/showOptOut}} is `true`, the user agent
-MUST provide an additional button for the user to indicate that they want to
-opt out of the process. If this button is selected, then the user agent must
-reject the {{PaymentRequest/show|show()}} promise with an
+MUST give the user the opportunity to indicate that they want to opt out of the
+process. If the user indicates that they wish to opt-out, then the user agent
+must reject the {{PaymentRequest/show|show()}} promise with an
 "{{OptOutError}}" {{DOMException}}. See [[#sctn-user-opt-out]].
 
 If the [=current transaction automation mode=] is not
@@ -799,8 +800,8 @@ on the value of the [=current transaction automation mode=]:
         the authentication.
 
     : "{{TransactionAutomationMode/autooptout}}"
-    :: Act as if the user has seen the transaction details and clicked
-        the opt-out button.
+    :: Act as if the user has seen the transaction details and indicated
+        they want to opt out.
 
 ### Steps to respond to a payment request ### {#sctn-steps-to-respond-to-a-payment-request}
 
@@ -1523,16 +1524,16 @@ NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/
 
 The API provides an option {{SecurePaymentConfirmationRequest/showOptOut}} for
 the developer to indicate to the user agent that that the user should be
-provided with a button to opt out of the process. When the button is selected,
-and an {{OptOutError}} is returned to the caller to indicate the user's intent
-to opt out, it is then up to the caller to act on the opt out, e.g. by clearing
-payment information stored for the user.
+provided with the option to opt out of the process. When the user invokes this
+opt out, and an {{OptOutError}} is returned to the caller to indicate the user's
+intent to opt out, it is then up to the caller to act on the opt out, e.g. by
+clearing payment information stored for the user.
 
-NOTE: This is not intended to be a mechanism to delete browser data or
-      credentials, it is for the developer to prompt for opt out via the user
-      agent. The user agent should make this clear to the user, for example with
-      some clarifying text: "This provider may have stored information about
-      your payment method, which you can request to be deleted."
+This is not intended to be a mechanism to delete browser data or credentials, it
+is for the developer to prompt for opt out via the user agent. The user agent
+should make this clear to the user, for example with some clarifying text:
+"This provider may have stored information about your payment method, which you
+can request to be deleted."
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 

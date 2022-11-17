@@ -780,8 +780,9 @@ website.
 
 If {{SecurePaymentConfirmationRequest/showOptOut}} is `true`, the user agent
 MUST give the user the opportunity to indicate that they want to opt out of the
-process. If the user indicates that they wish to opt-out, then the user agent
-must reject the {{PaymentRequest/show|show()}} promise with an
+process for the {{SecurePaymentConfirmationRequest/rpId|given relying party}}.
+If the user indicates that they wish to opt-out, then the user agent must reject
+the {{PaymentRequest/show|show()}} promise with an
 "{{OptOutError}}" {{DOMException}}. See [[#sctn-user-opt-out]].
 
 If the [=current transaction automation mode=] is not

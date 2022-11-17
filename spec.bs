@@ -1523,12 +1523,12 @@ NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/
 
 ## User opt out ## {#sctn-user-opt-out}
 
-The API option {{SecurePaymentConfirmationRequest/showOptOut}} provides the
-developer a way to ask the user agent to provide the user with an opportunity to
-indicate they wish to opt out of the relying party's storage of information.
-When the user invokes this opt out, an {{OptOutError}} is returned to the caller
-to indicate the user's intent to opt out. It is then up to the caller to act on
-the opt out, e.g. by clearing payment information stored for the user.
+The API option {{SecurePaymentConfirmationRequest/showOptOut}} tells the
+user agent to provide a way for the user to indicate they wish to opt out of the
+relying party's storage of information. When the user invokes this opt out, an
+{{OptOutError}} is returned to the caller to indicate the user's intent to opt
+out. It is then up to the caller to act on the opt out, e.g. by clearing payment
+information stored for the user.
 
 Implementors must make sure that the return of an {{OptOutError}} does not
 reveal that the user has credentials but did not complete an authentication.

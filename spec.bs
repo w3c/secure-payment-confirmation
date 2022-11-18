@@ -792,15 +792,15 @@ considerations]]). The user agent should then bypass the above communication of
 information and gathering of user consent, and instead do the following based
 on the value of the [=current transaction automation mode=]:
 
-    : "{{TransactionAutomationMode/autoaccept}}"
+    : "{{TransactionAutomationMode/autoAccept}}"
     :: Act as if the user has seen the transaction details and accepted
         the authentication.
 
-    : "{{TransactionAutomationMode/autoreject}}"
+    : "{{TransactionAutomationMode/autoReject}}"
     :: Act as if the user has seen the transaction details and rejected
         the authentication.
 
-    : "{{TransactionAutomationMode/autooptout}}"
+    : "{{TransactionAutomationMode/autoOptOut}}"
     :: Act as if the user has seen the transaction details and indicated
         they want to opt out.
 
@@ -1262,9 +1262,9 @@ The <dfn>current transaction automation mode</dfn> tracks what
 <xmp class="idl">
     enum TransactionAutomationMode {
       "none",
-      "autoaccept",
-      "autoreject",
-      "autooptout"
+      "autoAccept",
+      "autoReject",
+      "autoOptOut"
     };
 </xmp>
 

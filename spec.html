@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="w3c/ED" name="w3c-status">
-  <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
+  <meta content="Bikeshed version 63e66730b, updated Tue Oct 25 12:35:05 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="63cfc2adf4337289c72ea39356104992027107cc" name="document-revision">
+  <meta content="1b9e8d4e6a8534a03caed8b29063dd4a4c21ad28" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -185,6 +185,14 @@ a.self-link:hover {
 }
 .heading > a.self-link {
     font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
 }
 li > a.self-link {
     left: calc(-1 * (3.5rem - 26px) - 2em);
@@ -417,7 +425,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-27">27 September 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-11-23">23 November 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1002,7 +1010,7 @@ details times out. At most 1 hour.</p>
 merchant). Optional, may be provided alongside or instead of <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">payeeOrigin</a></code>.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-payeeorigin"><code>payeeOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑥">USVString</a></span>
     <dd data-md>
-     <p>The <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-concept-origin">origin</a> of the payee that this SPC call is for (e.g., the
+     <p>The <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-concept-origin">origin</a> of the payee that this SPC call is for (e.g., the
 merchant). Optional, may be provided alongside or instead of <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeename" id="ref-for-dom-securepaymentconfirmationrequest-payeename①">payeeName</a></code>.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-extensions"><code>extensions</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs①">AuthenticationExtensionsClientInputs</a></span>
     <dd data-md>
@@ -1101,7 +1109,7 @@ input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconf
    method data</a>.</p>
      <ol>
       <li data-md>
-       <p>Set <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑧">payeeOrigin</a></code>"] to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin" id="ref-for-ascii-serialisation-of-an-origin">serialization of</a> <var>parsedURL</var>’s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-origin" id="ref-for-concept-url-origin">origin</a>.</p>
+       <p>Set <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeeorigin" id="ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑧">payeeOrigin</a></code>"] to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin" id="ref-for-ascii-serialisation-of-an-origin">serialization of</a> <var>parsedURL</var>’s <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-origin" id="ref-for-concept-url-origin">origin</a>.</p>
      </ol>
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource" id="ref-for-dfn-fetching-an-image-resource">Fetch the image resource</a> for the icon, passing «["<code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-dom-imageresource-src">src</a></code>" → <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-instrument" id="ref-for-dom-securepaymentconfirmationrequest-instrument④">instrument</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon②">icon</a></code>"]]»
@@ -1764,8 +1772,17 @@ assertion for the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#
      <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⓪">Relying Party</a> is not expecting a transaction, it will reject the
 assertion.</p>
     <li data-md>
-     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④①">Relying Party</a> is expecting a transaction, it will detect an
-unfamiliar <code>challenge</code> and reject the assertion.</p>
+     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④①">Relying Party</a> is expecting a transaction, it will detect at least
+one of the following and reject the assertion:</p>
+     <ul>
+      <li data-md>
+       <p>An incorrect <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑧">CollectedClientData</a></code>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge" id="ref-for-dom-collectedclientdata-challenge②">challenge</a></code>"],
+if an attacker attempts to race against a valid ongoing payment.</p>
+      <li data-md>
+       <p>An incorrect <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑨">CollectedClientData</a></code>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin" id="ref-for-dom-collectedclientdata-origin②">origin</a></code>"],
+if an attacker attempts to sit between the user and a valid merchant
+site and forward the assertion.</p>
+     </ul>
    </ul>
    <h3 class="heading settled" data-level="10.2" id="sctn-security-merchant-data"><span class="secno">10.2. </span><span class="content">Merchant-supplied authentication data</span><a class="self-link" href="#sctn-security-merchant-data"></a></h3>
    <p>The bank can and should protect against spoofing by <a href="#sctn-verifying-assertion">verifying the authentication assertion</a> they receive to
@@ -2042,7 +2059,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-concept-origin">
-   <a href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin">https://html.spec.whatwg.org/multipage/origin.html#concept-origin</a><b>Referenced in:</b>
+   <a href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin">https://html.spec.whatwg.org/multipage/browsers.html#concept-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-origin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
@@ -2060,7 +2077,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-ascii-serialisation-of-an-origin">
-   <a href="https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin">https://html.spec.whatwg.org/multipage/origin.html#ascii-serialisation-of-an-origin</a><b>Referenced in:</b>
+   <a href="https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin">https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-ascii-serialisation-of-an-origin">4.1.6. Steps to check if a payment can be made</a>
    </ul>
@@ -2346,6 +2363,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     <li><a href="#ref-for-dictdef-collectedclientdata②">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientdata③">(2)</a>
     <li><a href="#ref-for-dictdef-collectedclientdata④">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-dictdef-collectedclientdata⑤">10.1.1. Login Attack</a> <a href="#ref-for-dictdef-collectedclientdata⑥">(2)</a> <a href="#ref-for-dictdef-collectedclientdata⑦">(3)</a>
+    <li><a href="#ref-for-dictdef-collectedclientdata⑧">10.1.2. Payment Attack</a> <a href="#ref-for-dictdef-collectedclientdata⑨">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-publickeycredential">
@@ -2397,6 +2415,14 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     <li><a href="#ref-for-dom-publickeycredentialcreationoptions-authenticatorselection">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-publickeycredentialcreationoptions-authenticatorselection①">(2)</a> <a href="#ref-for-dom-publickeycredentialcreationoptions-authenticatorselection②">(3)</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-collectedclientdata-challenge">
+   <a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge">https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientdata-challenge">8.1. Verifying an Authentication Assertion</a>
+    <li><a href="#ref-for-dom-collectedclientdata-challenge①">10.1.1. Login Attack</a>
+    <li><a href="#ref-for-dom-collectedclientdata-challenge②">10.1.2. Payment Attack</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-challenge">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge</a><b>Referenced in:</b>
    <ul>
@@ -2427,6 +2453,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <ul>
     <li><a href="#ref-for-dom-collectedclientdata-origin">8.1. Verifying an Authentication Assertion</a>
     <li><a href="#ref-for-dom-collectedclientdata-origin①">10.1.1. Login Attack</a>
+    <li><a href="#ref-for-dom-collectedclientdata-origin②">10.1.2. Payment Attack</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-authenticatorattachment-platform">
@@ -2451,6 +2478,12 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
    <a href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey">https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-credentialrequestoptions-publickey">4.1.8. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-residentkeyrequirement-required">
+   <a href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required">https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-residentkeyrequirement-required">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-userverificationrequirement-required">
@@ -2484,10 +2517,24 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
     <li><a href="#ref-for-dom-publickeycredentialdescriptor-transports">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-collectedclientdata-type">
+   <a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type">https://w3c.github.io/webauthn/#dom-collectedclientdata-type</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-collectedclientdata-type">5. WebAuthn Extension - "payment"</a>
+    <li><a href="#ref-for-dom-collectedclientdata-type①">8.1. Verifying an Authentication Assertion</a>
+    <li><a href="#ref-for-dom-collectedclientdata-type②">10.1.1. Login Attack</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-type">
    <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialdescriptor-type">4.1.8. Steps to respond to a payment request</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-authenticatorselectioncriteria-userverification">
+   <a href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification">https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-authenticatorselectioncriteria-userverification">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-userverification">
@@ -2718,6 +2765,7 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-allowcredentials">allowCredentials</span>
      <li><span class="dfn-paneled" id="term-for-dom-authenticatorselectioncriteria-authenticatorattachment">authenticatorAttachment</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialcreationoptions-authenticatorselection">authenticatorSelection</span>
+     <li><span class="dfn-paneled" id="term-for-dom-collectedclientdata-challenge">challenge <small>(for CollectedClientData)</small></span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-challenge">challenge <small>(for PublicKeyCredentialRequestOptions)</small></span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-extensions">extensions</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-id">id</span>
@@ -2727,12 +2775,15 @@ give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relyin
      <li><span class="dfn-paneled" id="term-for-dom-residentkeyrequirement-preferred">preferred</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialtype-public-key">public-key</span>
      <li><span class="dfn-paneled" id="term-for-dom-credentialrequestoptions-publickey">publicKey</span>
+     <li><span class="dfn-paneled" id="term-for-dom-residentkeyrequirement-required">required <small>(for ResidentKeyRequirement)</small></span>
      <li><span class="dfn-paneled" id="term-for-dom-userverificationrequirement-required">required <small>(for UserVerificationRequirement)</small></span>
      <li><span class="dfn-paneled" id="term-for-dom-authenticatorselectioncriteria-residentkey">residentKey</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-rpid">rpId</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-timeout">timeout</span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-transports">transports</span>
+     <li><span class="dfn-paneled" id="term-for-dom-collectedclientdata-type">type <small>(for CollectedClientData)</small></span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-type">type <small>(for PublicKeyCredentialDescriptor)</small></span>
+     <li><span class="dfn-paneled" id="term-for-dom-authenticatorselectioncriteria-userverification">userVerification <small>(for AuthenticatorSelectionCriteria)</small></span>
      <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-userverification">userVerification <small>(for PublicKeyCredentialRequestOptions)</small></span>
     </ul>
    <li>

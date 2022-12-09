@@ -93,11 +93,6 @@ spec:url; type:dfn; text:valid domain;
 }
 </pre>
 
-<!-- WPT tests that we do not want visible yet -->
-<wpt hidden>
-  authentication-optout.https.html
-</wpt>
-
 <div class="non-normative">
 
 # Introduction # {#sctn-intro}
@@ -559,6 +554,7 @@ Add the following to the [=registry of standardized payment methods=] in
         USVString payeeOrigin;
         AuthenticationExtensionsClientInputs extensions;
         sequence<USVString> locale;
+        boolean showOptOut;
     };
 </xmp>
 
@@ -612,6 +608,11 @@ members:
               language or direction metadata associated with specific input
               members, in that it represents the caller's requested localized
               experience rather than assertion about a specific string value.
+
+    :  <dfn>showOptOut</dfn> member
+    :: Whether the user should be given a chance to opt-out during the
+        [[#sctn-transaction-confirmation-ux|transaction confirmation UX]].
+        Optional, default false.
 </dl>
 
 ### Payment Method additional data type ### {#sctn-payment-method-additional-data-type}
@@ -772,6 +773,17 @@ The user agent MAY utilize the information in
 into a language and using locale-based formatting consistent with that of the
 website.
 
+If {{SecurePaymentConfirmationRequest/showOptOut}} is `true`, the user agent
+MUST give the user the opportunity to indicate that they want to opt out of the
+process for the {{SecurePaymentConfirmationRequest/rpId|given relying party}}.
+If the user indicates that they wish to opt-out, then the user agent must reject
+the {{PaymentRequest/show|show()}} promise with an
+"{{OptOutError}}" {{DOMException}}. See [[#sctn-user-opt-out]].
+
+<wpt>
+  authentication-optout.https.html
+</wpt>
+
 If the [=current transaction automation mode=] is not
 "{{TransactionAutomationMode/none}}", the user agent should first verify that
 it is in an automation context (see [[WebDriver2#security|WebDriver's Security
@@ -779,13 +791,17 @@ considerations]]). The user agent should then bypass the above communication of
 information and gathering of user consent, and instead do the following based
 on the value of the [=current transaction automation mode=]:
 
-    : "{{TransactionAutomationMode/autoaccept}}"
+    : "{{TransactionAutomationMode/autoAccept}}"
     :: Act as if the user has seen the transaction details and accepted
         the authentication.
 
-    : "{{TransactionAutomationMode/autoreject}}"
+    : "{{TransactionAutomationMode/autoReject}}"
     :: Act as if the user has seen the transaction details and rejected
         the authentication.
+
+    : "{{TransactionAutomationMode/autoOptOut}}"
+    :: Act as if the user has seen the transaction details and indicated
+        they want to opt out.
 
 ### Steps to respond to a payment request ### {#sctn-steps-to-respond-to-a-payment-request}
 
@@ -1245,8 +1261,9 @@ The <dfn>current transaction automation mode</dfn> tracks what
 <xmp class="idl">
     enum TransactionAutomationMode {
       "none",
-      "autoaccept",
-      "autoreject"
+      "autoAccept",
+      "autoReject",
+      "autoOptOut"
     };
 </xmp>
 
@@ -1502,6 +1519,28 @@ give to the [=Relying Party=] (e.g., the credit card number).
 
 NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
       for discussion on possible spec changes related to this section.
+
+## User opt out ## {#sctn-user-opt-out}
+
+The API option {{SecurePaymentConfirmationRequest/showOptOut}} tells the
+user agent to provide a way for the user to indicate they wish to opt out of the
+relying party's storage of information. When the user invokes this opt out, an
+{{OptOutError}} is returned to the caller to indicate the user's intent to opt
+out. It is then up to the caller to act on the opt out, e.g. by clearing payment
+information stored for the user.
+
+Implementors must make sure that the return of an {{OptOutError}} does not
+reveal that the user has credentials but did not complete an authentication.
+This can be mitigated by similar means as
+[[#sctn-privacy-probing-credential-ids]], e.g. by also providing the user an
+opportunity to opt out on the interstitial UX in the case where a credential
+match is not found.
+
+This is not intended to be a mechanism to delete browser data or credentials -
+it is for the developer to prompt for opt out via the user agent. The user agent
+should make this clear to the user, for example with some clarifying text:
+"This provider may have stored information about your payment method, which you
+can request to be deleted."
 
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 

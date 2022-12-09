@@ -70,13 +70,13 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
 
 spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
     type: dfn
-        text: extension command; url: dfn-extension-command
+        text: extension command; url: dfn-extension-commands
         text: getting a property; url: dfn-getting-properties
         text: invalid argument; url: dfn-invalid-argument
         text: remote end steps; url: dfn-remote-end-steps
         text: success; url: dfn-success
         text: undefined; url: dfn-undefined
-        text: WebDriver error; url: dfn-errors
+        text: WebDriver error; url: dfn-error
         text: WebDriver error code; url: dfn-error-code
 </pre>
 
@@ -774,7 +774,7 @@ website.
 
 If the [=current transaction automation mode=] is not
 "{{TransactionAutomationMode/none}}", the user agent should first verify that
-it is in an automation context (see [[WebDriver#security|WebDriver's Security
+it is in an automation context (see [[WebDriver2#security|WebDriver's Security
 considerations]]). The user agent should then bypass the above communication of
 information and gathering of user consent, and instead do the following based
 on the value of the [=current transaction automation mode=]:
@@ -1227,7 +1227,7 @@ Confirmation, the [=Relying Party=] MUST proceed as follows:
 # User Agent Automation # {#sctn-automation}
 
 For the purposes of user agent automation and website testing, this document
-defines the below [[WebDriver]] [=extension commands=]. Interested parties
+defines the below [[WebDriver2]] [=extension commands=]. Interested parties
 should also consult the [[webauthn-3#sctn-automation|equivalent automation
 section]] in [[webauthn-3]].
 

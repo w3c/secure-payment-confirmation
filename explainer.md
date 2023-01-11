@@ -289,9 +289,12 @@ Secure Payment Confirmation credential created by any other origin. The User
 Agent will display a native user interface with transaction details (e.g. the
 payment amount and the payee origin).
 
-> **NOTE**: The `PaymentRequest.show()` method requires a user gesture. The User
-> Agent will display a native user interface with the payment amount and the
-> payee origin.
+> **NOTE**: The `PaymentRequest.show()` method requires a user activation.
+> The User Agent will display a native user interface with the payment
+> amount and the payee origin. However, the Working Group expects
+> to remove the requirement to consume a user activation during
+> authentication. For background, see [issue 216](https://github.com/w3c/secure-payment-confirmation/issues/216)
+> including the Chrome Team's security and privacy consideration notes.
 
 > **NOTE**: [Per the Payment Request specification][pr-cross-origin], if
 > `PaymentRequest` is used within a cross-origin iframe (e.g. if `merchant.com`
@@ -594,7 +597,7 @@ into (regularly) completing a WebAuthn interaction, but it is feasible.
 SPC mitigates this attack in the following ways:
 
 1. Requiring a payment policy be set on the iframe, as noted above. This mitigates against a malicious iframe.
-1. Requiring that the iframe has a user activation. This mitigates the case where the top-level frame is colluding. Note: The Working Group is expecting to remove the that the user agent consume a user activation during authentication. For background, see [issue 216](https://github.com/w3c/secure-payment-confirmation/issues/216), including the Chrome Team's security and privacy consideration notes.
+1. Requiring that the iframe has a user activation. This mitigates the case where the top-level frame is colluding.
 
 The user will also be able to see in the WebAuthn UI that the relying party is not the top-level site (and a user agent could choose to draw more significant WebAuthn UX in this case, if they wished).
 

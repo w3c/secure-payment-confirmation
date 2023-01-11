@@ -68,8 +68,8 @@ Traditionally, the Customer only interacts with the Merchant, and the Merchant
 communicates with the Account Provider via a back-channel protocol. However,
 Account Providers are increasingly looking to authenticate Customers during
 online payments. This is done for both regulatory reasons (e.g. [SCA] in the
-European Union) and for fraud prevention reasons - either fradulent Customers or
-fradulent Merchants.
+European Union) and for fraud prevention reasons - either fraudulent Customers or
+fraudulent Merchants.
 
 Existing methods of authenticating a Customer during an online payment are
 either high friction (e.g. embedding challenge iframes from the Account
@@ -377,6 +377,10 @@ When the user cancels the underlying platform prompt to authenticate, the browse
 
 When the user fails to authenticate, the underlying platform behavior will typically involve providing multiple opportunities to retry. If the authenticator signals failure to the browser, the browser will return an error message to the caller.
 
+### User Requests to Opt Out of Credential Storage
+
+The caller of the API can set a flag (default: false) telling the browser to provide the user with the opportunity to request to opt out of the process for the given relying party. In the transaction dialog, if the user indicates that they wish to opt-out, then the browser returns an error message to the caller ("OptOuterror"). It is then up to the caller to act on the opt out, e.g., by clearing payment information stored for the user (or informing the relying party to do so).
+
 ### Other Failure Scenarios
 
 The Web Authentication algorithm [Use an Existing Credential to Make an Assertion](https://www.w3.org/TR/webauthn-3/#sctn-getAssertion) describes additional failure modes. SPC passes messages on to the caller.
@@ -388,7 +392,7 @@ The Web Authentication algorithm [Use an Existing Credential to Make an Assertio
 In late 2020, [Stripe] ran a 3-month experiment of Secure Payment Confirmation
 via a Google Chrome [Origin Trial]. The experiment showed a **+8pp increase in
 conversion rate** (~84.7% to 92.7%), a **3x reduction in time-to-authenticate**
-(36s median to 12s median), and **neglible fraud**.
+(36s median to 12s median), and **negligible fraud**.
 
 It is worth noting that the experiment only compared traditional One Time
 Password challenge flows versus FIDO-based (e.g. biometric) challenge flows. No
@@ -501,7 +505,7 @@ expose the Relying Party to both login and payment attacks.
 **Login attack**
 
 In this attack, a malicious third-party uses SPC (with some previously-obtained
-credentials for an identified user, either legimitately or illicitly) to obtain
+credentials for an identified user, either legitimately or illicitly) to obtain
 a payment assertion. They then send that assertion to the Relying Party's
 **login** end-point, and hope that the Relying Party does not follow the
 [WebAuthn requirements on assertion verification][webauthn-verification].
@@ -525,7 +529,7 @@ ensure that the use of the assertion matches the expected interaction type.
 **Payment attack**
 
 In this attack, a malicious third-party tries to use SPC (again with either
-legimitately or illictly obtained credentials) to initiate an unauthorized
+legitimately or illicitly obtained credentials) to initiate an unauthorized
 payment. Such an attack has a low chance of success for several reasons:
 
 * When the attacker initiates SPC, the user will be shown an interface by the
@@ -589,14 +593,10 @@ into (regularly) completing a WebAuthn interaction, but it is feasible.
 
 SPC mitigates this attack in the following ways:
 
-1. Requiring a payment policy be set on the iframe, as noted above.
-1. Requiring that the iframe has a user activation.
+1. Requiring a payment policy be set on the iframe, as noted above. This mitigates against a malicious iframe.
+1. Requiring that the iframe has a user activation. This mitigates the case where the top-level frame is colluding. Note: The Working Group is expecting to remove the [requirement](https://w3c.github.io/secure-payment-confirmation/#sctn-payment-extension-registration) that the user agent consume a user activation during registration. For background, see [issue 216](https://github.com/w3c/secure-payment-confirmation/issues/216), including the Chrome Team's security and privacy consideration notes.
 
-The former mitigates against a malicious iframe, whilst the latter mitigates
-the case where the top-level frame is colluding. The user will also be able to
-see in the WebAuthn UI that the relying party is not the top-level site (and a
-user agent could choose to draw more singificant WebAuthn UX in this case, if
-they wished).
+The user will also be able to see in the WebAuthn UI that the relying party is not the top-level site (and a user agent could choose to draw more significant WebAuthn UX in this case, if they wished).
 
 ### Probing for credential IDs
 

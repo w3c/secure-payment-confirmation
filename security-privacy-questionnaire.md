@@ -38,12 +38,7 @@ after a browser prompt and user consent.
 
 ## 5. Do the features in your specification introduce new state for an origin that persists across browsing sessions? 
 
-Secure Payment Confirmation relies on Web Authentication, which introduces state. Secure Payment Confirmation does not introduce additional state.
-
-Secure Payment Confirmation includes an "opt-out" feature: an
-(optional) input parameter that instructs the user agent to provide
-the user with an opportunity to request that the relying party forget
-previously stored authentication credentials.
+Secure Payment Confirmation relies on Web Authentication, which introduces state. Secure Payment Confirmation does not introduce additional state in the browser.
 
 ## 6. Do the features in your specification expose information about the underlying platform to origins?
 

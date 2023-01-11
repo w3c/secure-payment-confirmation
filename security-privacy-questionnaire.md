@@ -38,8 +38,12 @@ after a browser prompt and user consent.
 
 ## 5. Do the features in your specification introduce new state for an origin that persists across browsing sessions? 
 
-Secure Payment Confirmation relies on Web Authentication, which introduces state. Secure Payment Confirmation
-does not introduce additional state.
+Secure Payment Confirmation relies on Web Authentication, which introduces state. Secure Payment Confirmation does not introduce additional state.
+
+Secure Payment Confirmation includes an "opt-out" feature: an
+(optional) input parameter that instructs the user agent to provide
+the user with an opportunity to request that the relying party forget
+previously stored authentication credentials.
 
 ## 6. Do the features in your specification expose information about the underlying platform to origins?
 
@@ -66,8 +70,7 @@ No.
 
 ## 10. Do features in this specification allow an origin to access other devices? 
 
-Secure Payment Confirmation relies on Web Authentication; discussions about multidevice
-credentials in Web Authentication are ongoing.
+No. Secure Payment Confirmation relies on Web Authentication; discussions about passkeys in Web Authentication are ongoing.
 
 ## 11. Do features in this specification allow an origin some measure of control over a user agent’s native UI? 
 
@@ -96,7 +99,7 @@ following exceptions:
 - A SPC-enabled `PublicKeyCredential` can be exercised in any context where
   Payment Request API is allowed, i.e. a first-party secure context, or a
   third-party secure context with [delegated permission] from the top-level
-  context and user activation.
+  context. Note: As of January 2023 the specifiation includes a requirement that the user agent consumer a user activation at authentication time, but the Working Group plans to remove that requirement; see [issue 216](https://github.com/w3c/secure-payment-confirmation/issues/216) including the Chrome Team's [security and privacy consideration notes](https://github.com/w3c/secure-payment-confirmation/issues/216#issue-1455821580).
 
 [delegated permission]: https://w3c.github.io/payment-request/#permissions-policy
 

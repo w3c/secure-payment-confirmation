@@ -382,7 +382,7 @@ When the user fails to authenticate, the underlying platform behavior will typic
 
 ### User Requests to Opt Out of Credential Storage
 
-The caller of the API can set a flag (default: false) telling the browser to provide the user with the opportunity to request to opt out of the process for the given relying party. In the transaction dialog, if the user indicates that they wish to opt-out, then the browser returns an error message to the caller ("OptOuterror"). It is then up to the caller to act on the opt out, e.g., by clearing payment information stored for the user (or informing the relying party to do so).
+The caller of the API can set a flag (default: false) telling the browser to provide the user with the opportunity to request to opt out of the process for the given relying party. In the transaction dialog, if the user indicates that they wish to opt-out, then the browser returns an error message to the caller ("OptOutError"). It is then up to the caller to act on the opt out, e.g., by clearing payment information stored for the user (or informing the relying party to do so).
 
 ### Other Failure Scenarios
 

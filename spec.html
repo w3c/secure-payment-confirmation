@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 859efb4bd, updated Fri Jan 27 16:04:01 2023 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="42be43daaa8703bce1dc1dae8aafbd29bf5beff3" name="document-revision">
+  <meta content="1565e06241deea121fbefb85c420f237d85921a9" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -846,6 +846,9 @@ presumes access to await/async, for easier to read promise handling.</p>
 
     payeeName<c- o>:</c-> <c- u>"Merchant Shop"</c-><c- p>,</c->
     payeeOrigin<c- o>:</c-> <c- u>"https://merchant.com"</c-><c- p>,</c->
+
+    <c- c1>// Caller’s requested localized experience</c->
+    locale<c- o>:</c-> <c- p>[</c-><c- u>"en"</c-><c- p>],</c-> 
 
     timeout<c- o>:</c-> <c- mf>360000</c-><c- p>,</c->  <c- c1>// 6 minutes</c->
   <c- p>}],</c-> <c- p>{</c->

@@ -38,8 +38,6 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
 spec: i18n-glossary; urlPrefix: https://w3c.github.io/i18n-glossary/
     type: dfn
         text: locale; url: locale
-        text: language priority list; url: language-priority-list
-        text: language negotiation; url: language-negotiation
 
 spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
     type: dfn
@@ -49,7 +47,7 @@ spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
         text: steps to validate payment method data; url: dfn-steps-to-validate-payment-method-data
         text: steps to check if a payment can be made; url: dfn-steps-to-check-if-a-payment-can-be-made
         text: steps to respond to a payment request; url: dfn-steps-to-respond-to-a-payment-request
-        text: payment permission string; url: dfn-payment-permission
+        text: payment permission string; url: dfn-payment
         text: payment request accessibility considerations; url: accessibility-considerations
 
 spec: payment-method-id; urlPrefix: https://w3c.github.io/payment-method-id/
@@ -62,6 +60,7 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: credential ID; url: credential-id
         text: discoverable credential; url: discoverable-credential
         text: relying party; url: relying-party
+        text: relying party identifier; url: dfn-relying-party-identifier
         text: public key credential; url: public-key-credential
         text: WebAuthn Extension; url: webauthn-extensions
         text: client extension; url: client-extension
@@ -438,20 +437,20 @@ try {
 
 : <dfn>Steps to silently determine if a credential is SPC-enabled</dfn>
 :: An as-yet undefined process by which a user agent can, given a
-    [[webauthn-3#relying-party-identifier|Relying Party Identifier]] and a
-    [=credential ID=], silently (i.e., without user interaction) determine if
-    the credential represented by that ID is an [=SPC Credential=].
+    [=Relying Party Identifier=] and a [=credential ID=], silently (i.e.,
+    without user interaction) determine if the credential represented by that ID
+    is an [=SPC Credential=].
 
     NOTE: See <a href="https://github.com/w3c/webauthn/issues/1667">WebAuthn
     issue 1667</a>.
 
 : <dfn>Steps to silently determine if a credential is available for the current device</dfn>
 :: An as-yet undefined process by which a user agent can, given a
-    [[webauthn-3#relying-party-identifier|Relying Party Identifier]] and a
-    [=credential ID=], silently (i.e., without user interaction) determine if
-    the credential represented by that credential ID is available for the
-    current device (i.e., could be successfully used as part of a WebAuthn
-    [[webauthn-3#sctn-getAssertion|Get]] call).
+    [=Relying Party Identifier=] and a [=credential ID=], silently (i.e.,
+    without user interaction) determine if the credential represented by that
+    credential ID is available for the current device (i.e., could be
+    successfully used as part of a WebAuthn [[webauthn-3#sctn-getAssertion|Get]]
+    call).
 
     This allows the user agent to only conditionally display
     [[#sctn-transaction-confirmation-ux|the transaction UX]] to the user if
@@ -567,8 +566,7 @@ members:
         to prevent replay attacks.
 
     :  <dfn>rpId</dfn> member
-    :: The [[webauthn-3#relying-party-identifier|Relying Party Identifier]] of
-        the credentials.
+    :: The [=Relying Party Identifier=] of the credentials.
 
     :  <dfn>credentialIds</dfn> member
     :: The list of credential identifiers for the given instrument.

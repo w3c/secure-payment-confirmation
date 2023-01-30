@@ -384,6 +384,9 @@ const request = new PaymentRequest([{
     payeeName: "Merchant Shop",
     payeeOrigin: "https://merchant.com",
 
+    // Caller’s requested localized experience
+    locale: ["en"], 
+
     timeout: 360000,  // 6 minutes
   }], {
     total: {

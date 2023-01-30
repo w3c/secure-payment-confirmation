@@ -784,22 +784,22 @@ the {{PaymentRequest/show|show()}} promise with an
   authentication-optout.https.html
 </wpt>
 
-If the [=current transaction automation mode=] is not
-"{{TransactionAutomationMode/none}}", the user agent should first verify that
-it is in an automation context (see [[WebDriver2#security|WebDriver's Security
-considerations]]). The user agent should then bypass the above communication of
-information and gathering of user consent, and instead do the following based
-on the value of the [=current transaction automation mode=]:
+If the [=current transaction automation mode=] is not "`none`", the user agent
+should first verify that it is in an automation context (see
+[[WebDriver2#security|WebDriver's Security considerations]]). The user agent
+should then bypass the above communication of information and gathering of user
+consent, and instead do the following based on the value of the [=current
+transaction automation mode=]:
 
-    : "{{TransactionAutomationMode/autoAccept}}"
+    : "`autoAccept`"
     :: Act as if the user has seen the transaction details and accepted
         the authentication.
 
-    : "{{TransactionAutomationMode/autoReject}}"
+    : "`autoReject`"
     :: Act as if the user has seen the transaction details and rejected
         the authentication.
 
-    : "{{TransactionAutomationMode/autoOptOut}}"
+    : "`autoOptOut`"
     :: Act as if the user has seen the transaction details and indicated
         they want to opt out.
 
@@ -1254,18 +1254,8 @@ user agent to place Secure Payment Confirmation into a mode where it will
 automatically simulate a user either accepting or rejecting the
 [[#sctn-transaction-confirmation-ux|transaction confirmation UX]].
 
-The <dfn>current transaction automation mode</dfn> tracks what
-{{TransactionAutomationMode}} is currently active for SPC. It defaults to
-"{{TransactionAutomationMode/none}}".
-
-<xmp class="idl">
-    enum TransactionAutomationMode {
-      "none",
-      "autoAccept",
-      "autoReject",
-      "autoOptOut"
-    };
-</xmp>
+The <dfn>current transaction automation mode</dfn> tracks what automation mode
+is currently active for SPC. It defaults to "`none`".
 
 <figure id="table-setSPCTransactionMode" class="table">
     <table class="data">
@@ -1292,9 +1282,9 @@ The [=remote end steps=] are:
 1. Let |mode| be the result of [=getting a property=] named `"mode"` from
     |parameters|.
 
-1. If |mode| is [=undefined=] or is not a member of {{TransactionAutomationMode}},
-    return a [=WebDriver error=] with [=WebDriver error code=] [=invalid
-    argument=].
+1. If |mode| is [=undefined=] or is not one of "`autoAccept`", "`autoReject`",
+    or "`autoOptOut`", return a [=WebDriver error=] with [=WebDriver error
+    code=] [=invalid argument=].
 
 1. Set the [=current transaction automation mode=] to |mode|.
 

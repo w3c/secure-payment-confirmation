@@ -38,6 +38,7 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
 spec: i18n-glossary; urlPrefix: https://w3c.github.io/i18n-glossary/
     type: dfn
         text: locale; url: locale
+        text: bidirectional text; url: def_bidirectional_text	
 
 spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
     type: dfn

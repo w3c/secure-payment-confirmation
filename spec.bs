@@ -609,7 +609,7 @@ members:
               language or direction metadata associated with specific input
               members, in that it represents the caller's requested localized
               experience rather than assertion about a specific string value.
-	      See [[#sctn-i18n-considerations]] for more discussion.
+              See [[#sctn-i18n-considerations]] for more discussion.
 
     :  <dfn>showOptOut</dfn> member
     :: Whether the user should be given a chance to opt-out during the

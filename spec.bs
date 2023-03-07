@@ -1547,10 +1547,8 @@ Callers of the API may express preferences for localized transaction
 dialog experiences via the {{SecurePaymentConfirmationRequest/locale}} member.
 
 This specification does not (yet) include mechanisms for callers to
-associate language or direction metadata with displayable strings
-provided as input to the API (e.g.,
-{{PaymentCredentialInstrument/displayName}}). To track progress on on
-this topic see <a
+associate language or direction metadata with the displayable strings
+they provide as input to the API (e.g., {{PaymentCredentialInstrument/displayName}}). To track progress on on this topic see <a
 href="https://github.com/w3c/secure-payment-confirmation/issues/93">issue
 93</a>.
 
@@ -1558,4 +1556,4 @@ In the meantime, callers of the API should consider the following:
 
 * Aim for consistency between values of {{SecurePaymentConfirmationRequest/locale}} (when provided) and the language of displayable strings.
 
-* If displayable strings contain or might contain [[!i18n-glossary#bidirectional_text|bidirectional text]], ensure that they will display correctly without the application needing to process the contents of the string value via the insertion of Unicode bidirectional controls. For more information see [How to use Unicode controls for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).
+* If displayable strings contain or might contain [[!I18N-GLOSSARY#bidirectional_text|bidirectional text]], ensure that they will display correctly without the application needing to process the contents of the string value via the insertion of Unicode bidirectional controls. For more information see [How to use Unicode controls for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).

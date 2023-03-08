@@ -4,11 +4,10 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="w3c/ED" name="w3c-status">
-  <meta content="Bikeshed version 859efb4bd, updated Fri Jan 27 16:04:01 2023 -0800" name="generator">
+  <meta content="Bikeshed version 077497365, updated Thu Mar 2 15:15:29 2023 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="1565e06241deea121fbefb85c420f237d85921a9" name="document-revision">
+  <meta content="568fbabe9c93eaf6d461389cf468271a4e36afaa" name="document-revision">
 <style>/* style-autolinks */
-
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -68,9 +67,9 @@ pre .property::before, pre .property::after {
 
 [data-link-type=biblio] {
     white-space: pre;
-}</style>
+}
+</style>
 <style>/* style-counters */
-
 body {
     counter-reset: example figure issue;
 }
@@ -97,9 +96,9 @@ figcaption {
 }
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
-}</style>
+}
+</style>
 <style>/* style-dfn-panel */
-
 :root {
     --dfnpanel-bg: #ddd;
     --dfnpanel-text: var(--text);
@@ -107,10 +106,10 @@ figcaption:not(.no-marker)::before {
 .dfn-panel {
     position: absolute;
     z-index: 35;
-    height: auto;
-    width: -webkit-fit-content;
-    width: fit-content;
+    width: 20em;
+    min-width: min-content;
     max-width: 300px;
+    height: auto;
     max-height: 500px;
     overflow: auto;
     padding: 0.5em 0.75em;
@@ -118,6 +117,7 @@ figcaption:not(.no-marker)::before {
     background: var(--dfnpanel-bg);
     color: var(--dfnpanel-text);
     border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
@@ -140,7 +140,6 @@ figcaption:not(.no-marker)::before {
 .dfn-paneled { cursor: pointer; }
 </style>
 <style>/* style-issues */
-
 a[href].issue-return {
     float: right;
     float: inline-end;
@@ -150,7 +149,6 @@ a[href].issue-return {
 }
 </style>
 <style>/* style-md-lists */
-
 /* This is a weird hack for me not yet following the commonmark spec
    regarding paragraph and lists. */
 [data-md] > :first-child {
@@ -158,7 +156,8 @@ a[href].issue-return {
 }
 [data-md] > :last-child {
     margin-bottom: 0;
-}</style>
+}
+</style>
 <style>/* style-selflinks */
 
 :root {
@@ -425,7 +424,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-01-30">30 January 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-03-08">8 March 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -556,6 +555,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
       <li><a href="#sctn-user-opt-out"><span class="secno">11.5</span> <span class="content">User opt out</span></a>
      </ol>
     <li><a href="#sctn-accessibility-considerations"><span class="secno">12</span> <span class="content">Accessibility Considerations</span></a>
+    <li><a href="#sctn-i18n-considerations"><span class="secno">13</span> <span class="content">Internationalization Considerations</span></a>
     <li>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
@@ -1026,14 +1026,15 @@ automatically.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-locale"><code>locale</code></dfn> member, <span> of type sequence&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑦">USVString</a>></span>
     <dd data-md>
      <p>An optional list of well-formed <a data-link-type="biblio" href="#biblio-bcp47" title="Tags for Identifying Languages">[BCP47]</a> language tags, in descending
-order of priority, that identify the <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#locale" id="ref-for-locale">locale</a> preferences of the
+order of priority, that identify the <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#locale" id="ref-for-locale">locale</a> preferences of the
 website, i.e. a <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#def_language_priority_list" id="ref-for-def_language_priority_list">language priority list</a> <a data-link-type="biblio" href="#biblio-rfc4647" title="Matching of Language Tags">[RFC4647]</a>, which the user
 agent can use to perform <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-negotiation" id="ref-for-dfn-language-negotiation">language negotiation</a> and locale-affected
 formatting with the caller.</p>
      <p class="note" role="note"><span class="marker">NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale①">locale</a></code> is distinct from
       language or direction metadata associated with specific input
       members, in that it represents the caller’s requested localized
-      experience rather than assertion about a specific string value.</p>
+      experience rather than assertion about a specific string value.
+      See <a href="#sctn-i18n-considerations">§ 13 Internationalization Considerations</a> for more discussion.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-showoptout"><code>showOptOut</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean①">boolean</a></span>
     <dd data-md>
      <p>Whether the user should be given a chance to opt-out during the <a href="#sctn-transaction-confirmation-ux">transaction confirmation UX</a>.
@@ -1576,7 +1577,8 @@ contains the following members:</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-displayname"><code>displayName</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⑥">USVString</a></span>
     <dd data-md>
      <p>The name of the payment instrument to be displayed to the user.</p>
-     <p class="note" role="note"><span class="marker">NOTE:</span> For discussion about internationalization of the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname③">displayName</a></code>, see <a href="https://github.com/w3c/secure-payment-confirmation/issues/93">issue 93</a>.</p>
+     <p class="note" role="note"><span class="marker">NOTE:</span> See <a href="#sctn-i18n-considerations">§ 13 Internationalization Considerations</a> for discussion about
+ internationalization of the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname③">displayName</a></code>.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export id="dom-paymentcredentialinstrument-icon"><code>icon</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⑦">USVString</a></span>
     <dd data-md>
      <p>The URL of the icon of the payment instrument.</p>
@@ -1915,6 +1917,27 @@ can request to be deleted."</p>
    <h2 class="heading settled" data-level="12" id="sctn-accessibility-considerations"><span class="secno">12. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
    <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑧">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
    <p>User Agents implementing this specification should follow both <a href="https://w3c.github.io/webauthn/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
+   <h2 class="heading settled" data-level="13" id="sctn-i18n-considerations"><span class="secno">13. </span><span class="content">Internationalization Considerations</span><a class="self-link" href="#sctn-i18n-considerations"></a></h2>
+   <p>Callers of the API should express the desired <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#locale" id="ref-for-locale①">locale</a> of the
+transaction dialog as well as the localization of any displayable
+strings via the <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale③">locale</a></code> member. In
+general this member should match the localization of the page where
+the request originates (such as by querying the <code>lang</code> attribute of
+the button triggering the request).</p>
+   <p>This specification does not (yet) include mechanisms for callers to
+associate language or direction metadata with the displayable strings
+they provide as input to the API (e.g., <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑦">displayName</a></code>).</p>
+   <p>In the meantime, callers of the API should consider the following:</p>
+   <ul>
+    <li data-md>
+     <p>Aim for consistency between values of <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale④">locale</a></code> (when provided) and the language of displayable strings.</p>
+    <li data-md>
+     <p>If displayable strings contain or might contain <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#def_bidirectional_text" id="ref-for-def_bidirectional_text">bidirectional text</a>, ensure
+that they will display correctly without the application needing to process
+the contents of the string value via the insertion of Unicode bidirectional
+controls. For more information see <a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls">How to use Unicode controls for bidi
+text</a>.</p>
+   </ul>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
@@ -2040,316 +2063,323 @@ can request to be deleted."</p>
      <li><a href="#dom-collectedclientadditionalpaymentdata-total">dict-member for CollectedClientAdditionalPaymentData</a><span>, in § 5.2</span>
     </ul>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-dom-credentialscontainer-create">
-   <a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4c4deb628b4a023b8afa7af050ade63d" class="dfn-panel" data-for="4c4deb628b4a023b8afa7af050ade63d" id="infopanel-for-4c4deb628b4a023b8afa7af050ade63d">
+   <span id="infopaneltitle-for-4c4deb628b4a023b8afa7af050ade63d" style="display:none">Info about the 'create()' external reference.</span><a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-credentialscontainer-create">3. Registration</a>
     <li><a href="#ref-for-dom-credentialscontainer-create①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-credentialscontainer-create②">11.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-credentialscontainer-get">
-   <a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-52a1ecfcbff933a84971f1285ee53552" class="dfn-panel" data-for="52a1ecfcbff933a84971f1285ee53552" id="infopanel-for-52a1ecfcbff933a84971f1285ee53552">
+   <span id="infopaneltitle-for-52a1ecfcbff933a84971f1285ee53552" style="display:none">Info about the 'get()' external reference.</span><a href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get">https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-credentialscontainer-get">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-credential-id">
-   <a href="https://w3c.github.io/webappsec-credential-management/#dom-credential-id">https://w3c.github.io/webappsec-credential-management/#dom-credential-id</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-f9eef6435348629f3586f32291830a40" class="dfn-panel" data-for="f9eef6435348629f3586f32291830a40" id="infopanel-for-f9eef6435348629f3586f32291830a40">
+   <span id="infopaneltitle-for-f9eef6435348629f3586f32291830a40" style="display:none">Info about the 'id' external reference.</span><a href="https://w3c.github.io/webappsec-credential-management/#dom-credential-id">https://w3c.github.io/webappsec-credential-management/#dom-credential-id</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-credential-id">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-abstract-opdef-request-a-credential">
-   <a href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential">https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4a3eb790c27b431e183082fd88a6ee97" class="dfn-panel" data-for="4a3eb790c27b431e183082fd88a6ee97" id="infopanel-for-4a3eb790c27b431e183082fd88a6ee97">
+   <span id="infopaneltitle-for-4a3eb790c27b431e183082fd88a6ee97" style="display:none">Info about the 'request a credential' external reference.</span><a href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential">https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-abstract-opdef-request-a-credential">4.1.8. Steps to respond to a payment request</a> <a href="#ref-for-abstract-opdef-request-a-credential①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-sec-object-internal-methods-and-internal-slots">
-   <a href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots">https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-d1edb85c69aa734c82dc77c7a76c93df" class="dfn-panel" data-for="d1edb85c69aa734c82dc77c7a76c93df" id="infopanel-for-d1edb85c69aa734c82dc77c7a76c93df">
+   <span id="infopaneltitle-for-d1edb85c69aa734c82dc77c7a76c93df" style="display:none">Info about the 'internal method' external reference.</span><a href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots">https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-sec-object-internal-methods-and-internal-slots">7. Permissions Policy integration</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-consume-user-activation">
-   <a href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation">https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-293dcd27f7228c1698581dc6518812f9" class="dfn-panel" data-for="293dcd27f7228c1698581dc6518812f9" id="infopanel-for-293dcd27f7228c1698581dc6518812f9">
+   <span id="infopaneltitle-for-293dcd27f7228c1698581dc6518812f9" style="display:none">Info about the 'consume user activation' external reference.</span><a href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation">https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-consume-user-activation">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-current-settings-object">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-28eba21e7a3f0ed638ca9e61f2824175" class="dfn-panel" data-for="28eba21e7a3f0ed638ca9e61f2824175" id="infopanel-for-28eba21e7a3f0ed638ca9e61f2824175">
+   <span id="infopaneltitle-for-28eba21e7a3f0ed638ca9e61f2824175" style="display:none">Info about the 'current settings object' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-current-settings-object">7. Permissions Policy integration</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-in-parallel">
-   <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-3a2763fcaa6bc82693554cf36780c0dd" class="dfn-panel" data-for="3a2763fcaa6bc82693554cf36780c0dd" id="infopanel-for-3a2763fcaa6bc82693554cf36780c0dd">
+   <span id="infopaneltitle-for-3a2763fcaa6bc82693554cf36780c0dd" style="display:none">Info about the 'in parallel' external reference.</span><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-in-parallel">7. Permissions Policy integration</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-origin">
-   <a href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin">https://html.spec.whatwg.org/multipage/browsers.html#concept-origin</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e66f9f7d45934e77669cb907bd0c7636" class="dfn-panel" data-for="e66f9f7d45934e77669cb907bd0c7636" id="infopanel-for-e66f9f7d45934e77669cb907bd0c7636">
+   <span id="infopaneltitle-for-e66f9f7d45934e77669cb907bd0c7636" style="display:none">Info about the 'origin' external reference.</span><a href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin">https://html.spec.whatwg.org/multipage/browsers.html#concept-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-origin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-relevant-global">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global">https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-2233058c8f0998915af8393ee2abbc1d" class="dfn-panel" data-for="2233058c8f0998915af8393ee2abbc1d" id="infopanel-for-2233058c8f0998915af8393ee2abbc1d">
+   <span id="infopaneltitle-for-2233058c8f0998915af8393ee2abbc1d" style="display:none">Info about the 'relevant global object' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global">https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-relevant-global">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-concept-relevant-global①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-relevant-settings-object">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-bfb9cb6617f81a424ab20212af73bae3" class="dfn-panel" data-for="bfb9cb6617f81a424ab20212af73bae3" id="infopanel-for-bfb9cb6617f81a424ab20212af73bae3">
+   <span id="infopaneltitle-for-bfb9cb6617f81a424ab20212af73bae3" style="display:none">Info about the 'relevant settings object' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object">https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-relevant-settings-object">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-ascii-serialisation-of-an-origin">
-   <a href="https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin">https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-2aeb953708ac6466a37697c533cf366f" class="dfn-panel" data-for="2aeb953708ac6466a37697c533cf366f" id="infopanel-for-2aeb953708ac6466a37697c533cf366f">
+   <span id="infopaneltitle-for-2aeb953708ac6466a37697c533cf366f" style="display:none">Info about the 'serialization of an origin' external reference.</span><a href="https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin">https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-ascii-serialisation-of-an-origin">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-environment-top-level-origin">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-environment-top-level-origin">https://html.spec.whatwg.org/multipage/webappapis.html#concept-environment-top-level-origin</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fad46e4a016cd6e3ca0c81a3c004e4c3" class="dfn-panel" data-for="fad46e4a016cd6e3ca0c81a3c004e4c3" id="infopanel-for-fad46e4a016cd6e3ca0c81a3c004e4c3">
+   <span id="infopaneltitle-for-fad46e4a016cd6e3ca0c81a3c004e4c3" style="display:none">Info about the 'top-level origin' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-environment-top-level-origin">https://html.spec.whatwg.org/multipage/webappapis.html#concept-environment-top-level-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-environment-top-level-origin">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-transient-activation">
-   <a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-5b762d09d78e8674458b84982b3cb3c9" class="dfn-panel" data-for="5b762d09d78e8674458b84982b3cb3c9" id="infopanel-for-5b762d09d78e8674458b84982b3cb3c9">
+   <span id="infopaneltitle-for-5b762d09d78e8674458b84982b3cb3c9" style="display:none">Info about the 'transient activation' external reference.</span><a href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation">https://html.spec.whatwg.org/multipage/interaction.html#transient-activation</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-transient-activation">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-transient-activation①">(2)</a>
     <li><a href="#ref-for-transient-activation②">11.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-language-negotiation">
-   <a href="https://w3c.github.io/i18n-glossary/#dfn-language-negotiation">https://w3c.github.io/i18n-glossary/#dfn-language-negotiation</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-df2e5e2d42c926d061289af122014b97" class="dfn-panel" data-for="df2e5e2d42c926d061289af122014b97" id="infopanel-for-df2e5e2d42c926d061289af122014b97">
+   <span id="infopaneltitle-for-df2e5e2d42c926d061289af122014b97" style="display:none">Info about the 'bidirectional text' external reference.</span><a href="https://w3c.github.io/i18n-glossary/#def_bidirectional_text">https://w3c.github.io/i18n-glossary/#def_bidirectional_text</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-def_bidirectional_text">13. Internationalization Considerations</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-5bbad43b05fea4305f42cd7d2a8a756a" class="dfn-panel" data-for="5bbad43b05fea4305f42cd7d2a8a756a" id="infopanel-for-5bbad43b05fea4305f42cd7d2a8a756a">
+   <span id="infopaneltitle-for-5bbad43b05fea4305f42cd7d2a8a756a" style="display:none">Info about the 'language negotiation' external reference.</span><a href="https://w3c.github.io/i18n-glossary/#dfn-language-negotiation">https://w3c.github.io/i18n-glossary/#dfn-language-negotiation</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-language-negotiation">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-def_language_priority_list">
-   <a href="https://w3c.github.io/i18n-glossary/#def_language_priority_list">https://w3c.github.io/i18n-glossary/#def_language_priority_list</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4b895d7624808cdea0abfd234426f79e" class="dfn-panel" data-for="4b895d7624808cdea0abfd234426f79e" id="infopanel-for-4b895d7624808cdea0abfd234426f79e">
+   <span id="infopaneltitle-for-4b895d7624808cdea0abfd234426f79e" style="display:none">Info about the 'language priority list' external reference.</span><a href="https://w3c.github.io/i18n-glossary/#def_language_priority_list">https://w3c.github.io/i18n-glossary/#def_language_priority_list</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-def_language_priority_list">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-locale">
-   <a href="https://w3c.github.io/i18n-glossary/#locale">https://w3c.github.io/i18n-glossary/#locale</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-6e38b608a3d9c4918b2a0f36e9d97a12" class="dfn-panel" data-for="6e38b608a3d9c4918b2a0f36e9d97a12" id="infopanel-for-6e38b608a3d9c4918b2a0f36e9d97a12">
+   <span id="infopaneltitle-for-6e38b608a3d9c4918b2a0f36e9d97a12" style="display:none">Info about the 'locale' external reference.</span><a href="https://www.w3.org/TR/i18n-glossary/#locale">https://www.w3.org/TR/i18n-glossary/#locale</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-locale">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-locale①">13. Internationalization Considerations</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-fetching-an-image-resource">
-   <a href="https://w3c.github.io/image-resource/#dfn-fetching-an-image-resource">https://w3c.github.io/image-resource/#dfn-fetching-an-image-resource</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e574040af2b52f8f8fa86327408ce704" class="dfn-panel" data-for="e574040af2b52f8f8fa86327408ce704" id="infopanel-for-e574040af2b52f8f8fa86327408ce704">
+   <span id="infopaneltitle-for-e574040af2b52f8f8fa86327408ce704" style="display:none">Info about the 'fetching an image resource' external reference.</span><a href="https://w3c.github.io/image-resource/#dfn-fetching-an-image-resource">https://w3c.github.io/image-resource/#dfn-fetching-an-image-resource</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-fetching-an-image-resource">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-imageresource-src">
-   <a href="https://w3c.github.io/image-resource/#dom-imageresource-src">https://w3c.github.io/image-resource/#dom-imageresource-src</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-7886e53c53ff22fd03e3daa3fb56be88" class="dfn-panel" data-for="7886e53c53ff22fd03e3daa3fb56be88" id="infopanel-for-7886e53c53ff22fd03e3daa3fb56be88">
+   <span id="infopaneltitle-for-7886e53c53ff22fd03e3daa3fb56be88" style="display:none">Info about the 'src' external reference.</span><a href="https://w3c.github.io/image-resource/#dom-imageresource-src">https://w3c.github.io/image-resource/#dom-imageresource-src</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-imageresource-src">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-list-append">
-   <a href="https://infra.spec.whatwg.org/#list-append">https://infra.spec.whatwg.org/#list-append</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fcfc8b0ed220faa237969aed00e2586d" class="dfn-panel" data-for="fcfc8b0ed220faa237969aed00e2586d" id="infopanel-for-fcfc8b0ed220faa237969aed00e2586d">
+   <span id="infopaneltitle-for-fcfc8b0ed220faa237969aed00e2586d" style="display:none">Info about the 'append' external reference.</span><a href="https://infra.spec.whatwg.org/#list-append">https://infra.spec.whatwg.org/#list-append</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-list-append">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-registry">
-   <a href="https://w3c.github.io/payment-method-id/#registry">https://w3c.github.io/payment-method-id/#registry</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-6f764067f5a9301521d288bbb9b9be22" class="dfn-panel" data-for="6f764067f5a9301521d288bbb9b9be22" id="infopanel-for-6f764067f5a9301521d288bbb9b9be22">
+   <span id="infopaneltitle-for-6f764067f5a9301521d288bbb9b9be22" style="display:none">Info about the 'registry of standardized payment methods' external reference.</span><a href="https://w3c.github.io/payment-method-id/#registry">https://w3c.github.io/payment-method-id/#registry</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-registry">4.1.2. Registration in [payment-method-id]</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-standardized-payment-method-identifier">
-   <a href="https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier">https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-7c903f8ad8842de5119f53061062bc85" class="dfn-panel" data-for="7c903f8ad8842de5119f53061062bc85" id="infopanel-for-7c903f8ad8842de5119f53061062bc85">
+   <span id="infopaneltitle-for-7c903f8ad8842de5119f53061062bc85" style="display:none">Info about the 'standardized payment method identifier' external reference.</span><a href="https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier">https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-standardized-payment-method-identifier">4.1.1. Payment Method Identifier</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-payment-method">
-   <a href="https://w3c.github.io/payment-request/#dfn-payment-method">https://w3c.github.io/payment-request/#dfn-payment-method</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-ab8f56609d1c21bfe8e6c59dc9e43ca6" class="dfn-panel" data-for="ab8f56609d1c21bfe8e6c59dc9e43ca6" id="infopanel-for-ab8f56609d1c21bfe8e6c59dc9e43ca6">
+   <span id="infopaneltitle-for-ab8f56609d1c21bfe8e6c59dc9e43ca6" style="display:none">Info about the 'payment method' external reference.</span><a href="https://w3c.github.io/payment-request/#dfn-payment-method">https://w3c.github.io/payment-request/#dfn-payment-method</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-payment-method">1. Introduction</a>
     <li><a href="#ref-for-dfn-payment-method①">4. Authentication</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-additional-data-type">
-   <a href="https://w3c.github.io/payment-request/#dfn-additional-data-type">https://w3c.github.io/payment-request/#dfn-additional-data-type</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fe935e3b144839f2c264fec7d0bc619c" class="dfn-panel" data-for="fe935e3b144839f2c264fec7d0bc619c" id="infopanel-for-fe935e3b144839f2c264fec7d0bc619c">
+   <span id="infopaneltitle-for-fe935e3b144839f2c264fec7d0bc619c" style="display:none">Info about the 'payment method additional data type' external reference.</span><a href="https://w3c.github.io/payment-request/#dfn-additional-data-type">https://w3c.github.io/payment-request/#dfn-additional-data-type</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-additional-data-type">4.1.4. Payment Method additional data type</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-payment">
-   <a href="https://w3c.github.io/payment-request/#dfn-payment">https://w3c.github.io/payment-request/#dfn-payment</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-73c6e0474631061cc46e0538acc2a97a" class="dfn-panel" data-for="73c6e0474631061cc46e0538acc2a97a" id="infopanel-for-73c6e0474631061cc46e0538acc2a97a">
+   <span id="infopaneltitle-for-73c6e0474631061cc46e0538acc2a97a" style="display:none">Info about the 'payment permission string' external reference.</span><a href="https://w3c.github.io/payment-request/#dfn-payment">https://w3c.github.io/payment-request/#dfn-payment</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-payment">1.2.1. Registration during a checkout</a>
     <li><a href="#ref-for-dfn-payment①">7. Permissions Policy integration</a>
     <li><a href="#ref-for-dfn-payment②">11.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-accessibility-considerations">
-   <a href="https://w3c.github.io/payment-request/#accessibility-considerations">https://w3c.github.io/payment-request/#accessibility-considerations</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-70ee5edb4e50edeff55df5aa950a2957" class="dfn-panel" data-for="70ee5edb4e50edeff55df5aa950a2957" id="infopanel-for-70ee5edb4e50edeff55df5aa950a2957">
+   <span id="infopaneltitle-for-70ee5edb4e50edeff55df5aa950a2957" style="display:none">Info about the 'payment request accessibility considerations' external reference.</span><a href="https://w3c.github.io/payment-request/#accessibility-considerations">https://w3c.github.io/payment-request/#accessibility-considerations</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-accessibility-considerations">12. Accessibility Considerations</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-details">
-   <a href="https://w3c.github.io/payment-request/#dfn-details">https://w3c.github.io/payment-request/#dfn-details</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-860c95afe4805adf9d5041dc1bd856b4" class="dfn-panel" data-for="860c95afe4805adf9d5041dc1bd856b4" id="infopanel-for-860c95afe4805adf9d5041dc1bd856b4">
+   <span id="infopaneltitle-for-860c95afe4805adf9d5041dc1bd856b4" style="display:none">Info about the 'payment request details' external reference.</span><a href="https://w3c.github.io/payment-request/#dfn-details">https://w3c.github.io/payment-request/#dfn-details</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-details">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-steps-to-check-if-a-payment-can-be-made">
-   <a href="https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made">https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-cf587204516856bf223cbcfa12cba224" class="dfn-panel" data-for="cf587204516856bf223cbcfa12cba224" id="infopanel-for-cf587204516856bf223cbcfa12cba224">
+   <span id="infopaneltitle-for-cf587204516856bf223cbcfa12cba224" style="display:none">Info about the 'steps to check if a payment can be made' external reference.</span><a href="https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made">https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-steps-to-check-if-a-payment-can-be-made">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-steps-to-respond-to-a-payment-request">
-   <a href="https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request">https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-03205fdd4c926f313f61a5339fca13f7" class="dfn-panel" data-for="03205fdd4c926f313f61a5339fca13f7" id="infopanel-for-03205fdd4c926f313f61a5339fca13f7">
+   <span id="infopaneltitle-for-03205fdd4c926f313f61a5339fca13f7" style="display:none">Info about the 'steps to respond to a payment request' external reference.</span><a href="https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request">https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-steps-to-respond-to-a-payment-request">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-steps-to-validate-payment-method-data">
-   <a href="https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data">https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-47b4222d25fe5fc46e302ae5538c1e01" class="dfn-panel" data-for="47b4222d25fe5fc46e302ae5538c1e01" id="infopanel-for-47b4222d25fe5fc46e302ae5538c1e01">
+   <span id="infopaneltitle-for-47b4222d25fe5fc46e302ae5538c1e01" style="display:none">Info about the 'steps to validate payment method data' external reference.</span><a href="https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data">https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-steps-to-validate-payment-method-data">4.1.5. Steps to validate payment method data</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-paymentcurrencyamount">
-   <a href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount">https://w3c.github.io/payment-request/#dom-paymentcurrencyamount</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-cf3373effb4c6f5a2bdbb9079637fb89" class="dfn-panel" data-for="cf3373effb4c6f5a2bdbb9079637fb89" id="infopanel-for-cf3373effb4c6f5a2bdbb9079637fb89">
+   <span id="infopaneltitle-for-cf3373effb4c6f5a2bdbb9079637fb89" style="display:none">Info about the 'PaymentCurrencyAmount' external reference.</span><a href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount">https://w3c.github.io/payment-request/#dom-paymentcurrencyamount</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentcurrencyamount">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-paymentcurrencyamount①">(2)</a>
     <li><a href="#ref-for-dom-paymentcurrencyamount②">5.2. CollectedClientAdditionalPaymentData Dictionary</a> <a href="#ref-for-dom-paymentcurrencyamount③">(2)</a> <a href="#ref-for-dom-paymentcurrencyamount④">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-paymentrequest">
-   <a href="https://w3c.github.io/payment-request/#dom-paymentrequest">https://w3c.github.io/payment-request/#dom-paymentrequest</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-de9328eeeb97ad1db1cd334a61010937" class="dfn-panel" data-for="de9328eeeb97ad1db1cd334a61010937" id="infopanel-for-de9328eeeb97ad1db1cd334a61010937">
+   <span id="infopaneltitle-for-de9328eeeb97ad1db1cd334a61010937" style="display:none">Info about the 'PaymentRequest' external reference.</span><a href="https://w3c.github.io/payment-request/#dom-paymentrequest">https://w3c.github.io/payment-request/#dom-paymentrequest</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentrequest">1. Introduction</a>
     <li><a href="#ref-for-dom-paymentrequest①">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-paymentrequest②">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-paymentrequest-constructor">
-   <a href="https://w3c.github.io/payment-request/#dom-paymentrequest-constructor">https://w3c.github.io/payment-request/#dom-paymentrequest-constructor</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-867c751059cd1e80a61a5a19b9197e44" class="dfn-panel" data-for="867c751059cd1e80a61a5a19b9197e44" id="infopanel-for-867c751059cd1e80a61a5a19b9197e44">
+   <span id="infopaneltitle-for-867c751059cd1e80a61a5a19b9197e44" style="display:none">Info about the 'constructor()' external reference.</span><a href="https://w3c.github.io/payment-request/#dom-paymentrequest-constructor">https://w3c.github.io/payment-request/#dom-paymentrequest-constructor</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentrequest-constructor">4.1. Payment Method: Secure Payment Confirmation</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-paymentcurrencyamount-currency">
-   <a href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-currency">https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-currency</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-0530b373a1cbfdb7468ffd417937e2b9" class="dfn-panel" data-for="0530b373a1cbfdb7468ffd417937e2b9" id="infopanel-for-0530b373a1cbfdb7468ffd417937e2b9">
+   <span id="infopaneltitle-for-0530b373a1cbfdb7468ffd417937e2b9" style="display:none">Info about the 'currency' external reference.</span><a href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-currency">https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-currency</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentcurrencyamount-currency">4.1.7. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-payment-handler">
-   <a href="https://w3c.github.io/payment-request/#dfn-payment-handler">https://w3c.github.io/payment-request/#dfn-payment-handler</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-d74bead1373919ac08fda2df6d77a1f8" class="dfn-panel" data-for="d74bead1373919ac08fda2df6d77a1f8" id="infopanel-for-d74bead1373919ac08fda2df6d77a1f8">
+   <span id="infopaneltitle-for-d74bead1373919ac08fda2df6d77a1f8" style="display:none">Info about the 'payment handler' external reference.</span><a href="https://w3c.github.io/payment-request/#dfn-payment-handler">https://w3c.github.io/payment-request/#dfn-payment-handler</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-payment-handler">4.1. Payment Method: Secure Payment Confirmation</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-paymentrequest-show">
-   <a href="https://w3c.github.io/payment-request/#dom-paymentrequest-show">https://w3c.github.io/payment-request/#dom-paymentrequest-show</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-17e80d10b630cdfcf78a93f4eda10fa4" class="dfn-panel" data-for="17e80d10b630cdfcf78a93f4eda10fa4" id="infopanel-for-17e80d10b630cdfcf78a93f4eda10fa4">
+   <span id="infopaneltitle-for-17e80d10b630cdfcf78a93f4eda10fa4" style="display:none">Info about the 'show()' external reference.</span><a href="https://w3c.github.io/payment-request/#dom-paymentrequest-show">https://w3c.github.io/payment-request/#dom-paymentrequest-show</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentrequest-show">4.1.6. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-dom-paymentrequest-show①">4.1.7. Displaying a transaction confirmation UX</a> <a href="#ref-for-dom-paymentrequest-show②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-paymentdetailsinit-total">
-   <a href="https://w3c.github.io/payment-request/#dom-paymentdetailsinit-total">https://w3c.github.io/payment-request/#dom-paymentdetailsinit-total</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-5a327ddeff13360580ac0bac4b6a098b" class="dfn-panel" data-for="5a327ddeff13360580ac0bac4b6a098b" id="infopanel-for-5a327ddeff13360580ac0bac4b6a098b">
+   <span id="infopaneltitle-for-5a327ddeff13360580ac0bac4b6a098b" style="display:none">Info about the 'total' external reference.</span><a href="https://w3c.github.io/payment-request/#dom-paymentdetailsinit-total">https://w3c.github.io/payment-request/#dom-paymentdetailsinit-total</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentdetailsinit-total">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-paymentcurrencyamount-value">
-   <a href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-value">https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-value</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-2e043d8f8ec9e281b6bea8da09613753" class="dfn-panel" data-for="2e043d8f8ec9e281b6bea8da09613753" id="infopanel-for-2e043d8f8ec9e281b6bea8da09613753">
+   <span id="infopaneltitle-for-2e043d8f8ec9e281b6bea8da09613753" style="display:none">Info about the 'value' external reference.</span><a href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-value">https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-value</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentcurrencyamount-value">4.1.7. Displaying a transaction confirmation UX</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-url-origin">
-   <a href="https://url.spec.whatwg.org/#concept-url-origin">https://url.spec.whatwg.org/#concept-url-origin</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-eb0e1698348a5ae30cd3aa882b6dff01" class="dfn-panel" data-for="eb0e1698348a5ae30cd3aa882b6dff01" id="infopanel-for-eb0e1698348a5ae30cd3aa882b6dff01">
+   <span id="infopaneltitle-for-eb0e1698348a5ae30cd3aa882b6dff01" style="display:none">Info about the 'origin' external reference.</span><a href="https://url.spec.whatwg.org/#concept-url-origin">https://url.spec.whatwg.org/#concept-url-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-url-origin">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-url-scheme">
-   <a href="https://url.spec.whatwg.org/#concept-url-scheme">https://url.spec.whatwg.org/#concept-url-scheme</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-67f83ca6d3c695660bfc2f054f534ffb" class="dfn-panel" data-for="67f83ca6d3c695660bfc2f054f534ffb" id="infopanel-for-67f83ca6d3c695660bfc2f054f534ffb">
+   <span id="infopaneltitle-for-67f83ca6d3c695660bfc2f054f534ffb" style="display:none">Info about the 'scheme' external reference.</span><a href="https://url.spec.whatwg.org/#concept-url-scheme">https://url.spec.whatwg.org/#concept-url-scheme</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-url-scheme">4.1.5. Steps to validate payment method data</a>
     <li><a href="#ref-for-concept-url-scheme①">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-url-parser">
-   <a href="https://url.spec.whatwg.org/#concept-url-parser">https://url.spec.whatwg.org/#concept-url-parser</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-07df417653faafb38ece7480f2c15a3e" class="dfn-panel" data-for="07df417653faafb38ece7480f2c15a3e" id="infopanel-for-07df417653faafb38ece7480f2c15a3e">
+   <span id="infopaneltitle-for-07df417653faafb38ece7480f2c15a3e" style="display:none">Info about the 'url parser' external reference.</span><a href="https://url.spec.whatwg.org/#concept-url-parser">https://url.spec.whatwg.org/#concept-url-parser</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-url-parser">4.1.5. Steps to validate payment method data</a>
     <li><a href="#ref-for-concept-url-parser①">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-valid-domain">
-   <a href="https://url.spec.whatwg.org/#valid-domain">https://url.spec.whatwg.org/#valid-domain</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-b6d1ac99848d35e62f1defa5e1caf292" class="dfn-panel" data-for="b6d1ac99848d35e62f1defa5e1caf292" id="infopanel-for-b6d1ac99848d35e62f1defa5e1caf292">
+   <span id="infopaneltitle-for-b6d1ac99848d35e62f1defa5e1caf292" style="display:none">Info about the 'valid domain' external reference.</span><a href="https://url.spec.whatwg.org/#valid-domain">https://url.spec.whatwg.org/#valid-domain</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-valid-domain">4.1.5. Steps to validate payment method data</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-authentication-ceremony">
-   <a href="https://w3c.github.io/webauthn/#authentication-ceremony">https://w3c.github.io/webauthn/#authentication-ceremony</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4321c0177bab7815c5d45095d6f4bb9f" class="dfn-panel" data-for="4321c0177bab7815c5d45095d6f4bb9f" id="infopanel-for-4321c0177bab7815c5d45095d6f4bb9f">
+   <span id="infopaneltitle-for-4321c0177bab7815c5d45095d6f4bb9f" style="display:none">Info about the 'authentication ceremony' external reference.</span><a href="https://w3c.github.io/webauthn/#authentication-ceremony">https://w3c.github.io/webauthn/#authentication-ceremony</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-authentication-ceremony">4. Authentication</a>
     <li><a href="#ref-for-authentication-ceremony①">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-authentication-extension">
-   <a href="https://w3c.github.io/webauthn/#authentication-extension">https://w3c.github.io/webauthn/#authentication-extension</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-b4393c5980a0c186b2fa253fe5e64866" class="dfn-panel" data-for="b4393c5980a0c186b2fa253fe5e64866" id="infopanel-for-b4393c5980a0c186b2fa253fe5e64866">
+   <span id="infopaneltitle-for-b4393c5980a0c186b2fa253fe5e64866" style="display:none">Info about the 'authentication extension' external reference.</span><a href="https://w3c.github.io/webauthn/#authentication-extension">https://w3c.github.io/webauthn/#authentication-extension</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-authentication-extension">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-authentication-extension①">(2)</a> <a href="#ref-for-authentication-extension②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-client-extension">
-   <a href="https://w3c.github.io/webauthn/#client-extension">https://w3c.github.io/webauthn/#client-extension</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-bf8e4662299be66f2500fc80c2bfe686" class="dfn-panel" data-for="bf8e4662299be66f2500fc80c2bfe686" id="infopanel-for-bf8e4662299be66f2500fc80c2bfe686">
+   <span id="infopaneltitle-for-bf8e4662299be66f2500fc80c2bfe686" style="display:none">Info about the 'client extension' external reference.</span><a href="https://w3c.github.io/webauthn/#client-extension">https://w3c.github.io/webauthn/#client-extension</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-client-extension">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-credential-id">
-   <a href="https://w3c.github.io/webauthn/#credential-id">https://w3c.github.io/webauthn/#credential-id</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-2a4c1c33ad000c2189f1b269790ccc55" class="dfn-panel" data-for="2a4c1c33ad000c2189f1b269790ccc55" id="infopanel-for-2a4c1c33ad000c2189f1b269790ccc55">
+   <span id="infopaneltitle-for-2a4c1c33ad000c2189f1b269790ccc55" style="display:none">Info about the 'credential id' external reference.</span><a href="https://w3c.github.io/webauthn/#credential-id">https://w3c.github.io/webauthn/#credential-id</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-credential-id">2. Terminology</a> <a href="#ref-for-credential-id①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-discoverable-credential">
-   <a href="https://w3c.github.io/webauthn/#discoverable-credential">https://w3c.github.io/webauthn/#discoverable-credential</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-93e12d781580f4fe0971b0ac8a836792" class="dfn-panel" data-for="93e12d781580f4fe0971b0ac8a836792" id="infopanel-for-93e12d781580f4fe0971b0ac8a836792">
+   <span id="infopaneltitle-for-93e12d781580f4fe0971b0ac8a836792" style="display:none">Info about the 'discoverable credential' external reference.</span><a href="https://w3c.github.io/webauthn/#discoverable-credential">https://w3c.github.io/webauthn/#discoverable-credential</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-discoverable-credential">2. Terminology</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-public-key-credential">
-   <a href="https://w3c.github.io/webauthn/#public-key-credential">https://w3c.github.io/webauthn/#public-key-credential</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4f2f10d5ef4759aeb41497fe51134bc3" class="dfn-panel" data-for="4f2f10d5ef4759aeb41497fe51134bc3" id="infopanel-for-4f2f10d5ef4759aeb41497fe51134bc3">
+   <span id="infopaneltitle-for-4f2f10d5ef4759aeb41497fe51134bc3" style="display:none">Info about the 'public key credential' external reference.</span><a href="https://w3c.github.io/webauthn/#public-key-credential">https://w3c.github.io/webauthn/#public-key-credential</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-public-key-credential">2. Terminology</a> <a href="#ref-for-public-key-credential①">(2)</a>
     <li><a href="#ref-for-public-key-credential②">11.2. Probing for credential ids</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-registration-extension">
-   <a href="https://w3c.github.io/webauthn/#registration-extension">https://w3c.github.io/webauthn/#registration-extension</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-34a58d05b7c3967de149ccab7bffa1a4" class="dfn-panel" data-for="34a58d05b7c3967de149ccab7bffa1a4" id="infopanel-for-34a58d05b7c3967de149ccab7bffa1a4">
+   <span id="infopaneltitle-for-34a58d05b7c3967de149ccab7bffa1a4" style="display:none">Info about the 'registration extension' external reference.</span><a href="https://w3c.github.io/webauthn/#registration-extension">https://w3c.github.io/webauthn/#registration-extension</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-registration-extension">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-registration-extension①">(2)</a> <a href="#ref-for-registration-extension②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-relying-party">
-   <a href="https://w3c.github.io/webauthn/#relying-party">https://w3c.github.io/webauthn/#relying-party</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-c8745d8ebcbdde7ebf01d1f8b0ca6113" class="dfn-panel" data-for="c8745d8ebcbdde7ebf01d1f8b0ca6113" id="infopanel-for-c8745d8ebcbdde7ebf01d1f8b0ca6113">
+   <span id="infopaneltitle-for-c8745d8ebcbdde7ebf01d1f8b0ca6113" style="display:none">Info about the 'relying party' external reference.</span><a href="https://w3c.github.io/webauthn/#relying-party">https://w3c.github.io/webauthn/#relying-party</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-relying-party">1. Introduction</a> <a href="#ref-for-relying-party①">(2)</a> <a href="#ref-for-relying-party②">(3)</a> <a href="#ref-for-relying-party③">(4)</a> <a href="#ref-for-relying-party④">(5)</a>
     <li><a href="#ref-for-relying-party⑤">1.1.1. Cryptographic evidence of transaction confirmation</a>
@@ -2371,31 +2401,31 @@ can request to be deleted."</p>
     <li><a href="#ref-for-relying-party⑤①">11.4. Credential ID(s) as a tracking vector</a> <a href="#ref-for-relying-party⑤②">(2)</a> <a href="#ref-for-relying-party⑤③">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-relying-party-identifier">
-   <a href="https://w3c.github.io/webauthn/#dfn-relying-party-identifier">https://w3c.github.io/webauthn/#dfn-relying-party-identifier</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-1f65cd96bc98c16483c31913584a21c7" class="dfn-panel" data-for="1f65cd96bc98c16483c31913584a21c7" id="infopanel-for-1f65cd96bc98c16483c31913584a21c7">
+   <span id="infopaneltitle-for-1f65cd96bc98c16483c31913584a21c7" style="display:none">Info about the 'relying party identifier' external reference.</span><a href="https://w3c.github.io/webauthn/#dfn-relying-party-identifier">https://w3c.github.io/webauthn/#dfn-relying-party-identifier</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-relying-party-identifier">2. Terminology</a> <a href="#ref-for-dfn-relying-party-identifier①">(2)</a>
     <li><a href="#ref-for-dfn-relying-party-identifier②">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-webauthn-extensions">
-   <a href="https://w3c.github.io/webauthn/#webauthn-extensions">https://w3c.github.io/webauthn/#webauthn-extensions</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-da79e269d238d8d737bbf147fc7a831c" class="dfn-panel" data-for="da79e269d238d8d737bbf147fc7a831c" id="infopanel-for-da79e269d238d8d737bbf147fc7a831c">
+   <span id="infopaneltitle-for-da79e269d238d8d737bbf147fc7a831c" style="display:none">Info about the 'webauthn extension' external reference.</span><a href="https://w3c.github.io/webauthn/#webauthn-extensions">https://w3c.github.io/webauthn/#webauthn-extensions</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-webauthn-extensions">1. Introduction</a>
     <li><a href="#ref-for-webauthn-extensions①">3. Registration</a>
     <li><a href="#ref-for-webauthn-extensions②">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dictdef-authenticationextensionsclientinputs">
-   <a href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs">https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-bb2240fc01ccd661db94a1e383da3086" class="dfn-panel" data-for="bb2240fc01ccd661db94a1e383da3086" id="infopanel-for-bb2240fc01ccd661db94a1e383da3086">
+   <span id="infopaneltitle-for-bb2240fc01ccd661db94a1e383da3086" style="display:none">Info about the 'AuthenticationExtensionsClientInputs' external reference.</span><a href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs">https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dictdef-authenticationextensionsclientinputs①">(2)</a>
     <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs②">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dictdef-authenticationextensionsclientinputs③">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dictdef-collectedclientdata">
-   <a href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata">https://w3c.github.io/webauthn/#dictdef-collectedclientdata</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-272993b008af8b4c944f0d70f18ca690" class="dfn-panel" data-for="272993b008af8b4c944f0d70f18ca690" id="infopanel-for-272993b008af8b4c944f0d70f18ca690">
+   <span id="infopaneltitle-for-272993b008af8b4c944f0d70f18ca690" style="display:none">Info about the 'CollectedClientData' external reference.</span><a href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata">https://w3c.github.io/webauthn/#dictdef-collectedclientdata</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-collectedclientdata">1.1.1. Cryptographic evidence of transaction confirmation</a>
     <li><a href="#ref-for-dictdef-collectedclientdata①">5. WebAuthn Extension - "payment"</a>
@@ -2405,281 +2435,281 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dictdef-collectedclientdata⑧">10.1.2. Payment Attack</a> <a href="#ref-for-dictdef-collectedclientdata⑨">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-publickeycredential">
-   <a href="https://w3c.github.io/webauthn/#publickeycredential">https://w3c.github.io/webauthn/#publickeycredential</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-becdeba23401c8de5d8ca03ecc7d60c5" class="dfn-panel" data-for="becdeba23401c8de5d8ca03ecc7d60c5" id="infopanel-for-becdeba23401c8de5d8ca03ecc7d60c5">
+   <span id="infopaneltitle-for-becdeba23401c8de5d8ca03ecc7d60c5" style="display:none">Info about the 'PublicKeyCredential' external reference.</span><a href="https://w3c.github.io/webauthn/#publickeycredential">https://w3c.github.io/webauthn/#publickeycredential</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-publickeycredential">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dictdef-publickeycredentialdescriptor">
-   <a href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor">https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-1aec4e687329aad819d9917ae9edd9b2" class="dfn-panel" data-for="1aec4e687329aad819d9917ae9edd9b2" id="infopanel-for-1aec4e687329aad819d9917ae9edd9b2">
+   <span id="infopaneltitle-for-1aec4e687329aad819d9917ae9edd9b2" style="display:none">Info about the 'PublicKeyCredentialDescriptor' external reference.</span><a href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor">https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-publickeycredentialdescriptor">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dictdef-publickeycredentialrequestoptions">
-   <a href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions">https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-72f0615e397ff49798070442c3201604" class="dfn-panel" data-for="72f0615e397ff49798070442c3201604" id="infopanel-for-72f0615e397ff49798070442c3201604">
+   <span id="infopaneltitle-for-72f0615e397ff49798070442c3201604" style="display:none">Info about the 'PublicKeyCredentialRequestOptions' external reference.</span><a href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions">https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-publickeycredentialrequestoptions">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredential-create-slot">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot">https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e0abed2b86f6795c42a972479c827fe0" class="dfn-panel" data-for="e0abed2b86f6795c42a972479c827fe0" id="infopanel-for-e0abed2b86f6795c42a972479c827fe0">
+   <span id="infopaneltitle-for-e0abed2b86f6795c42a972479c827fe0" style="display:none">Info about the '[[Create]](origin, options, sameOriginWithAncestors)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot">https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredential-create-slot">7. Permissions Policy integration</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredential-discoverfromexternalsource-slot">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot">https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-ff44c40379c093728955d800a46ce89d" class="dfn-panel" data-for="ff44c40379c093728955d800a46ce89d" id="infopanel-for-ff44c40379c093728955d800a46ce89d">
+   <span id="infopaneltitle-for-ff44c40379c093728955d800a46ce89d" style="display:none">Info about the '[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot">https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredential-discoverfromexternalsource-slot">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-publickeycredential-discoverfromexternalsource-slot①">7. Permissions Policy integration</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-allowcredentials">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-b1bf5b1cb2d89da152bef159595cdc51" class="dfn-panel" data-for="b1bf5b1cb2d89da152bef159595cdc51" id="infopanel-for-b1bf5b1cb2d89da152bef159595cdc51">
+   <span id="infopaneltitle-for-b1bf5b1cb2d89da152bef159595cdc51" style="display:none">Info about the 'allowCredentials' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-allowcredentials">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-authenticatorselectioncriteria-authenticatorattachment">
-   <a href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment">https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-f4e478ed04363a9bbfff82816b5d9f74" class="dfn-panel" data-for="f4e478ed04363a9bbfff82816b5d9f74" id="infopanel-for-f4e478ed04363a9bbfff82816b5d9f74">
+   <span id="infopaneltitle-for-f4e478ed04363a9bbfff82816b5d9f74" style="display:none">Info about the 'authenticatorAttachment' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment">https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticatorselectioncriteria-authenticatorattachment">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialcreationoptions-authenticatorselection">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection">https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-8f2fd3bcc3033a735eac3266276e3f5f" class="dfn-panel" data-for="8f2fd3bcc3033a735eac3266276e3f5f" id="infopanel-for-8f2fd3bcc3033a735eac3266276e3f5f">
+   <span id="infopaneltitle-for-8f2fd3bcc3033a735eac3266276e3f5f" style="display:none">Info about the 'authenticatorSelection' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection">https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialcreationoptions-authenticatorselection">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-publickeycredentialcreationoptions-authenticatorselection①">(2)</a> <a href="#ref-for-dom-publickeycredentialcreationoptions-authenticatorselection②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-collectedclientdata-challenge">
-   <a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge">https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-734f9196b990d6abf52f9366a89c98bc" class="dfn-panel" data-for="734f9196b990d6abf52f9366a89c98bc" id="infopanel-for-734f9196b990d6abf52f9366a89c98bc">
+   <span id="infopaneltitle-for-734f9196b990d6abf52f9366a89c98bc" style="display:none">Info about the 'challenge (for CollectedClientData)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge">https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientdata-challenge">8.1. Verifying an Authentication Assertion</a>
     <li><a href="#ref-for-dom-collectedclientdata-challenge①">10.1.1. Login Attack</a>
     <li><a href="#ref-for-dom-collectedclientdata-challenge②">10.1.2. Payment Attack</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-challenge">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-1a6a3e33c4a062cf920a58fef0767b8f" class="dfn-panel" data-for="1a6a3e33c4a062cf920a58fef0767b8f" id="infopanel-for-1a6a3e33c4a062cf920a58fef0767b8f">
+   <span id="infopaneltitle-for-1a6a3e33c4a062cf920a58fef0767b8f" style="display:none">Info about the 'challenge (for PublicKeyCredentialRequestOptions)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-challenge">1.1.1. Cryptographic evidence of transaction confirmation</a>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-challenge①">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-extensions">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-720d24d191e7c4553c9b2bcb86117bcb" class="dfn-panel" data-for="720d24d191e7c4553c9b2bcb86117bcb" id="infopanel-for-720d24d191e7c4553c9b2bcb86117bcb">
+   <span id="infopaneltitle-for-720d24d191e7c4553c9b2bcb86117bcb" style="display:none">Info about the 'extensions' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-extensions">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-id">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-9b9057cbe475b4a5c4ec87fdcc6cde0b" class="dfn-panel" data-for="9b9057cbe475b4a5c4ec87fdcc6cde0b" id="infopanel-for-9b9057cbe475b4a5c4ec87fdcc6cde0b">
+   <span id="infopaneltitle-for-9b9057cbe475b4a5c4ec87fdcc6cde0b" style="display:none">Info about the 'id' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialdescriptor-id">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-authenticatortransport-internal">
-   <a href="https://w3c.github.io/webauthn/#dom-authenticatortransport-internal">https://w3c.github.io/webauthn/#dom-authenticatortransport-internal</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-23ecd73c6aa46ed8924ead421dce3765" class="dfn-panel" data-for="23ecd73c6aa46ed8924ead421dce3765" id="infopanel-for-23ecd73c6aa46ed8924ead421dce3765">
+   <span id="infopaneltitle-for-23ecd73c6aa46ed8924ead421dce3765" style="display:none">Info about the 'internal' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-authenticatortransport-internal">https://w3c.github.io/webauthn/#dom-authenticatortransport-internal</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticatortransport-internal">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-collectedclientdata-origin">
-   <a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin">https://w3c.github.io/webauthn/#dom-collectedclientdata-origin</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-72697a068ea5e69d2ab1159e356d3352" class="dfn-panel" data-for="72697a068ea5e69d2ab1159e356d3352" id="infopanel-for-72697a068ea5e69d2ab1159e356d3352">
+   <span id="infopaneltitle-for-72697a068ea5e69d2ab1159e356d3352" style="display:none">Info about the 'origin' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin">https://w3c.github.io/webauthn/#dom-collectedclientdata-origin</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientdata-origin">8.1. Verifying an Authentication Assertion</a>
     <li><a href="#ref-for-dom-collectedclientdata-origin①">10.1.1. Login Attack</a>
     <li><a href="#ref-for-dom-collectedclientdata-origin②">10.1.2. Payment Attack</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-authenticatorattachment-platform">
-   <a href="https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform">https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-9b81ead0f705d2598db841d3c9a0d587" class="dfn-panel" data-for="9b81ead0f705d2598db841d3c9a0d587" id="infopanel-for-9b81ead0f705d2598db841d3c9a0d587">
+   <span id="infopaneltitle-for-9b81ead0f705d2598db841d3c9a0d587" style="display:none">Info about the 'platform' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform">https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticatorattachment-platform">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-residentkeyrequirement-preferred">
-   <a href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred">https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-d6e97987161fc32195338a3bf1f78a56" class="dfn-panel" data-for="d6e97987161fc32195338a3bf1f78a56" id="infopanel-for-d6e97987161fc32195338a3bf1f78a56">
+   <span id="infopaneltitle-for-d6e97987161fc32195338a3bf1f78a56" style="display:none">Info about the 'preferred' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred">https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-residentkeyrequirement-preferred">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialtype-public-key">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key">https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-720e547dcca454d6677e8777c4027d0d" class="dfn-panel" data-for="720e547dcca454d6677e8777c4027d0d" id="infopanel-for-720e547dcca454d6677e8777c4027d0d">
+   <span id="infopaneltitle-for-720e547dcca454d6677e8777c4027d0d" style="display:none">Info about the 'public-key' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key">https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialtype-public-key">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-credentialrequestoptions-publickey">
-   <a href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey">https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-d8f179173404869c78fff5060c389ce3" class="dfn-panel" data-for="d8f179173404869c78fff5060c389ce3" id="infopanel-for-d8f179173404869c78fff5060c389ce3">
+   <span id="infopaneltitle-for-d8f179173404869c78fff5060c389ce3" style="display:none">Info about the 'publicKey' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey">https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-credentialrequestoptions-publickey">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-residentkeyrequirement-required">
-   <a href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required">https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-67160bf82338136f5c351ef2c800a911" class="dfn-panel" data-for="67160bf82338136f5c351ef2c800a911" id="infopanel-for-67160bf82338136f5c351ef2c800a911">
+   <span id="infopaneltitle-for-67160bf82338136f5c351ef2c800a911" style="display:none">Info about the 'required (for ResidentKeyRequirement)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required">https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-residentkeyrequirement-required">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-userverificationrequirement-required">
-   <a href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required">https://w3c.github.io/webauthn/#dom-userverificationrequirement-required</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fa31cd3601ae586ff89d91bc5cd634e0" class="dfn-panel" data-for="fa31cd3601ae586ff89d91bc5cd634e0" id="infopanel-for-fa31cd3601ae586ff89d91bc5cd634e0">
+   <span id="infopaneltitle-for-fa31cd3601ae586ff89d91bc5cd634e0" style="display:none">Info about the 'required (for UserVerificationRequirement)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required">https://w3c.github.io/webauthn/#dom-userverificationrequirement-required</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-userverificationrequirement-required">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-userverificationrequirement-required①">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-authenticatorselectioncriteria-residentkey">
-   <a href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey">https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-d6f901cf95aa482ba431d6caadacb489" class="dfn-panel" data-for="d6f901cf95aa482ba431d6caadacb489" id="infopanel-for-d6f901cf95aa482ba431d6caadacb489">
+   <span id="infopaneltitle-for-d6f901cf95aa482ba431d6caadacb489" style="display:none">Info about the 'residentKey' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey">https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticatorselectioncriteria-residentkey">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-rpid">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-23d8ada8b7838dc3c23caa2974138b6a" class="dfn-panel" data-for="23d8ada8b7838dc3c23caa2974138b6a" id="infopanel-for-23d8ada8b7838dc3c23caa2974138b6a">
+   <span id="infopaneltitle-for-23d8ada8b7838dc3c23caa2974138b6a" style="display:none">Info about the 'rpId' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-rpid">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-timeout">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-b4705dfc6a98bbb037e8560052e5b755" class="dfn-panel" data-for="b4705dfc6a98bbb037e8560052e5b755" id="infopanel-for-b4705dfc6a98bbb037e8560052e5b755">
+   <span id="infopaneltitle-for-b4705dfc6a98bbb037e8560052e5b755" style="display:none">Info about the 'timeout' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-timeout">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-transports">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-970f59e1165b60cd9d56f8d3e8450229" class="dfn-panel" data-for="970f59e1165b60cd9d56f8d3e8450229" id="infopanel-for-970f59e1165b60cd9d56f8d3e8450229">
+   <span id="infopaneltitle-for-970f59e1165b60cd9d56f8d3e8450229" style="display:none">Info about the 'transports' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialdescriptor-transports">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-collectedclientdata-type">
-   <a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type">https://w3c.github.io/webauthn/#dom-collectedclientdata-type</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-17a87de5823fa40e4da2e52ff2c0d1c7" class="dfn-panel" data-for="17a87de5823fa40e4da2e52ff2c0d1c7" id="infopanel-for-17a87de5823fa40e4da2e52ff2c0d1c7">
+   <span id="infopaneltitle-for-17a87de5823fa40e4da2e52ff2c0d1c7" style="display:none">Info about the 'type (for CollectedClientData)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type">https://w3c.github.io/webauthn/#dom-collectedclientdata-type</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientdata-type">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientdata-type①">8.1. Verifying an Authentication Assertion</a>
     <li><a href="#ref-for-dom-collectedclientdata-type②">10.1.1. Login Attack</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialdescriptor-type">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-d125c0bf61e2277644f4bb06b6a24aa0" class="dfn-panel" data-for="d125c0bf61e2277644f4bb06b6a24aa0" id="infopanel-for-d125c0bf61e2277644f4bb06b6a24aa0">
+   <span id="infopaneltitle-for-d125c0bf61e2277644f4bb06b6a24aa0" style="display:none">Info about the 'type (for PublicKeyCredentialDescriptor)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type">https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialdescriptor-type">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-authenticatorselectioncriteria-userverification">
-   <a href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification">https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-a3938958a0a373d385bbb121b5b65e85" class="dfn-panel" data-for="a3938958a0a373d385bbb121b5b65e85" id="infopanel-for-a3938958a0a373d385bbb121b5b65e85">
+   <span id="infopaneltitle-for-a3938958a0a373d385bbb121b5b65e85" style="display:none">Info about the 'userVerification (for AuthenticatorSelectionCriteria)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification">https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticatorselectioncriteria-userverification">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-publickeycredentialrequestoptions-userverification">
-   <a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-9fcfefb71ba8635e2c0204f76dffa7e1" class="dfn-panel" data-for="9fcfefb71ba8635e2c0204f76dffa7e1" id="infopanel-for-9fcfefb71ba8635e2c0204f76dffa7e1">
+   <span id="infopaneltitle-for-9fcfefb71ba8635e2c0204f76dffa7e1" style="display:none">Info about the 'userVerification (for PublicKeyCredentialRequestOptions)' external reference.</span><a href="https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification">https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-publickeycredentialrequestoptions-userverification">4.1.8. Steps to respond to a payment request</a> <a href="#ref-for-dom-publickeycredentialrequestoptions-userverification①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-extension-commands">
-   <a href="https://w3c.github.io/webdriver/#dfn-extension-commands">https://w3c.github.io/webdriver/#dfn-extension-commands</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-58465ddd7ce1fa84454849906f8616a3" class="dfn-panel" data-for="58465ddd7ce1fa84454849906f8616a3" id="infopanel-for-58465ddd7ce1fa84454849906f8616a3">
+   <span id="infopaneltitle-for-58465ddd7ce1fa84454849906f8616a3" style="display:none">Info about the 'extension command' external reference.</span><a href="https://w3c.github.io/webdriver/#dfn-extension-commands">https://w3c.github.io/webdriver/#dfn-extension-commands</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-extension-commands">9. User Agent Automation</a>
     <li><a href="#ref-for-dfn-extension-commands①">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-getting-properties">
-   <a href="https://w3c.github.io/webdriver/#dfn-getting-properties">https://w3c.github.io/webdriver/#dfn-getting-properties</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-a6932a58ff6c5342503d28d44da56870" class="dfn-panel" data-for="a6932a58ff6c5342503d28d44da56870" id="infopanel-for-a6932a58ff6c5342503d28d44da56870">
+   <span id="infopaneltitle-for-a6932a58ff6c5342503d28d44da56870" style="display:none">Info about the 'getting a property' external reference.</span><a href="https://w3c.github.io/webdriver/#dfn-getting-properties">https://w3c.github.io/webdriver/#dfn-getting-properties</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-getting-properties">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-invalid-argument">
-   <a href="https://w3c.github.io/webdriver/#dfn-invalid-argument">https://w3c.github.io/webdriver/#dfn-invalid-argument</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-5c637a54e27c5c6475d469050d96b7f6" class="dfn-panel" data-for="5c637a54e27c5c6475d469050d96b7f6" id="infopanel-for-5c637a54e27c5c6475d469050d96b7f6">
+   <span id="infopaneltitle-for-5c637a54e27c5c6475d469050d96b7f6" style="display:none">Info about the 'invalid argument' external reference.</span><a href="https://w3c.github.io/webdriver/#dfn-invalid-argument">https://w3c.github.io/webdriver/#dfn-invalid-argument</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-invalid-argument">9.1. Set SPC Transaction Mode</a> <a href="#ref-for-dfn-invalid-argument①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-remote-end-steps">
-   <a href="https://w3c.github.io/webdriver/#dfn-remote-end-steps">https://w3c.github.io/webdriver/#dfn-remote-end-steps</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-93461d1ab461d2682bb8ec8f73e5787f" class="dfn-panel" data-for="93461d1ab461d2682bb8ec8f73e5787f" id="infopanel-for-93461d1ab461d2682bb8ec8f73e5787f">
+   <span id="infopaneltitle-for-93461d1ab461d2682bb8ec8f73e5787f" style="display:none">Info about the 'remote end steps' external reference.</span><a href="https://w3c.github.io/webdriver/#dfn-remote-end-steps">https://w3c.github.io/webdriver/#dfn-remote-end-steps</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-remote-end-steps">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-success">
-   <a href="https://w3c.github.io/webdriver/#dfn-success">https://w3c.github.io/webdriver/#dfn-success</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e65ebce182eb570eae7fc9d1231da4a4" class="dfn-panel" data-for="e65ebce182eb570eae7fc9d1231da4a4" id="infopanel-for-e65ebce182eb570eae7fc9d1231da4a4">
+   <span id="infopaneltitle-for-e65ebce182eb570eae7fc9d1231da4a4" style="display:none">Info about the 'success' external reference.</span><a href="https://w3c.github.io/webdriver/#dfn-success">https://w3c.github.io/webdriver/#dfn-success</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-success">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-undefined">
-   <a href="https://w3c.github.io/webdriver/#dfn-undefined">https://w3c.github.io/webdriver/#dfn-undefined</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-22923d799fd020e3e7a2b87e78596e51" class="dfn-panel" data-for="22923d799fd020e3e7a2b87e78596e51" id="infopanel-for-22923d799fd020e3e7a2b87e78596e51">
+   <span id="infopaneltitle-for-22923d799fd020e3e7a2b87e78596e51" style="display:none">Info about the 'undefined' external reference.</span><a href="https://w3c.github.io/webdriver/#dfn-undefined">https://w3c.github.io/webdriver/#dfn-undefined</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-undefined">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-error">
-   <a href="https://w3c.github.io/webdriver/#dfn-error">https://w3c.github.io/webdriver/#dfn-error</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-b0c0bbe493fc43b8f655639aab2357b6" class="dfn-panel" data-for="b0c0bbe493fc43b8f655639aab2357b6" id="infopanel-for-b0c0bbe493fc43b8f655639aab2357b6">
+   <span id="infopaneltitle-for-b0c0bbe493fc43b8f655639aab2357b6" style="display:none">Info about the 'webdriver error' external reference.</span><a href="https://w3c.github.io/webdriver/#dfn-error">https://w3c.github.io/webdriver/#dfn-error</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-error">9.1. Set SPC Transaction Mode</a> <a href="#ref-for-dfn-error①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-error-code">
-   <a href="https://w3c.github.io/webdriver/#dfn-error-code">https://w3c.github.io/webdriver/#dfn-error-code</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fa32b9a0e523d98440f228589ce4928a" class="dfn-panel" data-for="fa32b9a0e523d98440f228589ce4928a" id="infopanel-for-fa32b9a0e523d98440f228589ce4928a">
+   <span id="infopaneltitle-for-fa32b9a0e523d98440f228589ce4928a" style="display:none">Info about the 'webdriver error code' external reference.</span><a href="https://w3c.github.io/webdriver/#dfn-error-code">https://w3c.github.io/webdriver/#dfn-error-code</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dfn-error-code">9.1. Set SPC Transaction Mode</a> <a href="#ref-for-dfn-error-code①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-BufferSource">
-   <a href="https://webidl.spec.whatwg.org/#BufferSource">https://webidl.spec.whatwg.org/#BufferSource</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-1fcbdca3bebbc8c92cea6e7184b4ea45" class="dfn-panel" data-for="1fcbdca3bebbc8c92cea6e7184b4ea45" id="infopanel-for-1fcbdca3bebbc8c92cea6e7184b4ea45">
+   <span id="infopaneltitle-for-1fcbdca3bebbc8c92cea6e7184b4ea45" style="display:none">Info about the 'BufferSource' external reference.</span><a href="https://webidl.spec.whatwg.org/#BufferSource">https://webidl.spec.whatwg.org/#BufferSource</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-BufferSource">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-BufferSource①">(2)</a> <a href="#ref-for-BufferSource②">(3)</a> <a href="#ref-for-BufferSource③">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-DOMException">
-   <a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-0ab204fb9cc9a746edaff83c0db0740a" class="dfn-panel" data-for="0ab204fb9cc9a746edaff83c0db0740a" id="infopanel-for-0ab204fb9cc9a746edaff83c0db0740a">
+   <span id="infopaneltitle-for-0ab204fb9cc9a746edaff83c0db0740a" style="display:none">Info about the 'DOMException' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMException">https://webidl.spec.whatwg.org/#idl-DOMException</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-DOMException">4.1.6. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-idl-DOMException①">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-idl-DOMException②">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-DOMException③">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-notallowederror">
-   <a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-aa43258e2b51dc6ebe6268a36e6fd733" class="dfn-panel" data-for="aa43258e2b51dc6ebe6268a36e6fd733" id="infopanel-for-aa43258e2b51dc6ebe6268a36e6fd733">
+   <span id="infopaneltitle-for-aa43258e2b51dc6ebe6268a36e6fd733" style="display:none">Info about the 'NotAllowedError' external reference.</span><a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-notallowederror">4.1.6. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-notallowederror①">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-optouterror">
-   <a href="https://webidl.spec.whatwg.org/#optouterror">https://webidl.spec.whatwg.org/#optouterror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4d41d4167462cb320c69db81e8be0cbc" class="dfn-panel" data-for="4d41d4167462cb320c69db81e8be0cbc" id="infopanel-for-4d41d4167462cb320c69db81e8be0cbc">
+   <span id="infopaneltitle-for-4d41d4167462cb320c69db81e8be0cbc" style="display:none">Info about the 'OptOutError' external reference.</span><a href="https://webidl.spec.whatwg.org/#optouterror">https://webidl.spec.whatwg.org/#optouterror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-optouterror">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-optouterror①">11.5. User opt out</a> <a href="#ref-for-optouterror②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-exceptiondef-rangeerror">
-   <a href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror">https://webidl.spec.whatwg.org/#exceptiondef-rangeerror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-04b3ab4ac1c03b8ef3df67e1fed2c870" class="dfn-panel" data-for="04b3ab4ac1c03b8ef3df67e1fed2c870" id="infopanel-for-04b3ab4ac1c03b8ef3df67e1fed2c870">
+   <span id="infopaneltitle-for-04b3ab4ac1c03b8ef3df67e1fed2c870" style="display:none">Info about the 'RangeError' external reference.</span><a href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror">https://webidl.spec.whatwg.org/#exceptiondef-rangeerror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-exceptiondef-rangeerror">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-exceptiondef-rangeerror①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-securityerror">
-   <a href="https://webidl.spec.whatwg.org/#securityerror">https://webidl.spec.whatwg.org/#securityerror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-bfd589348b877ef78380edc0886321f0" class="dfn-panel" data-for="bfd589348b877ef78380edc0886321f0" id="infopanel-for-bfd589348b877ef78380edc0886321f0">
+   <span id="infopaneltitle-for-bfd589348b877ef78380edc0886321f0" style="display:none">Info about the 'SecurityError' external reference.</span><a href="https://webidl.spec.whatwg.org/#securityerror">https://webidl.spec.whatwg.org/#securityerror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-securityerror">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-exceptiondef-typeerror">
-   <a href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror">https://webidl.spec.whatwg.org/#exceptiondef-typeerror</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-3f9c3eac015894a734faa8068fd8c2a1" class="dfn-panel" data-for="3f9c3eac015894a734faa8068fd8c2a1" id="infopanel-for-3f9c3eac015894a734faa8068fd8c2a1">
+   <span id="infopaneltitle-for-3f9c3eac015894a734faa8068fd8c2a1" style="display:none">Info about the 'TypeError' external reference.</span><a href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror">https://webidl.spec.whatwg.org/#exceptiondef-typeerror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-exceptiondef-typeerror">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-exceptiondef-typeerror①">(2)</a> <a href="#ref-for-exceptiondef-typeerror②">(3)</a> <a href="#ref-for-exceptiondef-typeerror③">(4)</a> <a href="#ref-for-exceptiondef-typeerror④">(5)</a> <a href="#ref-for-exceptiondef-typeerror⑤">(6)</a> <a href="#ref-for-exceptiondef-typeerror⑥">(7)</a> <a href="#ref-for-exceptiondef-typeerror⑦">(8)</a> <a href="#ref-for-exceptiondef-typeerror⑧">(9)</a>
     <li><a href="#ref-for-exceptiondef-typeerror⑨">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-USVString">
-   <a href="https://webidl.spec.whatwg.org/#idl-USVString">https://webidl.spec.whatwg.org/#idl-USVString</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-e270bcd7cdb4abe27bc3bb16a1975937" class="dfn-panel" data-for="e270bcd7cdb4abe27bc3bb16a1975937" id="infopanel-for-e270bcd7cdb4abe27bc3bb16a1975937">
+   <span id="infopaneltitle-for-e270bcd7cdb4abe27bc3bb16a1975937" style="display:none">Info about the 'USVString' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-USVString">https://webidl.spec.whatwg.org/#idl-USVString</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-USVString">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-USVString①">(2)</a> <a href="#ref-for-idl-USVString②">(3)</a> <a href="#ref-for-idl-USVString③">(4)</a> <a href="#ref-for-idl-USVString④">(5)</a> <a href="#ref-for-idl-USVString⑤">(6)</a> <a href="#ref-for-idl-USVString⑥">(7)</a> <a href="#ref-for-idl-USVString⑦">(8)</a>
     <li><a href="#ref-for-idl-USVString⑧">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-USVString⑨">(2)</a> <a href="#ref-for-idl-USVString①⓪">(3)</a> <a href="#ref-for-idl-USVString①①">(4)</a> <a href="#ref-for-idl-USVString①②">(5)</a> <a href="#ref-for-idl-USVString①③">(6)</a> <a href="#ref-for-idl-USVString①④">(7)</a> <a href="#ref-for-idl-USVString①⑤">(8)</a>
@@ -2687,22 +2717,22 @@ can request to be deleted."</p>
     <li><a href="#ref-for-idl-USVString②④">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-USVString②⑤">(2)</a> <a href="#ref-for-idl-USVString②⑥">(3)</a> <a href="#ref-for-idl-USVString②⑦">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-boolean">
-   <a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-f8062b07e25ed0281f5cbfb9a54070b4" class="dfn-panel" data-for="f8062b07e25ed0281f5cbfb9a54070b4" id="infopanel-for-f8062b07e25ed0281f5cbfb9a54070b4">
+   <span id="infopaneltitle-for-f8062b07e25ed0281f5cbfb9a54070b4" style="display:none">Info about the 'boolean' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-boolean">https://webidl.spec.whatwg.org/#idl-boolean</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-boolean">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-boolean①">(2)</a>
     <li><a href="#ref-for-idl-boolean②">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-idl-boolean③">(2)</a>
     <li><a href="#ref-for-idl-boolean④">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-idl-boolean⑤">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-sequence">
-   <a href="https://webidl.spec.whatwg.org/#idl-sequence">https://webidl.spec.whatwg.org/#idl-sequence</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-38ab7db52e46bed36993204c29f67202" class="dfn-panel" data-for="38ab7db52e46bed36993204c29f67202" id="infopanel-for-38ab7db52e46bed36993204c29f67202">
+   <span id="infopaneltitle-for-38ab7db52e46bed36993204c29f67202" style="display:none">Info about the 'sequence' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-sequence">https://webidl.spec.whatwg.org/#idl-sequence</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-sequence">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-sequence①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
-   <a href="https://webidl.spec.whatwg.org/#idl-unsigned-long">https://webidl.spec.whatwg.org/#idl-unsigned-long</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-03fa8b99cc63b35d2e7dcadb686676f1" class="dfn-panel" data-for="03fa8b99cc63b35d2e7dcadb686676f1" id="infopanel-for-03fa8b99cc63b35d2e7dcadb686676f1">
+   <span id="infopaneltitle-for-03fa8b99cc63b35d2e7dcadb686676f1" style="display:none">Info about the 'unsigned long' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-unsigned-long">https://webidl.spec.whatwg.org/#idl-unsigned-long</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-unsigned-long">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-idl-unsigned-long①">(2)</a>
    </ul>
@@ -2712,159 +2742,160 @@ can request to be deleted."</p>
    <li>
     <a data-link-type="biblio">[CREDENTIAL-MANAGEMENT-1]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dom-credentialscontainer-create">create()</span>
-     <li><span class="dfn-paneled" id="term-for-dom-credentialscontainer-get">get()</span>
-     <li><span class="dfn-paneled" id="term-for-dom-credential-id">id</span>
-     <li><span class="dfn-paneled" id="term-for-abstract-opdef-request-a-credential">request a credential</span>
+     <li><span class="dfn-paneled" id="4c4deb628b4a023b8afa7af050ade63d">create()</span>
+     <li><span class="dfn-paneled" id="52a1ecfcbff933a84971f1285ee53552">get()</span>
+     <li><span class="dfn-paneled" id="f9eef6435348629f3586f32291830a40">id</span>
+     <li><span class="dfn-paneled" id="4a3eb790c27b431e183082fd88a6ee97">request a credential</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-sec-object-internal-methods-and-internal-slots">internal method</span>
+     <li><span class="dfn-paneled" id="d1edb85c69aa734c82dc77c7a76c93df">internal method</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-consume-user-activation">consume user activation</span>
-     <li><span class="dfn-paneled" id="term-for-current-settings-object">current settings object</span>
-     <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
-     <li><span class="dfn-paneled" id="term-for-concept-origin">origin</span>
-     <li><span class="dfn-paneled" id="term-for-concept-relevant-global">relevant global object</span>
-     <li><span class="dfn-paneled" id="term-for-relevant-settings-object">relevant settings object</span>
-     <li><span class="dfn-paneled" id="term-for-ascii-serialisation-of-an-origin">serialization of an origin</span>
-     <li><span class="dfn-paneled" id="term-for-concept-environment-top-level-origin">top-level origin</span>
-     <li><span class="dfn-paneled" id="term-for-transient-activation">transient activation</span>
+     <li><span class="dfn-paneled" id="293dcd27f7228c1698581dc6518812f9">consume user activation</span>
+     <li><span class="dfn-paneled" id="28eba21e7a3f0ed638ca9e61f2824175">current settings object</span>
+     <li><span class="dfn-paneled" id="3a2763fcaa6bc82693554cf36780c0dd">in parallel</span>
+     <li><span class="dfn-paneled" id="e66f9f7d45934e77669cb907bd0c7636">origin</span>
+     <li><span class="dfn-paneled" id="2233058c8f0998915af8393ee2abbc1d">relevant global object</span>
+     <li><span class="dfn-paneled" id="bfb9cb6617f81a424ab20212af73bae3">relevant settings object</span>
+     <li><span class="dfn-paneled" id="2aeb953708ac6466a37697c533cf366f">serialization of an origin</span>
+     <li><span class="dfn-paneled" id="fad46e4a016cd6e3ca0c81a3c004e4c3">top-level origin</span>
+     <li><span class="dfn-paneled" id="5b762d09d78e8674458b84982b3cb3c9">transient activation</span>
     </ul>
    <li>
     <a data-link-type="biblio">[I18N-GLOSSARY]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dfn-language-negotiation">language negotiation</span>
-     <li><span class="dfn-paneled" id="term-for-def_language_priority_list">language priority list</span>
-     <li><span class="dfn-paneled" id="term-for-locale">locale</span>
+     <li><span class="dfn-paneled" id="df2e5e2d42c926d061289af122014b97">bidirectional text</span>
+     <li><span class="dfn-paneled" id="5bbad43b05fea4305f42cd7d2a8a756a">language negotiation</span>
+     <li><span class="dfn-paneled" id="4b895d7624808cdea0abfd234426f79e">language priority list</span>
+     <li><span class="dfn-paneled" id="6e38b608a3d9c4918b2a0f36e9d97a12">locale</span>
     </ul>
    <li>
     <a data-link-type="biblio">[IMAGE-RESOURCE]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dfn-fetching-an-image-resource">fetching an image resource</span>
-     <li><span class="dfn-paneled" id="term-for-dom-imageresource-src">src</span>
+     <li><span class="dfn-paneled" id="e574040af2b52f8f8fa86327408ce704">fetching an image resource</span>
+     <li><span class="dfn-paneled" id="7886e53c53ff22fd03e3daa3fb56be88">src</span>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-list-append">append</span>
+     <li><span class="dfn-paneled" id="fcfc8b0ed220faa237969aed00e2586d">append</span>
     </ul>
    <li>
     <a data-link-type="biblio">[PAYMENT-METHOD-ID]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-registry">registry of standardized payment methods</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-standardized-payment-method-identifier">standardized payment method identifier</span>
+     <li><span class="dfn-paneled" id="6f764067f5a9301521d288bbb9b9be22">registry of standardized payment methods</span>
+     <li><span class="dfn-paneled" id="7c903f8ad8842de5119f53061062bc85">standardized payment method identifier</span>
     </ul>
    <li>
     <a data-link-type="biblio">[PAYMENT-REQUEST]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dfn-payment-method">payment method</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-additional-data-type">payment method additional data type</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-payment">payment permission string</span>
-     <li><span class="dfn-paneled" id="term-for-accessibility-considerations">payment request accessibility considerations</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-details">payment request details</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-steps-to-check-if-a-payment-can-be-made">steps to check if a payment can be made</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-steps-to-respond-to-a-payment-request">steps to respond to a payment request</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-steps-to-validate-payment-method-data">steps to validate payment method data</span>
+     <li><span class="dfn-paneled" id="ab8f56609d1c21bfe8e6c59dc9e43ca6">payment method</span>
+     <li><span class="dfn-paneled" id="fe935e3b144839f2c264fec7d0bc619c">payment method additional data type</span>
+     <li><span class="dfn-paneled" id="73c6e0474631061cc46e0538acc2a97a">payment permission string</span>
+     <li><span class="dfn-paneled" id="70ee5edb4e50edeff55df5aa950a2957">payment request accessibility considerations</span>
+     <li><span class="dfn-paneled" id="860c95afe4805adf9d5041dc1bd856b4">payment request details</span>
+     <li><span class="dfn-paneled" id="cf587204516856bf223cbcfa12cba224">steps to check if a payment can be made</span>
+     <li><span class="dfn-paneled" id="03205fdd4c926f313f61a5339fca13f7">steps to respond to a payment request</span>
+     <li><span class="dfn-paneled" id="47b4222d25fe5fc46e302ae5538c1e01">steps to validate payment method data</span>
     </ul>
    <li>
     <a data-link-type="biblio">[PAYMENT-REQUEST-1.1]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dom-paymentcurrencyamount">PaymentCurrencyAmount</span>
-     <li><span class="dfn-paneled" id="term-for-dom-paymentrequest">PaymentRequest</span>
-     <li><span class="dfn-paneled" id="term-for-dom-paymentrequest-constructor">constructor()</span>
-     <li><span class="dfn-paneled" id="term-for-dom-paymentcurrencyamount-currency">currency</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-payment-handler">payment handler</span>
-     <li><span class="dfn-paneled" id="term-for-dom-paymentrequest-show">show()</span>
-     <li><span class="dfn-paneled" id="term-for-dom-paymentdetailsinit-total">total</span>
-     <li><span class="dfn-paneled" id="term-for-dom-paymentcurrencyamount-value">value</span>
+     <li><span class="dfn-paneled" id="cf3373effb4c6f5a2bdbb9079637fb89">PaymentCurrencyAmount</span>
+     <li><span class="dfn-paneled" id="de9328eeeb97ad1db1cd334a61010937">PaymentRequest</span>
+     <li><span class="dfn-paneled" id="867c751059cd1e80a61a5a19b9197e44">constructor()</span>
+     <li><span class="dfn-paneled" id="0530b373a1cbfdb7468ffd417937e2b9">currency</span>
+     <li><span class="dfn-paneled" id="d74bead1373919ac08fda2df6d77a1f8">payment handler</span>
+     <li><span class="dfn-paneled" id="17e80d10b630cdfcf78a93f4eda10fa4">show()</span>
+     <li><span class="dfn-paneled" id="5a327ddeff13360580ac0bac4b6a098b">total</span>
+     <li><span class="dfn-paneled" id="2e043d8f8ec9e281b6bea8da09613753">value</span>
     </ul>
    <li>
     <a data-link-type="biblio">[URL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-concept-url-origin">origin</span>
-     <li><span class="dfn-paneled" id="term-for-concept-url-scheme">scheme</span>
-     <li><span class="dfn-paneled" id="term-for-concept-url-parser">url parser</span>
-     <li><span class="dfn-paneled" id="term-for-valid-domain">valid domain</span>
+     <li><span class="dfn-paneled" id="eb0e1698348a5ae30cd3aa882b6dff01">origin</span>
+     <li><span class="dfn-paneled" id="67f83ca6d3c695660bfc2f054f534ffb">scheme</span>
+     <li><span class="dfn-paneled" id="07df417653faafb38ece7480f2c15a3e">url parser</span>
+     <li><span class="dfn-paneled" id="b6d1ac99848d35e62f1defa5e1caf292">valid domain</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEB-AUTHN]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-authentication-ceremony">authentication ceremony</span>
-     <li><span class="dfn-paneled" id="term-for-authentication-extension">authentication extension</span>
-     <li><span class="dfn-paneled" id="term-for-client-extension">client extension</span>
-     <li><span class="dfn-paneled" id="term-for-credential-id">credential id</span>
-     <li><span class="dfn-paneled" id="term-for-discoverable-credential">discoverable credential</span>
-     <li><span class="dfn-paneled" id="term-for-public-key-credential">public key credential</span>
-     <li><span class="dfn-paneled" id="term-for-registration-extension">registration extension</span>
-     <li><span class="dfn-paneled" id="term-for-relying-party">relying party</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-relying-party-identifier">relying party identifier</span>
-     <li><span class="dfn-paneled" id="term-for-webauthn-extensions">webauthn extension</span>
+     <li><span class="dfn-paneled" id="4321c0177bab7815c5d45095d6f4bb9f">authentication ceremony</span>
+     <li><span class="dfn-paneled" id="b4393c5980a0c186b2fa253fe5e64866">authentication extension</span>
+     <li><span class="dfn-paneled" id="bf8e4662299be66f2500fc80c2bfe686">client extension</span>
+     <li><span class="dfn-paneled" id="2a4c1c33ad000c2189f1b269790ccc55">credential id</span>
+     <li><span class="dfn-paneled" id="93e12d781580f4fe0971b0ac8a836792">discoverable credential</span>
+     <li><span class="dfn-paneled" id="4f2f10d5ef4759aeb41497fe51134bc3">public key credential</span>
+     <li><span class="dfn-paneled" id="34a58d05b7c3967de149ccab7bffa1a4">registration extension</span>
+     <li><span class="dfn-paneled" id="c8745d8ebcbdde7ebf01d1f8b0ca6113">relying party</span>
+     <li><span class="dfn-paneled" id="1f65cd96bc98c16483c31913584a21c7">relying party identifier</span>
+     <li><span class="dfn-paneled" id="da79e269d238d8d737bbf147fc7a831c">webauthn extension</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBAUTHN-3]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dictdef-authenticationextensionsclientinputs">AuthenticationExtensionsClientInputs</span>
-     <li><span class="dfn-paneled" id="term-for-dictdef-collectedclientdata">CollectedClientData</span>
-     <li><span class="dfn-paneled" id="term-for-publickeycredential">PublicKeyCredential</span>
-     <li><span class="dfn-paneled" id="term-for-dictdef-publickeycredentialdescriptor">PublicKeyCredentialDescriptor</span>
-     <li><span class="dfn-paneled" id="term-for-dictdef-publickeycredentialrequestoptions">PublicKeyCredentialRequestOptions</span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredential-create-slot">[[Create]](origin, options, sameOriginWithAncestors)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredential-discoverfromexternalsource-slot">[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-allowcredentials">allowCredentials</span>
-     <li><span class="dfn-paneled" id="term-for-dom-authenticatorselectioncriteria-authenticatorattachment">authenticatorAttachment</span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialcreationoptions-authenticatorselection">authenticatorSelection</span>
-     <li><span class="dfn-paneled" id="term-for-dom-collectedclientdata-challenge">challenge <small>(for CollectedClientData)</small></span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-challenge">challenge <small>(for PublicKeyCredentialRequestOptions)</small></span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-extensions">extensions</span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-id">id</span>
-     <li><span class="dfn-paneled" id="term-for-dom-authenticatortransport-internal">internal</span>
-     <li><span class="dfn-paneled" id="term-for-dom-collectedclientdata-origin">origin</span>
-     <li><span class="dfn-paneled" id="term-for-dom-authenticatorattachment-platform">platform</span>
-     <li><span class="dfn-paneled" id="term-for-dom-residentkeyrequirement-preferred">preferred</span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialtype-public-key">public-key</span>
-     <li><span class="dfn-paneled" id="term-for-dom-credentialrequestoptions-publickey">publicKey</span>
-     <li><span class="dfn-paneled" id="term-for-dom-residentkeyrequirement-required">required <small>(for ResidentKeyRequirement)</small></span>
-     <li><span class="dfn-paneled" id="term-for-dom-userverificationrequirement-required">required <small>(for UserVerificationRequirement)</small></span>
-     <li><span class="dfn-paneled" id="term-for-dom-authenticatorselectioncriteria-residentkey">residentKey</span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-rpid">rpId</span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-timeout">timeout</span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-transports">transports</span>
-     <li><span class="dfn-paneled" id="term-for-dom-collectedclientdata-type">type <small>(for CollectedClientData)</small></span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialdescriptor-type">type <small>(for PublicKeyCredentialDescriptor)</small></span>
-     <li><span class="dfn-paneled" id="term-for-dom-authenticatorselectioncriteria-userverification">userVerification <small>(for AuthenticatorSelectionCriteria)</small></span>
-     <li><span class="dfn-paneled" id="term-for-dom-publickeycredentialrequestoptions-userverification">userVerification <small>(for PublicKeyCredentialRequestOptions)</small></span>
+     <li><span class="dfn-paneled" id="bb2240fc01ccd661db94a1e383da3086">AuthenticationExtensionsClientInputs</span>
+     <li><span class="dfn-paneled" id="272993b008af8b4c944f0d70f18ca690">CollectedClientData</span>
+     <li><span class="dfn-paneled" id="becdeba23401c8de5d8ca03ecc7d60c5">PublicKeyCredential</span>
+     <li><span class="dfn-paneled" id="1aec4e687329aad819d9917ae9edd9b2">PublicKeyCredentialDescriptor</span>
+     <li><span class="dfn-paneled" id="72f0615e397ff49798070442c3201604">PublicKeyCredentialRequestOptions</span>
+     <li><span class="dfn-paneled" id="e0abed2b86f6795c42a972479c827fe0">[[Create]](origin, options, sameOriginWithAncestors)</span>
+     <li><span class="dfn-paneled" id="ff44c40379c093728955d800a46ce89d">[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</span>
+     <li><span class="dfn-paneled" id="b1bf5b1cb2d89da152bef159595cdc51">allowCredentials</span>
+     <li><span class="dfn-paneled" id="f4e478ed04363a9bbfff82816b5d9f74">authenticatorAttachment</span>
+     <li><span class="dfn-paneled" id="8f2fd3bcc3033a735eac3266276e3f5f">authenticatorSelection</span>
+     <li><span class="dfn-paneled" id="734f9196b990d6abf52f9366a89c98bc">challenge <small>(for CollectedClientData)</small></span>
+     <li><span class="dfn-paneled" id="1a6a3e33c4a062cf920a58fef0767b8f">challenge <small>(for PublicKeyCredentialRequestOptions)</small></span>
+     <li><span class="dfn-paneled" id="720d24d191e7c4553c9b2bcb86117bcb">extensions</span>
+     <li><span class="dfn-paneled" id="9b9057cbe475b4a5c4ec87fdcc6cde0b">id</span>
+     <li><span class="dfn-paneled" id="23ecd73c6aa46ed8924ead421dce3765">internal</span>
+     <li><span class="dfn-paneled" id="72697a068ea5e69d2ab1159e356d3352">origin</span>
+     <li><span class="dfn-paneled" id="9b81ead0f705d2598db841d3c9a0d587">platform</span>
+     <li><span class="dfn-paneled" id="d6e97987161fc32195338a3bf1f78a56">preferred</span>
+     <li><span class="dfn-paneled" id="720e547dcca454d6677e8777c4027d0d">public-key</span>
+     <li><span class="dfn-paneled" id="d8f179173404869c78fff5060c389ce3">publicKey</span>
+     <li><span class="dfn-paneled" id="67160bf82338136f5c351ef2c800a911">required <small>(for ResidentKeyRequirement)</small></span>
+     <li><span class="dfn-paneled" id="fa31cd3601ae586ff89d91bc5cd634e0">required <small>(for UserVerificationRequirement)</small></span>
+     <li><span class="dfn-paneled" id="d6f901cf95aa482ba431d6caadacb489">residentKey</span>
+     <li><span class="dfn-paneled" id="23d8ada8b7838dc3c23caa2974138b6a">rpId</span>
+     <li><span class="dfn-paneled" id="b4705dfc6a98bbb037e8560052e5b755">timeout</span>
+     <li><span class="dfn-paneled" id="970f59e1165b60cd9d56f8d3e8450229">transports</span>
+     <li><span class="dfn-paneled" id="17a87de5823fa40e4da2e52ff2c0d1c7">type <small>(for CollectedClientData)</small></span>
+     <li><span class="dfn-paneled" id="d125c0bf61e2277644f4bb06b6a24aa0">type <small>(for PublicKeyCredentialDescriptor)</small></span>
+     <li><span class="dfn-paneled" id="a3938958a0a373d385bbb121b5b65e85">userVerification <small>(for AuthenticatorSelectionCriteria)</small></span>
+     <li><span class="dfn-paneled" id="9fcfefb71ba8635e2c0204f76dffa7e1">userVerification <small>(for PublicKeyCredentialRequestOptions)</small></span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBDRIVER1]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dfn-extension-commands">extension command</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-getting-properties">getting a property</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-invalid-argument">invalid argument</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-remote-end-steps">remote end steps</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-success">success</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-undefined">undefined</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-error">webdriver error</span>
-     <li><span class="dfn-paneled" id="term-for-dfn-error-code">webdriver error code</span>
+     <li><span class="dfn-paneled" id="58465ddd7ce1fa84454849906f8616a3">extension command</span>
+     <li><span class="dfn-paneled" id="a6932a58ff6c5342503d28d44da56870">getting a property</span>
+     <li><span class="dfn-paneled" id="5c637a54e27c5c6475d469050d96b7f6">invalid argument</span>
+     <li><span class="dfn-paneled" id="93461d1ab461d2682bb8ec8f73e5787f">remote end steps</span>
+     <li><span class="dfn-paneled" id="e65ebce182eb570eae7fc9d1231da4a4">success</span>
+     <li><span class="dfn-paneled" id="22923d799fd020e3e7a2b87e78596e51">undefined</span>
+     <li><span class="dfn-paneled" id="b0c0bbe493fc43b8f655639aab2357b6">webdriver error</span>
+     <li><span class="dfn-paneled" id="fa32b9a0e523d98440f228589ce4928a">webdriver error code</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-BufferSource">BufferSource</span>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
-     <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
-     <li><span class="dfn-paneled" id="term-for-optouterror">OptOutError</span>
-     <li><span class="dfn-paneled" id="term-for-exceptiondef-rangeerror">RangeError</span>
-     <li><span class="dfn-paneled" id="term-for-securityerror">SecurityError</span>
-     <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror">TypeError</span>
-     <li><span class="dfn-paneled" id="term-for-idl-USVString">USVString</span>
-     <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
-     <li><span class="dfn-paneled" id="term-for-idl-sequence">sequence</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long">unsigned long</span>
+     <li><span class="dfn-paneled" id="1fcbdca3bebbc8c92cea6e7184b4ea45">BufferSource</span>
+     <li><span class="dfn-paneled" id="0ab204fb9cc9a746edaff83c0db0740a">DOMException</span>
+     <li><span class="dfn-paneled" id="aa43258e2b51dc6ebe6268a36e6fd733">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="4d41d4167462cb320c69db81e8be0cbc">OptOutError</span>
+     <li><span class="dfn-paneled" id="04b3ab4ac1c03b8ef3df67e1fed2c870">RangeError</span>
+     <li><span class="dfn-paneled" id="bfd589348b877ef78380edc0886321f0">SecurityError</span>
+     <li><span class="dfn-paneled" id="3f9c3eac015894a734faa8068fd8c2a1">TypeError</span>
+     <li><span class="dfn-paneled" id="e270bcd7cdb4abe27bc3bb16a1975937">USVString</span>
+     <li><span class="dfn-paneled" id="f8062b07e25ed0281f5cbfb9a54070b4">boolean</span>
+     <li><span class="dfn-paneled" id="38ab7db52e46bed36993204c29f67202">sequence</span>
+     <li><span class="dfn-paneled" id="03fa8b99cc63b35d2e7dcadb686676f1">unsigned long</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -2962,34 +2993,35 @@ can request to be deleted."</p>
 };
 
 </pre>
-  <aside class="dfn-panel" data-for="spc-credential">
-   <b><a href="#spc-credential">#spc-credential</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-spc-credential" class="dfn-panel" data-for="spc-credential" id="infopanel-for-spc-credential">
+   <span id="infopaneltitle-for-spc-credential" style="display:none">Info about the 'SPC Credential' definition.</span><b><a href="#spc-credential">#spc-credential</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-spc-credential">2. Terminology</a> <a href="#ref-for-spc-credential①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="steps-to-silently-determine-if-a-credential-is-spc-enabled">
-   <b><a href="#steps-to-silently-determine-if-a-credential-is-spc-enabled">#steps-to-silently-determine-if-a-credential-is-spc-enabled</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-steps-to-silently-determine-if-a-credential-is-spc-enabled" class="dfn-panel" data-for="steps-to-silently-determine-if-a-credential-is-spc-enabled" id="infopanel-for-steps-to-silently-determine-if-a-credential-is-spc-enabled">
+   <span id="infopaneltitle-for-steps-to-silently-determine-if-a-credential-is-spc-enabled" style="display:none">Info about the 'Steps to silently determine if a credential is SPC-enabled' definition.</span><b><a href="#steps-to-silently-determine-if-a-credential-is-spc-enabled">#steps-to-silently-determine-if-a-credential-is-spc-enabled</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-steps-to-silently-determine-if-a-credential-is-spc-enabled">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">
-   <b><a href="#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device" class="dfn-panel" data-for="steps-to-silently-determine-if-a-credential-is-available-for-the-current-device" id="infopanel-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">
+   <span id="infopaneltitle-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device" style="display:none">Info about the 'Steps to silently determine if a credential is available for the current device' definition.</span><b><a href="#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">4.1.6. Steps to check if a payment can be made</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="secure-payment-confirmation-payment-handler">
-   <b><a href="#secure-payment-confirmation-payment-handler">#secure-payment-confirmation-payment-handler</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-secure-payment-confirmation-payment-handler" class="dfn-panel" data-for="secure-payment-confirmation-payment-handler" id="infopanel-for-secure-payment-confirmation-payment-handler">
+   <span id="infopaneltitle-for-secure-payment-confirmation-payment-handler" style="display:none">Info about the 'Secure Payment
+Confirmation payment handler' definition.</span><b><a href="#secure-payment-confirmation-payment-handler">#secure-payment-confirmation-payment-handler</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-secure-payment-confirmation-payment-handler">4.1.1. Payment Method Identifier</a>
     <li><a href="#ref-for-secure-payment-confirmation-payment-handler①">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-secure-payment-confirmation-payment-handler②">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="secure-payment-confirmation">
-   <b><a href="#secure-payment-confirmation">#secure-payment-confirmation</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-secure-payment-confirmation" class="dfn-panel" data-for="secure-payment-confirmation" id="infopanel-for-secure-payment-confirmation">
+   <span id="infopaneltitle-for-secure-payment-confirmation" style="display:none">Info about the 'secure-payment-confirmation' definition.</span><b><a href="#secure-payment-confirmation">#secure-payment-confirmation</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-secure-payment-confirmation">4. Authentication</a>
     <li><a href="#ref-for-secure-payment-confirmation①">4.1. Payment Method: Secure Payment Confirmation</a>
@@ -2997,8 +3029,8 @@ can request to be deleted."</p>
     <li><a href="#ref-for-secure-payment-confirmation③">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-secure-payment-confirmation④">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-securepaymentconfirmationrequest">
-   <b><a href="#dictdef-securepaymentconfirmationrequest">#dictdef-securepaymentconfirmationrequest</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dictdef-securepaymentconfirmationrequest" class="dfn-panel" data-for="dictdef-securepaymentconfirmationrequest" id="infopanel-for-dictdef-securepaymentconfirmationrequest">
+   <span id="infopaneltitle-for-dictdef-securepaymentconfirmationrequest" style="display:none">Info about the 'SecurePaymentConfirmationRequest' definition.</span><b><a href="#dictdef-securepaymentconfirmationrequest">#dictdef-securepaymentconfirmationrequest</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dictdef-securepaymentconfirmationrequest①">(2)</a>
     <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest②">4.1.4. Payment Method additional data type</a>
@@ -3007,16 +3039,16 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dictdef-securepaymentconfirmationrequest⑤">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-challenge">
-   <b><a href="#dom-securepaymentconfirmationrequest-challenge">#dom-securepaymentconfirmationrequest-challenge</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-challenge" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-challenge" id="infopanel-for-dom-securepaymentconfirmationrequest-challenge">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-challenge" style="display:none">Info about the 'challenge' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-challenge">#dom-securepaymentconfirmationrequest-challenge</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-challenge">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-challenge①">4.1.5. Steps to validate payment method data</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-challenge②">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-rpid">
-   <b><a href="#dom-securepaymentconfirmationrequest-rpid">#dom-securepaymentconfirmationrequest-rpid</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-rpid" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-rpid" id="infopanel-for-dom-securepaymentconfirmationrequest-rpid">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-rpid" style="display:none">Info about the 'rpId' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-rpid">#dom-securepaymentconfirmationrequest-rpid</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-rpid">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-rpid①">4.1.5. Steps to validate payment method data</a>
@@ -3025,8 +3057,8 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-rpid④">4.1.8. Steps to respond to a payment request</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-rpid⑤">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-credentialids">
-   <b><a href="#dom-securepaymentconfirmationrequest-credentialids">#dom-securepaymentconfirmationrequest-credentialids</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-credentialids" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-credentialids" id="infopanel-for-dom-securepaymentconfirmationrequest-credentialids">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-credentialids" style="display:none">Info about the 'credentialIds' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-credentialids">#dom-securepaymentconfirmationrequest-credentialids</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids①">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids②">(2)</a>
@@ -3034,8 +3066,8 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-credentialids⑥">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-instrument">
-   <b><a href="#dom-securepaymentconfirmationrequest-instrument">#dom-securepaymentconfirmationrequest-instrument</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-instrument" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-instrument" id="infopanel-for-dom-securepaymentconfirmationrequest-instrument">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-instrument" style="display:none">Info about the 'instrument' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-instrument">#dom-securepaymentconfirmationrequest-instrument</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument①">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument②">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-instrument③">(3)</a>
@@ -3043,23 +3075,23 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-instrument⑦">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-timeout">
-   <b><a href="#dom-securepaymentconfirmationrequest-timeout">#dom-securepaymentconfirmationrequest-timeout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-timeout" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-timeout" id="infopanel-for-dom-securepaymentconfirmationrequest-timeout">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-timeout" style="display:none">Info about the 'timeout' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-timeout">#dom-securepaymentconfirmationrequest-timeout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-timeout">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-timeout①">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-payeename">
-   <b><a href="#dom-securepaymentconfirmationrequest-payeename">#dom-securepaymentconfirmationrequest-payeename</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-payeename" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-payeename" id="infopanel-for-dom-securepaymentconfirmationrequest-payeename">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-payeename" style="display:none">Info about the 'payeeName' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-payeename">#dom-securepaymentconfirmationrequest-payeename</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeename">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeename①">(2)</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeename②">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeename③">(2)</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeename④">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-payeeorigin">
-   <b><a href="#dom-securepaymentconfirmationrequest-payeeorigin">#dom-securepaymentconfirmationrequest-payeeorigin</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-payeeorigin" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-payeeorigin" id="infopanel-for-dom-securepaymentconfirmationrequest-payeeorigin">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-payeeorigin" style="display:none">Info about the 'payeeOrigin' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-payeeorigin">#dom-securepaymentconfirmationrequest-payeeorigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin①">(2)</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin②">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin③">(2)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin④">(3)</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑤">(4)</a>
@@ -3067,110 +3099,111 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-payeeorigin⑨">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-extensions">
-   <b><a href="#dom-securepaymentconfirmationrequest-extensions">#dom-securepaymentconfirmationrequest-extensions</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-extensions" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-extensions" id="infopanel-for-dom-securepaymentconfirmationrequest-extensions">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-extensions" style="display:none">Info about the 'extensions' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-extensions">#dom-securepaymentconfirmationrequest-extensions</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-extensions">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-extensions①">4.1.8. Steps to respond to a payment request</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-locale">
-   <b><a href="#dom-securepaymentconfirmationrequest-locale">#dom-securepaymentconfirmationrequest-locale</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-locale" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-locale" id="infopanel-for-dom-securepaymentconfirmationrequest-locale">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-locale" style="display:none">Info about the 'locale' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-locale">#dom-securepaymentconfirmationrequest-locale</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-locale">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-locale①">(2)</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-locale②">4.1.7. Displaying a transaction confirmation UX</a>
+    <li><a href="#ref-for-dom-securepaymentconfirmationrequest-locale③">13. Internationalization Considerations</a> <a href="#ref-for-dom-securepaymentconfirmationrequest-locale④">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-showoptout">
-   <b><a href="#dom-securepaymentconfirmationrequest-showoptout">#dom-securepaymentconfirmationrequest-showoptout</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-securepaymentconfirmationrequest-showoptout" class="dfn-panel" data-for="dom-securepaymentconfirmationrequest-showoptout" id="infopanel-for-dom-securepaymentconfirmationrequest-showoptout">
+   <span id="infopaneltitle-for-dom-securepaymentconfirmationrequest-showoptout" style="display:none">Info about the 'showOptOut' definition.</span><b><a href="#dom-securepaymentconfirmationrequest-showoptout">#dom-securepaymentconfirmationrequest-showoptout</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-showoptout">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-showoptout①">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-securepaymentconfirmationrequest-showoptout②">11.5. User opt out</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-authenticationextensionsclientinputs-payment">
-   <b><a href="#dom-authenticationextensionsclientinputs-payment">#dom-authenticationextensionsclientinputs-payment</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-authenticationextensionsclientinputs-payment" class="dfn-panel" data-for="dom-authenticationextensionsclientinputs-payment" id="infopanel-for-dom-authenticationextensionsclientinputs-payment">
+   <span id="infopaneltitle-for-dom-authenticationextensionsclientinputs-payment" style="display:none">Info about the 'payment' definition.</span><b><a href="#dom-authenticationextensionsclientinputs-payment">#dom-authenticationextensionsclientinputs-payment</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment">3. Registration</a>
     <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment①">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionsclientinputs-payment②">10.1.1. Login Attack</a> <a href="#ref-for-dom-authenticationextensionsclientinputs-payment③">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-authenticationextensionspaymentinputs">
-   <b><a href="#dictdef-authenticationextensionspaymentinputs">#dictdef-authenticationextensionspaymentinputs</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dictdef-authenticationextensionspaymentinputs" class="dfn-panel" data-for="dictdef-authenticationextensionspaymentinputs" id="infopanel-for-dictdef-authenticationextensionspaymentinputs">
+   <span id="infopaneltitle-for-dictdef-authenticationextensionspaymentinputs" style="display:none">Info about the 'AuthenticationExtensionsPaymentInputs' definition.</span><b><a href="#dictdef-authenticationextensionspaymentinputs">#dictdef-authenticationextensionspaymentinputs</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dictdef-authenticationextensionspaymentinputs①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dictdef-authenticationextensionspaymentinputs②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-ispayment">
-   <b><a href="#dom-authenticationextensionspaymentinputs-ispayment">#dom-authenticationextensionspaymentinputs-ispayment</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-authenticationextensionspaymentinputs-ispayment" class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-ispayment" id="infopanel-for-dom-authenticationextensionspaymentinputs-ispayment">
+   <span id="infopaneltitle-for-dom-authenticationextensionspaymentinputs-ispayment" style="display:none">Info about the 'isPayment' definition.</span><b><a href="#dom-authenticationextensionspaymentinputs-ispayment">#dom-authenticationextensionspaymentinputs-ispayment</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-ispayment">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-ispayment①">5. WebAuthn Extension - "payment"</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-rpid">
-   <b><a href="#dom-authenticationextensionspaymentinputs-rpid">#dom-authenticationextensionspaymentinputs-rpid</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-authenticationextensionspaymentinputs-rpid" class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-rpid" id="infopanel-for-dom-authenticationextensionspaymentinputs-rpid">
+   <span id="infopaneltitle-for-dom-authenticationextensionspaymentinputs-rpid" style="display:none">Info about the 'rpId' definition.</span><b><a href="#dom-authenticationextensionspaymentinputs-rpid">#dom-authenticationextensionspaymentinputs-rpid</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-rpid">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-rpid①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-rpid②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-toporigin">
-   <b><a href="#dom-authenticationextensionspaymentinputs-toporigin">#dom-authenticationextensionspaymentinputs-toporigin</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-authenticationextensionspaymentinputs-toporigin" class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-toporigin" id="infopanel-for-dom-authenticationextensionspaymentinputs-toporigin">
+   <span id="infopaneltitle-for-dom-authenticationextensionspaymentinputs-toporigin" style="display:none">Info about the 'topOrigin' definition.</span><b><a href="#dom-authenticationextensionspaymentinputs-toporigin">#dom-authenticationextensionspaymentinputs-toporigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-toporigin②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-payeename">
-   <b><a href="#dom-authenticationextensionspaymentinputs-payeename">#dom-authenticationextensionspaymentinputs-payeename</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-authenticationextensionspaymentinputs-payeename" class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-payeename" id="infopanel-for-dom-authenticationextensionspaymentinputs-payeename">
+   <span id="infopaneltitle-for-dom-authenticationextensionspaymentinputs-payeename" style="display:none">Info about the 'payeeName' definition.</span><b><a href="#dom-authenticationextensionspaymentinputs-payeename">#dom-authenticationextensionspaymentinputs-payeename</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeename">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeename①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-payeename②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-payeeorigin">
-   <b><a href="#dom-authenticationextensionspaymentinputs-payeeorigin">#dom-authenticationextensionspaymentinputs-payeeorigin</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-authenticationextensionspaymentinputs-payeeorigin" class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-payeeorigin" id="infopanel-for-dom-authenticationextensionspaymentinputs-payeeorigin">
+   <span id="infopaneltitle-for-dom-authenticationextensionspaymentinputs-payeeorigin" style="display:none">Info about the 'payeeOrigin' definition.</span><b><a href="#dom-authenticationextensionspaymentinputs-payeeorigin">#dom-authenticationextensionspaymentinputs-payeeorigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-payeeorigin②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-total">
-   <b><a href="#dom-authenticationextensionspaymentinputs-total">#dom-authenticationextensionspaymentinputs-total</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-authenticationextensionspaymentinputs-total" class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-total" id="infopanel-for-dom-authenticationextensionspaymentinputs-total">
+   <span id="infopaneltitle-for-dom-authenticationextensionspaymentinputs-total" style="display:none">Info about the 'total' definition.</span><b><a href="#dom-authenticationextensionspaymentinputs-total">#dom-authenticationextensionspaymentinputs-total</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-total">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-total①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-total②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-instrument">
-   <b><a href="#dom-authenticationextensionspaymentinputs-instrument">#dom-authenticationextensionspaymentinputs-instrument</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-authenticationextensionspaymentinputs-instrument" class="dfn-panel" data-for="dom-authenticationextensionspaymentinputs-instrument" id="infopanel-for-dom-authenticationextensionspaymentinputs-instrument">
+   <span id="infopaneltitle-for-dom-authenticationextensionspaymentinputs-instrument" style="display:none">Info about the 'instrument' definition.</span><b><a href="#dom-authenticationextensionspaymentinputs-instrument">#dom-authenticationextensionspaymentinputs-instrument</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument">4.1.8. Steps to respond to a payment request</a>
     <li><a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument①">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dom-authenticationextensionspaymentinputs-instrument②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-collectedclientpaymentdata">
-   <b><a href="#dictdef-collectedclientpaymentdata">#dictdef-collectedclientpaymentdata</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dictdef-collectedclientpaymentdata" class="dfn-panel" data-for="dictdef-collectedclientpaymentdata" id="infopanel-for-dictdef-collectedclientpaymentdata">
+   <span id="infopaneltitle-for-dictdef-collectedclientpaymentdata" style="display:none">Info about the 'CollectedClientPaymentData' definition.</span><b><a href="#dictdef-collectedclientpaymentdata">#dictdef-collectedclientpaymentdata</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-collectedclientpaymentdata">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dictdef-collectedclientpaymentdata①">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dictdef-collectedclientpaymentdata②">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientpaymentdata③">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-collectedclientpaymentdata-payment">
-   <b><a href="#dom-collectedclientpaymentdata-payment">#dom-collectedclientpaymentdata-payment</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-collectedclientpaymentdata-payment" class="dfn-panel" data-for="dom-collectedclientpaymentdata-payment" id="infopanel-for-dom-collectedclientpaymentdata-payment">
+   <span id="infopaneltitle-for-dom-collectedclientpaymentdata-payment" style="display:none">Info about the 'payment' definition.</span><b><a href="#dom-collectedclientpaymentdata-payment">#dom-collectedclientpaymentdata-payment</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientpaymentdata-payment">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientpaymentdata-payment①">5.1. CollectedClientPaymentData Dictionary</a>
     <li><a href="#ref-for-dom-collectedclientpaymentdata-payment②">8.1. Verifying an Authentication Assertion</a> <a href="#ref-for-dom-collectedclientpaymentdata-payment③">(2)</a> <a href="#ref-for-dom-collectedclientpaymentdata-payment④">(3)</a> <a href="#ref-for-dom-collectedclientpaymentdata-payment⑤">(4)</a> <a href="#ref-for-dom-collectedclientpaymentdata-payment⑥">(5)</a> <a href="#ref-for-dom-collectedclientpaymentdata-payment⑦">(6)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-collectedclientadditionalpaymentdata">
-   <b><a href="#dictdef-collectedclientadditionalpaymentdata">#dictdef-collectedclientadditionalpaymentdata</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dictdef-collectedclientadditionalpaymentdata" class="dfn-panel" data-for="dictdef-collectedclientadditionalpaymentdata" id="infopanel-for-dictdef-collectedclientadditionalpaymentdata">
+   <span id="infopaneltitle-for-dictdef-collectedclientadditionalpaymentdata" style="display:none">Info about the 'CollectedClientAdditionalPaymentData' definition.</span><b><a href="#dictdef-collectedclientadditionalpaymentdata">#dictdef-collectedclientadditionalpaymentdata</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-collectedclientadditionalpaymentdata">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dictdef-collectedclientadditionalpaymentdata①">5.1. CollectedClientPaymentData Dictionary</a> <a href="#ref-for-dictdef-collectedclientadditionalpaymentdata②">(2)</a>
@@ -3178,24 +3211,24 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dictdef-collectedclientadditionalpaymentdata⑥">6.1. PaymentCredentialInstrument Dictionary</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-rpid">
-   <b><a href="#dom-collectedclientadditionalpaymentdata-rpid">#dom-collectedclientadditionalpaymentdata-rpid</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-rpid" class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-rpid" id="infopanel-for-dom-collectedclientadditionalpaymentdata-rpid">
+   <span id="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-rpid" style="display:none">Info about the 'rpId' definition.</span><b><a href="#dom-collectedclientadditionalpaymentdata-rpid">#dom-collectedclientadditionalpaymentdata-rpid</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rpid">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rpid①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-rpid②">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-toporigin">
-   <b><a href="#dom-collectedclientadditionalpaymentdata-toporigin">#dom-collectedclientadditionalpaymentdata-toporigin</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-toporigin" class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-toporigin" id="infopanel-for-dom-collectedclientadditionalpaymentdata-toporigin">
+   <span id="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-toporigin" style="display:none">Info about the 'topOrigin' definition.</span><b><a href="#dom-collectedclientadditionalpaymentdata-toporigin">#dom-collectedclientadditionalpaymentdata-toporigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin">5. WebAuthn Extension - "payment"</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin①">5.2. CollectedClientAdditionalPaymentData Dictionary</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-toporigin②">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeename">
-   <b><a href="#dom-collectedclientadditionalpaymentdata-payeename">#dom-collectedclientadditionalpaymentdata-payeename</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-payeename" class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeename" id="infopanel-for-dom-collectedclientadditionalpaymentdata-payeename">
+   <span id="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-payeename" style="display:none">Info about the 'payeeName' definition.</span><b><a href="#dom-collectedclientadditionalpaymentdata-payeename">#dom-collectedclientadditionalpaymentdata-payeename</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeename">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeename①">5. WebAuthn Extension - "payment"</a>
@@ -3203,8 +3236,8 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeename③">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeeorigin">
-   <b><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">#dom-collectedclientadditionalpaymentdata-payeeorigin</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-payeeorigin" class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-payeeorigin" id="infopanel-for-dom-collectedclientadditionalpaymentdata-payeeorigin">
+   <span id="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-payeeorigin" style="display:none">Info about the 'payeeOrigin' definition.</span><b><a href="#dom-collectedclientadditionalpaymentdata-payeeorigin">#dom-collectedclientadditionalpaymentdata-payeeorigin</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin①">5. WebAuthn Extension - "payment"</a>
@@ -3212,8 +3245,8 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin③">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-total">
-   <b><a href="#dom-collectedclientadditionalpaymentdata-total">#dom-collectedclientadditionalpaymentdata-total</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-total" class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-total" id="infopanel-for-dom-collectedclientadditionalpaymentdata-total">
+   <span id="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-total" style="display:none">Info about the 'total' definition.</span><b><a href="#dom-collectedclientadditionalpaymentdata-total">#dom-collectedclientadditionalpaymentdata-total</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total①">5. WebAuthn Extension - "payment"</a>
@@ -3221,8 +3254,8 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-total③">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-instrument">
-   <b><a href="#dom-collectedclientadditionalpaymentdata-instrument">#dom-collectedclientadditionalpaymentdata-instrument</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-instrument" class="dfn-panel" data-for="dom-collectedclientadditionalpaymentdata-instrument" id="infopanel-for-dom-collectedclientadditionalpaymentdata-instrument">
+   <span id="infopaneltitle-for-dom-collectedclientadditionalpaymentdata-instrument" style="display:none">Info about the 'instrument' definition.</span><b><a href="#dom-collectedclientadditionalpaymentdata-instrument">#dom-collectedclientadditionalpaymentdata-instrument</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument">4.1.6. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument①">4.1.7. Displaying a transaction confirmation UX</a>
@@ -3231,8 +3264,8 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dom-collectedclientadditionalpaymentdata-instrument④">8.1. Verifying an Authentication Assertion</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-paymentcredentialinstrument">
-   <b><a href="#dictdef-paymentcredentialinstrument">#dictdef-paymentcredentialinstrument</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dictdef-paymentcredentialinstrument" class="dfn-panel" data-for="dictdef-paymentcredentialinstrument" id="infopanel-for-dictdef-paymentcredentialinstrument">
+   <span id="infopaneltitle-for-dictdef-paymentcredentialinstrument" style="display:none">Info about the 'PaymentCredentialInstrument' definition.</span><b><a href="#dictdef-paymentcredentialinstrument">#dictdef-paymentcredentialinstrument</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-paymentcredentialinstrument">4.1.3. SecurePaymentConfirmationRequest Dictionary</a> <a href="#ref-for-dictdef-paymentcredentialinstrument①">(2)</a>
     <li><a href="#ref-for-dictdef-paymentcredentialinstrument②">5. WebAuthn Extension - "payment"</a> <a href="#ref-for-dictdef-paymentcredentialinstrument③">(2)</a>
@@ -3240,17 +3273,18 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dictdef-paymentcredentialinstrument⑥">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dictdef-paymentcredentialinstrument⑦">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-displayname">
-   <b><a href="#dom-paymentcredentialinstrument-displayname">#dom-paymentcredentialinstrument-displayname</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-paymentcredentialinstrument-displayname" class="dfn-panel" data-for="dom-paymentcredentialinstrument-displayname" id="infopanel-for-dom-paymentcredentialinstrument-displayname">
+   <span id="infopaneltitle-for-dom-paymentcredentialinstrument-displayname" style="display:none">Info about the 'displayName' definition.</span><b><a href="#dom-paymentcredentialinstrument-displayname">#dom-paymentcredentialinstrument-displayname</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname">4.1.5. Steps to validate payment method data</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname①">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname②">6.1. PaymentCredentialInstrument Dictionary</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname③">(2)</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname④">12. Accessibility Considerations</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname⑤">(2)</a> <a href="#ref-for-dom-paymentcredentialinstrument-displayname⑥">(3)</a>
+    <li><a href="#ref-for-dom-paymentcredentialinstrument-displayname⑦">13. Internationalization Considerations</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-icon">
-   <b><a href="#dom-paymentcredentialinstrument-icon">#dom-paymentcredentialinstrument-icon</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-paymentcredentialinstrument-icon" class="dfn-panel" data-for="dom-paymentcredentialinstrument-icon" id="infopanel-for-dom-paymentcredentialinstrument-icon">
+   <span id="infopaneltitle-for-dom-paymentcredentialinstrument-icon" style="display:none">Info about the 'icon' definition.</span><b><a href="#dom-paymentcredentialinstrument-icon">#dom-paymentcredentialinstrument-icon</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-icon">4.1.5. Steps to validate payment method data</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon①">(2)</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-icon②">4.1.6. Steps to check if a payment can be made</a> <a href="#ref-for-dom-paymentcredentialinstrument-icon③">(2)</a>
@@ -3259,82 +3293,136 @@ can request to be deleted."</p>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-icon⑧">12. Accessibility Considerations</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-paymentcredentialinstrument-iconmustbeshown">
-   <b><a href="#dom-paymentcredentialinstrument-iconmustbeshown">#dom-paymentcredentialinstrument-iconmustbeshown</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-dom-paymentcredentialinstrument-iconmustbeshown" class="dfn-panel" data-for="dom-paymentcredentialinstrument-iconmustbeshown" id="infopanel-for-dom-paymentcredentialinstrument-iconmustbeshown">
+   <span id="infopaneltitle-for-dom-paymentcredentialinstrument-iconmustbeshown" style="display:none">Info about the 'iconMustBeShown' definition.</span><b><a href="#dom-paymentcredentialinstrument-iconmustbeshown">#dom-paymentcredentialinstrument-iconmustbeshown</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown">4.1.6. Steps to check if a payment can be made</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown①">4.1.7. Displaying a transaction confirmation UX</a>
     <li><a href="#ref-for-dom-paymentcredentialinstrument-iconmustbeshown②">6.1. PaymentCredentialInstrument Dictionary</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="set-spc-transaction-mode">
-   <b><a href="#set-spc-transaction-mode">#set-spc-transaction-mode</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-set-spc-transaction-mode" class="dfn-panel" data-for="set-spc-transaction-mode" id="infopanel-for-set-spc-transaction-mode">
+   <span id="infopaneltitle-for-set-spc-transaction-mode" style="display:none">Info about the 'Set SPC Transaction Mode' definition.</span><b><a href="#set-spc-transaction-mode">#set-spc-transaction-mode</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-set-spc-transaction-mode">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="current-transaction-automation-mode">
-   <b><a href="#current-transaction-automation-mode">#current-transaction-automation-mode</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-current-transaction-automation-mode" class="dfn-panel" data-for="current-transaction-automation-mode" id="infopanel-for-current-transaction-automation-mode">
+   <span id="infopaneltitle-for-current-transaction-automation-mode" style="display:none">Info about the 'current transaction automation mode' definition.</span><b><a href="#current-transaction-automation-mode">#current-transaction-automation-mode</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-current-transaction-automation-mode">4.1.7. Displaying a transaction confirmation UX</a> <a href="#ref-for-current-transaction-automation-mode①">(2)</a>
     <li><a href="#ref-for-current-transaction-automation-mode②">9.1. Set SPC Transaction Mode</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
-
-document.body.addEventListener("click", function(e) {
-    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-    // Find the dfn element or panel, if any, that was clicked on.
-    var el = e.target;
-    var target;
-    var hitALink = false;
-    while(el.parentElement) {
-        if(el.tagName == "A") {
-            // Clicking on a link in a <dfn> shouldn't summon the panel
-            hitALink = true;
-        }
-        if(el.classList.contains("dfn-paneled")) {
-            target = "dfn";
-            break;
-        }
-        if(el.classList.contains("dfn-panel")) {
-            target = "dfn-panel";
-            break;
-        }
-        el = el.parentElement;
+"use strict";
+{
+    function queryAll(sel) {
+        return [].slice.call(document.querySelectorAll(sel));
     }
-    if(target != "dfn-panel") {
+
+    // Add popup behavior to all dfns to show the corresponding dfn-panel.
+    var dfns = document.querySelectorAll('.dfn-paneled');
+    for (let dfn of dfns) { insertDfnPopupAction(dfn); }
+
+    document.body.addEventListener("click", (e) => {
+        // If not handled already, just hide all dfn panels.
+        hideAllDfnPanels();
+    });
+
+    function hideAllDfnPanels() {
         // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-            el.classList.remove("on");
-            el.classList.remove("activated");
-        });
-    }
-    if(target == "dfn" && !hitALink) {
-        // open the panel
-        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-        if(dfnPanel) {
-            dfnPanel.classList.add("on");
-            var rect = el.getBoundingClientRect();
-            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-            dfnPanel.style.top = window.scrollY + rect.top + "px";
-            var panelRect = dfnPanel.getBoundingClientRect();
-            var panelWidth = panelRect.right - panelRect.left;
-            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                // Reposition, because the panel is overflowing
-                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
-            }
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
-        }
-    } else if(target == "dfn-panel") {
-        // Switch it to "activated" state, which pins it.
-        el.classList.add("activated");
-        el.style.left = null;
-        el.style.top = null;
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
     }
 
-});
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn) {
+        // Find dfn panel
+        const dfnPanel = document.querySelector(`.dfn-panel[data-for='${dfn.id}']`);
+        if (dfnPanel) {
+            const panelWrapper = document.createElement('span');
+            panelWrapper.appendChild(dfnPanel);
+            panelWrapper.style.position = "relative";
+            panelWrapper.style.height = "0px";
+            dfn.insertAdjacentElement("afterend", panelWrapper);
+            dfn.setAttribute('role', 'button');
+            dfn.setAttribute('aria-expanded', 'false')
+            dfn.tabIndex = 0;
+            dfn.classList.add('has-dfn-panel');
+            dfn.addEventListener('click', (event) => {
+                showDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+            });
+            dfn.addEventListener('keypress', (event) => {
+                const kc = event.keyCode;
+                // 32->Space, 13->Enter
+                if(kc == 32 || kc == 13) {
+                    toggleDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            });
+
+            dfnPanel.addEventListener('click', (event) => {
+                pinDfnPanel(dfnPanel);
+                event.stopPropagation();
+            });
+
+            dfnPanel.addEventListener('keydown', (event) => {
+                if(event.keyCode == 27) { // Escape key
+                    hideDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            })
+
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + dfn.id + "']");
+        }
+    }
+}
 </script>
 <script>/* script-wpt */
 let wptPath = "/secure-payment-confirmation/";

@@ -35,7 +35,7 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
             text: internal slot
             text: internal method
 
-spec: i18n-glossary; urlPrefix: https://w3c.github.io/i18n-glossary/
+spec: i18n-glossary; urlPrefix: https://www.w3.org/TR/i18n-glossary/
     type: dfn
         text: locale; url: locale
 
@@ -609,6 +609,7 @@ members:
               language or direction metadata associated with specific input
               members, in that it represents the caller's requested localized
               experience rather than assertion about a specific string value.
+              See [[#sctn-i18n-considerations]] for more discussion.
 
     :  <dfn>showOptOut</dfn> member
     :: Whether the user should be given a chance to opt-out during the
@@ -1144,9 +1145,8 @@ contains the following members:
     :  <dfn>displayName</dfn> member
     :: The name of the payment instrument to be displayed to the user.
 
-         NOTE: For discussion about internationalization of the 
-         {{PaymentCredentialInstrument/displayName}}, see
-         <a href="https://github.com/w3c/secure-payment-confirmation/issues/93">issue 93</a>.
+         NOTE: See [[#sctn-i18n-considerations]] for discussion about
+         internationalization of the {{PaymentCredentialInstrument/displayName}}.
 
     :  <dfn>icon</dfn> member
     :: The URL of the icon of the payment instrument.
@@ -1540,3 +1540,27 @@ User agents render the {{PaymentCredentialInstrument/icon}} and {{PaymentCredent
 User Agents implementing this specification should follow both
 [[webauthn-3#sctn-accessiblility-considerations|WebAuthn's Accessibility Considerations]]
 and [=payment request accessibility considerations|PaymentRequest's Accessibility Considerations=].
+
+# Internationalization Considerations # {#sctn-i18n-considerations}
+
+Callers of the API should express the desired [=locale=] of the
+transaction dialog as well as the localization of any displayable
+strings via the {{SecurePaymentConfirmationRequest/locale}} member. In
+general this member should match the localization of the page where
+the request originates (such as by querying the `lang` attribute of
+the button triggering the request).
+
+This specification does not (yet) include mechanisms for callers to
+associate language or direction metadata with the displayable strings
+they provide as input to the API (e.g., {{PaymentCredentialInstrument/displayName}}).
+
+In the meantime, callers of the API should consider the following:
+
+* Aim for consistency between values of {{SecurePaymentConfirmationRequest/locale}}
+    (when provided) and the language of displayable strings.
+
+* If displayable strings contain or might contain [=bidirectional text=], ensure
+    that they will display correctly without the application needing to process
+    the contents of the string value via the insertion of Unicode bidirectional
+    controls. For more information see [How to use Unicode controls for bidi
+    text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).

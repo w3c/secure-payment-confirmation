@@ -35,7 +35,7 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
             text: internal slot
             text: internal method
 
-spec: i18n-glossary; urlPrefix: https://w3c.github.io/i18n-glossary/
+spec: i18n-glossary; urlPrefix: https://www.w3.org/TR/i18n-glossary/
     type: dfn
         text: locale; url: locale
 
@@ -1543,15 +1543,16 @@ and [=payment request accessibility considerations|PaymentRequest's Accessibilit
 
 # Internationalization Considerations # {#sctn-i18n-considerations}
 
-Callers of the API may express preferences for localized transaction
-dialog experiences via the {{SecurePaymentConfirmationRequest/locale}} member.
+Callers of the API should express the desired [=locale=] of the
+transaction dialog as well as the localization of any displayable
+strings via the {{SecurePaymentConfirmationRequest/locale}} member. In
+general this member should match the localization of the page where
+the request originates (such as by querying the `lang` attribute of
+the button triggering the request).
 
 This specification does not (yet) include mechanisms for callers to
 associate language or direction metadata with the displayable strings
 they provide as input to the API (e.g., {{PaymentCredentialInstrument/displayName}}).
-To track progress on on this topic see <a
-href="https://github.com/w3c/secure-payment-confirmation/issues/93">issue
-93</a>.
 
 In the meantime, callers of the API should consider the following:
 

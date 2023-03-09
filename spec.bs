@@ -624,7 +624,7 @@ The [=payment method additional data type=] for this payment method is
 
 ### Checking if Secure Payment Confirmation is available ### {#sctn-secure-payment-confirmation-available-api}
 
-A static API is added to {{PaymentRequest}} in order to provide develoeprs a
+A static API is added to {{PaymentRequest}} in order to provide developers a
 simplified method of checking whether Secure Payment Confirmation is available.
 
 <xmp class="idl">

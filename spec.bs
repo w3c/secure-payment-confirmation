@@ -622,6 +622,33 @@ members:
 The [=payment method additional data type=] for this payment method is
 {{SecurePaymentConfirmationRequest}}.
 
+### Checking if Secure Payment Confirmation is available ### {#sctn-secure-payment-confirmation-available-api}
+
+A static API is added to {{PaymentRequest}} in order to provide develoeprs a
+simplified method of checking whether Secure Payment Confirmation is available.
+
+<xmp class="idl">
+partial interface PaymentRequest {
+    static Promise<boolean> isSecurePaymentConfirmationAvailable();
+};
+</xmp>
+<dl dfn-type="attribute" dfn-for="PaymentRequest">
+    :   {{PaymentRequest/isSecurePaymentConfirmationAvailable()}}
+    ::  Upon invocation, a promise is returned that resolves with a value of
+        `true` if the user agent believes that the Secure Payment Confirmation
+        feature is available, or `false` otherwise.
+</dl>
+
+This allows a developer to perform the following check when deciding whether to
+initiate a SPC flow:
+
+<pre class="example" id="registration-example" highlight="js">
+const spcAvailable =
+    PaymentRequest &&
+    PaymentRequest.isSecurePaymentConfirmationAvailable &&
+    await PaymentRequest.isSecurePaymentConfirmationAvailable();
+</pre>
+
 ### Steps to validate payment method data ### {#sctn-steps-to-validate-payment-method-data}
 
 The [=steps to validate payment method data=] for this payment method, for an

@@ -642,7 +642,7 @@ partial interface PaymentRequest {
 This allows a developer to perform the following check when deciding whether to
 initiate a SPC flow:
 
-<pre class="example" id="registration-example" highlight="js">
+<pre class="example" id="available-example" highlight="js">
 const spcAvailable =
     PaymentRequest &&
     PaymentRequest.isSecurePaymentConfirmationAvailable &&

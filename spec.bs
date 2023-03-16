@@ -1566,3 +1566,4 @@ In the meantime, callers of the API should consider the following:
     contents of the string. One way to ensure this is via the
     insertion Unicode bidirectional controls. For more information see
     [How to use Unicode controls for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).
+    

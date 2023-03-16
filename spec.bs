@@ -1559,8 +1559,11 @@ In the meantime, callers of the API should consider the following:
 * Aim for consistency between values of {{SecurePaymentConfirmationRequest/locale}}
     (when provided) and the language of displayable strings.
 
-* If displayable strings contain or might contain [=bidirectional text=], ensure
-    that they will display correctly without the application needing to process
-    the contents of the string value via the insertion of Unicode bidirectional
-    controls. For more information see [How to use Unicode controls for bidi
+* When an implementation is the [=producer=] of displayable strings
+    that contain (or might contain) [=bidirectional text=], 
+    ensure that the text will display correctly without the
+    [=consumer=] needing to apply additional processing to the
+    contents of the string. One way to ensure this is via the
+    insertion Unicode bidirectional controls. For more information see
+    [How to use Unicode controls for bidi
     text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).

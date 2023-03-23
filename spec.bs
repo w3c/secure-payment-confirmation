@@ -38,6 +38,7 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
 spec: i18n-glossary; urlPrefix: https://www.w3.org/TR/i18n-glossary/
     type: dfn
         text: locale; url: locale
+        text: consumer
 
 spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
     type: dfn
@@ -910,7 +911,8 @@ directly; for authentication the extension can only be accessed via
 :: [=registration extension|Registration=] and [=authentication extension|authentication=]
 
 :  Client extension input
-:: <xmp class="idl">
+::
+    <xmp class="idl">
     partial dictionary AuthenticationExtensionsClientInputs {
       AuthenticationExtensionsPaymentInputs payment;
     };
@@ -1560,10 +1562,9 @@ In the meantime, callers of the API should consider the following:
     (when provided) and the language of displayable strings.
 
 * When an implementation is the [=producer=] of displayable strings
-    that contain (or might contain) [=bidirectional text=], 
+    that contain (or might contain) [=bidirectional text=],
     ensure that the text will display correctly without the
     [=consumer=] needing to apply additional processing to the
     contents of the string. One way to ensure this is via the
     insertion Unicode bidirectional controls. For more information see
     [How to use Unicode controls for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).
-    

@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="w3c/ED" name="w3c-status">
-  <meta content="Bikeshed version 077497365, updated Thu Mar 2 15:15:29 2023 -0800" name="generator">
+  <meta content="Bikeshed version 74068a90b, updated Wed Mar 22 17:34:51 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="568fbabe9c93eaf6d461389cf468271a4e36afaa" name="document-revision">
+  <meta content="9b4ec43474aa19818438686826d476c6c2997e3a" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -424,7 +424,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-03-08">8 March 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-03-23">23 March 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -450,7 +450,6 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
    <p>Secure Payment Confirmation (SPC) is a Web API to support streamlined
-
   authentication during a payment transaction. It is designed to scale authentication
   across merchants, to be used within a wide range of authentication protocols, and
   to produce cryptographic evidence that the user has confirmed transaction details.</p>
@@ -792,8 +791,7 @@ navigator<c- p>.</c->credentials<c- p>.</c->create<c- p>({</c-> publicKey <c- p>
     <c- c1>// Send new credential info to server for verification and registration.</c->
   <c- p>}).</c-><c- k>catch</c-><c- p>(</c-><c- a>function</c-> <c- p>(</c->err<c- p>)</c-> <c- p>{</c->
     <c- c1>// No acceptable authenticator or user refused consent. Handle appropriately.</c->
-  <c- p>});</c->
-</pre>
+  <c- p>});</c-></pre>
    </div>
    <h4 class="heading settled" data-level="1.2.2" id="sctn-sample-authentication"><span class="secno">1.2.2. </span><span class="content">Authentication on merchant site</span><a class="self-link" href="#sctn-sample-authentication"></a></h4>
    <p>This is the flow when a user with an already registered credential is
@@ -878,8 +876,7 @@ presumes access to await/async, for easier to read promise handling.</p>
   <c- d>/* send response.data to the issuing bank for verification */</c->
 <c- p>}</c-> <c- k>catch</c-> <c- p>(</c->err<c- p>)</c-> <c- p>{</c->
   <c- d>/* SPC cannot be used; merchant should fallback to traditional flows */</c->
-<c- p>}</c->
-</pre>
+<c- p>}</c-></pre>
    <h2 class="heading settled" data-level="2" id="sctn-terminology"><span class="secno">2. </span><span class="content">Terminology</span><a class="self-link" href="#sctn-terminology"></a></h2>
    <dl>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="spc-credential">SPC Credential</dfn>
@@ -987,8 +984,7 @@ Confirmation payment handler</a> is "<dfn class="dfn-paneled" data-dfn-type="dfn
     <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs"><c- n>AuthenticationExtensionsClientInputs</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="AuthenticationExtensionsClientInputs " href="#dom-securepaymentconfirmationrequest-extensions" id="ref-for-dom-securepaymentconfirmationrequest-extensions"><c- g>extensions</c-></a>;
     <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString③"><c- b>USVString</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<USVString> " href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale"><c- g>locale</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="boolean " href="#dom-securepaymentconfirmationrequest-showoptout" id="ref-for-dom-securepaymentconfirmationrequest-showoptout"><c- g>showOptOut</c-></a>;
-};
-</pre>
+};</pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest①">SecurePaymentConfirmationRequest</a></code> dictionary contains the following
 members:</p>
    <dl>
@@ -1027,7 +1023,7 @@ automatically.</p>
     <dd data-md>
      <p>An optional list of well-formed <a data-link-type="biblio" href="#biblio-bcp47" title="Tags for Identifying Languages">[BCP47]</a> language tags, in descending
 order of priority, that identify the <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#locale" id="ref-for-locale">locale</a> preferences of the
-website, i.e. a <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#def_language_priority_list" id="ref-for-def_language_priority_list">language priority list</a> <a data-link-type="biblio" href="#biblio-rfc4647" title="Matching of Language Tags">[RFC4647]</a>, which the user
+website, i.e. a <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-priority-list" id="ref-for-dfn-language-priority-list">language priority list</a> <a data-link-type="biblio" href="#biblio-rfc4647" title="Matching of Language Tags">[RFC4647]</a>, which the user
 agent can use to perform <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-negotiation" id="ref-for-dfn-language-negotiation">language negotiation</a> and locale-affected
 formatting with the caller.</p>
      <p class="note" role="note"><span class="marker">NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale①">locale</a></code> is distinct from
@@ -1350,8 +1346,7 @@ directly; for authentication the extension can only be accessed via <code class=
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①①"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-authenticationextensionspaymentinputs-payeeorigin" id="ref-for-dom-authenticationextensionspaymentinputs-payeeorigin①"><c- g>payeeOrigin</c-></a>;
   <a data-link-type="idl-name" href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-authenticationextensionspaymentinputs-total" id="ref-for-dom-authenticationextensionspaymentinputs-total①"><c- g>total</c-></a>;
   <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument②"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-authenticationextensionspaymentinputs-instrument" id="ref-for-dom-authenticationextensionspaymentinputs-instrument①"><c- g>instrument</c-></a>;
-};
-</pre>
+};</pre>
      <dl>
       <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-ispayment"><code>isPayment</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean③">boolean</a></span>
       <dd data-md>
@@ -1517,8 +1512,7 @@ if it is present, otherwise omitted.</p>
    <h3 class="heading settled" data-level="5.1" id="sctn-collectedclientpaymentdata-dictionary"><span class="secno">5.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientpaymentdata"><code>CollectedClientPaymentData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientpaymentdata-dictionary"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata②"><c- g>CollectedClientPaymentData</c-></a> : <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata②"><c- n>CollectedClientData</c-></a> {
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata①"><c- n>CollectedClientAdditionalPaymentData</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="CollectedClientAdditionalPaymentData " href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment①"><c- g>payment</c-></a>;
-};
-</pre>
+};</pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata③">CollectedClientPaymentData</a></code> dictionary inherits from <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata③">CollectedClientData</a></code>. It contains the following additional field:</p>
    <dl>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientpaymentdata-payment"><code>payment</code></dfn> member, <span> of type <a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata②">CollectedClientAdditionalPaymentData</a></span>
@@ -1533,8 +1527,7 @@ if it is present, otherwise omitted.</p>
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑨"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-payeeorigin" id="ref-for-dom-collectedclientadditionalpaymentdata-payeeorigin②"><c- g>payeeOrigin</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount" id="ref-for-dom-paymentcurrencyamount②"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total" id="ref-for-dom-collectedclientadditionalpaymentdata-total②"><c- g>total</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument④"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument" id="ref-for-dom-collectedclientadditionalpaymentdata-instrument③"><c- g>instrument</c-></a>;
-};
-</pre>
+};</pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata④">CollectedClientAdditionalPaymentData</a></code> dictionary contains the following
 fields:</p>
    <dl>
@@ -1568,8 +1561,7 @@ frame is already included in <code class="idl"><a data-link-type="idl" href="htt
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②④"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname②"><c- g>displayName</c-></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⑤"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑥"><c- g>icon</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean④"><c- b>boolean</c-></a> <a class="idl-code" data-default="true" data-link-type="dict-member" data-type="boolean " href="#dom-paymentcredentialinstrument-iconmustbeshown" id="ref-for-dom-paymentcredentialinstrument-iconmustbeshown②"><c- g>iconMustBeShown</c-></a> = <c- b>true</c->;
-};
-</pre>
+};</pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument⑦">PaymentCredentialInstrument</a></code> dictionary contains the information to be
 displayed to the user and signed together with the transaction details. It
 contains the following members:</p>
@@ -1932,7 +1924,7 @@ they provide as input to the API (e.g., <code class="idl"><a data-link-type="idl
     <li data-md>
      <p>Aim for consistency between values of <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale④">locale</a></code> (when provided) and the language of displayable strings.</p>
     <li data-md>
-     <p>If displayable strings contain or might contain <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#def_bidirectional_text" id="ref-for-def_bidirectional_text">bidirectional text</a>, ensure
+     <p>If displayable strings contain or might contain <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-bidirectional-text" id="ref-for-dfn-bidirectional-text">bidirectional text</a>, ensure
 that they will display correctly without the application needing to process
 the contents of the string value via the insertion of Unicode bidirectional
 controls. For more information see <a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls">How to use Unicode controls for bidi
@@ -2150,10 +2142,10 @@ text</a>.</p>
     <li><a href="#ref-for-transient-activation②">11.1. Registration in a Cross-Origin iframe</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-df2e5e2d42c926d061289af122014b97" class="dfn-panel" data-for="df2e5e2d42c926d061289af122014b97" id="infopanel-for-df2e5e2d42c926d061289af122014b97">
-   <span id="infopaneltitle-for-df2e5e2d42c926d061289af122014b97" style="display:none">Info about the 'bidirectional text' external reference.</span><a href="https://w3c.github.io/i18n-glossary/#def_bidirectional_text">https://w3c.github.io/i18n-glossary/#def_bidirectional_text</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-8879f505a4875b2ce2f69646d07687fb" class="dfn-panel" data-for="8879f505a4875b2ce2f69646d07687fb" id="infopanel-for-8879f505a4875b2ce2f69646d07687fb">
+   <span id="infopaneltitle-for-8879f505a4875b2ce2f69646d07687fb" style="display:none">Info about the 'bidirectional text' external reference.</span><a href="https://w3c.github.io/i18n-glossary/#dfn-bidirectional-text">https://w3c.github.io/i18n-glossary/#dfn-bidirectional-text</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-def_bidirectional_text">13. Internationalization Considerations</a>
+    <li><a href="#ref-for-dfn-bidirectional-text">13. Internationalization Considerations</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-5bbad43b05fea4305f42cd7d2a8a756a" class="dfn-panel" data-for="5bbad43b05fea4305f42cd7d2a8a756a" id="infopanel-for-5bbad43b05fea4305f42cd7d2a8a756a">
@@ -2162,10 +2154,10 @@ text</a>.</p>
     <li><a href="#ref-for-dfn-language-negotiation">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-4b895d7624808cdea0abfd234426f79e" class="dfn-panel" data-for="4b895d7624808cdea0abfd234426f79e" id="infopanel-for-4b895d7624808cdea0abfd234426f79e">
-   <span id="infopaneltitle-for-4b895d7624808cdea0abfd234426f79e" style="display:none">Info about the 'language priority list' external reference.</span><a href="https://w3c.github.io/i18n-glossary/#def_language_priority_list">https://w3c.github.io/i18n-glossary/#def_language_priority_list</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4943cc552571d046550f78fcc35767ad" class="dfn-panel" data-for="4943cc552571d046550f78fcc35767ad" id="infopanel-for-4943cc552571d046550f78fcc35767ad">
+   <span id="infopaneltitle-for-4943cc552571d046550f78fcc35767ad" style="display:none">Info about the 'language priority list' external reference.</span><a href="https://w3c.github.io/i18n-glossary/#dfn-language-priority-list">https://w3c.github.io/i18n-glossary/#dfn-language-priority-list</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-def_language_priority_list">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
+    <li><a href="#ref-for-dfn-language-priority-list">4.1.3. SecurePaymentConfirmationRequest Dictionary</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-6e38b608a3d9c4918b2a0f36e9d97a12" class="dfn-panel" data-for="6e38b608a3d9c4918b2a0f36e9d97a12" id="infopanel-for-6e38b608a3d9c4918b2a0f36e9d97a12">
@@ -2768,9 +2760,9 @@ text</a>.</p>
    <li>
     <a data-link-type="biblio">[I18N-GLOSSARY]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="df2e5e2d42c926d061289af122014b97">bidirectional text</span>
+     <li><span class="dfn-paneled" id="8879f505a4875b2ce2f69646d07687fb">bidirectional text</span>
      <li><span class="dfn-paneled" id="5bbad43b05fea4305f42cd7d2a8a756a">language negotiation</span>
-     <li><span class="dfn-paneled" id="4b895d7624808cdea0abfd234426f79e">language priority list</span>
+     <li><span class="dfn-paneled" id="4943cc552571d046550f78fcc35767ad">language priority list</span>
      <li><span class="dfn-paneled" id="6e38b608a3d9c4918b2a0f36e9d97a12">locale</span>
     </ul>
    <li>
@@ -2956,7 +2948,6 @@ text</a>.</p>
     <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<USVString> " href="#dom-securepaymentconfirmationrequest-locale"><c- g>locale</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="boolean " href="#dom-securepaymentconfirmationrequest-showoptout"><c- g>showOptOut</c-></a>;
 };
-
 <c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs"><c- g>AuthenticationExtensionsClientInputs</c-></a> {
   <a data-link-type="idl-name" href="#dictdef-authenticationextensionspaymentinputs"><c- n>AuthenticationExtensionsPaymentInputs</c-></a> <a data-type="AuthenticationExtensionsPaymentInputs " href="#dom-authenticationextensionsclientinputs-payment"><code><c- g>payment</c-></code></a>;
 };
@@ -2972,11 +2963,9 @@ text</a>.</p>
   <a data-link-type="idl-name" href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-authenticationextensionspaymentinputs-total"><c- g>total</c-></a>;
   <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-authenticationextensionspaymentinputs-instrument"><c- g>instrument</c-></a>;
 };
-
 <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientpaymentdata"><c- g>CollectedClientPaymentData</c-></a> : <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata"><c- n>CollectedClientData</c-></a> {
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentdata"><c- n>CollectedClientAdditionalPaymentData</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="CollectedClientAdditionalPaymentData " href="#dom-collectedclientpaymentdata-payment"><c- g>payment</c-></a>;
 };
-
 <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentdata"><c- g>CollectedClientAdditionalPaymentData</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-rpid"><c- g>rpId</c-></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-collectedclientadditionalpaymentdata-toporigin"><c- g>topOrigin</c-></a>;
@@ -2985,13 +2974,11 @@ text</a>.</p>
     <c- b>required</c-> <a data-link-type="idl-name" href="https://w3c.github.io/payment-request/#dom-paymentcurrencyamount"><c- n>PaymentCurrencyAmount</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCurrencyAmount " href="#dom-collectedclientadditionalpaymentdata-total"><c- g>total</c-></a>;
     <c- b>required</c-> <a data-link-type="idl-name" href="#dictdef-paymentcredentialinstrument"><c- n>PaymentCredentialInstrument</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="PaymentCredentialInstrument " href="#dom-collectedclientadditionalpaymentdata-instrument"><c- g>instrument</c-></a>;
 };
-
 <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument"><c- g>PaymentCredentialInstrument</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-displayname"><c- g>displayName</c-></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-paymentcredentialinstrument-icon"><c- g>icon</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a class="idl-code" data-default="true" data-link-type="dict-member" data-type="boolean " href="#dom-paymentcredentialinstrument-iconmustbeshown"><c- g>iconMustBeShown</c-></a> = <c- b>true</c->;
 };
-
 </pre>
   <aside aria-labelledby="infopaneltitle-for-spc-credential" class="dfn-panel" data-for="spc-credential" id="infopanel-for-spc-credential">
    <span id="infopaneltitle-for-spc-credential" style="display:none">Info about the 'SPC Credential' definition.</span><b><a href="#spc-credential">#spc-credential</a></b><b>Referenced in:</b>

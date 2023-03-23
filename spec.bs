@@ -1556,15 +1556,14 @@ This specification does not (yet) include mechanisms for callers to
 associate language or direction metadata with the displayable strings
 they provide as input to the API (e.g., {{PaymentCredentialInstrument/displayName}}).
 
-In the meantime, callers of the API should consider the following:
+In the meantime, callers of the API should:
 
 * Aim for consistency between values of {{SecurePaymentConfirmationRequest/locale}}
     (when provided) and the language of displayable strings.
 
-* When an implementation is the [=producer=] of displayable strings
-    that contain (or might contain) [=bidirectional text=],
-    ensure that the text will display correctly without the
-    [=consumer=] needing to apply additional processing to the
-    contents of the string. One way to ensure this is via the
-    insertion Unicode bidirectional controls. For more information see
-    [How to use Unicode controls for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).
+* Ensure that displayable strings that contain (or might contain)
+  [=bidirectional text=] will display correctly without the Relying
+  Party (or other [=consumer=] of these strings) needing to apply additional
+  processing to the contents of the string. One way to ensure this
+  is via the insertion of Unicode bidirectional controls.
+  For more information see [How to use Unicode controls for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).

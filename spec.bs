@@ -38,6 +38,7 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
 spec: i18n-glossary; urlPrefix: https://www.w3.org/TR/i18n-glossary/
     type: dfn
         text: locale; url: locale
+        text: consumer
 
 spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
     type: dfn

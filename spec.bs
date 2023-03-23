@@ -910,7 +910,8 @@ directly; for authentication the extension can only be accessed via
 :: [=registration extension|Registration=] and [=authentication extension|authentication=]
 
 :  Client extension input
-:: <xmp class="idl">
+::
+    <xmp class="idl">
     partial dictionary AuthenticationExtensionsClientInputs {
       AuthenticationExtensionsPaymentInputs payment;
     };

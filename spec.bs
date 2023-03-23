@@ -1562,8 +1562,8 @@ In the meantime, callers of the API should:
     (when provided) and the language of displayable strings.
 
 * Ensure that displayable strings that contain (or might contain)
-  [=bidirectional text=] will display correctly without the Relying
-  Party (or other [=consumer=] of these strings) needing to apply additional
-  processing to the contents of the string. One way to ensure this
-  is via the insertion of Unicode bidirectional controls.
-  For more information see [How to use Unicode controls for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).
+    [=bidirectional text=] will display correctly without the Relying
+    Party (or other [=consumer=] of these strings) needing to apply additional
+    processing to the contents of the string. One way to ensure this
+    is via the insertion of Unicode bidirectional controls.
+    For more information see [How to use Unicode controls for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).

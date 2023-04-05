@@ -420,10 +420,6 @@ try {
 }
 </pre>
 
-NOTE: The use of the static {{PaymentRequest/isSecurePaymentConfirmationAvailable}} method is recommended for
-      SPC feature detection, instead of calling {{PaymentRequest/canMakePayment}} on an already-constructed
-      PaymentRequest object.
-
 # Terminology # {#sctn-terminology}
 
 : <dfn export>SPC Credential</dfn>
@@ -654,6 +650,10 @@ const spcAvailable =
     PaymentRequest.isSecurePaymentConfirmationAvailable &&
     await PaymentRequest.isSecurePaymentConfirmationAvailable();
 </pre>
+
+NOTE: The use of the static {{PaymentRequest/isSecurePaymentConfirmationAvailable}} method is recommended for
+      SPC feature detection, instead of calling {{PaymentRequest/canMakePayment}} on an already-constructed
+      PaymentRequest object.
 
 ### Steps to validate payment method data ### {#sctn-steps-to-validate-payment-method-data}
 

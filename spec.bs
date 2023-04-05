@@ -363,7 +363,16 @@ The sample code for authenticating the user follows. Note that the example code
 presumes access to await/async, for easier to read promise handling.
 
 <pre class="example" id="authentication-example" highlight="js">
-if (!window.PaymentRequest) { /* PaymentRequest not available; merchant should fallback to traditional flows */ }
+/* isSecurePaymentConfirmationAvailable indicates whether the browser */
+/* supports SPC. It does not indicate whether the user has a credential */
+/* ready to go on this device. */
+const spcAvailable =
+  PaymentRequest &&
+  PaymentRequest.isSecurePaymentConfirmationAvailable &&
+  await PaymentRequest.isSecurePaymentConfirmationAvailable();
+if (!spcAvailable) {
+  /* Browser does not support SPC; merchant should fallback to traditional flows. */
+}
 
 const request = new PaymentRequest([{
   supportedMethods: "secure-payment-confirmation",
@@ -398,17 +407,7 @@ const request = new PaymentRequest([{
     },
   });
 
-  /* isSecurePaymentConfirmationAvailable indicates whether the browser */
-  /* supports SPC. It does not indicate whether the user has a credential */
-  /* ready to go on this device. */
-
 try {
-  const spcAvailable =
-    PaymentRequest &&
-    PaymentRequest.isSecurePaymentConfirmationAvailable &&
-    await PaymentRequest.isSecurePaymentConfirmationAvailable();
-  if (!spcAvailable) { /* Browser does not support SPC. Handle error. */ }
-
   const response = await request.show();
   await response.complete('success');
 
@@ -420,6 +419,10 @@ try {
   /* SPC cannot be used; merchant should fallback to traditional flows */
 }
 </pre>
+
+NOTE: The use of the static {{PaymentRequest/isSecurePaymentConfirmationAvailable}} method is recommended for
+      SPC feature detection, instead of calling {{PaymentRequest/canMakePayment}} on an already-constructed
+      PaymentRequest object.
 
 # Terminology # {#sctn-terminology}
 

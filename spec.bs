@@ -502,11 +502,8 @@ on behalf of the [=Relying Party=], passing in credentials that it has obtained
 from the Relying Party on some other unspecified channel. See
 [[#sctn-use-case-merchant-authentication]].
 
-<wpt title="This test file tests inherited behavior from the PaymentRequest
-            specification; that a user activation is required to call show()
-            (and thus to trigger SPC authentication). We test it explicitly for
-            SPC to make it clear that this behavior is desirable even if the
-            API shape for SPC changes in the future.">
+<!-- This WPT is to be removed after issue #216 is closed. -->
+<wpt hidden>
   authentication-requires-user-activation.https.html
 </wpt>
 
@@ -774,6 +771,16 @@ The user agent MAY utilize the information in
 {{SecurePaymentConfirmationRequest/locale}}, if any, to display a UX localized
 into a language and using locale-based formatting consistent with that of the
 website.
+
+The user agent MAY decide to skip steps 2 and 3 of the
+{{PaymentRequest/show|PaymentRequest.show()}} method, i.e. not require a user
+activation, when the [=Secure Payment Confirmation payment handler=] is
+selected.
+
+NOTE: The user agent may still decide to enforce the user activation
+requirement, or implement a relaxed requirement such as allowing one
+activationless call per page load. The user agent may also consider other spam
+mitigations such as an anti-clickjacking mechanic.
 
 If {{SecurePaymentConfirmationRequest/showOptOut}} is `true`, the user agent
 MUST give the user the opportunity to indicate that they want to opt out of the

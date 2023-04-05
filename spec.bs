@@ -398,13 +398,16 @@ const request = new PaymentRequest([{
     },
   });
 
-  /* canMakePayment indicates whether the browser supports SPC. */
-  /* canMakePayment does not indicate whether the user has a credential */
+  /* isSecurePaymentConfirmationAvailable indicates whether the browser */
+  /* supports SPC. It does not indicate whether the user has a credential */
   /* ready to go on this device. */
 
 try {
-  const canMakePayment = await request.canMakePayment();
-  if (!canMakePayment) { /* Browser does not support SPC. Handle error. */ }
+  const spcAvailable =
+    PaymentRequest &&
+    PaymentRequest.isSecurePaymentConfirmationAvailable &&
+    await PaymentRequest.isSecurePaymentConfirmationAvailable();
+  if (!spcAvailable) { /* Browser does not support SPC. Handle error. */ }
 
   const response = await request.show();
   await response.complete('success');

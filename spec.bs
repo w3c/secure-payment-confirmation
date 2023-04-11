@@ -637,8 +637,8 @@ partial interface PaymentRequest {
 <dl dfn-type="attribute" dfn-for="PaymentRequest">
     :   {{PaymentRequest/isSecurePaymentConfirmationAvailable()}}
     ::  Upon invocation, a promise is returned that resolves with a value of
-        `true` if the user agent believes that the Secure Payment Confirmation
-        feature is available, or `false` otherwise.
+        `true` if the Secure Payment Confirmation feature is available, or
+        `false` otherwise.
 </dl>
 
 This allows a developer to perform the following check when deciding whether to

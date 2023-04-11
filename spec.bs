@@ -35,6 +35,10 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
             text: internal slot
             text: internal method
 
+spec: html-document-sequences; urlPrefix: https://html.spec.whatwg.org/multipage/document-sequences.html
+    type: dfn
+        text: system visibility state; url: system-visibility-state
+
 spec: i18n-glossary; urlPrefix: https://www.w3.org/TR/i18n-glossary/
     type: dfn
         text: locale; url: locale
@@ -81,6 +85,7 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
 
 <pre class="link-defaults">
 spec:url; type:dfn; text:valid domain;
+spec:html; type:dfn; for:navigable; text:traversable navigable
 </pre>
 
 <pre class="biblio">
@@ -683,6 +688,12 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
   authentication-icon-data-url.https.html
   authentication-rejected.https.html
 </wpt>
+
+1. If the [=system visibility state=] of the [=top-level browsing context's=]
+     [=traversable navigable=] is not `"visible"`, return `false`.
+
+        Note: This prevents SPC from being triggered from e.g. a background tab
+        or minimized window.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present:
 

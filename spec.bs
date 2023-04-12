@@ -685,14 +685,14 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 </wpt>
 
 1. If [=this's=] [=relevant global object=]'s [=associated Document=]'s
-     [=Document/visibility state=] is not `"visible"`, return `false`.
+    [=Document/visibility state=] is not `"visible"`, return `false`.
 
-        Note: This prevents SPC from being triggered from a background tab,
-        minimized window, or other similar hidden situations.
+    Note: This prevents SPC from being triggered from a background tab,
+    minimized window, or other similar hidden situations.
 
-        Issue: [=this=] is the {{PaymentRequest}} whose {{PaymentRequest/show()}}
-        method invoked these [=steps to check if a payment can be made=]. It
-        would be better to run this step directly from {{PaymentRequest/show()}}.
+    Issue: [=this=] is the {{PaymentRequest}} whose {{PaymentRequest/show()}}
+    method invoked these [=steps to check if a payment can be made=]. It
+    would be better to run this step directly from {{PaymentRequest/show()}}.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present:
 

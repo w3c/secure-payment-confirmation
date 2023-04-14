@@ -81,6 +81,7 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
 
 <pre class="link-defaults">
 spec:url; type:dfn; text:valid domain;
+spec:fetch; type:dfn; for:/; text:request;
 </pre>
 
 <pre class="biblio">
@@ -540,6 +541,23 @@ Add the following to the [=registry of standardized payment methods=] in
     : "[=secure-payment-confirmation=]"
     :: The <a href="https://w3c.github.io/secure-payment-confirmation/">Secure Payment Confirmation</a> specification.
 
+### Modification of user activation requirement ### {#sctn-modify-user-activation-requirement}
+
+In the steps for when {{PaymentRequest/show|PaymentRequest.show()}} is called,
+modify steps 2 and 3:
+
+2. If the [=relevant global object=] of [=request=] does not have
+        [=transient activation=], the user agent MAY:
+
+    1. Return [=a promise rejected with=] with a {{"SecurityError"}}
+            {{DOMException}}.
+
+3. Otherwise, [=Consume user activation=] of the [=relevant global object=].
+
+NOTE: This change allows the user agent to decide to skip the user activation
+      requirement. See [[#sctn-security-user-activation-requirement]] for
+      security considerations with this change.
+
 ### <dfn dictionary>SecurePaymentConfirmationRequest</dfn> Dictionary ### {#sctn-securepaymentconfirmationrequest-dictionary}
 
 <xmp class="idl">
@@ -781,16 +799,6 @@ The user agent MAY utilize the information in
 {{SecurePaymentConfirmationRequest/locale}}, if any, to display a UX localized
 into a language and using locale-based formatting consistent with that of the
 website.
-
-The user agent MAY decide to skip steps 2 and 3 of the
-{{PaymentRequest/show|PaymentRequest.show()}} method, i.e. not require a user
-activation, when the [=Secure Payment Confirmation payment handler=] is
-selected.
-
-NOTE: The user agent may still decide to enforce the user activation
-requirement, or implement a relaxed requirement such as allowing one
-activationless call per page load. The user agent may also consider other spam
-mitigations such as an anti-clickjacking mechanic.
 
 If {{SecurePaymentConfirmationRequest/showOptOut}} is `true`, the user agent
 MUST give the user the opportunity to indicate that they want to opt out of the
@@ -1442,6 +1450,25 @@ than it currently is on the web. In online payments today, the bank has to
 trust that the merchant showed the user the correct amount in their checkout
 flow (and any fraud discoveries are post-payment, when the user checks their
 account statement).
+
+## Lack of user activation requirement ## {#sctn-security-user-activation-requirement}
+
+If the user agent decides to skip the user activation requirement as outlined in
+[[#sctn-modify-user-activation-requirement]], some additional security mitigations
+should be considered. Removing this requirement increases the risk of spam and
+click-jacking attacks, by allowing a Secure Payment Confirmation flow to be
+initiated without the user's intent.
+
+In order to mitigate spam, the user agent may decide to enforce a user
+activation requirement after some threshold, for example after the user has
+already been shown a Secure Payment Confirmation flow without a user activation
+on the current page. Similarly, in order to mitigate click-jacking attacks, the
+user agent may implement a time threshold in which clicks are ignored
+immediately after a dialog is shown.
+
+Another relevant mitigation exists in step 1 of
+[[#sctn-steps-to-check-if-a-payment-can-be-made]], where the document must be
+visible in order to initiate Secure Payment Confirmation.
 
 # Privacy Considerations # {#sctn-privacy-considerations}
 

@@ -543,7 +543,7 @@ Add the following to the [=registry of standardized payment methods=] in
 
 ### Modification of user activation requirement ### {#sctn-modify-user-activation-requirement}
 
-In the steps for when {{PaymentRequest/show|PaymentRequest.show()}} is called,
+In the steps for the {{PaymentRequest/show|PaymentRequest.show()}} method,
 modify steps 2 and 3:
 
 2. If the [=relevant global object=] of [=request=] does not have
@@ -552,11 +552,13 @@ modify steps 2 and 3:
     1. Return [=a promise rejected with=] with a {{"SecurityError"}}
             {{DOMException}}.
 
-3. Otherwise, [=Consume user activation=] of the [=relevant global object=].
+3. Otherwise, [=consume user activation=] of the [=relevant global object=].
 
-NOTE: This change allows the user agent to decide to skip the user activation
-      requirement. See [[#sctn-security-user-activation-requirement]] for
-      security considerations with this change.
+NOTE: This change allows the user agent to not require user activation, for
+      example to support redirect authentication flows where a user activation
+      may not be present upon redirect. See
+      [[#sctn-security-user-activation-requirement]] for security considerations
+      with this change.
 
 ### <dfn dictionary>SecurePaymentConfirmationRequest</dfn> Dictionary ### {#sctn-securepaymentconfirmationrequest-dictionary}
 
@@ -1454,18 +1456,19 @@ account statement).
 
 ## Lack of user activation requirement ## {#sctn-security-user-activation-requirement}
 
-If the user agent decides to skip the user activation requirement as outlined in
-[[#sctn-modify-user-activation-requirement]], some additional security mitigations
-should be considered. Removing this requirement increases the risk of spam and
-click-jacking attacks, by allowing a Secure Payment Confirmation flow to be
-initiated without the user's intent.
+If the user agent does not require user activation, as outlined in
+[[#sctn-modify-user-activation-requirement]], some additional security
+mitigations should be considered. Not requiring user activation increases the
+risk of spam and click-jacking attacks, by allowing a Secure Payment
+Confirmation flow to be initiated without the user interacting with the page
+immediately beforehand.
 
 In order to mitigate spam, the user agent may decide to enforce a user
 activation requirement after some threshold, for example after the user has
 already been shown a Secure Payment Confirmation flow without a user activation
-on the current page. Similarly, in order to mitigate click-jacking attacks, the
-user agent may implement a time threshold in which clicks are ignored
-immediately after a dialog is shown.
+on the current page. In order to mitigate click-jacking attacks, the user agent
+may implement a time threshold in which clicks are ignored immediately after a
+dialog is shown.
 
 Another relevant mitigation exists in step 1 of
 [[#sctn-steps-to-check-if-a-payment-can-be-made]], where the document must be

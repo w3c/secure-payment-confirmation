@@ -82,6 +82,7 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
 
 <pre class="link-defaults">
 spec:url; type:dfn; text:valid domain;
+spec:i18n-glossary; type:dfn; text:bidi isolation
 </pre>
 
 <pre class="biblio">

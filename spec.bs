@@ -1567,5 +1567,5 @@ In the meantime, callers of the API should:
 
 Implementations (and other processes attempting to display values) should
 apply [=bidi isolation=] around displayable string values when inserting them
-into the user interface, setting the direction, when known, or defaulting
-to first-strong ("auto") when it is not.
+into the user interface. They should set the direction, when it is known,
+or default to first-strong ("auto") when it is not.

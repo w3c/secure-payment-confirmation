@@ -83,6 +83,7 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
 
 <pre class="link-defaults">
 spec:url; type:dfn; text:valid domain;
+spec:i18n-glossary; type:dfn; text:bidi isolation
 </pre>
 
 <pre class="biblio">
@@ -1568,13 +1569,19 @@ This specification does not (yet) include mechanisms for callers to
 associate language or direction metadata with the displayable strings
 they provide as input to the API (e.g., {{PaymentCredentialInstrument/displayName}}).
 
-In the meantime, callers of the API should consider the following:
+In the meantime, callers of the API should:
 
 * Aim for consistency between values of {{SecurePaymentConfirmationRequest/locale}}
     (when provided) and the language of displayable strings.
 
-* If displayable strings contain or might contain [=bidirectional text=], ensure
-    that they will display correctly without the application needing to process
-    the contents of the string value via the insertion of Unicode bidirectional
-    controls. For more information see [How to use Unicode controls for bidi
-    text](https://www.w3.org/International/questions/qa-bidi-unicode-controls).
+* Ensure that direction changes within a string will be correctly
+    rendered when the string is displayed (see [How to use Unicode controls
+    for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls)
+    and [Inline changes to base direction](https://www.w3.org/TR/international-specs/#inline_changes)
+    for more information).
+
+Implementations (and other processes attempting to display values)
+should apply [=bidi isolation=] around displayable string values
+when inserting them into the user interface. They should set the
+direction when it is known, or default to first-strong ("auto")
+when it is not.

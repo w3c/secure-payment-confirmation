@@ -557,8 +557,7 @@ modify steps 2 and 3:
 NOTE: This allows the user agent to not require user activation, for
       example to support redirect authentication flows where a user activation
       may not be present upon redirect. See
-      [[#sctn-security-user-activation-requirement]] for security considerations
-      with this change.
+      [[#sctn-security-user-activation-requirement]] for security considerations.
 
 ### <dfn dictionary>SecurePaymentConfirmationRequest</dfn> Dictionary ### {#sctn-securepaymentconfirmationrequest-dictionary}
 

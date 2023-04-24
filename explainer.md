@@ -576,9 +576,22 @@ used according to this common pattern:
   the pre-authentication details with the assertion details to ensure that they
   align.
 
-**Click-jacking attack**
+**Lack of user activation requirement**
 
-Like Web Authentication, SPC does not require a user activation (although it used to; see [issue 216](https://github.com/w3c/secure-payment-confirmation/issues/216) for details on why it was part of the specification and why it was removed). Without a user activation requirement, there is a slightly increased risk that a malicious site might attempt to click-jack the user. To mitigate this risk, user agents can implement a delay between the display of the transaction dialog and enabling the "Verify" button.
+Like Web Authentication, SPC does not require a user activation (although it
+used to; see [issue 216](https://github.com/w3c/secure-payment-confirmation/issues/216)
+for details on why it was part of the specification and why it was removed).
+Without a user activation requirement, there is a slightly increased risk that a
+malicious site might attempt to spam or click-jack the user.
+
+In order to mitigate spam, the user agent may decide to enforce a user
+activation requirement after some threshold - for example, only allowing one
+activationless call per page load. To mitigate click-jacking attacks, the user agent
+may implement a time threshold in which clicks are ignored immediately after a
+dialog is shown.
+
+Another relevant mitigation exists; the spec requires that the document must be
+visible in order to initiate Secure Payment Confirmation.
 
 ## Privacy Considerations
 

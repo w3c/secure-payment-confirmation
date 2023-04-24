@@ -82,8 +82,9 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
 </pre>
 
 <pre class="link-defaults">
-spec:url; type:dfn; text:valid domain;
+spec:fetch; type:dfn; for:/; text:request;
 spec:i18n-glossary; type:dfn; text:bidi isolation
+spec:url; type:dfn; text:valid domain;
 </pre>
 
 <pre class="biblio">
@@ -505,11 +506,8 @@ on behalf of the [=Relying Party=], passing in credentials that it has obtained
 from the Relying Party on some other unspecified channel. See
 [[#sctn-use-case-merchant-authentication]].
 
-<wpt title="This test file tests inherited behavior from the PaymentRequest
-            specification; that a user activation is required to call show()
-            (and thus to trigger SPC authentication). We test it explicitly for
-            SPC to make it clear that this behavior is desirable even if the
-            API shape for SPC changes in the future.">
+<!-- This WPT is to be removed after issue #216 is closed. -->
+<wpt hidden>
   authentication-requires-user-activation.https.html
 </wpt>
 
@@ -545,6 +543,24 @@ Add the following to the [=registry of standardized payment methods=] in
 
     : "[=secure-payment-confirmation=]"
     :: The <a href="https://w3c.github.io/secure-payment-confirmation/">Secure Payment Confirmation</a> specification.
+
+### Modification of user activation requirement ### {#sctn-modify-user-activation-requirement}
+
+In the steps for the {{PaymentRequest/show|PaymentRequest.show()}} method,
+modify steps 2 and 3:
+
+2. If the [=relevant global object=] of [=request=] does not have
+        [=transient activation=], the user agent MAY:
+
+    1. Return [=a promise rejected with=] with a {{"SecurityError"}}
+            {{DOMException}}.
+
+3. Otherwise, [=consume user activation=] of the [=relevant global object=].
+
+NOTE: This allows the user agent to not require user activation, for
+      example to support redirect authentication flows where a user activation
+      may not be present upon redirect. See
+      [[#sctn-security-user-activation-requirement]] for security considerations.
 
 ### <dfn dictionary>SecurePaymentConfirmationRequest</dfn> Dictionary ### {#sctn-securepaymentconfirmationrequest-dictionary}
 
@@ -1439,6 +1455,26 @@ than it currently is on the web. In online payments today, the bank has to
 trust that the merchant showed the user the correct amount in their checkout
 flow (and any fraud discoveries are post-payment, when the user checks their
 account statement).
+
+## Lack of user activation requirement ## {#sctn-security-user-activation-requirement}
+
+If the user agent does not require user activation, as outlined in
+[[#sctn-modify-user-activation-requirement]], some additional security
+mitigations should be considered. Not requiring user activation increases the
+risk of spam and click-jacking attacks, by allowing a Secure Payment
+Confirmation flow to be initiated without the user interacting with the page
+immediately beforehand.
+
+In order to mitigate spam, the user agent may decide to enforce a user
+activation requirement after some threshold, for example after the user has
+already been shown a Secure Payment Confirmation flow without a user activation
+on the current page. In order to mitigate click-jacking attacks, the user agent
+may implement a time threshold in which clicks are ignored immediately after a
+dialog is shown.
+
+Another relevant mitigation exists in step 1 of
+[[#sctn-steps-to-check-if-a-payment-can-be-made]], where the document must be
+visible in order to initiate Secure Payment Confirmation.
 
 # Privacy Considerations # {#sctn-privacy-considerations}
 

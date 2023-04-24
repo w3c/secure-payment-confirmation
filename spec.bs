@@ -62,7 +62,7 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: credential ID; url: credential-id
         text: discoverable credential; url: discoverable-credential
         text: relying party; url: relying-party
-        text: relying party identifier; url: dfn-relying-party-identifier
+        text: relying party identifier; url: relying-party-identifier
         text: public key credential; url: public-key-credential
         text: WebAuthn Extension; url: webauthn-extensions
         text: client extension; url: client-extension

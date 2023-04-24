@@ -554,7 +554,7 @@ modify steps 2 and 3:
 
 3. Otherwise, [=consume user activation=] of the [=relevant global object=].
 
-NOTE: This change allows the user agent to not require user activation, for
+NOTE: This allows the user agent to not require user activation, for
       example to support redirect authentication flows where a user activation
       may not be present upon redirect. See
       [[#sctn-security-user-activation-requirement]] for security considerations

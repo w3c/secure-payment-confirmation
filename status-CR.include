@@ -8,6 +8,7 @@
         </p>
         <p>For this specification to move to Proposed Recommendation we must show two independent, interoperable implementations in user agents; see the related <a href="https://wpt.fyi/results/secure-payment-confirmation/">implementation report</a>.
         </p>
+	<p>This Candidate Recommendation is not expected to advance to Proposed Recommendation any earlier than 1 August 2023.</p>
         <p>
             The Web Payments Working Group maintains an <a href="https://github.com/w3c/secure-payment-confirmation/issues">issues list</a>. 
         </p>

@@ -6,7 +6,7 @@
       href='https://www.w3.org/2021/Process-20211102/#recs-and-notes'>Recommendation
       track</a>. This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation.
         </p>
-        <p>For this specification to move to Proposed Recommendation we must show two independent, interoperable implementations in browsers; see the related <a href="https://wpt.fyi/results/secure-payment-confirmation/">implementation report</a>.
+        <p>For this specification to move to Proposed Recommendation we must show two independent, interoperable implementations in user agents; see the related <a href="https://wpt.fyi/results/secure-payment-confirmation/">implementation report</a>.
         </p>
         <p>
             The Web Payments Working Group maintains an <a href="https://github.com/w3c/secure-payment-confirmation/issues">issues list</a>. 

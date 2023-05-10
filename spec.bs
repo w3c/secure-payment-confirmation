@@ -483,13 +483,16 @@ specified.
   enrollment-in-iframe.sub.https.html
 </wpt>
 
-Note: In this specification we define an extension in order to allow (1)
-      credential creation in a cross-origin iframe (which WebAuthn does not yet
-      allow) and (2) the browser to cache SPC credentials in the absence of
-      [[webauthn-conditional-ui|Conditional UI]]. If these capabilities are
-      available in future versions of WebAuthn, we may remove the requirement
-      for the extension from SPC. Note that SPC credentials (with the extension)
-      are otherwise full-fledged WebAuthn credentials.
+Note: In this specification we define an extension in order to allow
+      (1) credential creation in a cross-origin iframe (which WebAuthn
+      Levels 1 and 2 do not allow, but Level 3 <a
+      href="https://github.com/w3c/webauthn/pull/1801">is expected to
+      allow</a>) and (2) the browser to cache SPC credentials in the
+      absence of [[webauthn-conditional-ui|Conditional UI]]. If these
+      capabilities are available in future versions of WebAuthn, we
+      may remove the requirement for the extension from SPC. Note that
+      SPC credentials (with the extension) are otherwise full-fledged
+      WebAuthn credentials.
 
 # Authentication # {#sctn-authentication}
 

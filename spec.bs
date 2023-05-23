@@ -487,7 +487,7 @@ Note: In this specification we define an extension in order to allow
       (1) credential creation in a cross-origin iframe (which WebAuthn
       Levels 1 and 2 do not allow, but Level 3 <a
       href="https://github.com/w3c/webauthn/pull/1801">is expected to
-      allow</a>) and (2) the browser to cache SPC credentials in the
+      allow</a>) and (2) the browser to cache SPC credential IDs in the
       absence of [[webauthn-conditional-ui|Conditional UI]]. If these
       capabilities are available in future versions of WebAuthn, we
       may remove the requirement for the extension from SPC. Note that
@@ -919,10 +919,10 @@ created for or used for Secure Payment Confirmation, respectively.
 
 For registration, this extension relaxes the WebAuthn requirements to allow
 credential creation in a cross-origin iframe, and also allows the browser to
-identify and cache Secure Payment Confirmation credentials. For authentication,
-this extension allows a third-party to perform an authentication ceremony on
-behalf of the [=Relying Party=], and also adds transaction information to the
-signed cryptogram.
+identify and cache Secure Payment Confirmation credential IDs. For
+authentication, this extension allows a third-party to perform an
+authentication ceremony on behalf of the [=Relying Party=], and also adds
+transaction information to the signed cryptogram.
 
 Notably, a website should not call
 {{CredentialsContainer/get()|navigator.credentials.get()}} with this extension

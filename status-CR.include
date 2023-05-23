@@ -14,7 +14,7 @@
         </p>
         <p>
             Publication as a Candidate Recommendation does not imply endorsement by
-    <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
+    <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. A Candidate Recommendation Snapshot has received <a href="https://www.w3.org/2021/Process-20211102/#dfn-wide-review">wide review</a>, is intended to gather implementation experience, and has commitments from Working Group members to <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Requirements">royalty-free licensing</a> for implementations.
         </p>
 
 	<p>This document was produced by a group operating under the <a href="https://www.w3.org/Consortium/Patent-Policy/">W3C Patent Policy</a>. W3C maintains a <a rel="disclosure" href="https://www.w3.org/groups/wg/payments/ipr">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the W3C Patent Policy</a>.</p>

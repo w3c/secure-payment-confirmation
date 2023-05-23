@@ -966,8 +966,6 @@ directly; for authentication the extension can only be accessed via
       :  <dfn>isPayment</dfn> member
       :: Indicates that the extension is active.
 
-        <div class="note">**TODO**: Find a better way to do this. Needed currently because other members are auth-time only.</div>
-
       :  <dfn>rpId</dfn> member
       :: The [=Relying Party=] id of the credential(s) being used. Only used at authentication time; not registration.
 

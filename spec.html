@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="5a06edead03dd2c8b1d6cb3998b27c03a0ed6d68" name="document-revision">
+  <meta content="558f73568bdf2abae70427ef4b9e9f1e51d0d45a" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -941,7 +941,7 @@ be supported by the same underlying API.</p>
    <p class="note" role="note"><span class="marker">Note:</span> In this specification we define an extension in order to allow
       (1) credential creation in a cross-origin iframe (which WebAuthn
       Levels 1 and 2 do not allow, but Level 3 <a href="https://github.com/w3c/webauthn/pull/1801">is expected to
-      allow</a>) and (2) the browser to cache SPC credentials in the
+      allow</a>) and (2) the browser to cache SPC credential IDs in the
       absence of <a data-link-type="biblio" href="#biblio-webauthn-conditional-ui" title="WebAuthn Conditional UI Proposal">Conditional UI</a>. If these
       capabilities are available in future versions of WebAuthn, we
       may remove the requirement for the extension from SPC. Note that
@@ -1337,10 +1337,10 @@ whose fields are:</p>
 created for or used for Secure Payment Confirmation, respectively.</p>
    <p>For registration, this extension relaxes the WebAuthn requirements to allow
 credential creation in a cross-origin iframe, and also allows the browser to
-identify and cache Secure Payment Confirmation credentials. For authentication,
-this extension allows a third-party to perform an authentication ceremony on
-behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑦">Relying Party</a>, and also adds transaction information to the
-signed cryptogram.</p>
+identify and cache Secure Payment Confirmation credential IDs. For
+authentication, this extension allows a third-party to perform an
+authentication ceremony on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑦">Relying Party</a>, and also adds
+transaction information to the signed cryptogram.</p>
    <p>Notably, a website should not call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get" id="ref-for-dom-credentialscontainer-get">navigator.credentials.get()</a></code> with this extension
 directly; for authentication the extension can only be accessed via <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest③">PaymentRequest</a></code> with a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation③">secure-payment-confirmation</a>" payment method.</p>
    <details class="wpt-tests-block" dir="ltr" lang="en">

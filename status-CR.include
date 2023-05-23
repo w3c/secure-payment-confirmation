@@ -4,7 +4,7 @@
         <p>
             This document was published by the <a href="https://www.w3.org/groups/wg/payments">Web Payments Working Group</a> as a Candidate Recommendation Snapshot using the <a
       href='https://www.w3.org/2021/Process-20211102/#recs-and-notes'>Recommendation
-      track</a>. This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation.
+      track</a>.
         </p>
         <p>For this specification to move to Proposed Recommendation we must show two independent, interoperable implementations in user agents; see the related <a href="https://wpt.fyi/results/secure-payment-confirmation/">implementation report</a>.
         </p>

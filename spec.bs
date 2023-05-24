@@ -527,13 +527,6 @@ Request. We therefore expect (without a concrete timeline) that SPC will move
 away from its Payment Request origins. For developers, this should improve
 feature detection, invocation, and other aspects of the API.
 
-<div class="note">
-**TODO**: This specification also needs to constrain
-{{PaymentRequest/constructor|PaymentRequest's constructor}} somehow, to enforce
-that when "[=secure-payment-confirmation=]" is used exactly one method is
-given.
-</div>
-
 ### Payment Method Identifier ### {#sctn-payment-method-identifier}
 
 The [=standardized payment method identifier=] for the [=Secure Payment

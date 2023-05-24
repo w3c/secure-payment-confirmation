@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="558f73568bdf2abae70427ef4b9e9f1e51d0d45a" name="document-revision">
+  <meta content="c3f07d23c4e1abe309c88e98129f98e5129954fb" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -426,11 +426,12 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
 }
 </style>
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
+  <link href="https://www.w3.org/StyleSheets/TR/2016/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-05-23">23 May 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-05-24">24 May 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1046,7 +1047,7 @@ automatically.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export id="dom-securepaymentconfirmationrequest-locale"><code>locale</code></dfn> member, <span> of type sequence&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑦">USVString</a>></span>
     <dd data-md>
      <p>An optional list of well-formed <a data-link-type="biblio" href="#biblio-bcp47" title="Tags for Identifying Languages">[BCP47]</a> language tags, in descending
-order of priority, that identify the <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#locale" id="ref-for-locale">locale</a> preferences of the
+order of priority, that identify the <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="ref-for-dfn-locale">locale</a> preferences of the
 website, i.e. a <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-priority-list" id="ref-for-dfn-language-priority-list">language priority list</a> <a data-link-type="biblio" href="#biblio-rfc4647" title="Matching of Language Tags">[RFC4647]</a>, which the user
 agent can use to perform <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-negotiation" id="ref-for-dfn-language-negotiation">language negotiation</a> and locale-affected
 formatting with the caller.</p>
@@ -1958,7 +1959,7 @@ can request to be deleted."</p>
    <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑧">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
    <p>User Agents implementing this specification should follow both <a href="https://w3c.github.io/webauthn/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a> and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
    <h2 class="heading settled" data-level="13" id="sctn-i18n-considerations"><span class="secno">13. </span><span class="content">Internationalization Considerations</span><a class="self-link" href="#sctn-i18n-considerations"></a></h2>
-   <p>Callers of the API should express the desired <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#locale" id="ref-for-locale①">locale</a> of the
+   <p>Callers of the API should express the desired <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="ref-for-dfn-locale①">locale</a> of the
 transaction dialog as well as the localization of any displayable
 strings via the <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale③">locale</a></code> member. In
 general this member should match the localization of the page where
@@ -2149,7 +2150,7 @@ when it is not.</p>
      <li><span class="dfn-paneled" id="2ba936be">bidi isolation</span>
      <li><span class="dfn-paneled" id="6d26b819">language negotiation</span>
      <li><span class="dfn-paneled" id="30eadef0">language priority list</span>
-     <li><span class="dfn-paneled" id="d0163bfc">locale</span>
+     <li><span class="dfn-paneled" id="16ad0fd2">locale</span>
     </ul>
    <li>
     <a data-link-type="biblio">[IMAGE-RESOURCE]</a> defines the following terms:
@@ -2555,7 +2556,7 @@ window.dfnpanelData['b4c365f8'] = {"dfnID": "b4c365f8", "url": "https://html.spe
 window.dfnpanelData['2ba936be'] = {"dfnID": "2ba936be", "url": "https://w3c.github.io/i18n-glossary/#dfn-bidi-isolation", "dfnText": "bidi isolation", "refSections": [{"refs": [{"id": "ref-for-dfn-bidi-isolation"}], "title": "13. Internationalization Considerations"}], "external": true};
 window.dfnpanelData['6d26b819'] = {"dfnID": "6d26b819", "url": "https://w3c.github.io/i18n-glossary/#dfn-language-negotiation", "dfnText": "language negotiation", "refSections": [{"refs": [{"id": "ref-for-dfn-language-negotiation"}], "title": "4.1.4. SecurePaymentConfirmationRequest Dictionary"}], "external": true};
 window.dfnpanelData['30eadef0'] = {"dfnID": "30eadef0", "url": "https://w3c.github.io/i18n-glossary/#dfn-language-priority-list", "dfnText": "language priority list", "refSections": [{"refs": [{"id": "ref-for-dfn-language-priority-list"}], "title": "4.1.4. SecurePaymentConfirmationRequest Dictionary"}], "external": true};
-window.dfnpanelData['d0163bfc'] = {"dfnID": "d0163bfc", "url": "https://www.w3.org/TR/i18n-glossary/#locale", "dfnText": "locale", "refSections": [{"refs": [{"id": "ref-for-locale"}], "title": "4.1.4. SecurePaymentConfirmationRequest Dictionary"}, {"refs": [{"id": "ref-for-locale\u2460"}], "title": "13. Internationalization Considerations"}], "external": true};
+window.dfnpanelData['16ad0fd2'] = {"dfnID": "16ad0fd2", "url": "https://www.w3.org/TR/i18n-glossary/#dfn-locale", "dfnText": "locale", "refSections": [{"refs": [{"id": "ref-for-dfn-locale"}], "title": "4.1.4. SecurePaymentConfirmationRequest Dictionary"}, {"refs": [{"id": "ref-for-dfn-locale\u2460"}], "title": "13. Internationalization Considerations"}], "external": true};
 window.dfnpanelData['502ee54a'] = {"dfnID": "502ee54a", "url": "https://w3c.github.io/image-resource/#dfn-fetching-an-image-resource", "dfnText": "fetching an image resource", "refSections": [{"refs": [{"id": "ref-for-dfn-fetching-an-image-resource"}], "title": "4.1.7. Steps to check if a payment can be made"}], "external": true};
 window.dfnpanelData['e8aa4aef'] = {"dfnID": "e8aa4aef", "url": "https://w3c.github.io/image-resource/#dom-imageresource-src", "dfnText": "src", "refSections": [{"refs": [{"id": "ref-for-dom-imageresource-src"}], "title": "4.1.7. Steps to check if a payment can be made"}], "external": true};
 window.dfnpanelData['53275e46'] = {"dfnID": "53275e46", "url": "https://infra.spec.whatwg.org/#list-append", "dfnText": "append", "refSections": [{"refs": [{"id": "ref-for-list-append"}], "title": "4.1.9. Steps to respond to a payment request"}], "external": true};

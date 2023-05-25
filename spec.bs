@@ -545,7 +545,7 @@ Add the following to the [=registry of standardized payment methods=] in
 In the steps for the {{PaymentRequest/constructor|PaymentRequest object's constructor}},
 add a new step after step 4.3:
 
-4. Process payment methods: *[steps 1-3 elided]*
+4. Process payment methods: *[sub-steps 1-3 elided]*
 
     4. If |seenPMIs| contains "[=secure-payment-confirmation=]" and the size
         of |seenPMIs| is greater than 1, throw a {{RangeError}}.

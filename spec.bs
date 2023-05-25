@@ -140,8 +140,6 @@ extension defined in this specification.
 We presume that the general use case of cryptographic-based authentication for
 online transactions is well established.
 
-Note: These sections are still a WIP.
-
 ### Cryptographic evidence of transaction confirmation ### {#sctn-use-case-verifying-payment}
 
 In many online payment systems, it is common for the entity (e.g., bank) that
@@ -1549,9 +1547,6 @@ ecosystem stakeholders take steps to preserve user privacy. For example:
 * When a [=Relying Party=] assigns multiple instruments to a single SPC credential, it might choose not to share that credential ID with other parties. In this case, the [=Relying Party=] could still use the SPC credential itself (in either a first-party or third-party context) to authenticate the user.
 * A [=Relying Party=] (e.g., a bank) might enable the user to register a distinct SPC credential per payment instrument. This would not prevent the [=Relying Party=] from joining those accounts internally.
 
-NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
-      for discussion on possible spec changes related to this section.
-
 ## Credential ID(s) as a tracking vector ## {#sctn-privacy-credential-id-tracking-vector}
 
 Even for a single payment instrument, the credential ID(s) returned by the
@@ -1559,9 +1554,6 @@ Even for a single payment instrument, the credential ID(s) returned by the
 they are strong, cross-site identifiers. However in order to obtain them from
 the [=Relying Party=], the merchant already needs an as-strong identifier to
 give to the [=Relying Party=] (e.g., the credit card number).
-
-NOTE: See [issue #77](https://github.com/w3c/secure-payment-confirmation/issues/77)
-      for discussion on possible spec changes related to this section.
 
 ## User opt out ## {#sctn-user-opt-out}
 

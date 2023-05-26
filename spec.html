@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="100b98e1e11e00419395e97e580c01580034c2e3" name="document-revision">
+  <meta content="5e06e9af0ab246b0598fab38640f42d73273e356" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -624,7 +624,6 @@ Web, the following use cases illustrate the value of the payment-specific
 extension defined in this specification.</p>
     <p>We presume that the general use case of cryptographic-based authentication for
 online transactions is well established.</p>
-    <p class="note" role="note"><span class="marker">Note:</span> These sections are still a WIP.</p>
     <h4 class="heading settled" data-level="1.1.1" id="sctn-use-case-verifying-payment"><span class="secno">1.1.1. </span><span class="content">Cryptographic evidence of transaction confirmation</span><a class="self-link" href="#sctn-use-case-verifying-payment"></a></h4>
     <p>In many online payment systems, it is common for the entity (e.g., bank) that
 issues a payment instrument to seek to reduce fraud through authentication. <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a> and this specification make it possible to use authenticators to
@@ -1942,13 +1941,11 @@ ecosystem stakeholders take steps to preserve user privacy. For example:</p>
     <li data-md>
      <p>A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑨">Relying Party</a> (e.g., a bank) might enable the user to register a distinct SPC credential per payment instrument. This would not prevent the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤⓪">Relying Party</a> from joining those accounts internally.</p>
    </ul>
-   <p class="note" role="note"><span class="marker">NOTE:</span> See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">issue #77</a> for discussion on possible spec changes related to this section.</p>
    <h3 class="heading settled" data-level="11.4" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">11.4. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
    <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤①">Relying Party</a> could be used by a malicious entity as a tracking vector, as
 they are strong, cross-site identifiers. However in order to obtain them from
 the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤②">Relying Party</a>, the merchant already needs an as-strong identifier to
 give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤③">Relying Party</a> (e.g., the credit card number).</p>
-   <p class="note" role="note"><span class="marker">NOTE:</span> See <a href="https://github.com/w3c/secure-payment-confirmation/issues/77">issue #77</a> for discussion on possible spec changes related to this section.</p>
    <h3 class="heading settled" data-level="11.5" id="sctn-user-opt-out"><span class="secno">11.5. </span><span class="content">User opt out</span><a class="self-link" href="#sctn-user-opt-out"></a></h3>
    <p>The API option <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-showoptout" id="ref-for-dom-securepaymentconfirmationrequest-showoptout②">showOptOut</a></code> tells the
 user agent to provide a way for the user to indicate they wish to opt out of the

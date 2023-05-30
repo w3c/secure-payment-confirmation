@@ -1463,9 +1463,10 @@ on the current page. In order to mitigate click-jacking attacks, the user agent
 may implement a time threshold in which clicks are ignored immediately after a
 dialog is shown.
 
-Another relevant mitigation exists in step 1 of
-[[#sctn-steps-to-check-if-a-payment-can-be-made]], where the document must be
-visible in order to initiate Secure Payment Confirmation.
+Another relevant mitigation exists in
+{{PaymentRequest/show()|PaymentRequest.show()}}: the Payment Request API
+requires the document to be visible, and thus SPC cannot be triggered from a
+background tab, minimized window, or other similar hidden situations.
 
 # Privacy Considerations # {#sctn-privacy-considerations}
 

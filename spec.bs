@@ -23,6 +23,7 @@ Local Boilerplate: status yes
 Markup Shorthands: markdown yes
 WPT Display: closed
 WPT Path Prefix: /secure-payment-confirmation/
+Implementation Report: https://wpt.fyi/results/secure-payment-confirmation
 </pre>
 
 <pre class="anchors">

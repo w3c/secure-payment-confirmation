@@ -702,21 +702,10 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
 <wpt>
   constructor.https.html
-  authentication-disallowed-when-hidden.https.html
   authentication-invalid-icon.https.html
   authentication-icon-data-url.https.html
   authentication-rejected.https.html
 </wpt>
-
-1. If [=this's=] [=relevant global object=]'s [=associated Document=]'s
-    [=Document/visibility state=] is not `"visible"`, return `false`.
-
-    Note: This prevents SPC from being triggered from a background tab,
-    minimized window, or other similar hidden situations.
-
-    Issue: [=this=] is the {{PaymentRequest}} whose {{PaymentRequest/show()}}
-    method invoked these [=steps to check if a payment can be made=]. It
-    would be better to run this step directly from {{PaymentRequest/show()}}.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present:
 

@@ -201,8 +201,8 @@ This limitation motivates the following Secure Payment Confirmation behavior:
     context. For instance, this registration might take place following some
     other identity and verification (<abbr>ID&V</abbr>) flow (e.g., SMS OTP).
 
-* See <a href="https://github.com/w3c/webauthn/issues/1336#issuecomment-554170183">discussion
-    on WebAuthn issue 1336</a>.
+* See <a href="https://github.com/w3c/webauthn/issues/1656">discussion
+    on WebAuthn issue 1656</a>.
 
 ### Merchant control of authentication ### {#sctn-use-case-merchant-authentication}
 
@@ -1495,8 +1495,8 @@ NOTE: Allowing credential creation in cross-origin iframes is currently [under
 Allowing credential creation in a cross-origin iframe presents a risk that an
 iframe may attempt to trick a user into registering a credential. That
 credential could then be used for tracking (see [WebAuthn issue
-1336](https://github.com/w3c/webauthn/issues/1336#issue-513568855)). To
-mitigate such an attack, this specification requires that a call to
+1656](https://github.com/w3c/webauthn/issues/1656)). To mitigate such an
+attack, this specification requires that a call to
 {{CredentialsContainer/create()|navigator.credentials.create()}} inside a
 cross-origin iframe may only be invoked when the iframe has [=transient
 activation=] (e.g., via a click or press from the user).

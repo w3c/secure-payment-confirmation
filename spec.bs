@@ -366,7 +366,16 @@ The sample code for authenticating the user follows. Note that the example code
 presumes access to await/async, for easier to read promise handling.
 
 <pre class="example" id="authentication-example" highlight="js">
-if (!window.PaymentRequest) { /* PaymentRequest not available; merchant should fallback to traditional flows */ }
+/* isSecurePaymentConfirmationAvailable indicates whether the browser */
+/* supports SPC. It does not indicate whether the user has a credential */
+/* ready to go on this device. */
+const spcAvailable =
+  PaymentRequest &&
+  PaymentRequest.isSecurePaymentConfirmationAvailable &&
+  await PaymentRequest.isSecurePaymentConfirmationAvailable();
+if (!spcAvailable) {
+  /* Browser does not support SPC; merchant should fallback to traditional flows. */
+}
 
 const request = new PaymentRequest([{
   supportedMethods: "secure-payment-confirmation",
@@ -401,14 +410,7 @@ const request = new PaymentRequest([{
     },
   });
 
-  /* canMakePayment indicates whether the browser supports SPC. */
-  /* canMakePayment does not indicate whether the user has a credential */
-  /* ready to go on this device. */
-
 try {
-  const canMakePayment = await request.canMakePayment();
-  if (!canMakePayment) { /* Browser does not support SPC. Handle error. */ }
-
   const response = await request.show();
   await response.complete('success');
 
@@ -645,6 +647,37 @@ members:
 
 The [=payment method additional data type=] for this payment method is
 {{SecurePaymentConfirmationRequest}}.
+
+### Checking if Secure Payment Confirmation is available ### {#sctn-secure-payment-confirmation-available-api}
+
+A static API is added to {{PaymentRequest}} in order to provide developers a
+simplified method of checking whether Secure Payment Confirmation is available.
+
+<xmp class="idl">
+partial interface PaymentRequest {
+    static Promise<boolean> isSecurePaymentConfirmationAvailable();
+};
+</xmp>
+<dl dfn-type="attribute" dfn-for="PaymentRequest">
+    :   {{PaymentRequest/isSecurePaymentConfirmationAvailable()}}
+    ::  Upon invocation, a promise is returned that resolves with a value of
+        `true` if the Secure Payment Confirmation feature is available, or
+        `false` otherwise.
+</dl>
+
+This allows a developer to perform the following check when deciding whether to
+initiate a SPC flow:
+
+<pre class="example" id="available-example" highlight="js">
+const spcAvailable =
+    PaymentRequest &&
+    PaymentRequest.isSecurePaymentConfirmationAvailable &&
+    await PaymentRequest.isSecurePaymentConfirmationAvailable();
+</pre>
+
+NOTE: The use of the static {{PaymentRequest/isSecurePaymentConfirmationAvailable}} method is recommended for
+      SPC feature detection, instead of calling {{PaymentRequest/canMakePayment}} on an already-constructed
+      PaymentRequest object.
 
 ### Steps to validate payment method data ### {#sctn-steps-to-validate-payment-method-data}
 

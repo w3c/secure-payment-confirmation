@@ -23,5 +23,5 @@ jobs:
           # Replace following with appropriate value. See options.md for details.
           W3C_WG_DECISION_URL: https://www.w3.org/2016/04/14-wpwg-minutes.html
           W3C_BUILD_OVERRIDE: |
-            status: WD
+            status: CRD
             shortname: secure-payment-confirmation

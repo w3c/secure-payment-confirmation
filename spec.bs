@@ -1011,12 +1011,7 @@ directly; for authentication the extension can only be accessed via
     </dl>
 
 :  <dfn export>Client extension processing ([=registration extension|registration=])</dfn>
-:: Note: Reading [[webauthn-3]] literally, these steps don't work; extensions
-    are injected at step 12 of `[[Create]]` and cannot really modify anything.
-    However other extensions ignore that entirely and assume they can modify any
-    part of any WebAuthn algorithm!
-
-    When [[webauthn-3#sctn-createCredential|creating a new credential]]:
+:: When [[webauthn-3#sctn-createCredential|creating a new credential]]:
 
     1. Modify step 2 (the check for *sameOriginWithAncestors*) as follows:
 

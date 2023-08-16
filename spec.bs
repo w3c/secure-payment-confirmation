@@ -1650,5 +1650,5 @@ This section adds the below-listed [=extension identifier=] to the IANA "WebAuth
 - WebAuthn Extension Identifier: payment
 - Description:  This extension supports the following functionality defined by the Secure Payment Confirmation API: (1) it allows credential creation in a cross-origin iframe (2) it allows a party other than the Relying Party to use the credential to perform an authentication ceremony on behalf of the Relying Party, and (3) it allows the browser to identify and cache Secure Payment Confirmation credentials. For discussion of important ways in which SPC differs from Web Authentication, see in particular [[#sctn-security-considerations]] and [[#sctn-privacy-considerations]]
 - Specification Document: Section [[#sctn-payment-extension-registration]] of this specification
-- Change Controller: <a href="https://www.w3.org/groups/wg/payments">W3C Web Payments Working Group</a>
-- Notes: Registration follows <a href="https://www.w3.org/2023/05/03-webauthn-minutes#t01">3 May 2023 discussion</a> with the Web Authentication Working Group.
+- Change Controller: [W3C Web Payments Working Group](https://www.w3.org/groups/wg/payments)
+- Notes: Registration follows [3 May 2023 discussion](https://www.w3.org/2023/05/03-webauthn-minutes#t01) with the Web Authentication Working Group.

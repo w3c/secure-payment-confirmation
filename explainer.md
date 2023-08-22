@@ -208,15 +208,14 @@ extension specified.
 
 ```javascript
 const publicKey = {
-  challenge: Uint8Array.from(
-      randomStringFromServer, c => c.charCodeAt(0)),
+  challenge: Uint8Array.from(randomStringFromServer, c => c.charCodeAt(0)),
 
   rp: {
     name: "Fancy Bank",
   },
 
   user: {
-    id: Uint8Array.from(userId, c => c.charCodeAt(0)),
+    id: Uint8Array.from(userId, (c) => c.charCodeAt(0)),
     name: "jane.doe@example.org",
     displayName: "Jane Doe",
   },
@@ -224,11 +223,11 @@ const publicKey = {
   pubKeyCredParams: [
     {
       type: "public-key",
-      alg: -7 // "ES256"
+      alg: -7, // "ES256"
     },
     {
       type: "public-key",
-      alg: -257 // "RS256"
+      alg: -257, // "RS256"
     }
   ],
 
@@ -247,10 +246,12 @@ const publicKey = {
   },
 };
 
-navigator.credentials.create({ publicKey })
+navigator.credentials
+  .create({ publicKey })
   .then(function (newCredentialInfo) {
     // Send new credential info to server for verification and registration.
-  }).catch(function (err) {
+  })
+  .catch(function (err) {
     // No acceptable authenticator or user refused consent. Handle appropriately.
   });
 ```
@@ -278,7 +279,7 @@ policy] set. For example:
 ```html
 <!-- Assume parent origin is merchant.com -->
 <!-- Inside this cross-origin iframe, script would be allowed to create a SPC credential for example.org -->
-<iframe src="https://example.org" allow="payment">
+<iframe src="https://example.org" allow="payment"></iframe>
 ```
 
 #### Authenticating a payment

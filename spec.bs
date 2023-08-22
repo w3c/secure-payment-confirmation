@@ -1652,3 +1652,4 @@ This section adds the below-listed [=extension identifier=] to the IANA "WebAuth
 - Specification Document: Section [[#sctn-payment-extension-registration]] of this specification
 - Change Controller: [W3C Web Payments Working Group](https://www.w3.org/groups/wg/payments)
 - Notes: Registration follows [3 May 2023 discussion](https://www.w3.org/2023/05/03-webauthn-minutes#t01) with the Web Authentication Working Group.
+

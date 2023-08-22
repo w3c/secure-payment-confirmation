@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="w3c/ED" name="w3c-status">
-  <meta content="Bikeshed version d29f71adb, updated Wed Jul 19 11:08:56 2023 -0700" name="generator">
+  <meta content="Bikeshed version 6edc88947, updated Thu Aug 17 11:18:09 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="509ee15f764e7892ba14e4293b23fc66f00a8a68" name="document-revision">
+  <meta content="6c20660e319148e643c85911888ef3f0351233fc" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -785,7 +785,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-07-31">31 July 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-08-22">22 August 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -926,6 +926,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
      </ol>
     <li><a href="#sctn-accessibility-considerations"><span class="secno">12</span> <span class="content">Accessibility Considerations</span></a>
     <li><a href="#sctn-i18n-considerations"><span class="secno">13</span> <span class="content">Internationalization Considerations</span></a>
+    <li><a href="#sctn-iana-considerations"><span class="secno">14</span> <span class="content">IANA Considerations</span></a>
     <li>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
@@ -2358,6 +2359,20 @@ should apply <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#
 when inserting them into the user interface. They should set the
 direction when it is known, or default to first-strong ("auto")
 when it is not.</p>
+   <h2 class="heading settled" data-level="14" id="sctn-iana-considerations"><span class="secno">14. </span><span class="content">IANA Considerations</span><a class="self-link" href="#sctn-iana-considerations"></a></h2>
+   <p>This section adds the below-listed <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#extension-identifier" id="ref-for-extension-identifier">extension identifier</a> to the IANA "WebAuthn Extension Identifiers" registry <a data-link-type="biblio" href="#biblio-iana-webauthn-registries" title="Registries for Web Authentication (WebAuthn)">[IANA-WebAuthn-Registries]</a> established by <a data-link-type="biblio" href="#biblio-rfc8809" title="Registries for Web Authentication (WebAuthn)">[RFC8809]</a>.</p>
+   <ul>
+    <li data-md>
+     <p>WebAuthn Extension Identifier: payment</p>
+    <li data-md>
+     <p>Description:  This extension supports the following functionality defined by the Secure Payment Confirmation API: (1) it allows credential creation in a cross-origin iframe (2) it allows a party other than the Relying Party to use the credential to perform an authentication ceremony on behalf of the Relying Party, and (3) it allows the browser to identify and cache Secure Payment Confirmation credentials. For discussion of important ways in which SPC differs from Web Authentication, see in particular <a href="#sctn-security-considerations">§ 10 Security Considerations</a> and <a href="#sctn-privacy-considerations">§ 11 Privacy Considerations</a></p>
+    <li data-md>
+     <p>Specification Document: Section <a href="#sctn-payment-extension-registration">§ 5 WebAuthn Extension - "payment"</a> of this specification</p>
+    <li data-md>
+     <p>Change Controller: <a href="https://www.w3.org/groups/wg/payments">W3C Web Payments Working Group</a></p>
+    <li data-md>
+     <p>Notes: Registration follows <a href="https://www.w3.org/2023/05/03-webauthn-minutes#t01">3 May 2023 discussion</a> with the Web Authentication Working Group.</p>
+   </ul>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
@@ -2585,6 +2600,7 @@ when it is not.</p>
      <li><span class="dfn-paneled" id="88ae1d28">client extension</span>
      <li><span class="dfn-paneled" id="e4d7113a">credential id</span>
      <li><span class="dfn-paneled" id="3781d718">discoverable credential</span>
+     <li><span class="dfn-paneled" id="b6a00a38">extension identifier</span>
      <li><span class="dfn-paneled" id="fe1cbc76">public key credential</span>
      <li><span class="dfn-paneled" id="5d6beb3a">registration extension</span>
      <li><span class="dfn-paneled" id="77a62788">relying party</span>
@@ -2668,6 +2684,8 @@ when it is not.</p>
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-i18n-glossary">[I18N-GLOSSARY]
    <dd>Richard Ishida; Addison Phillips. <a href="https://w3c.github.io/i18n-glossary/"><cite>Internationalization Glossary</cite></a>. URL: <a href="https://w3c.github.io/i18n-glossary/">https://w3c.github.io/i18n-glossary/</a>
+   <dt id="biblio-iana-webauthn-registries">[IANA-WebAuthn-Registries]
+   <dd><a href="https://www.rfc-editor.org/rfc/rfc8809.html"><cite>Registries for Web Authentication (WebAuthn)</cite></a>. URL: <a href="https://www.rfc-editor.org/rfc/rfc8809.html">https://www.rfc-editor.org/rfc/rfc8809.html</a>
    <dt id="biblio-image-resource">[IMAGE-RESOURCE]
    <dd>Aaron Gustafson; Rayan Kanso; Marcos Caceres. <a href="https://w3c.github.io/image-resource/"><cite>Image Resource</cite></a>. URL: <a href="https://w3c.github.io/image-resource/">https://w3c.github.io/image-resource/</a>
    <dt id="biblio-infra">[INFRA]
@@ -2680,6 +2698,8 @@ when it is not.</p>
    <dd>Marcos Caceres; Rouslan Solomakhin; Ian Jacobs. <a href="https://w3c.github.io/payment-request/"><cite>Payment Request API 1.1</cite></a>. URL: <a href="https://w3c.github.io/payment-request/">https://w3c.github.io/payment-request/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-rfc8809">[RFC8809]
+   <dd>J. Hodges; G. Mandyam; M. Jones. <a href="https://www.rfc-editor.org/rfc/rfc8809"><cite>Registries for Web Authentication (WebAuthn)</cite></a>. August 2020. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc8809">https://www.rfc-editor.org/rfc/rfc8809</a>
    <dt id="biblio-url">[URL]
    <dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-webauthn-3">[WEBAUTHN-3]
@@ -3114,6 +3134,7 @@ window.dfnpanelData['9c64cd22'] = {"dfnID": "9c64cd22", "url": "https://w3c.gith
 window.dfnpanelData['88ae1d28'] = {"dfnID": "88ae1d28", "url": "https://w3c.github.io/webauthn/#client-extension", "dfnText": "client extension", "refSections": [{"refs": [{"id": "ref-for-client-extension"}], "title": "5. WebAuthn Extension - \"payment\""}], "external": true};
 window.dfnpanelData['e4d7113a'] = {"dfnID": "e4d7113a", "url": "https://w3c.github.io/webauthn/#credential-id", "dfnText": "credential id", "refSections": [{"refs": [{"id": "ref-for-credential-id"}, {"id": "ref-for-credential-id\u2460"}], "title": "2. Terminology"}], "external": true};
 window.dfnpanelData['3781d718'] = {"dfnID": "3781d718", "url": "https://w3c.github.io/webauthn/#discoverable-credential", "dfnText": "discoverable credential", "refSections": [{"refs": [{"id": "ref-for-discoverable-credential"}], "title": "2. Terminology"}], "external": true};
+window.dfnpanelData['b6a00a38'] = {"dfnID": "b6a00a38", "url": "https://w3c.github.io/webauthn/#extension-identifier", "dfnText": "extension identifier", "refSections": [{"refs": [{"id": "ref-for-extension-identifier"}], "title": "14. IANA Considerations"}], "external": true};
 window.dfnpanelData['fe1cbc76'] = {"dfnID": "fe1cbc76", "url": "https://w3c.github.io/webauthn/#public-key-credential", "dfnText": "public key credential", "refSections": [{"refs": [{"id": "ref-for-public-key-credential"}, {"id": "ref-for-public-key-credential\u2460"}], "title": "2. Terminology"}, {"refs": [{"id": "ref-for-public-key-credential\u2461"}], "title": "11.2. Probing for credential ids"}], "external": true};
 window.dfnpanelData['5d6beb3a'] = {"dfnID": "5d6beb3a", "url": "https://w3c.github.io/webauthn/#registration-extension", "dfnText": "registration extension", "refSections": [{"refs": [{"id": "ref-for-registration-extension"}, {"id": "ref-for-registration-extension\u2460"}, {"id": "ref-for-registration-extension\u2461"}], "title": "5. WebAuthn Extension - \"payment\""}], "external": true};
 window.dfnpanelData['77a62788'] = {"dfnID": "77a62788", "url": "https://w3c.github.io/webauthn/#relying-party", "dfnText": "relying party", "refSections": [{"refs": [{"id": "ref-for-relying-party"}, {"id": "ref-for-relying-party\u2460"}, {"id": "ref-for-relying-party\u2461"}, {"id": "ref-for-relying-party\u2462"}, {"id": "ref-for-relying-party\u2463"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-relying-party\u2464"}], "title": "1.1.1. Cryptographic evidence of transaction confirmation"}, {"refs": [{"id": "ref-for-relying-party\u2465"}], "title": "1.1.2. Registration in a third-party iframe"}, {"refs": [{"id": "ref-for-relying-party\u2466"}, {"id": "ref-for-relying-party\u2467"}, {"id": "ref-for-relying-party\u2468"}], "title": "1.1.3. Merchant control of authentication"}, {"refs": [{"id": "ref-for-relying-party\u2460\u24ea"}, {"id": "ref-for-relying-party\u2460\u2460"}, {"id": "ref-for-relying-party\u2460\u2461"}, {"id": "ref-for-relying-party\u2460\u2462"}, {"id": "ref-for-relying-party\u2460\u2463"}], "title": "2. Terminology"}, {"refs": [{"id": "ref-for-relying-party\u2460\u2464"}], "title": "4. Authentication"}, {"refs": [{"id": "ref-for-relying-party\u2460\u2465"}], "title": "4.1.10. Displaying a transaction confirmation UX"}, {"refs": [{"id": "ref-for-relying-party\u2460\u2466"}, {"id": "ref-for-relying-party\u2460\u2467"}], "title": "5. WebAuthn Extension - \"payment\""}, {"refs": [{"id": "ref-for-relying-party\u2460\u2468"}], "title": "5.2. CollectedClientAdditionalPaymentData Dictionary"}, {"refs": [{"id": "ref-for-relying-party\u2461\u24ea"}, {"id": "ref-for-relying-party\u2461\u2460"}], "title": "6.1. PaymentCredentialInstrument Dictionary"}, {"refs": [{"id": "ref-for-relying-party\u2461\u2461"}, {"id": "ref-for-relying-party\u2461\u2462"}, {"id": "ref-for-relying-party\u2461\u2463"}, {"id": "ref-for-relying-party\u2461\u2464"}, {"id": "ref-for-relying-party\u2461\u2465"}, {"id": "ref-for-relying-party\u2461\u2466"}, {"id": "ref-for-relying-party\u2461\u2467"}, {"id": "ref-for-relying-party\u2461\u2468"}], "title": "8.1. Verifying an Authentication Assertion"}, {"refs": [{"id": "ref-for-relying-party\u2462\u24ea"}, {"id": "ref-for-relying-party\u2462\u2460"}], "title": "10.1. Cross-origin authentication ceremony"}, {"refs": [{"id": "ref-for-relying-party\u2462\u2461"}, {"id": "ref-for-relying-party\u2462\u2462"}, {"id": "ref-for-relying-party\u2462\u2463"}, {"id": "ref-for-relying-party\u2462\u2464"}, {"id": "ref-for-relying-party\u2462\u2465"}, {"id": "ref-for-relying-party\u2462\u2466"}, {"id": "ref-for-relying-party\u2462\u2467"}], "title": "10.1.1. Login Attack"}, {"refs": [{"id": "ref-for-relying-party\u2462\u2468"}, {"id": "ref-for-relying-party\u2463\u24ea"}, {"id": "ref-for-relying-party\u2463\u2460"}], "title": "10.1.2. Payment Attack"}, {"refs": [{"id": "ref-for-relying-party\u2463\u2461"}, {"id": "ref-for-relying-party\u2463\u2462"}], "title": "10.2. Merchant-supplied authentication data"}, {"refs": [{"id": "ref-for-relying-party\u2463\u2463"}, {"id": "ref-for-relying-party\u2463\u2464"}], "title": "11.2. Probing for credential ids"}, {"refs": [{"id": "ref-for-relying-party\u2463\u2465"}, {"id": "ref-for-relying-party\u2463\u2466"}, {"id": "ref-for-relying-party\u2463\u2467"}, {"id": "ref-for-relying-party\u2463\u2468"}, {"id": "ref-for-relying-party\u2464\u24ea"}], "title": "11.3. Joining different payment instruments"}, {"refs": [{"id": "ref-for-relying-party\u2464\u2460"}, {"id": "ref-for-relying-party\u2464\u2461"}, {"id": "ref-for-relying-party\u2464\u2462"}], "title": "11.4. Credential ID(s) as a tracking vector"}], "external": true};

@@ -503,12 +503,12 @@ Note: In this specification we define an extension in order to allow
       WebAuthn credentials.
 
 Note: At registration time, Web Authentication requires both
-      {{PaymentCredentialInstrument/name}} and
-      {{PaymentCredentialInstrument/displayName}}, although per the
+      {{PublicKeyCredentialEntity/name}} and
+      {{PublicKeyCredentialUserEntity/displayName}}, although per the
       definition of the [=user member=], implementations are not
       required to display either of them in subsequent authentication
       ceremonies. Of the two, as of October 2023
-      {{PaymentCredentialInstrument/displayName}} is shown more
+      {{PublicKeyCredentialUserEntity/displayName}} is shown more
       consistently. Developers should continue to monitor
       implementations.
 

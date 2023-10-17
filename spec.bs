@@ -70,7 +70,7 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: registration extension; url: registration-extension
         text: authentication extension; url: authentication-extension
         text: extension identifier; url: extension-identifier
-	text: user member; url: publickeycredentialcreationoptions-user
+        text: user member; url: publickeycredentialcreationoptions-user
 
 spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
     type: dfn

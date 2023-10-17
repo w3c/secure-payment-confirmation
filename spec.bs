@@ -70,6 +70,7 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: registration extension; url: registration-extension
         text: authentication extension; url: authentication-extension
         text: extension identifier; url: extension-identifier
+	text: user member; url: publickeycredentialcreationoptions-user
 
 spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
     type: dfn
@@ -500,6 +501,16 @@ Note: In this specification we define an extension in order to allow
       may remove the requirement for the extension from SPC. Note that
       SPC credentials (with the extension) are otherwise full-fledged
       WebAuthn credentials.
+
+Note: At registration time, Web Authentication requires both
+      {{PaymentCredentialInstrument/name}} and
+      {{PaymentCredentialInstrument/displayName}}, although per the
+      definition of the [=user member=], implementations are not
+      required to display either of them in subsequent authentication
+      ceremonies. Of the two, as of October 2023
+      {{PaymentCredentialInstrument/displayName}} is shown more
+      consistently. Developers should continue to monitor
+      implementations.
 
 # Authentication # {#sctn-authentication}
 

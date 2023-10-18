@@ -508,7 +508,7 @@ Note: At registration time, Web Authentication requires both
       definition of the [=user member=], implementations are not
       required to display either of them in subsequent authentication
       ceremonies. Of the two, as of October 2023
-      {{PublicKeyCredentialUserEntity/displayName}} is shown more
+      {{PublicKeyCredentialEntity/name}} is shown more
       consistently. Developers should continue to monitor
       implementations.
 

@@ -378,7 +378,7 @@ presumes access to async/await, for easier to read promise handling.
 /* supports SPC. It does not indicate whether the user has a credential */
 /* ready to go on this device. */
 const spcAvailable =
-  await PaymentRequest?.isSecurePaymentConfirmationAvailable()
+  await PaymentRequest?.isSecurePaymentConfirmationAvailable();
 if (!spcAvailable) {
   /* Browser does not support SPC; merchant should fallback to traditional flows. */
 }

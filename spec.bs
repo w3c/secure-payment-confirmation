@@ -269,7 +269,8 @@ an issuing bank during a checkout by the user on some merchant.
 1. The verification completes; the bank iframe closes and the merchant finishes
     the checkout process for the user.
 
-Sample code for registering the user in this way follows:
+Sample code for registering the user in this way follows. Note that the example code
+presumes access to async/await, for easier to read promise handling.
 
 <pre class="example" id="registration-example" highlight="js">
 if (!window.PublicKeyCredential) { /* Client not capable. Handle error. */ }
@@ -330,12 +331,12 @@ const publicKey = {
 };
 
 // Note: The following call will cause the authenticator to display UI.
-navigator.credentials.create({ publicKey })
-  .then(function (newCredentialInfo) {
-    // Send new credential info to server for verification and registration.
-  }).catch(function (err) {
-    // No acceptable authenticator or user refused consent. Handle appropriately.
-  });
+try {
+  const newCredentialInfo = await navigator.credentials.create({ publicKey });
+  // Send new credential info to server for verification and registration.
+} catch(err) {
+  // No acceptable authenticator or user refused consent. Handle appropriately.
+}
 </pre>
 
 </div> <!-- non-normative -->
@@ -370,16 +371,14 @@ Payment Confirmation.
     the transaction and the merchant finishes the checkout process for the user.
 
 The sample code for authenticating the user follows. Note that the example code
-presumes access to await/async, for easier to read promise handling.
+presumes access to async/await, for easier to read promise handling.
 
 <pre class="example" id="authentication-example" highlight="js">
 /* isSecurePaymentConfirmationAvailable indicates whether the browser */
 /* supports SPC. It does not indicate whether the user has a credential */
 /* ready to go on this device. */
 const spcAvailable =
-  PaymentRequest &&
-  PaymentRequest.isSecurePaymentConfirmationAvailable &&
-  await PaymentRequest.isSecurePaymentConfirmationAvailable();
+  await PaymentRequest?.isSecurePaymentConfirmationAvailable()
 if (!spcAvailable) {
   /* Browser does not support SPC; merchant should fallback to traditional flows. */
 }

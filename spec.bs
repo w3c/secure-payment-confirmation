@@ -625,7 +625,7 @@ members:
     :: The number of milliseconds before the request to sign the transaction
         details times out. At most 1 hour. Default values and the range of
         allowed values is defined by the user agent. Web Authentication
-        provides [webauthn-3#sctn-createCredential|additional timeout guidance].
+        provides [[webauthn-3#sctn-createCredential|additional timeout guidance]].
 
     :  <dfn>payeeName</dfn> member
     :: The display name of the payee that this SPC call is for (e.g., the

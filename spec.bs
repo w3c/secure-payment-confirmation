@@ -205,7 +205,7 @@ This limitation motivates the following Secure Payment Confirmation behavior:
 
 1. SPC supports cross-origin registration from an iframe in a third-party
     context. For instance, this registration might take place following some
-    other identity and verification (<abbr>ID&V</abbr>) flow (e.g., SMS OTP).
+    other identity and verification (<abbr>ID&amp;V</abbr>) flow (e.g., SMS OTP).
 
 * See <a href="https://github.com/w3c/webauthn/issues/1656">discussion
     on WebAuthn issue 1656</a>.

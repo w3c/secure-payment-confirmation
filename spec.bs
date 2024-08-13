@@ -799,9 +799,9 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
     1. Run the [=steps to silently determine if a credential is available for
         the current device=], passing in
         |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|.
-	If the result is `false`, remove |id| from
+        If the result is `false`, remove |id| from
         |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
-    2.  If the |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is
+    1.  If the |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is
         not in the current origin, run the [=steps to silently determine if a
         credential is SPC-enabled=], passing in
         |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|. If the

@@ -6,7 +6,7 @@
   <meta content="w3c/ED" name="w3c-status">
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="45d443217368403f4b6f6889d4cd072b48885ecc" name="document-revision">
+  <meta content="dd1ab80e2b31da498fab47240526e3ead2014a44" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -785,7 +785,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-12-13">13 December 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-08-13">13 August 2024</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -810,7 +810,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2024 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -2570,25 +2570,21 @@ when it is not.</p>
    <li>
     <a data-link-type="biblio">[PAYMENT-REQUEST]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="75f46ef4">payment method</span>
-     <li><span class="dfn-paneled" id="87335f73">payment method additional data type</span>
-     <li><span class="dfn-paneled" id="dc24f2fe">payment permission string</span>
-     <li><span class="dfn-paneled" id="60fc1ac5">payment request accessibility considerations</span>
-     <li><span class="dfn-paneled" id="b29c33d9">payment request details</span>
-     <li><span class="dfn-paneled" id="02f7d0f9">steps to check if a payment can be made</span>
-     <li><span class="dfn-paneled" id="559656f0">steps to respond to a payment request</span>
-     <li><span class="dfn-paneled" id="ba4dacbc">steps to validate payment method data</span>
-    </ul>
-   <li>
-    <a data-link-type="biblio">[PAYMENT-REQUEST-1.1]</a> defines the following terms:
-    <ul>
      <li><span class="dfn-paneled" id="0d174a15">PaymentCurrencyAmount</span>
      <li><span class="dfn-paneled" id="f679a0bc">PaymentRequest</span>
      <li><span class="dfn-paneled" id="dd8fd6f0">canMakePayment()</span>
      <li><span class="dfn-paneled" id="999d5cb6">constructor()</span>
      <li><span class="dfn-paneled" id="df23dd0d">currency</span>
      <li><span class="dfn-paneled" id="22176f90">payment handler</span>
+     <li><span class="dfn-paneled" id="75f46ef4">payment method</span>
+     <li><span class="dfn-paneled" id="87335f73">payment method additional data type</span>
+     <li><span class="dfn-paneled" id="dc24f2fe">payment permission string</span>
+     <li><span class="dfn-paneled" id="60fc1ac5">payment request accessibility considerations</span>
+     <li><span class="dfn-paneled" id="b29c33d9">payment request details</span>
      <li><span class="dfn-paneled" id="ab86e0f1">show()</span>
+     <li><span class="dfn-paneled" id="02f7d0f9">steps to check if a payment can be made</span>
+     <li><span class="dfn-paneled" id="559656f0">steps to respond to a payment request</span>
+     <li><span class="dfn-paneled" id="ba4dacbc">steps to validate payment method data</span>
      <li><span class="dfn-paneled" id="3230704c">total</span>
      <li><span class="dfn-paneled" id="5f695b8a">value</span>
     </ul>
@@ -2686,7 +2682,7 @@ when it is not.</p>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]
-   <dd>Mike West. <a href="https://w3c.github.io/webappsec-credential-management/"><cite>Credential Management Level 1</cite></a>. URL: <a href="https://w3c.github.io/webappsec-credential-management/">https://w3c.github.io/webappsec-credential-management/</a>
+   <dd>Nina Satragno; Marcos Caceres. <a href="https://w3c.github.io/webappsec-credential-management/"><cite>Credential Management Level 1</cite></a>. URL: <a href="https://w3c.github.io/webappsec-credential-management/">https://w3c.github.io/webappsec-credential-management/</a>
    <dt id="biblio-ecmascript">[ECMASCRIPT]
    <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
    <dt id="biblio-fetch">[FETCH]
@@ -2704,9 +2700,7 @@ when it is not.</p>
    <dt id="biblio-payment-method-id">[PAYMENT-METHOD-ID]
    <dd>Marcos Caceres. <a href="https://w3c.github.io/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. URL: <a href="https://w3c.github.io/payment-method-id/">https://w3c.github.io/payment-method-id/</a>
    <dt id="biblio-payment-request">[PAYMENT-REQUEST]
-   <dd>Marcos Caceres; Rouslan Solomakhin; Ian Jacobs. <a href="https://w3c.github.io/payment-request/"><cite>Payment Request API</cite></a>. URL: <a href="https://w3c.github.io/payment-request/">https://w3c.github.io/payment-request/</a>
-   <dt id="biblio-payment-request-11">[PAYMENT-REQUEST-1.1]
-   <dd>Marcos Caceres; Rouslan Solomakhin; Ian Jacobs. <a href="https://w3c.github.io/payment-request/"><cite>Payment Request API 1.1</cite></a>. URL: <a href="https://w3c.github.io/payment-request/">https://w3c.github.io/payment-request/</a>
+   <dd>Ian Jacobs; Marcos Caceres; Rouslan Solomakhin. <a href="https://w3c.github.io/payment-request/"><cite>Payment Request API</cite></a>. URL: <a href="https://w3c.github.io/payment-request/">https://w3c.github.io/payment-request/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-rfc8809">[RFC8809]
@@ -3119,21 +3113,21 @@ window.dfnpanelData['e8aa4aef'] = {"dfnID": "e8aa4aef", "url": "https://w3c.gith
 window.dfnpanelData['53275e46'] = {"dfnID": "53275e46", "url": "https://infra.spec.whatwg.org/#list-append", "dfnText": "append", "refSections": [{"refs": [{"id": "ref-for-list-append"}], "title": "4.1.11. Steps to respond to a payment request"}], "external": true};
 window.dfnpanelData['1a0d3ec4'] = {"dfnID": "1a0d3ec4", "url": "https://w3c.github.io/payment-method-id/#registry", "dfnText": "registry of standardized payment methods", "refSections": [{"refs": [{"id": "ref-for-registry"}], "title": "4.1.2. Registration in [payment-method-id]"}], "external": true};
 window.dfnpanelData['7ab3c32e'] = {"dfnID": "7ab3c32e", "url": "https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier", "dfnText": "standardized payment method identifier", "refSections": [{"refs": [{"id": "ref-for-dfn-standardized-payment-method-identifier"}], "title": "4.1.1. Payment Method Identifier"}], "external": true};
-window.dfnpanelData['75f46ef4'] = {"dfnID": "75f46ef4", "url": "https://w3c.github.io/payment-request/#dfn-payment-method", "dfnText": "payment method", "refSections": [{"refs": [{"id": "ref-for-dfn-payment-method"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-dfn-payment-method\u2460"}], "title": "4. Authentication"}], "external": true};
-window.dfnpanelData['87335f73'] = {"dfnID": "87335f73", "url": "https://w3c.github.io/payment-request/#dfn-additional-data-type", "dfnText": "payment method additional data type", "refSections": [{"refs": [{"id": "ref-for-dfn-additional-data-type"}], "title": "4.1.6. Payment Method additional data type"}], "external": true};
-window.dfnpanelData['dc24f2fe'] = {"dfnID": "dc24f2fe", "url": "https://w3c.github.io/payment-request/#dfn-payment", "dfnText": "payment permission string", "refSections": [{"refs": [{"id": "ref-for-dfn-payment"}], "title": "1.2.1. Registration during a checkout"}, {"refs": [{"id": "ref-for-dfn-payment\u2460"}], "title": "7. Permissions Policy integration"}, {"refs": [{"id": "ref-for-dfn-payment\u2461"}], "title": "11.1. Registration in a Cross-Origin iframe"}], "external": true};
-window.dfnpanelData['60fc1ac5'] = {"dfnID": "60fc1ac5", "url": "https://w3c.github.io/payment-request/#accessibility-considerations", "dfnText": "payment request accessibility considerations", "refSections": [{"refs": [{"id": "ref-for-accessibility-considerations"}], "title": "12. Accessibility Considerations"}], "external": true};
-window.dfnpanelData['b29c33d9'] = {"dfnID": "b29c33d9", "url": "https://w3c.github.io/payment-request/#dfn-details", "dfnText": "payment request details", "refSections": [{"refs": [{"id": "ref-for-dfn-details"}], "title": "4.1.11. Steps to respond to a payment request"}], "external": true};
-window.dfnpanelData['02f7d0f9'] = {"dfnID": "02f7d0f9", "url": "https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made", "dfnText": "steps to check if a payment can be made", "refSections": [{"refs": [{"id": "ref-for-dfn-steps-to-check-if-a-payment-can-be-made"}], "title": "4.1.9. Steps to check if a payment can be made"}], "external": true};
-window.dfnpanelData['559656f0'] = {"dfnID": "559656f0", "url": "https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request", "dfnText": "steps to respond to a payment request", "refSections": [{"refs": [{"id": "ref-for-dfn-steps-to-respond-to-a-payment-request"}], "title": "4.1.11. Steps to respond to a payment request"}], "external": true};
-window.dfnpanelData['ba4dacbc'] = {"dfnID": "ba4dacbc", "url": "https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data", "dfnText": "steps to validate payment method data", "refSections": [{"refs": [{"id": "ref-for-dfn-steps-to-validate-payment-method-data"}], "title": "4.1.8. Steps to validate payment method data"}], "external": true};
 window.dfnpanelData['0d174a15'] = {"dfnID": "0d174a15", "url": "https://w3c.github.io/payment-request/#dom-paymentcurrencyamount", "dfnText": "PaymentCurrencyAmount", "refSections": [{"refs": [{"id": "ref-for-dom-paymentcurrencyamount"}, {"id": "ref-for-dom-paymentcurrencyamount\u2460"}], "title": "5. WebAuthn Extension - \"payment\""}, {"refs": [{"id": "ref-for-dom-paymentcurrencyamount\u2461"}, {"id": "ref-for-dom-paymentcurrencyamount\u2462"}, {"id": "ref-for-dom-paymentcurrencyamount\u2463"}], "title": "5.2. CollectedClientAdditionalPaymentData Dictionary"}], "external": true};
 window.dfnpanelData['f679a0bc'] = {"dfnID": "f679a0bc", "url": "https://w3c.github.io/payment-request/#dom-paymentrequest", "dfnText": "PaymentRequest", "refSections": [{"refs": [{"id": "ref-for-dom-paymentrequest"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-dom-paymentrequest\u2460"}, {"id": "ref-for-dom-paymentrequest\u2461"}], "title": "4.1.7. Checking if Secure Payment Confirmation is available"}, {"refs": [{"id": "ref-for-dom-paymentrequest\u2462"}], "title": "4.1.11. Steps to respond to a payment request"}, {"refs": [{"id": "ref-for-dom-paymentrequest\u2463"}], "title": "5. WebAuthn Extension - \"payment\""}], "external": true};
 window.dfnpanelData['dd8fd6f0'] = {"dfnID": "dd8fd6f0", "url": "https://w3c.github.io/payment-request/#dom-paymentrequest-canmakepayment", "dfnText": "canMakePayment()", "refSections": [{"refs": [{"id": "ref-for-dom-paymentrequest-canmakepayment"}], "title": "4.1.7. Checking if Secure Payment Confirmation is available"}], "external": true};
 window.dfnpanelData['999d5cb6'] = {"dfnID": "999d5cb6", "url": "https://w3c.github.io/payment-request/#dom-paymentrequest-constructor", "dfnText": "constructor()", "refSections": [{"refs": [{"id": "ref-for-dom-paymentrequest-constructor"}], "title": "4.1.3. Modification of Payment Request constructor"}], "external": true};
 window.dfnpanelData['df23dd0d'] = {"dfnID": "df23dd0d", "url": "https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-currency", "dfnText": "currency", "refSections": [{"refs": [{"id": "ref-for-dom-paymentcurrencyamount-currency"}], "title": "4.1.10. Displaying a transaction confirmation UX"}], "external": true};
 window.dfnpanelData['22176f90'] = {"dfnID": "22176f90", "url": "https://w3c.github.io/payment-request/#dfn-payment-handler", "dfnText": "payment handler", "refSections": [{"refs": [{"id": "ref-for-dfn-payment-handler"}], "title": "4.1. Payment Method: Secure Payment Confirmation"}], "external": true};
+window.dfnpanelData['75f46ef4'] = {"dfnID": "75f46ef4", "url": "https://w3c.github.io/payment-request/#dfn-payment-method", "dfnText": "payment method", "refSections": [{"refs": [{"id": "ref-for-dfn-payment-method"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-dfn-payment-method\u2460"}], "title": "4. Authentication"}], "external": true};
+window.dfnpanelData['87335f73'] = {"dfnID": "87335f73", "url": "https://w3c.github.io/payment-request/#dfn-additional-data-type", "dfnText": "payment method additional data type", "refSections": [{"refs": [{"id": "ref-for-dfn-additional-data-type"}], "title": "4.1.6. Payment Method additional data type"}], "external": true};
+window.dfnpanelData['dc24f2fe'] = {"dfnID": "dc24f2fe", "url": "https://w3c.github.io/payment-request/#dfn-payment", "dfnText": "payment permission string", "refSections": [{"refs": [{"id": "ref-for-dfn-payment"}], "title": "1.2.1. Registration during a checkout"}, {"refs": [{"id": "ref-for-dfn-payment\u2460"}], "title": "7. Permissions Policy integration"}, {"refs": [{"id": "ref-for-dfn-payment\u2461"}], "title": "11.1. Registration in a Cross-Origin iframe"}], "external": true};
+window.dfnpanelData['60fc1ac5'] = {"dfnID": "60fc1ac5", "url": "https://w3c.github.io/payment-request/#accessibility-considerations", "dfnText": "payment request accessibility considerations", "refSections": [{"refs": [{"id": "ref-for-accessibility-considerations"}], "title": "12. Accessibility Considerations"}], "external": true};
+window.dfnpanelData['b29c33d9'] = {"dfnID": "b29c33d9", "url": "https://w3c.github.io/payment-request/#dfn-details", "dfnText": "payment request details", "refSections": [{"refs": [{"id": "ref-for-dfn-details"}], "title": "4.1.11. Steps to respond to a payment request"}], "external": true};
 window.dfnpanelData['ab86e0f1'] = {"dfnID": "ab86e0f1", "url": "https://w3c.github.io/payment-request/#dom-paymentrequest-show", "dfnText": "show()", "refSections": [{"refs": [{"id": "ref-for-dom-paymentrequest-show"}], "title": "4.1.4. Modification of user activation requirement"}, {"refs": [{"id": "ref-for-dom-paymentrequest-show\u2460"}], "title": "4.1.9. Steps to check if a payment can be made"}, {"refs": [{"id": "ref-for-dom-paymentrequest-show\u2461"}, {"id": "ref-for-dom-paymentrequest-show\u2462"}], "title": "4.1.10. Displaying a transaction confirmation UX"}, {"refs": [{"id": "ref-for-dom-paymentrequest-show\u2463"}], "title": "10.3. Lack of user activation requirement"}], "external": true};
+window.dfnpanelData['02f7d0f9'] = {"dfnID": "02f7d0f9", "url": "https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made", "dfnText": "steps to check if a payment can be made", "refSections": [{"refs": [{"id": "ref-for-dfn-steps-to-check-if-a-payment-can-be-made"}], "title": "4.1.9. Steps to check if a payment can be made"}], "external": true};
+window.dfnpanelData['559656f0'] = {"dfnID": "559656f0", "url": "https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request", "dfnText": "steps to respond to a payment request", "refSections": [{"refs": [{"id": "ref-for-dfn-steps-to-respond-to-a-payment-request"}], "title": "4.1.11. Steps to respond to a payment request"}], "external": true};
+window.dfnpanelData['ba4dacbc'] = {"dfnID": "ba4dacbc", "url": "https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data", "dfnText": "steps to validate payment method data", "refSections": [{"refs": [{"id": "ref-for-dfn-steps-to-validate-payment-method-data"}], "title": "4.1.8. Steps to validate payment method data"}], "external": true};
 window.dfnpanelData['3230704c'] = {"dfnID": "3230704c", "url": "https://w3c.github.io/payment-request/#dom-paymentdetailsinit-total", "dfnText": "total", "refSections": [{"refs": [{"id": "ref-for-dom-paymentdetailsinit-total"}], "title": "4.1.11. Steps to respond to a payment request"}], "external": true};
 window.dfnpanelData['5f695b8a'] = {"dfnID": "5f695b8a", "url": "https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-value", "dfnText": "value", "refSections": [{"refs": [{"id": "ref-for-dom-paymentcurrencyamount-value"}], "title": "4.1.10. Displaying a transaction confirmation UX"}], "external": true};
 window.dfnpanelData['959ad97b'] = {"dfnID": "959ad97b", "url": "https://url.spec.whatwg.org/#concept-url-origin", "dfnText": "origin", "refSections": [{"refs": [{"id": "ref-for-concept-url-origin"}], "title": "4.1.9. Steps to check if a payment can be made"}], "external": true};

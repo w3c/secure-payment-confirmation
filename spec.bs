@@ -88,11 +88,11 @@ spec: RFC4647; urlPrefix: https://datatracker.ietf.org/doc/html/rfc4647
 </pre>
 
 <pre class="link-defaults">
-spec:fetch; type:dfn; for:/; text:request;
-spec:i18n-glossary; type:dfn; text:bidi isolation;
-spec:url; type:dfn; text:valid domain;
-spec:webidl; type:exception; text:RangeError;
-spec:webidl; type:exception; text:TypeError;
+spec:fetch; type:dfn; for:/; text:request
+spec:i18n-glossary; type:dfn; text:bidi isolation
+spec:url; type:dfn; text:valid domain
+spec:webidl; type:exception; text:RangeError
+spec:webidl; type:exception; text:TypeError
 </pre>
 
 <pre class="biblio">

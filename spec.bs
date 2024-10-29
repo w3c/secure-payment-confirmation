@@ -92,7 +92,9 @@ spec:fetch; type:dfn; for:/; text:request
 spec:i18n-glossary; type:dfn; text:bidi isolation
 spec:url; type:dfn; text:valid domain
 spec:webidl; type:exception; text:RangeError
+{{RangeError}}
 spec:webidl; type:exception; text:TypeError
+{{TypeError}}
 </pre>
 
 <pre class="biblio">

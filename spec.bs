@@ -206,7 +206,7 @@ This limitation motivates the following Secure Payment Confirmation behavior:
 
 1. SPC supports cross-origin registration from an iframe in a third-party
     context. For instance, this registration might take place following some
-    other identity and verification (<abbr>ID&amp;V</abbr>) flow (e.g., SMS OTP).
+    other identity and verification (<abbr>ID and V</abbr>) flow (e.g., SMS OTP).
 
 * See <a href="https://github.com/w3c/webauthn/issues/1656">discussion
     on WebAuthn issue 1656</a>.
@@ -798,10 +798,15 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
 
     1. Run the [=steps to silently determine if a credential is available for
-        the current device=] and the [=steps to silently determine if a
+        the current device=], passing in
+        |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|.
+        If the result is `false`, remove |id| from
+        |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
+    1.  If the |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is
+        not in the current origin, run the [=steps to silently determine if a
         credential is SPC-enabled=], passing in
         |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|. If the
-        result of either of these is `false`, remove |id| from
+        result is `false`, remove |id| from
         |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is now empty,
@@ -1666,4 +1671,3 @@ This section adds the below-listed [=extension identifier=] to the IANA "WebAuth
 - Specification Document: Section [[#sctn-payment-extension-registration]] of this specification
 - Change Controller: [W3C Web Payments Working Group](https://www.w3.org/groups/wg/payments)
 - Notes: Registration follows [3 May 2023 discussion](https://www.w3.org/2023/05/03-webauthn-minutes#t01) with the Web Authentication Working Group.
-

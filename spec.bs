@@ -82,9 +82,6 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
         text: undefined; url: dfn-undefined
         text: WebDriver error; url: dfn-error
         text: WebDriver error code; url: dfn-error-code
-
-spec: RFC4647; urlPrefix: https://datatracker.ietf.org/doc/html/rfc4647
-        text: language priority list; url: section-2.3
 </pre>
 
 <pre class="link-defaults">

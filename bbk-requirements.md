@@ -10,7 +10,7 @@ Secure Payment Confirmation provides a convenient "sign what you see" experience
 
 The payments industry has indicated that SPC would further benefit from a device binding capability. As WebAuthn passkeys can now be synced, it can be argued that they no longer meet strict 2FA requirements (being no longer a signal of device possession), and so SPC (like WebAuthn) is reduced to a single factor (biometric or possession, depending on the authentication method used).
 
-The Web Authentication Working Group has considered but not adopted device binding proposals (cf. [SPK](https://github.com/w3c/webauthn/pull/1957) and [DPK](https://github.com/w3c/webauthn/issues/1658).
+The Web Authentication Working Group has considered but not adopted device binding proposals (cf. [SPK](https://github.com/w3c/webauthn/pull/1957) and [DPK](https://github.com/w3c/webauthn/issues/1658)).
 
 Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK)" SPC. This document endeavors to capture requirements for the BBK functionality.
 

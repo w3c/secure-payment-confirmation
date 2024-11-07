@@ -14,6 +14,10 @@ The Web Authentication Working Group has considered but not adopted device bindi
 
 Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK)" SPC. This document endeavors to capture requirements for the BBK functionality.
 
+## Assumptions
+
+* A relying party will perform some ID &amp; V process before trusting a (new) BBK. That ID &amp; V process might take place before a Web Authentication registration (and thus, if the BBK is returned as part of the Web Authentication registration, the RP would not likely step up the user a second time). In the case of a synched passkey, when the RP first sees a BBK on a new user device, in the absence of other trust signals, the RP would likely perform some ID &amp; V process in order to trust the new BBK, and we consider that an acceptable user experience on a new device.
+
 ## Requirements
 
 ***Notes:***

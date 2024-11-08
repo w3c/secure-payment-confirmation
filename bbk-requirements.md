@@ -12,7 +12,7 @@ The payments industry has indicated that SPC would further benefit from a device
 
 The Web Authentication Working Group has considered but not adopted device binding proposals (cf. [SPK](https://github.com/w3c/webauthn/pull/1957) and [DPK](https://github.com/w3c/webauthn/issues/1658)).
 
-Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK)" SPC. This document endeavors to capture requirements for the BBK functionality.
+Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK)" to SPC. This document endeavors to capture requirements for the BBK functionality.
 
 ## Assumptions
 
@@ -34,9 +34,9 @@ Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK
 
 * If a BBK is deleted, the user agent should generate a new BBK associated with the same passkey.
 
-* At authentication time, the Web Authentication challenge will be signed by the passkey and the associated BBK.
+* At authentication time, the client data will be signed by the passkey and the associated BBK.
 
-* To link the BBK to the passkey cryptographically, the BBK public key should be added in the passkey client data.
+* To link the BBK to the passkey cryptographically, the BBK public key should be added in the client data.
 
 ### User agent user profiles
 
@@ -48,7 +48,7 @@ Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK
 
 * Once a BBK has been bound to a device, it must only ever be bound to that device.
 
-* For environments where a device-binding process is not readily available, the BBK may still provide value. Not every transaction requires the same level of security (e.g., low-value transactions), and so even a BBK that is not device-bound may be useful.
+* The user agent may return a BBK even in environments where a device-binding process is not readily available. Not every transaction requires the same level of security (e.g., low-value transactions), and so even a BBK that is not device-bound can be useful. 
 
 * Each BBK should be associated with a signal indicating the nature of the device-binding process (e.g., corresponding to "secure element", "software", "no device binding").
 

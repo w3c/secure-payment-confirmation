@@ -8,6 +8,7 @@ Prepare for TR: true
 Inline Github Issues: true
 Group: web-payments
 Status: w3c/ED
+Deadline: 2023-08-01
 Level:
 URL: https://w3c.github.io/secure-payment-confirmation/
 Editor: Rouslan Solomakhin, w3cid 83784, Google https://www.google.com/, rouslan@chromium.org

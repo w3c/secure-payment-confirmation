@@ -8,7 +8,7 @@ Though this document we seek to build consensus around requirements and design c
 
 Secure Payment Confirmation provides a convenient "sign what you see" experience for a user to agree to the terms and conditions of a transaction, and where Web Authentication is used to generate cryptographic evidence of the user's agreement.
 
-The payments industry has indicated that SPC would further benefit from a device binding capability. As WebAuthn passkeys can now be synced, it can be argued that they no longer meet strict 2FA requirements (being no longer a signal of device possession), and so SPC (like WebAuthn) is reduced to a single factor (biometric or possession, depending on the authentication method used).
+The payments industry has indicated that SPC would further benefit from a device binding capability. As WebAuthn passkeys can now be synced, it can be argued that they no longer meet strict 2FA requirements (being no longer a signal of device possession), and so SPC (like WebAuthn) is reduced to a single factor (biometric or knowledge, depending on the authentication method used).
 
 The Web Authentication Working Group has considered but not adopted device binding proposals (cf. [SPK](https://github.com/w3c/webauthn/pull/1957) and [DPK](https://github.com/w3c/webauthn/issues/1658)).
 

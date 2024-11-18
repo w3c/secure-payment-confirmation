@@ -6,7 +6,7 @@
   <meta content="ED" name="w3c-status">
   <meta content="Bikeshed version 742f3d674, updated Mon Nov 4 14:56:54 2024 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="a84dda678b34400473cb74cc61355e0c377c20fa" name="revision">
+  <meta content="0e2e5c5b2e3668778924dab881579d1da20d5074" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -1612,7 +1612,9 @@ If the result is <code>false</code>, remove <var>id</var> from <var>data</var>["
       <li data-md>
        <p>If the <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid③">rpId</a></code>"] is
 not the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-origin" id="ref-for-concept-settings-object-origin">origin</a> of the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object">relevant settings object</a> of <var>request</var>,
-run the <a data-link-type="dfn" href="#steps-to-silently-determine-if-a-credential-is-spc-enabled" id="ref-for-steps-to-silently-determine-if-a-credential-is-spc-enabled">steps to silently determine if a credential is SPC-enabled</a>,         passing in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid④">rpId</a></code>"] and <var>id</var>.        If the result is <code>false</code>, remove <var>id</var> from <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑤">credentialIds</a></code>"].</p>
+run the <a data-link-type="dfn" href="#steps-to-silently-determine-if-a-credential-is-spc-enabled" id="ref-for-steps-to-silently-determine-if-a-credential-is-spc-enabled">steps to silently determine if a credential is SPC-enabled</a>,
+passing in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid④">rpId</a></code>"] and <var>id</var>.
+If the result is <code>false</code>, remove <var>id</var> from <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑤">credentialIds</a></code>"].</p>
      </ol>
     <li data-md>
      <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑥">credentialIds</a></code>"] is now empty,

@@ -90,6 +90,7 @@ spec:fetch; type:dfn; for:/; text:request;
 spec:i18n-glossary; type:dfn; text:bidi isolation
 spec:i18n-glossary; type:dfn; text:language priority list
 spec:url; type:dfn; text:valid domain;
+spec:html; type:dfn; for:environment settings object; text:origin
 </pre>
 
 <pre class="biblio">
@@ -703,7 +704,7 @@ NOTE: The use of the static {{PaymentRequest/isSecurePaymentConfirmationAvailabl
 ### Steps to validate payment method data ### {#sctn-steps-to-validate-payment-method-data}
 
 The [=steps to validate payment method data=] for this payment method, for an
-input {{SecurePaymentConfirmationRequest}} |data|, are:
+input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |data|, are:
 
 <wpt>
   constructor.https.html
@@ -799,11 +800,13 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
 
     1. Run the [=steps to silently determine if a credential is available for
-        the current device=] and the [=steps to silently determine if a
-        credential is SPC-enabled=], passing in
-        |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|. If the
-        result of either of these is `false`, remove |id| from
+        the current device=], passing in
+        |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|.
+        If the result is `false`, remove |id| from
         |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
+    1.  If the |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is
+        not the [=origin=] of the [=relevant settings object=] of |request|,
+        run the [=steps to silently determine if a credential is SPC-enabled=],         passing in |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|.        If the result is `false`, remove |id| from |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is now empty,
     return `false`. The user agent must maintain
@@ -1667,4 +1670,3 @@ This section adds the below-listed [=extension identifier=] to the IANA "WebAuth
 - Specification Document: Section [[#sctn-payment-extension-registration]] of this specification
 - Change Controller: [W3C Web Payments Working Group](https://www.w3.org/groups/wg/payments)
 - Notes: Registration follows [3 May 2023 discussion](https://www.w3.org/2023/05/03-webauthn-minutes#t01) with the Web Authentication Working Group.
-

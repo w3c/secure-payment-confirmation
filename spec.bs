@@ -89,7 +89,7 @@ spec:fetch; type:dfn; for:/; text:request;
 spec:i18n-glossary; type:dfn; text:bidi isolation
 spec:i18n-glossary; type:dfn; text:language priority list
 spec:url; type:dfn; text:valid domain;
-spec:html; type:dfn; for:/; text:origin
+spec:html; type:dfn; for:environment settings object; text:origin
 </pre>
 
 <pre class="biblio">

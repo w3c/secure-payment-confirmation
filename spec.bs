@@ -803,7 +803,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
         If the result is `false`, remove |id| from
         |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
     1.  If the |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is
-        not the [=origin=] of the [=relevant settings object=] of |request|,
+        not the [=top-level origin=] of the [=relevant settings object=] of |request|,
         run the [=steps to silently determine if a credential is SPC-enabled=],         passing in |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|.        If the result is `false`, remove |id| from |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is now empty,

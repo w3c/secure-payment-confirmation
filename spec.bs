@@ -89,6 +89,7 @@ spec:fetch; type:dfn; for:/; text:request;
 spec:i18n-glossary; type:dfn; text:bidi isolation
 spec:i18n-glossary; type:dfn; text:language priority list
 spec:url; type:dfn; text:valid domain;
+spec:html; type:dfn; for:/; text:origin
 </pre>
 
 <pre class="biblio">
@@ -803,7 +804,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
         If the result is `false`, remove |id| from
         |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
     1.  If the |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is
-        not the [=top-level origin=] of the [=relevant settings object=] of |request|,
+        not the [=origin=] of the [=relevant settings object=] of |request|,
         run the [=steps to silently determine if a credential is SPC-enabled=],         passing in |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|.        If the result is `false`, remove |id| from |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is now empty,

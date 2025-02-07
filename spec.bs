@@ -437,9 +437,7 @@ try {
 
 : <dfn export>SPC Credential</dfn>
 :: A [=public key credential|WebAuthn credential=] that can be used for the
-    behaviors defined in this specification. When an SPC Credential is to be
-    used by a party other than the [=Relying Party=], the [=Relying Party=] must
-    explicitly opt in by declaring the credential for SPC at creation time.
+    behaviors defined in this specification.
 
     This specification does not intend to limit how SPC credentials may (or may
     not) be used by a [=Relying Party=] for other authentication flows (e.g.,
@@ -453,11 +451,16 @@ try {
           [=Relying Party's=] domain) and opt-in will only be required to allow
           a credential to be used by a third-party.
 
-: <dfn>Steps to silently determine if a credential is SPC-enabled</dfn>
+: <dfn export>Third-party enabled SPC Credential</dfn>
+:: An [=SPC Credential=] where the [=Relying Party=] has explicitly opted in at
+    credential creation time to allow use of the credential in a Secure Payment
+    Confirmation authentication by a party other than the [=Relying Party=].
+
+: <dfn>Steps to silently determine if an SPC Credential is third-party enabled</dfn>
 :: An as-yet undefined process by which a user agent can, given a
     [=Relying Party Identifier=] and a [=credential ID=], silently (i.e.,
     without user interaction) determine if the credential represented by that ID
-    is an [=SPC Credential=].
+    is a [=third-party enabled SPC Credential=].
 
     NOTE: See <a href="https://github.com/w3c/webauthn/issues/1667">WebAuthn
     issue 1667</a>.
@@ -806,9 +809,10 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
         |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
     1.  If the |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is
         not the [=origin=] of the [=relevant settings object=] of |request|,
-        run the [=steps to silently determine if a credential is SPC-enabled=],
-        passing in |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|.
-        If the result is `false`, remove |id| from
+        run the [=steps to silently determine if an SPC Credential is
+        third-party enabled=], passing in
+        |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|. If the
+        result is `false`, remove |id| from
         |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is now empty,

@@ -32,6 +32,7 @@ spec: credential-management-1; urlPrefix: https://w3c.github.io/webappsec-creden
     type: dfn
         text: same-origin with its ancestors; url: same-origin-with-its-ancestors
         text: request a credential; url: abstract-opdef-request-a-credential
+        text: Create Permissions Policy; url: credential-type-registry-create-permissions-policy
 
 spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
     type: dfn
@@ -195,24 +196,6 @@ These limitations motivate the following Secure Payment Confirmation behaviors:
     The current specification is designed to increase the security and usability
     of Web payments.
 
-### Registration in a third-party iframe ### {#sctn-use-case-iframe-registration}
-
-If a bank wishes to use [[webauthn-3]] as the [=Relying Party=], that
-specification requires the bank to register the user in a first party context.
-Registration can happen outside of a transaction while the user is visiting the
-bank's site. It is also useful to be able to register the user during a
-transaction, but any registration that interrupts the payment journey creates a
-risk of transaction abandonment.
-
-This limitation motivates the following Secure Payment Confirmation behavior:
-
-1. SPC supports cross-origin registration from an iframe in a third-party
-    context. For instance, this registration might take place following some
-    other identity and verification (<abbr>ID&amp;V</abbr>) flow (e.g., SMS OTP).
-
-* See <a href="https://github.com/w3c/webauthn/issues/1656">discussion
-    on WebAuthn issue 1656</a>.
-
 ### Merchant control of authentication ### {#sctn-use-case-merchant-authentication}
 
 Merchants seek to avoid user drop-off during checkout, in particular by
@@ -256,7 +239,7 @@ an issuing bank during a checkout by the user on some merchant.
     merchant to open in an iframe.
 
 1. The merchant opens an iframe to `bank.com`, with the `allow` attribute set to
-    "[=payment permission string|payment=]".
+    "[=publickey-credentials-create-feature|publickey-credentials-create=]".
 
 1. In the iframe, the issuing bank confirms the user's identity via a
     traditional means (e.g., SMS OTP). After confirmation, the bank invites the
@@ -495,15 +478,11 @@ specified.
 </wpt>
 
 Note: In this specification we define an extension in order to allow
-      (1) credential creation in a cross-origin iframe (which WebAuthn
-      Levels 1 and 2 do not allow, but Level 3 <a
-      href="https://github.com/w3c/webauthn/pull/1801">is expected to
-      allow</a>) and (2) the browser to cache SPC credential IDs in the
-      absence of [[webauthn-conditional-ui|Conditional UI]]. If these
-      capabilities are available in future versions of WebAuthn, we
-      may remove the requirement for the extension from SPC. Note that
-      SPC credentials (with the extension) are otherwise full-fledged
-      WebAuthn credentials.
+      the browser to cache SPC credential IDs in the absence of
+      [[webauthn-conditional-ui|Conditional UI]]. If this capability is
+      available in future versions of WebAuthn, we may remove the requirement
+      for the extension from SPC. Note that SPC credentials (with the extension)
+      are otherwise full-fledged WebAuthn credentials.
 
 Note: At registration time, Web Authentication requires both
       {{PublicKeyCredentialEntity/name}} and
@@ -968,17 +947,21 @@ This [=client extension|client=] [=registration extension=] and
 [=authentication extension=] indicates that a credential is either being
 created for or used for Secure Payment Confirmation, respectively.
 
-For registration, this extension relaxes the WebAuthn requirements to allow
-credential creation in a cross-origin iframe, and also allows the browser to
-identify and cache Secure Payment Confirmation credential IDs. For
-authentication, this extension allows a third-party to perform an
-authentication ceremony on behalf of the [=Relying Party=], and also adds
-transaction information to the signed cryptogram.
+For registration, this extension allows the browser to identify and cache
+Secure Payment Confirmation credential IDs. For authentication, this extension
+allows a third-party to perform an authentication ceremony on behalf of the
+[=Relying Party=], and also adds transaction information to the signed
+cryptogram.
 
 Notably, a website should not call
 {{CredentialsContainer/get()|navigator.credentials.get()}} with this extension
 directly; for authentication the extension can only be accessed via
 {{PaymentRequest}} with a "[=secure-payment-confirmation=]" payment method.
+
+Note: Previously, the `payment` extension allowed for the creation of
+      credentials in a cross-origin iframe. However that behavior is now
+      allowed in WebAuthn by default, as of [WebAuthn PR #1801](
+      https://github.com/w3c/webauthn/pull/1801).
 
 <wpt title="This test does not directly correspond to a spec line, but instead
             tests that authentication can be triggered from inside a
@@ -1040,38 +1023,15 @@ directly; for authentication the extension can only be accessed via
 :  <dfn export>Client extension processing ([=registration extension|registration=])</dfn>
 :: When [[webauthn-3#sctn-createCredential|creating a new credential]]:
 
-    1. Modify step 2 (the check for *sameOriginWithAncestors*) as follows:
-
-        * If *sameOriginWithAncestors* is `false`:
-
-            * If the [=relevant global object=], as determined by the calling
-                {{CredentialsContainer/create()}} implementation, does not have
-                [=transient activation=]:
-
-                 * Return a {{DOMException}} whose name is "{{SecurityError}}", and
-                    terminate this algorithm.
-
-            * [=Consume user activation=] of the [=relevant global object=].
-
-            <wpt>
-              enrollment-in-iframe.sub.https.html
-            </wpt>
-
-         Note: This allows for creating SPC credentials in a cross-origin
-         iframe, as long as the correct permission policy is set
-         (see [[#sctn-permissions-policy]]). A [=transient activation=] is
-         also required in this case to mitigate privacy risks; see
-         [[#sctn-security-cross-origin-registration]].
-
     1. After step 3, insert the following step:
 
         * If any of the following are true:
 
-            * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/authenticatorAttachment}}"] is not "{{AuthenticatorAttachment/platform}}".
-            * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/residentKey}}"] is not "{{ResidentKeyRequirement/required}}" or "{{ResidentKeyRequirement/preferred}}".
-            * *options*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/userVerification}}"] is not "{{UserVerificationRequirement/required}}".
+            * *pkOptions*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/authenticatorAttachment}}"] is not "{{AuthenticatorAttachment/platform}}".
+            * *pkOptions*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/residentKey}}"] is not "{{ResidentKeyRequirement/required}}" or "{{ResidentKeyRequirement/preferred}}".
+            * *pkOptions*["{{PublicKeyCredentialCreationOptions/authenticatorSelection}}"]["{{AuthenticatorSelectionCriteria/userVerification}}"] is not "{{UserVerificationRequirement/required}}".
 
-            then return a {{TypeError}}.
+            then throw a {{TypeError}}.
 
             Note: These values are hard-coded as that is what Chrome's initial implementation
             supports. The current limitations may change. The Working Group invites implementers
@@ -1249,9 +1209,15 @@ contains the following members:
 # Permissions Policy integration # {#sctn-permissions-policy}
 
 This specification uses the "[=payment permission string|payment=]"
-policy-identifier string from [[payment-request]] to control access to **both**
-registration and authentication. This extends the
-[[webauthn-3#sctn-permissions-policy|WebAuthn Permission Policy]].
+policy-identifier string from [[payment-request]] to control access to
+SPC authentication, as per the {{PaymentRequest}} constructor.
+
+For backwards compatibility with an earlier version of this specification, the
+[[credential-management-1#sctn-cred-type-registry|Credential Management
+Credential Type Registry]] is extended to add the "[=payment permission
+string|payment=]" policy-identifier string as an alternative [=Create
+Permissions Policy=] for type `public-key`. A future version of this
+specification may deprecate this behavior entirely.
 
 <wpt>
 enrollment-in-iframe.sub.https.html
@@ -1531,32 +1497,6 @@ As this specification builds on top of WebAuthn, the
 applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific privacy considerations, where this specification diverges
 from WebAuthn.
-
-## Registration in a Cross-Origin iframe ## {#sctn-security-cross-origin-registration}
-
-Unlike WebAuthn, this specification allows the creation of credentials in a
-cross-origin iframe (as long as the appropriate
-[[#sctn-permissions-policy|Permission Policy]] is set on the iframe). That is,
-if site A embeds an iframe from site B, with the "[=payment permission
-string|payment=]" policy set, then site B may initiate a credential creation
-for site B within that iframe.
-
-NOTE: Allowing credential creation in cross-origin iframes is currently [under
-      discussion](https://github.com/w3c/webauthn/issues/1656) in the WebAuthn
-      Working Group, and thus may move from this specification to WebAuthn in
-      the future.
-
-Allowing credential creation in a cross-origin iframe presents a risk that an
-iframe may attempt to trick a user into registering a credential. That
-credential could then be used for tracking (see [WebAuthn issue
-1656](https://github.com/w3c/webauthn/issues/1656)). To mitigate such an
-attack, this specification requires that a call to
-{{CredentialsContainer/create()|navigator.credentials.create()}} inside a
-cross-origin iframe may only be invoked when the iframe has [=transient
-activation=] (e.g., via a click or press from the user).
-
-NOTE: Requiring user activation for WebAuthn APIs in general is under discussion
-      in the WebAuthn WG too; see [issue #1293](https://github.com/w3c/webauthn/issues/1293).
 
 ## Probing for credential ids ## {#sctn-privacy-probing-credential-ids}
 

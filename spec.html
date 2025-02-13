@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="ED" name="w3c-status">
-  <meta content="Bikeshed version 742f3d674, updated Mon Nov 4 14:56:54 2024 -0800" name="generator">
+  <meta content="Bikeshed version 97a1608be, updated Mon Feb 3 16:09:34 2025 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="0e2e5c5b2e3668778924dab881579d1da20d5074" name="revision">
+  <meta content="24d050a985b198e832ceb45ccc0fa5b82cebd50e" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -832,7 +832,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-11-18">18 November 2024</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-02-13">13 February 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -857,7 +857,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2024 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2025 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -1303,22 +1303,24 @@ presumes access to await/async, for easier to read promise handling.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="spc-credential">SPC Credential</dfn>
     <dd data-md>
      <p>A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential">WebAuthn credential</a> that can be used for the
-behaviors defined in this specification. When an SPC Credential is to be
-used by a party other than the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⓪">Relying Party</a>, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①①">Relying Party</a> must
-explicitly opt in by declaring the credential for SPC at creation time.</p>
+behaviors defined in this specification.</p>
      <p>This specification does not intend to limit how SPC credentials may (or may
-not) be used by a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①②">Relying Party</a> for other authentication flows (e.g.,
+not) be used by a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⓪">Relying Party</a> for other authentication flows (e.g.,
 login).</p>
-     <p class="note" role="note"><span class="marker">Note:</span> The current version of this specification requires the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①③">Relying
-      Party</a> to explicitly opt in for a credential to be used in
+     <p class="note" role="note"><span class="marker">Note:</span> The current version of this specification requires the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①①">Relying Party</a> to explicitly opt in for a credential to be used in
       either a first-party or third-party context. Longer-term, our
-      intention is that all <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential①">WebAuthn credentials</a> will be usable for SPC in a first-party context (e.g., on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①④">Relying Party’s</a> domain) and opt-in will only be required to allow
+      intention is that all <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential①">WebAuthn credentials</a> will be usable for SPC in a first-party context (e.g., on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①②">Relying Party’s</a> domain) and opt-in will only be required to allow
       a credential to be used by a third-party.</p>
-    <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="steps-to-silently-determine-if-a-credential-is-spc-enabled">Steps to silently determine if a credential is SPC-enabled</dfn>
+    <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="third-party-enabled-spc-credential">Third-party enabled SPC Credential</dfn>
+    <dd data-md>
+     <p>An <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential">SPC Credential</a> where the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①③">Relying Party</a> has explicitly opted in at
+credential creation time to allow use of the credential in a Secure Payment
+Confirmation authentication by a party other than the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①④">Relying Party</a>.</p>
+    <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled">Steps to silently determine if an SPC Credential is third-party enabled</dfn>
     <dd data-md>
      <p>An as-yet undefined process by which a user agent can, given a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party-identifier" id="ref-for-relying-party-identifier">Relying Party Identifier</a> and a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id">credential ID</a>, silently (i.e.,
 without user interaction) determine if the credential represented by that ID
-is an <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential">SPC Credential</a>.</p>
+is a <a data-link-type="dfn" href="#third-party-enabled-spc-credential" id="ref-for-third-party-enabled-spc-credential">third-party enabled SPC Credential</a>.</p>
      <p class="note" role="note"><span class="marker">NOTE:</span> See <a href="https://github.com/w3c/webauthn/issues/1667">WebAuthn
 issue 1667</a>.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">Steps to silently determine if a credential is available for the current device</dfn>
@@ -1378,8 +1380,7 @@ Request. We therefore expect (without a concrete timeline) that SPC will move
 away from its Payment Request origins. For developers, this should improve
 feature detection, invocation, and other aspects of the API.</p>
    <h4 class="heading settled" data-level="4.1.1" id="sctn-payment-method-identifier"><span class="secno">4.1.1. </span><span class="content">Payment Method Identifier</span><a class="self-link" href="#sctn-payment-method-identifier"></a></h4>
-   <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier" id="ref-for-dfn-standardized-payment-method-identifier">standardized payment method identifier</a> for the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler">Secure Payment
-Confirmation payment handler</a> is "<dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="secure-payment-confirmation">secure-payment-confirmation</dfn>".</p>
+   <p>The <a data-link-type="dfn" href="https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier" id="ref-for-dfn-standardized-payment-method-identifier">standardized payment method identifier</a> for the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler">Secure Payment Confirmation payment handler</a> is "<dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="secure-payment-confirmation">secure-payment-confirmation</dfn>".</p>
    <h4 class="heading settled" data-level="4.1.2" id="sctn-registration-in-payment-method-id"><span class="secno">4.1.2. </span><span class="content">Registration in <a data-link-type="biblio" href="#biblio-payment-method-id" title="Payment Method Identifiers">[payment-method-id]</a></span><a class="self-link" href="#sctn-registration-in-payment-method-id"></a></h4>
    <p>Add the following to the <a data-link-type="dfn" href="https://w3c.github.io/payment-method-id/#registry" id="ref-for-registry">registry of standardized payment methods</a> in <a data-link-type="biblio" href="#biblio-payment-method-id" title="Payment Method Identifiers">[payment-method-id]</a>:</p>
    <dl>
@@ -1606,15 +1607,13 @@ for credential existence</a>.</p>
      <p>For each <var>id</var> in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids③">credentialIds</a></code>"]:</p>
      <ol>
       <li data-md>
-       <p>Run the <a data-link-type="dfn" href="#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device" id="ref-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">steps to silently determine if a credential is available for
-the current device</a>, passing in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid②">rpId</a></code>"] and <var>id</var>.
+       <p>Run the <a data-link-type="dfn" href="#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device" id="ref-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">steps to silently determine if a credential is available for the current device</a>, passing in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid②">rpId</a></code>"] and <var>id</var>.
 If the result is <code>false</code>, remove <var>id</var> from <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids④">credentialIds</a></code>"].</p>
       <li data-md>
        <p>If the <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid③">rpId</a></code>"] is
 not the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-origin" id="ref-for-concept-settings-object-origin">origin</a> of the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object">relevant settings object</a> of <var>request</var>,
-run the <a data-link-type="dfn" href="#steps-to-silently-determine-if-a-credential-is-spc-enabled" id="ref-for-steps-to-silently-determine-if-a-credential-is-spc-enabled">steps to silently determine if a credential is SPC-enabled</a>,
-passing in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid④">rpId</a></code>"] and <var>id</var>.
-If the result is <code>false</code>, remove <var>id</var> from <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑤">credentialIds</a></code>"].</p>
+run the <a data-link-type="dfn" href="#steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled" id="ref-for-steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled">steps to silently determine if an SPC Credential is third-party enabled</a>, passing in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid④">rpId</a></code>"] and <var>id</var>. If the
+result is <code>false</code>, remove <var>id</var> from <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑤">credentialIds</a></code>"].</p>
      </ol>
     <li data-md>
      <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑥">credentialIds</a></code>"] is now empty,
@@ -1634,8 +1633,7 @@ with.</p>
    </ol>
    <h4 class="heading settled" data-level="4.1.10" id="sctn-transaction-confirmation-ux"><span class="secno">4.1.10. </span><span class="content">Displaying a transaction confirmation UX</span><a class="self-link" href="#sctn-transaction-confirmation-ux"></a></h4>
    <p>To avoid restricting User Agent implementation choice, this specification does
-not require a User Agent to display a particular user interface when <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show②">PaymentRequest.show()</a></code> is called and the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler①">Secure
-Payment Confirmation payment handler</a> is selected. However, so that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑥">Relying Party</a> can trust the information included in <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a></code>, the User Agent MUST ensure that the following
+not require a User Agent to display a particular user interface when <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show②">PaymentRequest.show()</a></code> is called and the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler①">Secure Payment Confirmation payment handler</a> is selected. However, so that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑥">Relying Party</a> can trust the information included in <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a></code>, the User Agent MUST ensure that the following
 is communicated to the user and that the user’s consent is collected for the
 authentication:</p>
    <ul>
@@ -1674,8 +1672,7 @@ the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/paymen
    <p>If the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode">current transaction automation mode</a> is not "<code>none</code>", the user agent
 should first verify that it is in an automation context (see <a href="https://w3c.github.io/webdriver/#security">WebDriver’s Security considerations</a>). The user agent
 should then bypass the above communication of information and gathering of user
-consent, and instead do the following based on the value of the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode①">current
-transaction automation mode</a>:</p>
+consent, and instead do the following based on the value of the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode①">current transaction automation mode</a>:</p>
    <dl>
     <dt data-md>"<code>autoAccept</code>"
     <dd data-md>
@@ -1770,7 +1767,7 @@ whose fields are:</p>
      <p>Let <var>outputCredential</var> be the result of running the algorithm to <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential" id="ref-for-abstract-opdef-request-a-credential">Request a Credential</a>, passing «["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey" id="ref-for-dom-credentialrequestoptions-publickey">publicKey</a></code>"
 → <var>publicKeyOpts</var>]».</p>
      <p class="note" role="note"><span class="marker">Note:</span> Chrome’s initial implementation does not pass the full <code>data.credentialIds</code> list to <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential" id="ref-for-abstract-opdef-request-a-credential①">Request a Credential</a>. Instead, it chooses one credential in the list that matches the current device and passes only that in.</p>
-     <p class="note" role="note"><span class="marker">Note:</span> This triggers <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a>'s <a href="https://w3c.github.io/webauthn/#sctn-getAssertion">Get</a> behavior</p>
+     <p class="note" role="note"><span class="marker">Note:</span> This triggers <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a>’s <a href="https://w3c.github.io/webauthn/#sctn-getAssertion">Get</a> behavior</p>
     <li data-md>
      <p>Return <var>outputCredential</var>.</p>
    </ol>
@@ -2071,8 +2068,7 @@ policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-r
    </details>
    <p class="note" role="note"><span class="marker">Note:</span> Algorithms specified in <a data-link-type="biblio" href="#biblio-credential-management-1" title="Credential Management Level 1">[CREDENTIAL-MANAGEMENT-1]</a> perform the actual
 permissions policy evaluation. This is because such policy evaluation needs to
-occur when there is access to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object" id="ref-for-current-settings-object">current settings object</a>. The <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot" id="ref-for-dom-publickeycredential-create-slot">[[Create]](origin, options, sameOriginWithAncestors)</a></code> and <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot" id="ref-for-dom-publickeycredential-discoverfromexternalsource-slot①">[[DiscoverFromExternalSource]](origin, options,
-sameOriginWithAncestors)</a></code> <a data-link-type="dfn" href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots" id="ref-for-sec-object-internal-methods-and-internal-slots">internal methods</a> do not have such access since
+occur when there is access to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object" id="ref-for-current-settings-object">current settings object</a>. The <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot" id="ref-for-dom-publickeycredential-create-slot">[[Create]](origin, options, sameOriginWithAncestors)</a></code> and <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot" id="ref-for-dom-publickeycredential-discoverfromexternalsource-slot①">[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)</a></code> <a data-link-type="dfn" href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots" id="ref-for-sec-object-internal-methods-and-internal-slots">internal methods</a> do not have such access since
 they are invoked <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a> (by algorithms specified in <a data-link-type="biblio" href="#biblio-credential-management-1" title="Credential Management Level 1">[CREDENTIAL-MANAGEMENT-1]</a>).</p>
    <h2 class="heading settled" data-level="8" id="sctn-relying-party-operations"><span class="secno">8. </span><span class="content">SPC Relying Party Operations</span><a class="self-link" href="#sctn-relying-party-operations"></a></h2>
    <h3 class="heading settled" data-level="8.1" id="sctn-verifying-assertion"><span class="secno">8.1. </span><span class="content">Verifying an Authentication Assertion</span><a class="self-link" href="#sctn-verifying-assertion"></a></h3>
@@ -2107,7 +2103,7 @@ called from.</p>
        <ul>
         <li data-md>
          <p>Verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment②">payment</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-rpid" id="ref-for-dom-collectedclientadditionalpaymentdata-rpid②">rpId</a></code>"]
-matches the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑧">Relying Party</a>'s origin.</p>
+matches the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑧">Relying Party</a>’s origin.</p>
         <li data-md>
          <p>Verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment③">payment</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin②">topOrigin</a></code>"]
 matches the top-level origin that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑨">Relying Party</a> expects.</p>
@@ -2157,8 +2153,7 @@ is currently active for SPC. It defaults to "<code>none</code>".</p>
      <p>Let <var>mode</var> be the result of <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-getting-properties" id="ref-for-dfn-getting-properties">getting a property</a> named <code>"mode"</code> from <var>parameters</var>.</p>
     <li data-md>
      <p>If <var>mode</var> is <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-undefined" id="ref-for-dfn-undefined">undefined</a> or is not one of "<code>autoAccept</code>", "<code>autoReject</code>",
-or "<code>autoOptOut</code>", return a <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-error" id="ref-for-dfn-error①">WebDriver error</a> with <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-error-code" id="ref-for-dfn-error-code①">WebDriver error
-code</a> <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-invalid-argument" id="ref-for-dfn-invalid-argument①">invalid argument</a>.</p>
+or "<code>autoOptOut</code>", return a <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-error" id="ref-for-dfn-error①">WebDriver error</a> with <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-error-code" id="ref-for-dfn-error-code①">WebDriver error code</a> <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-invalid-argument" id="ref-for-dfn-invalid-argument①">invalid argument</a>.</p>
     <li data-md>
      <p>Set the <a data-link-type="dfn" href="#current-transaction-automation-mode" id="ref-for-current-transaction-automation-mode②">current transaction automation mode</a> to <var>mode</var>.</p>
     <li data-md>
@@ -2330,8 +2325,7 @@ iframe may attempt to trick a user into registering a credential. That
 credential could then be used for tracking (see <a href="https://github.com/w3c/webauthn/issues/1656">WebAuthn issue
 1656</a>). To mitigate such an
 attack, this specification requires that a call to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create②">navigator.credentials.create()</a></code> inside a
-cross-origin iframe may only be invoked when the iframe has <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation③">transient
-activation</a> (e.g., via a click or press from the user).</p>
+cross-origin iframe may only be invoked when the iframe has <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation③">transient activation</a> (e.g., via a click or press from the user).</p>
    <p class="note" role="note"><span class="marker">NOTE:</span> Requiring user activation for WebAuthn APIs in general is under discussion
       in the WebAuthn WG too; see <a href="https://github.com/w3c/webauthn/issues/1293">issue #1293</a>.</p>
    <h3 class="heading settled" data-level="11.2" id="sctn-privacy-probing-credential-ids"><span class="secno">11.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
@@ -2545,7 +2539,8 @@ when it is not.</p>
    <li><a href="#dom-securepaymentconfirmationrequest-showoptout">showOptOut</a><span>, in § 4.1.5</span>
    <li><a href="#spc-credential">SPC Credential</a><span>, in § 2</span>
    <li><a href="#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device">Steps to silently determine if a credential is available for the current device</a><span>, in § 2</span>
-   <li><a href="#steps-to-silently-determine-if-a-credential-is-spc-enabled">Steps to silently determine if a credential is SPC-enabled</a><span>, in § 2</span>
+   <li><a href="#steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled">Steps to silently determine if an SPC Credential is third-party enabled</a><span>, in § 2</span>
+   <li><a href="#third-party-enabled-spc-credential">Third-party enabled SPC Credential</a><span>, in § 2</span>
    <li><a href="#dom-securepaymentconfirmationrequest-timeout">timeout</a><span>, in § 4.1.5</span>
    <li>
     topOrigin
@@ -2760,7 +2755,7 @@ when it is not.</p>
    <dt id="biblio-url">[URL]
    <dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-webauthn-3">[WEBAUTHN-3]
-   <dd>Michael Jones; Akshay Kumar; Emil Lundberg. <a href="https://w3c.github.io/webauthn/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. URL: <a href="https://w3c.github.io/webauthn/">https://w3c.github.io/webauthn/</a>
+   <dd>Tim Cappalli; et al. <a href="https://w3c.github.io/webauthn/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. URL: <a href="https://w3c.github.io/webauthn/">https://w3c.github.io/webauthn/</a>
    <dt id="biblio-webdriver1">[WEBDRIVER1]
    <dd>Simon Stewart; David Burns. <a href="https://w3c.github.io/webdriver/"><cite>WebDriver</cite></a>. URL: <a href="https://w3c.github.io/webdriver/">https://w3c.github.io/webdriver/</a>
    <dt id="biblio-webdriver2">[WebDriver2]
@@ -3186,7 +3181,8 @@ let dfnPanelData = {
 "set-spc-transaction-mode": {"dfnID":"set-spc-transaction-mode","dfnText":"Set SPC Transaction Mode","external":false,"refSections":[{"refs":[{"id":"ref-for-set-spc-transaction-mode"}],"title":"9.1. Set SPC Transaction Mode"}],"url":"#set-spc-transaction-mode"},
 "spc-credential": {"dfnID":"spc-credential","dfnText":"SPC Credential","external":false,"refSections":[{"refs":[{"id":"ref-for-spc-credential"},{"id":"ref-for-spc-credential\u2460"}],"title":"2. Terminology"}],"url":"#spc-credential"},
 "steps-to-silently-determine-if-a-credential-is-available-for-the-current-device": {"dfnID":"steps-to-silently-determine-if-a-credential-is-available-for-the-current-device","dfnText":"Steps to silently determine if a credential is available for the current device","external":false,"refSections":[{"refs":[{"id":"ref-for-steps-to-silently-determine-if-a-credential-is-available-for-the-current-device"}],"title":"4.1.9. Steps to check if a payment can be made"}],"url":"#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device"},
-"steps-to-silently-determine-if-a-credential-is-spc-enabled": {"dfnID":"steps-to-silently-determine-if-a-credential-is-spc-enabled","dfnText":"Steps to silently determine if a credential is SPC-enabled","external":false,"refSections":[{"refs":[{"id":"ref-for-steps-to-silently-determine-if-a-credential-is-spc-enabled"}],"title":"4.1.9. Steps to check if a payment can be made"}],"url":"#steps-to-silently-determine-if-a-credential-is-spc-enabled"},
+"steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled": {"dfnID":"steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled","dfnText":"Steps to silently determine if an SPC Credential is third-party enabled","external":false,"refSections":[{"refs":[{"id":"ref-for-steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled"}],"title":"4.1.9. Steps to check if a payment can be made"}],"url":"#steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled"},
+"third-party-enabled-spc-credential": {"dfnID":"third-party-enabled-spc-credential","dfnText":"Third-party enabled SPC Credential","external":false,"refSections":[{"refs":[{"id":"ref-for-third-party-enabled-spc-credential"}],"title":"2. Terminology"}],"url":"#third-party-enabled-spc-credential"},
 };
 
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -3615,7 +3611,8 @@ let refsData = {
 "#set-spc-transaction-mode": {"displayText":"set spc transaction mode","export":true,"for_":[],"level":"","normative":true,"shortname":"secure-payment-confirmation","spec":"secure-payment-confirmation","status":"local","text":"set spc transaction mode","type":"dfn","url":"#set-spc-transaction-mode"},
 "#spc-credential": {"displayText":"spc credential","export":true,"for_":[],"level":"","normative":true,"shortname":"secure-payment-confirmation","spec":"secure-payment-confirmation","status":"local","text":"spc credential","type":"dfn","url":"#spc-credential"},
 "#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device": {"displayText":"steps to silently determine if a credential is available for the current device","export":true,"for_":[],"level":"","normative":true,"shortname":"secure-payment-confirmation","spec":"secure-payment-confirmation","status":"local","text":"steps to silently determine if a credential is available for the current device","type":"dfn","url":"#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device"},
-"#steps-to-silently-determine-if-a-credential-is-spc-enabled": {"displayText":"steps to silently determine if a credential is spc-enabled","export":true,"for_":[],"level":"","normative":true,"shortname":"secure-payment-confirmation","spec":"secure-payment-confirmation","status":"local","text":"steps to silently determine if a credential is spc-enabled","type":"dfn","url":"#steps-to-silently-determine-if-a-credential-is-spc-enabled"},
+"#steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled": {"displayText":"steps to silently determine if an spc credential is third-party enabled","export":true,"for_":[],"level":"","normative":true,"shortname":"secure-payment-confirmation","spec":"secure-payment-confirmation","status":"local","text":"steps to silently determine if an spc credential is third-party enabled","type":"dfn","url":"#steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled"},
+"#third-party-enabled-spc-credential": {"displayText":"third-party enabled spc credential","export":true,"for_":[],"level":"","normative":true,"shortname":"secure-payment-confirmation","spec":"secure-payment-confirmation","status":"local","text":"third-party enabled spc credential","type":"dfn","url":"#third-party-enabled-spc-credential"},
 "https://fetch.spec.whatwg.org/#concept-request": {"displayText":"request","export":true,"for_":[],"level":"1","normative":true,"shortname":"fetch","spec":"fetch","status":"current","text":"request","type":"dfn","url":"https://fetch.spec.whatwg.org/#concept-request"},
 "https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin": {"displayText":"serialization of an origin","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"serialization of an origin","type":"dfn","url":"https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin"},
 "https://html.spec.whatwg.org/multipage/browsers.html#concept-origin": {"displayText":"origin","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"origin","type":"dfn","url":"https://html.spec.whatwg.org/multipage/browsers.html#concept-origin"},

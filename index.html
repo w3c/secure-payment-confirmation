@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="ED" name="w3c-status">
-  <meta content="Bikeshed version 97a1608be, updated Mon Feb 3 16:09:34 2025 -0800" name="generator">
+  <meta content="Bikeshed version 47d87adb7, updated Tue Feb 18 17:18:43 2025 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="24d050a985b198e832ceb45ccc0fa5b82cebd50e" name="revision">
+  <meta content="d095e268f9bacddeb1f0d1391382610bc9857b22" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -832,7 +832,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-02-13">13 February 2025</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-02-19">19 February 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -896,8 +896,7 @@ to produce cryptographic evidence that the user has confirmed transaction detail
        <a href="#sctn-use-cases"><span class="secno">1.1</span> <span class="content">Use Cases</span></a>
        <ol class="toc">
         <li><a href="#sctn-use-case-verifying-payment"><span class="secno">1.1.1</span> <span class="content">Cryptographic evidence of transaction confirmation</span></a>
-        <li><a href="#sctn-use-case-iframe-registration"><span class="secno">1.1.2</span> <span class="content">Registration in a third-party iframe</span></a>
-        <li><a href="#sctn-use-case-merchant-authentication"><span class="secno">1.1.3</span> <span class="content">Merchant control of authentication</span></a>
+        <li><a href="#sctn-use-case-merchant-authentication"><span class="secno">1.1.2</span> <span class="content">Merchant control of authentication</span></a>
        </ol>
       <li>
        <a href="#sctn-sample-scenarios"><span class="secno">1.2</span> <span class="content">Sample API Usage Scenarios</span></a>
@@ -964,11 +963,10 @@ to produce cryptographic evidence that the user has confirmed transaction detail
     <li>
      <a href="#sctn-privacy-considerations"><span class="secno">11</span> <span class="content">Privacy Considerations</span></a>
      <ol class="toc">
-      <li><a href="#sctn-security-cross-origin-registration"><span class="secno">11.1</span> <span class="content">Registration in a Cross-Origin iframe</span></a>
-      <li><a href="#sctn-privacy-probing-credential-ids"><span class="secno">11.2</span> <span class="content">Probing for credential ids</span></a>
-      <li><a href="#sctn-privacy-joining-payment-instruments"><span class="secno">11.3</span> <span class="content">Joining different payment instruments</span></a>
-      <li><a href="#sctn-privacy-credential-id-tracking-vector"><span class="secno">11.4</span> <span class="content">Credential ID(s) as a tracking vector</span></a>
-      <li><a href="#sctn-user-opt-out"><span class="secno">11.5</span> <span class="content">User opt out</span></a>
+      <li><a href="#sctn-privacy-probing-credential-ids"><span class="secno">11.1</span> <span class="content">Probing for credential ids</span></a>
+      <li><a href="#sctn-privacy-joining-payment-instruments"><span class="secno">11.2</span> <span class="content">Joining different payment instruments</span></a>
+      <li><a href="#sctn-privacy-credential-id-tracking-vector"><span class="secno">11.3</span> <span class="content">Credential ID(s) as a tracking vector</span></a>
+      <li><a href="#sctn-user-opt-out"><span class="secno">11.4</span> <span class="content">User opt out</span></a>
      </ol>
     <li><a href="#sctn-accessibility-considerations"><span class="secno">12</span> <span class="content">Accessibility Considerations</span></a>
     <li><a href="#sctn-i18n-considerations"><span class="secno">13</span> <span class="content">Internationalization Considerations</span></a>
@@ -1071,36 +1069,17 @@ via browsers sufficiently today using TLS, iframes, and other Web features.
 The current specification is designed to increase the security and usability
 of Web payments.</p>
     </ol>
-    <h4 class="heading settled" data-level="1.1.2" id="sctn-use-case-iframe-registration"><span class="secno">1.1.2. </span><span class="content">Registration in a third-party iframe</span><a class="self-link" href="#sctn-use-case-iframe-registration"></a></h4>
-    <p>If a bank wishes to use <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a> as the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑥">Relying Party</a>, that
-specification requires the bank to register the user in a first party context.
-Registration can happen outside of a transaction while the user is visiting the
-bank’s site. It is also useful to be able to register the user during a
-transaction, but any registration that interrupts the payment journey creates a
-risk of transaction abandonment.</p>
-    <p>This limitation motivates the following Secure Payment Confirmation behavior:</p>
-    <ol>
-     <li data-md>
-      <p>SPC supports cross-origin registration from an iframe in a third-party
-context. For instance, this registration might take place following some
-other identity and verification (<abbr>ID&amp;V</abbr>) flow (e.g., SMS OTP).</p>
-    </ol>
-    <ul>
-     <li data-md>
-      <p>See <a href="https://github.com/w3c/webauthn/issues/1656">discussion
-on WebAuthn issue 1656</a>.</p>
-    </ul>
-    <h4 class="heading settled" data-level="1.1.3" id="sctn-use-case-merchant-authentication"><span class="secno">1.1.3. </span><span class="content">Merchant control of authentication</span><a class="self-link" href="#sctn-use-case-merchant-authentication"></a></h4>
+    <h4 class="heading settled" data-level="1.1.2" id="sctn-use-case-merchant-authentication"><span class="secno">1.1.2. </span><span class="content">Merchant control of authentication</span><a class="self-link" href="#sctn-use-case-merchant-authentication"></a></h4>
     <p>Merchants seek to avoid user drop-off during checkout, in particular by
-reducing authentication friction. A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑦">Relying Party</a> (e.g., a bank) that
+reducing authentication friction. A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑥">Relying Party</a> (e.g., a bank) that
 wishes to use <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a> to authenticate the user typically does so from an
 iframe. However, merchants would prefer to manage the user experience of
-authenticating the user while still enabling the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑧">Relying Party</a> to verify
+authenticating the user while still enabling the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑦">Relying Party</a> to verify
 the results of authentication.</p>
     <p>This limitation motivates the following Secure Payment Confirmation behavior:</p>
     <ul>
      <li data-md>
-      <p>With SPC, other parties than the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑨">Relying Party</a> can use authentication
+      <p>With SPC, other parties than the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑧">Relying Party</a> can use authentication
 credentials <em>on behalf of</em> the Relying Party. The Relying Party can then
 verify the authentication results.</p>
     </ul>
@@ -1128,7 +1107,7 @@ verification of the user, and provides a bank-controlled URL for the
 merchant to open in an iframe.</p>
      <li data-md>
       <p>The merchant opens an iframe to <code>bank.com</code>, with the <code>allow</code> attribute set to
-"<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment" id="ref-for-dfn-payment">payment</a>".</p>
+"<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#publickey-credentials-create-feature" id="ref-for-publickey-credentials-create-feature">publickey-credentials-create</a>".</p>
      <li data-md>
       <p>In the iframe, the issuing bank confirms the user’s identity via a
 traditional means (e.g., SMS OTP). After confirmation, the bank invites the
@@ -1305,17 +1284,17 @@ presumes access to await/async, for easier to read promise handling.</p>
      <p>A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential">WebAuthn credential</a> that can be used for the
 behaviors defined in this specification.</p>
      <p>This specification does not intend to limit how SPC credentials may (or may
-not) be used by a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⓪">Relying Party</a> for other authentication flows (e.g.,
+not) be used by a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑨">Relying Party</a> for other authentication flows (e.g.,
 login).</p>
-     <p class="note" role="note"><span class="marker">Note:</span> The current version of this specification requires the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①①">Relying Party</a> to explicitly opt in for a credential to be used in
+     <p class="note" role="note"><span class="marker">Note:</span> The current version of this specification requires the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⓪">Relying Party</a> to explicitly opt in for a credential to be used in
       either a first-party or third-party context. Longer-term, our
-      intention is that all <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential①">WebAuthn credentials</a> will be usable for SPC in a first-party context (e.g., on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①②">Relying Party’s</a> domain) and opt-in will only be required to allow
+      intention is that all <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential①">WebAuthn credentials</a> will be usable for SPC in a first-party context (e.g., on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①①">Relying Party’s</a> domain) and opt-in will only be required to allow
       a credential to be used by a third-party.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="third-party-enabled-spc-credential">Third-party enabled SPC Credential</dfn>
     <dd data-md>
-     <p>An <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential">SPC Credential</a> where the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①③">Relying Party</a> has explicitly opted in at
+     <p>An <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential">SPC Credential</a> where the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①②">Relying Party</a> has explicitly opted in at
 credential creation time to allow use of the credential in a Secure Payment
-Confirmation authentication by a party other than the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①④">Relying Party</a>.</p>
+Confirmation authentication by a party other than the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①③">Relying Party</a>.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled">Steps to silently determine if an SPC Credential is third-party enabled</dfn>
     <dd data-md>
      <p>An as-yet undefined process by which a user agent can, given a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party-identifier" id="ref-for-relying-party-identifier">Relying Party Identifier</a> and a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id">credential ID</a>, silently (i.e.,
@@ -1346,14 +1325,10 @@ be supported by the same underlying API.</p>
     </ul>
    </details>
    <p class="note" role="note"><span class="marker">Note:</span> In this specification we define an extension in order to allow
-      (1) credential creation in a cross-origin iframe (which WebAuthn
-      Levels 1 and 2 do not allow, but Level 3 <a href="https://github.com/w3c/webauthn/pull/1801">is expected to
-      allow</a>) and (2) the browser to cache SPC credential IDs in the
-      absence of <a data-link-type="biblio" href="#biblio-webauthn-conditional-ui" title="WebAuthn Conditional UI Proposal">Conditional UI</a>. If these
-      capabilities are available in future versions of WebAuthn, we
-      may remove the requirement for the extension from SPC. Note that
-      SPC credentials (with the extension) are otherwise full-fledged
-      WebAuthn credentials.</p>
+      the browser to cache SPC credential IDs in the absence of <a data-link-type="biblio" href="#biblio-webauthn-conditional-ui" title="WebAuthn Conditional UI Proposal">Conditional UI</a>. If this capability is
+      available in future versions of WebAuthn, we may remove the requirement
+      for the extension from SPC. Note that SPC credentials (with the extension)
+      are otherwise full-fledged WebAuthn credentials.</p>
    <p class="note" role="note"><span class="marker">Note:</span> At registration time, Web Authentication requires both <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialentity-name" id="ref-for-dom-publickeycredentialentity-name">name</a></code> and <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialuserentity-displayname" id="ref-for-dom-publickeycredentialuserentity-displayname">displayName</a></code>, although per the
       definition of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-user" id="ref-for-dom-publickeycredentialcreationoptions-user">user member</a>, implementations are not
       required to display either of them in subsequent authentication
@@ -1367,8 +1342,8 @@ payment method confirms the transaction with the user and then performs an <a da
 representing the authentication ceremony.</p>
    <p>At a high level, authentication for Secure Payment Confirmation is similar to <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a>, with one major conceptual shift. Secure Payment Confirmation
 allows a third-party (e.g., the merchant) to trigger an authentication ceremony
-on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑤">Relying Party</a>, passing in credentials that it has obtained
-from the Relying Party on some other unspecified channel. See <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
+on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①④">Relying Party</a>, passing in credentials that it has obtained
+from the Relying Party on some other unspecified channel. See <a href="#sctn-use-case-merchant-authentication">§ 1.1.2 Merchant control of authentication</a>.</p>
    <h3 class="heading settled" data-level="4.1" id="sctn-payment-method-spc"><span class="secno">4.1. </span><span class="content">Payment Method: Secure Payment Confirmation</span><a class="self-link" href="#sctn-payment-method-spc"></a></h3>
    <p>This specification defines a new <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment-handler" id="ref-for-dfn-payment-handler">payment handler</a>, the <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Secure Payment Confirmation payment handler" data-noexport id="secure-payment-confirmation-payment-handler">Secure Payment
 Confirmation payment handler</dfn>, which handles requests to authenticate a
@@ -1633,7 +1608,7 @@ with.</p>
    </ol>
    <h4 class="heading settled" data-level="4.1.10" id="sctn-transaction-confirmation-ux"><span class="secno">4.1.10. </span><span class="content">Displaying a transaction confirmation UX</span><a class="self-link" href="#sctn-transaction-confirmation-ux"></a></h4>
    <p>To avoid restricting User Agent implementation choice, this specification does
-not require a User Agent to display a particular user interface when <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show②">PaymentRequest.show()</a></code> is called and the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler①">Secure Payment Confirmation payment handler</a> is selected. However, so that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑥">Relying Party</a> can trust the information included in <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a></code>, the User Agent MUST ensure that the following
+not require a User Agent to display a particular user interface when <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show②">PaymentRequest.show()</a></code> is called and the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler①">Secure Payment Confirmation payment handler</a> is selected. However, so that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑤">Relying Party</a> can trust the information included in <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata">CollectedClientPaymentData</a></code>, the User Agent MUST ensure that the following
 is communicated to the user and that the user’s consent is collected for the
 authentication:</p>
    <ul>
@@ -1662,7 +1637,7 @@ MUST give the user the opportunity to indicate that they want to opt out of the
 process for the <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid⑤">given relying party</a></code>.
 If the user indicates that they wish to opt-out, then the user agent must reject
 the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show③">show()</a></code> promise with an
-"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#optouterror" id="ref-for-optouterror">OptOutError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code>. See <a href="#sctn-user-opt-out">§ 11.5 User opt out</a>.</p>
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#optouterror" id="ref-for-optouterror">OptOutError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code>. See <a href="#sctn-user-opt-out">§ 11.4 User opt out</a>.</p>
    <details class="wpt-tests-block" dir="ltr" lang="en">
     <summary>Tests</summary>
     <ul class="wpt-tests-list">
@@ -1774,14 +1749,15 @@ whose fields are:</p>
    <h2 class="heading settled" data-level="5" id="sctn-payment-extension-registration"><span class="secno">5. </span><span class="content">WebAuthn Extension - "<code>payment</code>"</span><a class="self-link" href="#sctn-payment-extension-registration"></a></h2>
    <p>This <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#client-extension" id="ref-for-client-extension">client</a> <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension">registration extension</a> and <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension">authentication extension</a> indicates that a credential is either being
 created for or used for Secure Payment Confirmation, respectively.</p>
-   <p>For registration, this extension relaxes the WebAuthn requirements to allow
-credential creation in a cross-origin iframe, and also allows the browser to
-identify and cache Secure Payment Confirmation credential IDs. For
-authentication, this extension allows a third-party to perform an
-authentication ceremony on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑦">Relying Party</a>, and also adds
-transaction information to the signed cryptogram.</p>
+   <p>For registration, this extension allows the browser to identify and cache
+Secure Payment Confirmation credential IDs. For authentication, this extension
+allows a third-party to perform an authentication ceremony on behalf of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑥">Relying Party</a>, and also adds transaction information to the signed
+cryptogram.</p>
    <p>Notably, a website should not call <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get" id="ref-for-dom-credentialscontainer-get">navigator.credentials.get()</a></code> with this extension
 directly; for authentication the extension can only be accessed via <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest⑤">PaymentRequest</a></code> with a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation③">secure-payment-confirmation</a>" payment method.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Previously, the <code>payment</code> extension allowed for the creation of
+      credentials in a cross-origin iframe. However that behavior is now
+      allowed in WebAuthn by default, as of <a href="https://github.com/w3c/webauthn/pull/1801">WebAuthn PR #1801</a>.</p>
    <details class="wpt-tests-block" dir="ltr" lang="en">
     <summary>Tests</summary>
     <p>This test does not directly correspond to a spec line, but instead
@@ -1824,7 +1800,7 @@ directly; for authentication the extension can only be accessed via <code class=
        <p>Indicates that the extension is active.</p>
       <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-rpid"><code>rpId</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①②">USVString</a></span>
       <dd data-md>
-       <p>The <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑧">Relying Party</a> id of the credential(s) being used. Only used at authentication time; not registration.</p>
+       <p>The <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑦">Relying Party</a> id of the credential(s) being used. Only used at authentication time; not registration.</p>
       <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsPaymentInputs" data-dfn-type="dict-member" data-export id="dom-authenticationextensionspaymentinputs-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①③">USVString</a></span>
       <dd data-md>
        <p>The origin of the top-level frame. Only used at authentication time; not registration.</p>
@@ -1846,46 +1822,19 @@ directly; for authentication the extension can only be accessed via <code class=
      <p>When <a href="https://w3c.github.io/webauthn/#sctn-createCredential">creating a new credential</a>:</p>
      <ol>
       <li data-md>
-       <p>Modify step 2 (the check for <em>sameOriginWithAncestors</em>) as follows:</p>
-       <ul>
-        <li data-md>
-         <p>If <em>sameOriginWithAncestors</em> is <code>false</code>:</p>
-         <ul>
-          <li data-md>
-           <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global②">relevant global object</a>, as determined by the calling <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create①">create()</a></code> implementation, does not have <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation①">transient activation</a>:</p>
-           <ul>
-            <li data-md>
-             <p>Return a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException③">DOMException</a></code> whose name is "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#securityerror" id="ref-for-securityerror①">SecurityError</a></code>", and
-terminate this algorithm.</p>
-           </ul>
-          <li data-md>
-           <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation" id="ref-for-consume-user-activation①">Consume user activation</a> of the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global③">relevant global object</a>.</p>
-         </ul>
-         <details class="wpt-tests-block" dir="ltr" lang="en">
-          <summary>Tests</summary>
-          <ul class="wpt-tests-list">
-           <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/enrollment-in-iframe.sub.https.html" title="secure-payment-confirmation/enrollment-in-iframe.sub.https.html">enrollment-in-iframe.sub.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/enrollment-in-iframe.sub.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/enrollment-in-iframe.sub.https.html"><small>(source)</small></a>
-          </ul>
-         </details>
-       </ul>
-       <p class="note" role="note"><span class="marker">Note:</span> This allows for creating SPC credentials in a cross-origin
- iframe, as long as the correct permission policy is set
- (see <a href="#sctn-permissions-policy">§ 7 Permissions Policy integration</a>). A <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation②">transient activation</a> is
- also required in this case to mitigate privacy risks; see <a href="#sctn-security-cross-origin-registration">§ 11.1 Registration in a Cross-Origin iframe</a>.</p>
-      <li data-md>
        <p>After step 3, insert the following step:</p>
        <ul>
         <li data-md>
          <p>If any of the following are true:</p>
          <ul>
           <li data-md>
-           <p><em>options</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment" id="ref-for-dom-authenticatorselectioncriteria-authenticatorattachment">authenticatorAttachment</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform" id="ref-for-dom-authenticatorattachment-platform">platform</a></code>".</p>
+           <p><em>pkOptions</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment" id="ref-for-dom-authenticatorselectioncriteria-authenticatorattachment">authenticatorAttachment</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform" id="ref-for-dom-authenticatorattachment-platform">platform</a></code>".</p>
           <li data-md>
-           <p><em>options</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection①">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey" id="ref-for-dom-authenticatorselectioncriteria-residentkey">residentKey</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required" id="ref-for-dom-residentkeyrequirement-required">required</a></code>" or "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred" id="ref-for-dom-residentkeyrequirement-preferred">preferred</a></code>".</p>
+           <p><em>pkOptions</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection①">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey" id="ref-for-dom-authenticatorselectioncriteria-residentkey">residentKey</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required" id="ref-for-dom-residentkeyrequirement-required">required</a></code>" or "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred" id="ref-for-dom-residentkeyrequirement-preferred">preferred</a></code>".</p>
           <li data-md>
-           <p><em>options</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection②">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification" id="ref-for-dom-authenticatorselectioncriteria-userverification">userVerification</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required" id="ref-for-dom-userverificationrequirement-required①">required</a></code>".</p>
+           <p><em>pkOptions</em>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection" id="ref-for-dom-publickeycredentialcreationoptions-authenticatorselection②">authenticatorSelection</a></code>"]["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification" id="ref-for-dom-authenticatorselectioncriteria-userverification">userVerification</a></code>"] is not "<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-userverificationrequirement-required" id="ref-for-dom-userverificationrequirement-required①">required</a></code>".</p>
          </ul>
-         <p>then return a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror⑨">TypeError</a></code>.</p>
+         <p>then throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror⑨">TypeError</a></code>.</p>
          <p class="note" role="note"><span class="marker">Note:</span> These values are hard-coded as that is what Chrome’s initial implementation
 supports. The current limitations may change. The Working Group invites implementers
 to share use cases that would benefit from support for other values.</p>
@@ -1903,7 +1852,7 @@ to share use cases that would benefit from support for other values.</p>
      <ol>
       <li data-md>
        <p>If not in a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation④">secure-payment-confirmation</a>" payment handler, return a
-"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException④">DOMException</a></code>.</p>
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException③">DOMException</a></code>.</p>
        <details class="wpt-tests-block" dir="ltr" lang="en">
         <summary>Tests</summary>
         <ul class="wpt-tests-list">
@@ -1925,7 +1874,7 @@ transaction UX</a>.</p>
          <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-cross-origin.sub.https.html" title="secure-payment-confirmation/authentication-cross-origin.sub.https.html">authentication-cross-origin.sub.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-cross-origin.sub.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-cross-origin.sub.https.html"><small>(source)</small></a>
         </ul>
        </details>
-       <p class="note" role="note"><span class="marker">Note:</span> This enables cross-domain authentication ceremonies; see <a href="#sctn-use-case-merchant-authentication">§ 1.1.3 Merchant control of authentication</a>.</p>
+       <p class="note" role="note"><span class="marker">Note:</span> This enables cross-domain authentication ceremonies; see <a href="#sctn-use-case-merchant-authentication">§ 1.1.2 Merchant control of authentication</a>.</p>
        <ol>
         <li data-md>
          <p>In step 9, instead of creating a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata①">CollectedClientData</a></code>, instead
@@ -2001,7 +1950,7 @@ fields:</p>
    <dl>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-rpid"><code>rpId</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②⓪">USVString</a></span>
     <dd data-md>
-     <p>The id of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑨">Relying Party</a> that created the credential.</p>
+     <p>The id of the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑧">Relying Party</a> that created the credential.</p>
      <p class="note" role="note"><span class="marker">NOTE:</span> For historical reasons, some implementations may additionally
          include this parameter with the name <code>rp</code>. The values of <code>rp</code> and <code>rpId</code> must be the same if both are present.</p>
     <dt data-md><dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export id="dom-collectedclientadditionalpaymentdata-toporigin"><code>topOrigin</code></dfn> member, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②①">USVString</a></span>
@@ -2046,9 +1995,9 @@ contains the following members:</p>
      <p class="note" role="note"><span class="marker">NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑦">icon</a></code> URL may either identify
  an image on an internet-accessible server (e.g., <code>https://bank.com/card.png</code>),
  or directly encode the icon data via a Data URL <a data-link-type="biblio" href="#biblio-rfc2397" title="The &quot;data&quot; URL scheme">[RFC2397]</a>. Between
- the two types of URLs, Data URLs offer several benefits to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⓪">Relying Party</a>. They can improve reliability (e.g., in the case that
+ the two types of URLs, Data URLs offer several benefits to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party①⑨">Relying Party</a>. They can improve reliability (e.g., in the case that
  the icon hosting server may be unavailable). They can also enhance
- validation because the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②①">Relying Party</a> has cryptographic evidence of
+ validation because the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⓪">Relying Party</a> has cryptographic evidence of
  what the browser displayed to the user: the icon URL is signed as part
  of the <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata⑥">CollectedClientAdditionalPaymentData</a></code> structure.</p>
      <p class="note" role="note"><span class="marker">NOTE:</span> See related <a href="#sctn-accessibility-considerations">accessibility considerations</a>.</p>
@@ -2058,8 +2007,12 @@ contains the following members:</p>
 request to succeed.</p>
    </dl>
    <h2 class="heading settled" data-level="7" id="sctn-permissions-policy"><span class="secno">7. </span><span class="content">Permissions Policy integration</span><a class="self-link" href="#sctn-permissions-policy"></a></h2>
-   <p>This specification uses the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment" id="ref-for-dfn-payment①">payment</a>"
-policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-request" title="Payment Request API">[payment-request]</a> to control access to <strong>both</strong> registration and authentication. This extends the <a href="https://w3c.github.io/webauthn/#sctn-permissions-policy">WebAuthn Permission Policy</a>.</p>
+   <p>This specification uses the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment" id="ref-for-dfn-payment">payment</a>"
+policy-identifier string from <a data-link-type="biblio" href="#biblio-payment-request" title="Payment Request API">[payment-request]</a> to control access to
+SPC authentication, as per the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest⑥">PaymentRequest</a></code> constructor.</p>
+   <p>For backwards compatibility with an earlier version of this specification, the <a href="https://w3c.github.io/webappsec-credential-management/#sctn-cred-type-registry">Credential Management
+Credential Type Registry</a> is extended to add the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment" id="ref-for-dfn-payment①">payment</a>" policy-identifier string as an alternative <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#credential-type-registry-create-permissions-policy" id="ref-for-credential-type-registry-create-permissions-policy">Create Permissions Policy</a> for type <code>public-key</code>. A future version of this
+specification may deprecate this behavior entirely.</p>
    <details class="wpt-tests-block" dir="ltr" lang="en">
     <summary>Tests</summary>
     <ul class="wpt-tests-list">
@@ -2073,40 +2026,40 @@ they are invoked <a data-link-type="dfn" href="https://html.spec.whatwg.org/mult
    <h2 class="heading settled" data-level="8" id="sctn-relying-party-operations"><span class="secno">8. </span><span class="content">SPC Relying Party Operations</span><a class="self-link" href="#sctn-relying-party-operations"></a></h2>
    <h3 class="heading settled" data-level="8.1" id="sctn-verifying-assertion"><span class="secno">8.1. </span><span class="content">Verifying an Authentication Assertion</span><a class="self-link" href="#sctn-verifying-assertion"></a></h3>
    <p>In order to perform an <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-ceremony" id="ref-for-authentication-ceremony①">authentication ceremony</a> for Secure Payment
-Confirmation, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②②">Relying Party</a> MUST proceed as follows:</p>
+Confirmation, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②①">Relying Party</a> MUST proceed as follows:</p>
    <ol>
     <li data-md>
      <p>Let <var>credential</var> be a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#publickeycredential" id="ref-for-publickeycredential">PublicKeyCredential</a></code> returned from a successful
 invocation of the <a data-link-type="dfn" href="#secure-payment-confirmation-payment-handler" id="ref-for-secure-payment-confirmation-payment-handler②">Secure Payment Confirmation payment handler</a> by the <var>SPC caller</var>.</p>
      <p class="note" role="note"><span class="marker">Note:</span> As SPC is designed to enable <a href="#sctn-use-case-merchant-authentication">merchant
-control of authentication</a>, the entity that invokes SPC may not be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②③">Relying Party</a>. This first step presumes that the SPC caller has returned
-a credential obtained via SPC to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②④">Relying Party</a>.</p>
+control of authentication</a>, the entity that invokes SPC may not be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②②">Relying Party</a>. This first step presumes that the SPC caller has returned
+a credential obtained via SPC to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②③">Relying Party</a>.</p>
     <li data-md>
      <p>Perform steps 3-21 <a href="https://w3c.github.io/webauthn/#sctn-verifying-assertion"> as specified in
 WebAuthn</a>, with the following changes:</p>
      <ol>
       <li data-md>
        <p>In step 5, verify that <var>credential</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credential-id" id="ref-for-dom-credential-id">id</a></code> identifies one of
-the public key credentials provided to the <var>SPC caller</var> by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑤">Relying Party</a>.</p>
+the public key credentials provided to the <var>SPC caller</var> by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②④">Relying Party</a>.</p>
       <li data-md>
        <p>In step 11, verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-type" id="ref-for-dom-collectedclientdata-type①">type</a></code>"]
 is the string <code>payment.get</code>.</p>
       <li data-md>
        <p>In step 12, verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge" id="ref-for-dom-collectedclientdata-challenge">challenge</a></code>"]
-equals the base64url encoding of the challenge provided to the <var>SPC caller</var> by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑥">Relying Party</a>.</p>
+equals the base64url encoding of the challenge provided to the <var>SPC caller</var> by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑤">Relying Party</a>.</p>
       <li data-md>
        <p>In step 13, verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-origin" id="ref-for-dom-collectedclientdata-origin">origin</a></code>"]
-matches the origin that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑦">Relying Party</a> expects SPC to have been
+matches the origin that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑥">Relying Party</a> expects SPC to have been
 called from.</p>
       <li data-md>
        <p>After step 13, insert the following steps:</p>
        <ul>
         <li data-md>
          <p>Verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment②">payment</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-rpid" id="ref-for-dom-collectedclientadditionalpaymentdata-rpid②">rpId</a></code>"]
-matches the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑧">Relying Party</a>’s origin.</p>
+matches the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑦">Relying Party</a>’s origin.</p>
         <li data-md>
          <p>Verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment③">payment</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-toporigin" id="ref-for-dom-collectedclientadditionalpaymentdata-toporigin②">topOrigin</a></code>"]
-matches the top-level origin that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑨">Relying Party</a> expects.</p>
+matches the top-level origin that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑧">Relying Party</a> expects.</p>
         <li data-md>
          <p>Verify that the value of <var>C</var>["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientpaymentdata-payment" id="ref-for-dom-collectedclientpaymentdata-payment④">payment</a></code>"]["<code class="idl"><a data-link-type="idl" href="#dom-collectedclientadditionalpaymentdata-payeename" id="ref-for-dom-collectedclientadditionalpaymentdata-payeename③">payeeName</a></code>"]
 matches the name of the payee that should have been displayed to the user, if any.</p>
@@ -2166,14 +2119,14 @@ diverges from WebAuthn.</p>
    <h3 class="heading settled" data-level="10.1" id="sctn-security-cross-origin-auth"><span class="secno">10.1. </span><span class="content">Cross-origin authentication ceremony</span><a class="self-link" href="#sctn-security-cross-origin-auth"></a></h3>
    <p>A significant departure that Secure Payment Confirmation makes from WebAuthn is
 in allowing a third-party to initiate an authentication ceremony using
-credentials for a different <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⓪">Relying Party</a>, and returning the assertion to
-the third party. This feature can expose <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③①">Relying Parties</a> to both login and
+credentials for a different <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑨">Relying Party</a>, and returning the assertion to
+the third party. This feature can expose <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⓪">Relying Parties</a> to both login and
 payment attacks, which are discussed here.</p>
    <h4 class="heading settled" data-level="10.1.1" id="sctn-security-login-attack"><span class="secno">10.1.1. </span><span class="content">Login Attack</span><a class="self-link" href="#sctn-security-login-attack"></a></h4>
    <p>As credentials created for Secure Payment Confirmation are valid WebAuthn
-credentials, it is possible that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③②">Relying Party</a> may wish to use the same
+credentials, it is possible that a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③①">Relying Party</a> may wish to use the same
 credential for a given user for both login and payment. This allows a potential
-attack on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③③">Relying Party’s</a> login system, if they do not carefully verify
+attack on the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③②">Relying Party’s</a> login system, if they do not carefully verify
 the assertion they receive.</p>
    <p>The attack is as follows:</p>
    <ol>
@@ -2198,8 +2151,8 @@ the assertion they receive.</p>
      <p><code>relyingparty.com</code> returns e.g. a login cookie to <code>attacker.com</code>. The user’s
  account at <code>relyingparty.com</code> has now been compromised.</p>
    </ol>
-   <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③④">Relying Parties</a> can guard against this attack in two ways.</p>
-   <p>Firstly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑤">Relying Party</a> must always follow the correct assertion
+   <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③③">Relying Parties</a> can guard against this attack in two ways.</p>
+   <p>Firstly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③④">Relying Party</a> must always follow the correct assertion
 validation steps either for <a href="https://w3c.github.io/webauthn/#sctn-verifying-assertion">WebAuthn
 login</a> or <a href="#sctn-verifying-assertion">SPC payment</a> as appropriate. In
 particular, the following fields can all be used to detect an inappropriate use
@@ -2210,7 +2163,7 @@ of a credential:</p>
 login, "payment.get" for SPC.</p>
     <li data-md>
      <p><code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑥">CollectedClientData</a></code>["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge" id="ref-for-dom-collectedclientdata-challenge①">challenge</a></code>"] - this value should
-be provided by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑥">Relying Party</a> server to the site ahead of any call
+be provided by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑤">Relying Party</a> server to the site ahead of any call
 to either WebAuthn or SPC, and should be verified as matching an expected,
 appropriate, previously-provided value.</p>
     <li data-md>
@@ -2218,8 +2171,8 @@ appropriate, previously-provided value.</p>
 performed cross-origin, this value will contain the origin of the caller
 (e.g. <code>attacker.com</code> in the above example).</p>
    </ul>
-   <p>Secondly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑦">Relying Party</a> can consider keeping their payment and login
-credentials separate. If doing this, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑧">Relying Party</a> should only register
+   <p>Secondly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑥">Relying Party</a> can consider keeping their payment and login
+credentials separate. If doing this, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑦">Relying Party</a> should only register
 credentials for Secure Payment Confirmation on a subdomain (e.g. <code>https//payment.relyingparty.com</code>), and should keep payment credentials and
 login credentials separate in their database.</p>
    <div class="note" role="note">
@@ -2247,12 +2200,12 @@ and amount). The user is very likely to "cancel" in this scenario.</p>
     <li data-md>
      <p>If the user does agree to the transaction, and completes the subsequent
 WebAuthn authentication ceremony, the attacker now has a signed SPC
-assertion for the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑨">Relying Party</a>.</p>
+assertion for the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑧">Relying Party</a>.</p>
     <li data-md>
-     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⓪">Relying Party</a> is not expecting a transaction, it will reject the
+     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑨">Relying Party</a> is not expecting a transaction, it will reject the
 assertion.</p>
     <li data-md>
-     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④①">Relying Party</a> is expecting a transaction, it will detect at least
+     <p>If the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⓪">Relying Party</a> is expecting a transaction, it will detect at least
 one of the following and reject the assertion:</p>
      <ul>
       <li data-md>
@@ -2270,7 +2223,7 @@ ensure it aligns with the transaction details provided by the
 merchant.</p>
    <p>That is because a consequence of this specification’s third-party
 authentication ceremony is that even in a valid transaction (i.e. one
-that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④②">Relying Party</a> is expecting), a third-party provides the
+that the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④①">Relying Party</a> is expecting), a third-party provides the
 transaction details that are shown to the user:</p>
    <ul>
     <li data-md>
@@ -2285,7 +2238,7 @@ data to the user. For example, the merchant could tell the bank (in the
 backend) that it is initiating a purchase of $100, but then pass $1 to the SPC
 API (and thus show the user a $1 transaction to verify). Or the merchant
 could provide the correct transaction details but pass Secure Payment
-Confirmation credentials that don’t match what the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④③">Relying Party</a> expects.</p>
+Confirmation credentials that don’t match what the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④②">Relying Party</a> expects.</p>
    <p>Secure Payment Confirmation actually makes defeating this kind of attack easier
 than it currently is on the web. In online payments today, the bank has to
 trust that the merchant showed the user the correct amount in their checkout
@@ -2311,27 +2264,10 @@ background tab, minimized window, or other similar hidden situations.</p>
 applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific privacy considerations, where this specification diverges
 from WebAuthn.</p>
-   <h3 class="heading settled" data-level="11.1" id="sctn-security-cross-origin-registration"><span class="secno">11.1. </span><span class="content">Registration in a Cross-Origin iframe</span><a class="self-link" href="#sctn-security-cross-origin-registration"></a></h3>
-   <p>Unlike WebAuthn, this specification allows the creation of credentials in a
-cross-origin iframe (as long as the appropriate <a href="#sctn-permissions-policy">Permission Policy</a> is set on the iframe). That is,
-if site A embeds an iframe from site B, with the "<a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-payment" id="ref-for-dfn-payment②">payment</a>" policy set, then site B may initiate a credential creation
-for site B within that iframe.</p>
-   <p class="note" role="note"><span class="marker">NOTE:</span> Allowing credential creation in cross-origin iframes is currently <a href="https://github.com/w3c/webauthn/issues/1656">under
-      discussion</a> in the WebAuthn
-      Working Group, and thus may move from this specification to WebAuthn in
-      the future.</p>
-   <p>Allowing credential creation in a cross-origin iframe presents a risk that an
-iframe may attempt to trick a user into registering a credential. That
-credential could then be used for tracking (see <a href="https://github.com/w3c/webauthn/issues/1656">WebAuthn issue
-1656</a>). To mitigate such an
-attack, this specification requires that a call to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create" id="ref-for-dom-credentialscontainer-create②">navigator.credentials.create()</a></code> inside a
-cross-origin iframe may only be invoked when the iframe has <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation③">transient activation</a> (e.g., via a click or press from the user).</p>
-   <p class="note" role="note"><span class="marker">NOTE:</span> Requiring user activation for WebAuthn APIs in general is under discussion
-      in the WebAuthn WG too; see <a href="https://github.com/w3c/webauthn/issues/1293">issue #1293</a>.</p>
-   <h3 class="heading settled" data-level="11.2" id="sctn-privacy-probing-credential-ids"><span class="secno">11.2. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
+   <h3 class="heading settled" data-level="11.1" id="sctn-privacy-probing-credential-ids"><span class="secno">11.1. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
    <p>As per WebAuthn’s section on <a href="https://w3c.github.io/webauthn/#sctn-assertion-privacy">Authentication
 Ceremony Privacy</a>, implementors of Secure Payment Confirmation must make sure
-not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④④">Relying Party</a>)
+not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④③">Relying Party</a>)
 to distinguish between these cases:</p>
    <ul>
     <li data-md>
@@ -2340,11 +2276,11 @@ to distinguish between these cases:</p>
      <p>A credential is available, but the user does not consent to use it.</p>
    </ul>
    <p>If the above cases are distinguishable, information is leaked by which a
-malicious <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑤">Relying Party</a> could identify the user by probing for which <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential②">credentials</a> are available.</p>
+malicious <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④④">Relying Party</a> could identify the user by probing for which <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential②">credentials</a> are available.</p>
    <p>Section <a href="#sctn-steps-to-check-if-a-payment-can-be-made">§ 4.1.9 Steps to check if a payment can be made</a> gives normative steps
 to mitigate this risk.</p>
-   <h3 class="heading settled" data-level="11.3" id="sctn-privacy-joining-payment-instruments"><span class="secno">11.3. </span><span class="content">Joining different payment instruments</span><a class="self-link" href="#sctn-privacy-joining-payment-instruments"></a></h3>
-   <p>If a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑥">Relying Party</a> uses the same credentials for a given user across
+   <h3 class="heading settled" data-level="11.2" id="sctn-privacy-joining-payment-instruments"><span class="secno">11.2. </span><span class="content">Joining different payment instruments</span><a class="self-link" href="#sctn-privacy-joining-payment-instruments"></a></h3>
+   <p>If a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑤">Relying Party</a> uses the same credentials for a given user across
 multiple payment instruments, this might allow a merchant to join information
 about payment instruments that might otherwise not be linked. That is, across
 two different transactions that a user U performs with payment instruments P1
@@ -2360,16 +2296,16 @@ ecosystem stakeholders take steps to preserve user privacy. For example:</p>
     <li data-md>
      <p>Payment systems might establish rules that place limits on storage of credential ID(s) by third parties.</p>
     <li data-md>
-     <p>When a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑦">Relying Party</a> assigns multiple instruments to a single SPC credential, it might choose not to share that credential ID with other parties. In this case, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑧">Relying Party</a> could still use the SPC credential itself (in either a first-party or third-party context) to authenticate the user.</p>
+     <p>When a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑥">Relying Party</a> assigns multiple instruments to a single SPC credential, it might choose not to share that credential ID with other parties. In this case, the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑦">Relying Party</a> could still use the SPC credential itself (in either a first-party or third-party context) to authenticate the user.</p>
     <li data-md>
-     <p>A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑨">Relying Party</a> (e.g., a bank) might enable the user to register a distinct SPC credential per payment instrument. This would not prevent the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤⓪">Relying Party</a> from joining those accounts internally.</p>
+     <p>A <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑧">Relying Party</a> (e.g., a bank) might enable the user to register a distinct SPC credential per payment instrument. This would not prevent the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party④⑨">Relying Party</a> from joining those accounts internally.</p>
    </ul>
-   <h3 class="heading settled" data-level="11.4" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">11.4. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
-   <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤①">Relying Party</a> could be used by a malicious entity as a tracking vector, as
+   <h3 class="heading settled" data-level="11.3" id="sctn-privacy-credential-id-tracking-vector"><span class="secno">11.3. </span><span class="content">Credential ID(s) as a tracking vector</span><a class="self-link" href="#sctn-privacy-credential-id-tracking-vector"></a></h3>
+   <p>Even for a single payment instrument, the credential ID(s) returned by the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤⓪">Relying Party</a> could be used by a malicious entity as a tracking vector, as
 they are strong, cross-site identifiers. However in order to obtain them from
-the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤②">Relying Party</a>, the merchant already needs an as-strong identifier to
-give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤③">Relying Party</a> (e.g., the credit card number).</p>
-   <h3 class="heading settled" data-level="11.5" id="sctn-user-opt-out"><span class="secno">11.5. </span><span class="content">User opt out</span><a class="self-link" href="#sctn-user-opt-out"></a></h3>
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤①">Relying Party</a>, the merchant already needs an as-strong identifier to
+give to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤②">Relying Party</a> (e.g., the credit card number).</p>
+   <h3 class="heading settled" data-level="11.4" id="sctn-user-opt-out"><span class="secno">11.4. </span><span class="content">User opt out</span><a class="self-link" href="#sctn-user-opt-out"></a></h3>
    <p>The API option <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-showoptout" id="ref-for-dom-securepaymentconfirmationrequest-showoptout②">showOptOut</a></code> tells the
 user agent to provide a way for the user to indicate they wish to opt out of the
 relying party’s storage of information. When the user invokes this opt out, an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#optouterror" id="ref-for-optouterror①">OptOutError</a></code> is returned to the caller to indicate the user’s intent to opt
@@ -2377,7 +2313,7 @@ out. It is then up to the caller to act on the opt out, e.g. by clearing payment
 information stored for the user.</p>
    <p>Implementors must make sure that the return of an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#optouterror" id="ref-for-optouterror②">OptOutError</a></code> does not
 reveal that the user has credentials but did not complete an authentication.
-This can be mitigated by similar means as <a href="#sctn-privacy-probing-credential-ids">§ 11.2 Probing for credential ids</a>, e.g. by also providing the user an
+This can be mitigated by similar means as <a href="#sctn-privacy-probing-credential-ids">§ 11.1 Probing for credential ids</a>, e.g. by also providing the user an
 opportunity to opt out on the interstitial UX in the case where a credential
 match is not found.</p>
    <p>This is not intended to be a mechanism to delete browser data or credentials -
@@ -2560,6 +2496,7 @@ when it is not.</p>
    <li>
     <a data-link-type="biblio">[CREDENTIAL-MANAGEMENT-1]</a> defines the following terms:
     <ul>
+     <li><span class="dfn-paneled" id="abd7d801">Create Permissions Policy</span>
      <li><span class="dfn-paneled" id="b0f5bc03">create()</span>
      <li><span class="dfn-paneled" id="99134679">get()</span>
      <li><span class="dfn-paneled" id="cbdd0aff">id</span>
@@ -2684,6 +2621,7 @@ when it is not.</p>
      <li><span class="dfn-paneled" id="a7e81336">preferred</span>
      <li><span class="dfn-paneled" id="9dd3f517">public-key</span>
      <li><span class="dfn-paneled" id="bd0c1062">publicKey</span>
+     <li><span class="dfn-paneled" id="1a99fe79">publickey-credentials-create-feature</span>
      <li><span class="dfn-paneled" id="cc58e2fc">required <small>(for ResidentKeyRequirement)</small></span>
      <li><span class="dfn-paneled" id="b8c02d5c">required <small>(for UserVerificationRequirement)</small></span>
      <li><span class="dfn-paneled" id="3dd57d47">residentKey</span>
@@ -3035,6 +2973,7 @@ let dfnPanelData = {
 "12b8dfc0": {"dfnID":"12b8dfc0","dfnText":"current settings object","external":true,"refSections":[{"refs":[{"id":"ref-for-current-settings-object"}],"title":"7. Permissions Policy integration"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object"},
 "16ad0fd2": {"dfnID":"16ad0fd2","dfnText":"locale","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-locale"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dfn-locale\u2460"}],"title":"13. Internationalization Considerations"}],"url":"https://www.w3.org/TR/i18n-glossary/#dfn-locale"},
 "1a0d3ec4": {"dfnID":"1a0d3ec4","dfnText":"registry of standardized payment methods","external":true,"refSections":[{"refs":[{"id":"ref-for-registry"}],"title":"4.1.2. Registration in [payment-method-id]"}],"url":"https://w3c.github.io/payment-method-id/#registry"},
+"1a99fe79": {"dfnID":"1a99fe79","dfnText":"publickey-credentials-create-feature","external":true,"refSections":[{"refs":[{"id":"ref-for-publickey-credentials-create-feature"}],"title":"1.2.1. Registration during a checkout"}],"url":"https://w3c.github.io/webauthn/#publickey-credentials-create-feature"},
 "22176f90": {"dfnID":"22176f90","dfnText":"payment handler","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-payment-handler"}],"title":"4.1. Payment Method: Secure Payment Confirmation"}],"url":"https://w3c.github.io/payment-request/#dfn-payment-handler"},
 "221df805": {"dfnID":"221df805","dfnText":"origin","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-collectedclientdata-origin"}],"title":"8.1. Verifying an Authentication Assertion"},{"refs":[{"id":"ref-for-dom-collectedclientdata-origin\u2460"}],"title":"10.1.1. Login Attack"},{"refs":[{"id":"ref-for-dom-collectedclientdata-origin\u2461"}],"title":"10.1.2. Payment Attack"}],"url":"https://w3c.github.io/webauthn/#dom-collectedclientdata-origin"},
 "2ba936be": {"dfnID":"2ba936be","dfnText":"bidi isolation","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-bidi-isolation"}],"title":"13. Internationalization Considerations"}],"url":"https://w3c.github.io/i18n-glossary/#dfn-bidi-isolation"},
@@ -3051,7 +2990,7 @@ let dfnPanelData = {
 "3dd57d47": {"dfnID":"3dd57d47","dfnText":"residentKey","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-authenticatorselectioncriteria-residentkey"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey"},
 "43ac8374": {"dfnID":"43ac8374","dfnText":"origin (for environment settings object)","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-settings-object-origin"}],"title":"4.1.9. Steps to check if a payment can be made"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-origin"},
 "447b180f": {"dfnID":"447b180f","dfnText":"internal","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-authenticatortransport-internal"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-authenticatortransport-internal"},
-"47fe679e": {"dfnID":"47fe679e","dfnText":"transient activation","external":true,"refSections":[{"refs":[{"id":"ref-for-transient-activation"}],"title":"4.1.4. Modification of user activation requirement"},{"refs":[{"id":"ref-for-transient-activation\u2460"},{"id":"ref-for-transient-activation\u2461"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-transient-activation\u2462"}],"title":"11.1. Registration in a Cross-Origin iframe"}],"url":"https://html.spec.whatwg.org/multipage/interaction.html#transient-activation"},
+"47fe679e": {"dfnID":"47fe679e","dfnText":"transient activation","external":true,"refSections":[{"refs":[{"id":"ref-for-transient-activation"}],"title":"4.1.4. Modification of user activation requirement"}],"url":"https://html.spec.whatwg.org/multipage/interaction.html#transient-activation"},
 "4be6272b": {"dfnID":"4be6272b","dfnText":"success","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-success"}],"title":"9.1. Set SPC Transaction Mode"}],"url":"https://w3c.github.io/webdriver/#dfn-success"},
 "502ee54a": {"dfnID":"502ee54a","dfnText":"fetching an image resource","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-fetching-an-image-resource"}],"title":"4.1.9. Steps to check if a payment can be made"}],"url":"https://w3c.github.io/image-resource/#dfn-fetching-an-image-resource"},
 "53275e46": {"dfnID":"53275e46","dfnText":"append","external":true,"refSections":[{"refs":[{"id":"ref-for-list-append"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://infra.spec.whatwg.org/#list-append"},
@@ -3072,7 +3011,7 @@ let dfnPanelData = {
 "6f6046b7": {"dfnID":"6f6046b7","dfnText":"allowCredentials","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialrequestoptions-allowcredentials"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials"},
 "7482107b": {"dfnID":"7482107b","dfnText":"WebDriver error code","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-error-code"},{"id":"ref-for-dfn-error-code\u2460"}],"title":"9.1. Set SPC Transaction Mode"}],"url":"https://w3c.github.io/webdriver/#dfn-error-code"},
 "75f46ef4": {"dfnID":"75f46ef4","dfnText":"payment method","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-payment-method"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-dfn-payment-method\u2460"}],"title":"4. Authentication"}],"url":"https://w3c.github.io/payment-request/#dfn-payment-method"},
-"77a62788": {"dfnID":"77a62788","dfnText":"relying party","external":true,"refSections":[{"refs":[{"id":"ref-for-relying-party"},{"id":"ref-for-relying-party\u2460"},{"id":"ref-for-relying-party\u2461"},{"id":"ref-for-relying-party\u2462"},{"id":"ref-for-relying-party\u2463"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-relying-party\u2464"}],"title":"1.1.1. Cryptographic evidence of transaction confirmation"},{"refs":[{"id":"ref-for-relying-party\u2465"}],"title":"1.1.2. Registration in a third-party iframe"},{"refs":[{"id":"ref-for-relying-party\u2466"},{"id":"ref-for-relying-party\u2467"},{"id":"ref-for-relying-party\u2468"}],"title":"1.1.3. Merchant control of authentication"},{"refs":[{"id":"ref-for-relying-party\u2460\u24ea"},{"id":"ref-for-relying-party\u2460\u2460"},{"id":"ref-for-relying-party\u2460\u2461"},{"id":"ref-for-relying-party\u2460\u2462"},{"id":"ref-for-relying-party\u2460\u2463"}],"title":"2. Terminology"},{"refs":[{"id":"ref-for-relying-party\u2460\u2464"}],"title":"4. Authentication"},{"refs":[{"id":"ref-for-relying-party\u2460\u2465"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-relying-party\u2460\u2466"},{"id":"ref-for-relying-party\u2460\u2467"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-relying-party\u2460\u2468"}],"title":"5.2. CollectedClientAdditionalPaymentData Dictionary"},{"refs":[{"id":"ref-for-relying-party\u2461\u24ea"},{"id":"ref-for-relying-party\u2461\u2460"}],"title":"6.1. PaymentCredentialInstrument Dictionary"},{"refs":[{"id":"ref-for-relying-party\u2461\u2461"},{"id":"ref-for-relying-party\u2461\u2462"},{"id":"ref-for-relying-party\u2461\u2463"},{"id":"ref-for-relying-party\u2461\u2464"},{"id":"ref-for-relying-party\u2461\u2465"},{"id":"ref-for-relying-party\u2461\u2466"},{"id":"ref-for-relying-party\u2461\u2467"},{"id":"ref-for-relying-party\u2461\u2468"}],"title":"8.1. Verifying an Authentication Assertion"},{"refs":[{"id":"ref-for-relying-party\u2462\u24ea"},{"id":"ref-for-relying-party\u2462\u2460"}],"title":"10.1. Cross-origin authentication ceremony"},{"refs":[{"id":"ref-for-relying-party\u2462\u2461"},{"id":"ref-for-relying-party\u2462\u2462"},{"id":"ref-for-relying-party\u2462\u2463"},{"id":"ref-for-relying-party\u2462\u2464"},{"id":"ref-for-relying-party\u2462\u2465"},{"id":"ref-for-relying-party\u2462\u2466"},{"id":"ref-for-relying-party\u2462\u2467"}],"title":"10.1.1. Login Attack"},{"refs":[{"id":"ref-for-relying-party\u2462\u2468"},{"id":"ref-for-relying-party\u2463\u24ea"},{"id":"ref-for-relying-party\u2463\u2460"}],"title":"10.1.2. Payment Attack"},{"refs":[{"id":"ref-for-relying-party\u2463\u2461"},{"id":"ref-for-relying-party\u2463\u2462"}],"title":"10.2. Merchant-supplied authentication data"},{"refs":[{"id":"ref-for-relying-party\u2463\u2463"},{"id":"ref-for-relying-party\u2463\u2464"}],"title":"11.2. Probing for credential ids"},{"refs":[{"id":"ref-for-relying-party\u2463\u2465"},{"id":"ref-for-relying-party\u2463\u2466"},{"id":"ref-for-relying-party\u2463\u2467"},{"id":"ref-for-relying-party\u2463\u2468"},{"id":"ref-for-relying-party\u2464\u24ea"}],"title":"11.3. Joining different payment instruments"},{"refs":[{"id":"ref-for-relying-party\u2464\u2460"},{"id":"ref-for-relying-party\u2464\u2461"},{"id":"ref-for-relying-party\u2464\u2462"}],"title":"11.4. Credential ID(s) as a tracking vector"}],"url":"https://w3c.github.io/webauthn/#relying-party"},
+"77a62788": {"dfnID":"77a62788","dfnText":"relying party","external":true,"refSections":[{"refs":[{"id":"ref-for-relying-party"},{"id":"ref-for-relying-party\u2460"},{"id":"ref-for-relying-party\u2461"},{"id":"ref-for-relying-party\u2462"},{"id":"ref-for-relying-party\u2463"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-relying-party\u2464"}],"title":"1.1.1. Cryptographic evidence of transaction confirmation"},{"refs":[{"id":"ref-for-relying-party\u2465"},{"id":"ref-for-relying-party\u2466"},{"id":"ref-for-relying-party\u2467"}],"title":"1.1.2. Merchant control of authentication"},{"refs":[{"id":"ref-for-relying-party\u2468"},{"id":"ref-for-relying-party\u2460\u24ea"},{"id":"ref-for-relying-party\u2460\u2460"},{"id":"ref-for-relying-party\u2460\u2461"},{"id":"ref-for-relying-party\u2460\u2462"}],"title":"2. Terminology"},{"refs":[{"id":"ref-for-relying-party\u2460\u2463"}],"title":"4. Authentication"},{"refs":[{"id":"ref-for-relying-party\u2460\u2464"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-relying-party\u2460\u2465"},{"id":"ref-for-relying-party\u2460\u2466"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-relying-party\u2460\u2467"}],"title":"5.2. CollectedClientAdditionalPaymentData Dictionary"},{"refs":[{"id":"ref-for-relying-party\u2460\u2468"},{"id":"ref-for-relying-party\u2461\u24ea"}],"title":"6.1. PaymentCredentialInstrument Dictionary"},{"refs":[{"id":"ref-for-relying-party\u2461\u2460"},{"id":"ref-for-relying-party\u2461\u2461"},{"id":"ref-for-relying-party\u2461\u2462"},{"id":"ref-for-relying-party\u2461\u2463"},{"id":"ref-for-relying-party\u2461\u2464"},{"id":"ref-for-relying-party\u2461\u2465"},{"id":"ref-for-relying-party\u2461\u2466"},{"id":"ref-for-relying-party\u2461\u2467"}],"title":"8.1. Verifying an Authentication Assertion"},{"refs":[{"id":"ref-for-relying-party\u2461\u2468"},{"id":"ref-for-relying-party\u2462\u24ea"}],"title":"10.1. Cross-origin authentication ceremony"},{"refs":[{"id":"ref-for-relying-party\u2462\u2460"},{"id":"ref-for-relying-party\u2462\u2461"},{"id":"ref-for-relying-party\u2462\u2462"},{"id":"ref-for-relying-party\u2462\u2463"},{"id":"ref-for-relying-party\u2462\u2464"},{"id":"ref-for-relying-party\u2462\u2465"},{"id":"ref-for-relying-party\u2462\u2466"}],"title":"10.1.1. Login Attack"},{"refs":[{"id":"ref-for-relying-party\u2462\u2467"},{"id":"ref-for-relying-party\u2462\u2468"},{"id":"ref-for-relying-party\u2463\u24ea"}],"title":"10.1.2. Payment Attack"},{"refs":[{"id":"ref-for-relying-party\u2463\u2460"},{"id":"ref-for-relying-party\u2463\u2461"}],"title":"10.2. Merchant-supplied authentication data"},{"refs":[{"id":"ref-for-relying-party\u2463\u2462"},{"id":"ref-for-relying-party\u2463\u2463"}],"title":"11.1. Probing for credential ids"},{"refs":[{"id":"ref-for-relying-party\u2463\u2464"},{"id":"ref-for-relying-party\u2463\u2465"},{"id":"ref-for-relying-party\u2463\u2466"},{"id":"ref-for-relying-party\u2463\u2467"},{"id":"ref-for-relying-party\u2463\u2468"}],"title":"11.2. Joining different payment instruments"},{"refs":[{"id":"ref-for-relying-party\u2464\u24ea"},{"id":"ref-for-relying-party\u2464\u2460"},{"id":"ref-for-relying-party\u2464\u2461"}],"title":"11.3. Credential ID(s) as a tracking vector"}],"url":"https://w3c.github.io/webauthn/#relying-party"},
 "79cad4dd": {"dfnID":"79cad4dd","dfnText":"valid domain","external":true,"refSections":[{"refs":[{"id":"ref-for-valid-domain"}],"title":"4.1.8. Steps to validate payment method data"}],"url":"https://url.spec.whatwg.org/#valid-domain"},
 "7a83f58e": {"dfnID":"7a83f58e","dfnText":"challenge (for PublicKeyCredentialRequestOptions)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialrequestoptions-challenge"}],"title":"1.1.1. Cryptographic evidence of transaction confirmation"},{"refs":[{"id":"ref-for-dom-publickeycredentialrequestoptions-challenge\u2460"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge"},
 "7ab3c32e": {"dfnID":"7ab3c32e","dfnText":"standardized payment method identifier","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-standardized-payment-method-identifier"}],"title":"4.1.1. Payment Method Identifier"}],"url":"https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier"},
@@ -3098,11 +3037,12 @@ let dfnPanelData = {
 "a72449dd": {"dfnID":"a72449dd","dfnText":"in parallel","external":true,"refSections":[{"refs":[{"id":"ref-for-in-parallel"}],"title":"7. Permissions Policy integration"}],"url":"https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel"},
 "a7e81336": {"dfnID":"a7e81336","dfnText":"preferred","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-residentkeyrequirement-preferred"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred"},
 "ab86e0f1": {"dfnID":"ab86e0f1","dfnText":"show()","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-paymentrequest-show"}],"title":"4.1.4. Modification of user activation requirement"},{"refs":[{"id":"ref-for-dom-paymentrequest-show\u2460"}],"title":"4.1.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-dom-paymentrequest-show\u2461"},{"id":"ref-for-dom-paymentrequest-show\u2462"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-dom-paymentrequest-show\u2463"}],"title":"10.3. Lack of user activation requirement"}],"url":"https://w3c.github.io/payment-request/#dom-paymentrequest-show"},
-"aca22383": {"dfnID":"aca22383","dfnText":"consume user activation","external":true,"refSections":[{"refs":[{"id":"ref-for-consume-user-activation"}],"title":"4.1.4. Modification of user activation requirement"},{"refs":[{"id":"ref-for-consume-user-activation\u2460"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation"},
+"abd7d801": {"dfnID":"abd7d801","dfnText":"Create Permissions Policy","external":true,"refSections":[{"refs":[{"id":"ref-for-credential-type-registry-create-permissions-policy"}],"title":"7. Permissions Policy integration"}],"url":"https://w3c.github.io/webappsec-credential-management/#credential-type-registry-create-permissions-policy"},
+"aca22383": {"dfnID":"aca22383","dfnText":"consume user activation","external":true,"refSections":[{"refs":[{"id":"ref-for-consume-user-activation"}],"title":"4.1.4. Modification of user activation requirement"}],"url":"https://html.spec.whatwg.org/multipage/interaction.html#consume-user-activation"},
 "af57cf45": {"dfnID":"af57cf45","dfnText":"extensions","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialrequestoptions-extensions"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions"},
 "b0d7f3c3": {"dfnID":"b0d7f3c3","dfnText":"USVString","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-USVString"},{"id":"ref-for-idl-USVString\u2460"},{"id":"ref-for-idl-USVString\u2461"},{"id":"ref-for-idl-USVString\u2462"},{"id":"ref-for-idl-USVString\u2463"},{"id":"ref-for-idl-USVString\u2464"},{"id":"ref-for-idl-USVString\u2465"},{"id":"ref-for-idl-USVString\u2466"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-idl-USVString\u2467"},{"id":"ref-for-idl-USVString\u2468"},{"id":"ref-for-idl-USVString\u2460\u24ea"},{"id":"ref-for-idl-USVString\u2460\u2460"},{"id":"ref-for-idl-USVString\u2460\u2461"},{"id":"ref-for-idl-USVString\u2460\u2462"},{"id":"ref-for-idl-USVString\u2460\u2463"},{"id":"ref-for-idl-USVString\u2460\u2464"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-idl-USVString\u2460\u2465"},{"id":"ref-for-idl-USVString\u2460\u2466"},{"id":"ref-for-idl-USVString\u2460\u2467"},{"id":"ref-for-idl-USVString\u2460\u2468"},{"id":"ref-for-idl-USVString\u2461\u24ea"},{"id":"ref-for-idl-USVString\u2461\u2460"},{"id":"ref-for-idl-USVString\u2461\u2461"},{"id":"ref-for-idl-USVString\u2461\u2462"}],"title":"5.2. CollectedClientAdditionalPaymentData Dictionary"},{"refs":[{"id":"ref-for-idl-USVString\u2461\u2463"},{"id":"ref-for-idl-USVString\u2461\u2464"},{"id":"ref-for-idl-USVString\u2461\u2465"},{"id":"ref-for-idl-USVString\u2461\u2466"}],"title":"6.1. PaymentCredentialInstrument Dictionary"}],"url":"https://webidl.spec.whatwg.org/#idl-USVString"},
-"b0f5bc03": {"dfnID":"b0f5bc03","dfnText":"create()","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-credentialscontainer-create"}],"title":"3. Registration"},{"refs":[{"id":"ref-for-dom-credentialscontainer-create\u2460"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-dom-credentialscontainer-create\u2461"}],"title":"11.1. Registration in a Cross-Origin iframe"}],"url":"https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create"},
-"b1c1965a": {"dfnID":"b1c1965a","dfnText":"OptOutError","external":true,"refSections":[{"refs":[{"id":"ref-for-optouterror"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-optouterror\u2460"},{"id":"ref-for-optouterror\u2461"}],"title":"11.5. User opt out"}],"url":"https://webidl.spec.whatwg.org/#optouterror"},
+"b0f5bc03": {"dfnID":"b0f5bc03","dfnText":"create()","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-credentialscontainer-create"}],"title":"3. Registration"}],"url":"https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create"},
+"b1c1965a": {"dfnID":"b1c1965a","dfnText":"OptOutError","external":true,"refSections":[{"refs":[{"id":"ref-for-optouterror"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-optouterror\u2460"},{"id":"ref-for-optouterror\u2461"}],"title":"11.4. User opt out"}],"url":"https://webidl.spec.whatwg.org/#optouterror"},
 "b29c33d9": {"dfnID":"b29c33d9","dfnText":"payment request details","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-details"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/payment-request/#dfn-details"},
 "b6a00a38": {"dfnID":"b6a00a38","dfnText":"extension identifier","external":true,"refSections":[{"refs":[{"id":"ref-for-extension-identifier"}],"title":"14. IANA Considerations"}],"url":"https://w3c.github.io/webauthn/#extension-identifier"},
 "b6db798e": {"dfnID":"b6db798e","dfnText":"AuthenticationExtensionsClientInputs","external":true,"refSections":[{"refs":[{"id":"ref-for-dictdef-authenticationextensionsclientinputs"},{"id":"ref-for-dictdef-authenticationextensionsclientinputs\u2460"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dictdef-authenticationextensionsclientinputs\u2461"}],"title":"4.1.11. Steps to respond to a payment request"},{"refs":[{"id":"ref-for-dictdef-authenticationextensionsclientinputs\u2462"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs"},
@@ -3111,7 +3051,7 @@ let dfnPanelData = {
 "ba556545": {"dfnID":"ba556545","dfnText":"NotAllowedError","external":true,"refSections":[{"refs":[{"id":"ref-for-notallowederror"}],"title":"4.1.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-notallowederror\u2460"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://webidl.spec.whatwg.org/#notallowederror"},
 "bd0c1062": {"dfnID":"bd0c1062","dfnText":"publicKey","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-credentialrequestoptions-publickey"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey"},
 "bdbd19d1": {"dfnID":"bdbd19d1","dfnText":"Promise","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-promise"}],"title":"4.1.7. Checking if Secure Payment Confirmation is available"}],"url":"https://webidl.spec.whatwg.org/#idl-promise"},
-"c3e881ef": {"dfnID":"c3e881ef","dfnText":"SecurityError","external":true,"refSections":[{"refs":[{"id":"ref-for-securityerror"}],"title":"4.1.4. Modification of user activation requirement"},{"refs":[{"id":"ref-for-securityerror\u2460"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://webidl.spec.whatwg.org/#securityerror"},
+"c3e881ef": {"dfnID":"c3e881ef","dfnText":"SecurityError","external":true,"refSections":[{"refs":[{"id":"ref-for-securityerror"}],"title":"4.1.4. Modification of user activation requirement"}],"url":"https://webidl.spec.whatwg.org/#securityerror"},
 "c63519ed": {"dfnID":"c63519ed","dfnText":"top-level origin","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-environment-top-level-origin"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-environment-top-level-origin"},
 "c7e62ce0": {"dfnID":"c7e62ce0","dfnText":"user member","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialcreationoptions-user"}],"title":"3. Registration"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-user"},
 "c92c9b81": {"dfnID":"c92c9b81","dfnText":"relying party identifier","external":true,"refSections":[{"refs":[{"id":"ref-for-relying-party-identifier"},{"id":"ref-for-relying-party-identifier\u2460"}],"title":"2. Terminology"},{"refs":[{"id":"ref-for-relying-party-identifier\u2461"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"}],"url":"https://w3c.github.io/webauthn/#relying-party-identifier"},
@@ -3126,8 +3066,8 @@ let dfnPanelData = {
 "d826f552": {"dfnID":"d826f552","dfnText":"transports","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialdescriptor-transports"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports"},
 "dae0bfde": {"dfnID":"dae0bfde","dfnText":"serialization of an origin","external":true,"refSections":[{"refs":[{"id":"ref-for-ascii-serialisation-of-an-origin"}],"title":"4.1.9. Steps to check if a payment can be made"}],"url":"https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin"},
 "dafe96b4": {"dfnID":"dafe96b4","dfnText":"rpId","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialrequestoptions-rpid"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid"},
-"dc24f2fe": {"dfnID":"dc24f2fe","dfnText":"payment permission string","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-payment"}],"title":"1.2.1. Registration during a checkout"},{"refs":[{"id":"ref-for-dfn-payment\u2460"}],"title":"7. Permissions Policy integration"},{"refs":[{"id":"ref-for-dfn-payment\u2461"}],"title":"11.1. Registration in a Cross-Origin iframe"}],"url":"https://w3c.github.io/payment-request/#dfn-payment"},
-"dca2de17": {"dfnID":"dca2de17","dfnText":"DOMException","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-DOMException"}],"title":"4.1.4. Modification of user activation requirement"},{"refs":[{"id":"ref-for-idl-DOMException\u2460"}],"title":"4.1.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-idl-DOMException\u2461"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-idl-DOMException\u2462"},{"id":"ref-for-idl-DOMException\u2463"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://webidl.spec.whatwg.org/#idl-DOMException"},
+"dc24f2fe": {"dfnID":"dc24f2fe","dfnText":"payment permission string","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-payment"},{"id":"ref-for-dfn-payment\u2460"}],"title":"7. Permissions Policy integration"}],"url":"https://w3c.github.io/payment-request/#dfn-payment"},
+"dca2de17": {"dfnID":"dca2de17","dfnText":"DOMException","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-DOMException"}],"title":"4.1.4. Modification of user activation requirement"},{"refs":[{"id":"ref-for-idl-DOMException\u2460"}],"title":"4.1.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-idl-DOMException\u2461"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-idl-DOMException\u2462"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://webidl.spec.whatwg.org/#idl-DOMException"},
 "dd14e576": {"dfnID":"dd14e576","dfnText":"[[Create]](origin, options, sameOriginWithAncestors)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredential-create-slot"}],"title":"7. Permissions Policy integration"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot"},
 "dd8fd6f0": {"dfnID":"dd8fd6f0","dfnText":"canMakePayment()","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-paymentrequest-canmakepayment"}],"title":"4.1.7. Checking if Secure Payment Confirmation is available"}],"url":"https://w3c.github.io/payment-request/#dom-paymentrequest-canmakepayment"},
 "de38fdaf": {"dfnID":"de38fdaf","dfnText":"userVerification (for AuthenticatorSelectionCriteria)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-authenticatorselectioncriteria-userverification"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification"},
@@ -3165,16 +3105,16 @@ let dfnPanelData = {
 "dom-securepaymentconfirmationrequest-payeename": {"dfnID":"dom-securepaymentconfirmationrequest-payeename","dfnText":"payeeName","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename\u2460"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename\u2461"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename\u2462"}],"title":"4.1.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename\u2463"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-payeename"},
 "dom-securepaymentconfirmationrequest-payeeorigin": {"dfnID":"dom-securepaymentconfirmationrequest-payeeorigin","dfnText":"payeeOrigin","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2460"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2461"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2462"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2463"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2464"}],"title":"4.1.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2465"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2466"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2467"}],"title":"4.1.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2468"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-payeeorigin"},
 "dom-securepaymentconfirmationrequest-rpid": {"dfnID":"dom-securepaymentconfirmationrequest-rpid","dfnText":"rpId","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-rpid"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-rpid\u2460"}],"title":"4.1.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-rpid\u2461"},{"id":"ref-for-dom-securepaymentconfirmationrequest-rpid\u2462"},{"id":"ref-for-dom-securepaymentconfirmationrequest-rpid\u2463"}],"title":"4.1.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-rpid\u2464"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-rpid\u2465"},{"id":"ref-for-dom-securepaymentconfirmationrequest-rpid\u2466"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-rpid"},
-"dom-securepaymentconfirmationrequest-showoptout": {"dfnID":"dom-securepaymentconfirmationrequest-showoptout","dfnText":"showOptOut","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout\u2460"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout\u2461"}],"title":"11.5. User opt out"}],"url":"#dom-securepaymentconfirmationrequest-showoptout"},
+"dom-securepaymentconfirmationrequest-showoptout": {"dfnID":"dom-securepaymentconfirmationrequest-showoptout","dfnText":"showOptOut","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout\u2460"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout\u2461"}],"title":"11.4. User opt out"}],"url":"#dom-securepaymentconfirmationrequest-showoptout"},
 "dom-securepaymentconfirmationrequest-timeout": {"dfnID":"dom-securepaymentconfirmationrequest-timeout","dfnText":"timeout","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-timeout"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-timeout\u2460"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-timeout"},
 "e4d7113a": {"dfnID":"e4d7113a","dfnText":"credential ID","external":true,"refSections":[{"refs":[{"id":"ref-for-credential-id"},{"id":"ref-for-credential-id\u2460"}],"title":"2. Terminology"}],"url":"https://w3c.github.io/webauthn/#credential-id"},
 "e8aa4aef": {"dfnID":"e8aa4aef","dfnText":"src","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-imageresource-src"}],"title":"4.1.9. Steps to check if a payment can be made"}],"url":"https://w3c.github.io/image-resource/#dom-imageresource-src"},
 "e97a9688": {"dfnID":"e97a9688","dfnText":"unsigned long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-long"},{"id":"ref-for-idl-unsigned-long\u2460"}],"title":"4.1.5. SecurePaymentConfirmationRequest Dictionary"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-long"},
-"e99bd18e": {"dfnID":"e99bd18e","dfnText":"relevant global object","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-relevant-global"},{"id":"ref-for-concept-relevant-global\u2460"}],"title":"4.1.4. Modification of user activation requirement"},{"refs":[{"id":"ref-for-concept-relevant-global\u2461"},{"id":"ref-for-concept-relevant-global\u2462"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global"},
+"e99bd18e": {"dfnID":"e99bd18e","dfnText":"relevant global object","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-relevant-global"},{"id":"ref-for-concept-relevant-global\u2460"}],"title":"4.1.4. Modification of user activation requirement"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global"},
 "ec878a66": {"dfnID":"ec878a66","dfnText":"RangeError","external":true,"refSections":[{"refs":[{"id":"ref-for-exceptiondef-rangeerror"}],"title":"4.1.3. Modification of Payment Request constructor"},{"refs":[{"id":"ref-for-exceptiondef-rangeerror\u2460"},{"id":"ref-for-exceptiondef-rangeerror\u2461"}],"title":"4.1.8. Steps to validate payment method data"}],"url":"https://webidl.spec.whatwg.org/#exceptiondef-rangeerror"},
 "f580b6a5": {"dfnID":"f580b6a5","dfnText":"type (for PublicKeyCredentialDescriptor)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialdescriptor-type"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type"},
-"f679a0bc": {"dfnID":"f679a0bc","dfnText":"PaymentRequest","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-paymentrequest"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-dom-paymentrequest\u2460"},{"id":"ref-for-dom-paymentrequest\u2461"}],"title":"4.1.7. Checking if Secure Payment Confirmation is available"},{"refs":[{"id":"ref-for-dom-paymentrequest\u2462"}],"title":"4.1.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-paymentrequest\u2463"}],"title":"4.1.11. Steps to respond to a payment request"},{"refs":[{"id":"ref-for-dom-paymentrequest\u2464"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/payment-request/#dom-paymentrequest"},
-"fe1cbc76": {"dfnID":"fe1cbc76","dfnText":"public key credential","external":true,"refSections":[{"refs":[{"id":"ref-for-public-key-credential"},{"id":"ref-for-public-key-credential\u2460"}],"title":"2. Terminology"},{"refs":[{"id":"ref-for-public-key-credential\u2461"}],"title":"11.2. Probing for credential ids"}],"url":"https://w3c.github.io/webauthn/#public-key-credential"},
+"f679a0bc": {"dfnID":"f679a0bc","dfnText":"PaymentRequest","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-paymentrequest"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-dom-paymentrequest\u2460"},{"id":"ref-for-dom-paymentrequest\u2461"}],"title":"4.1.7. Checking if Secure Payment Confirmation is available"},{"refs":[{"id":"ref-for-dom-paymentrequest\u2462"}],"title":"4.1.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-paymentrequest\u2463"}],"title":"4.1.11. Steps to respond to a payment request"},{"refs":[{"id":"ref-for-dom-paymentrequest\u2464"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-dom-paymentrequest\u2465"}],"title":"7. Permissions Policy integration"}],"url":"https://w3c.github.io/payment-request/#dom-paymentrequest"},
+"fe1cbc76": {"dfnID":"fe1cbc76","dfnText":"public key credential","external":true,"refSections":[{"refs":[{"id":"ref-for-public-key-credential"},{"id":"ref-for-public-key-credential\u2460"}],"title":"2. Terminology"},{"refs":[{"id":"ref-for-public-key-credential\u2461"}],"title":"11.1. Probing for credential ids"}],"url":"https://w3c.github.io/webauthn/#public-key-credential"},
 "fe4adbb9": {"dfnID":"fe4adbb9","dfnText":"request a credential","external":true,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-request-a-credential"},{"id":"ref-for-abstract-opdef-request-a-credential\u2460"}],"title":"4.1.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential"},
 "secure-payment-confirmation": {"dfnID":"secure-payment-confirmation","dfnText":"secure-payment-confirmation","external":false,"refSections":[{"refs":[{"id":"ref-for-secure-payment-confirmation"}],"title":"4. Authentication"},{"refs":[{"id":"ref-for-secure-payment-confirmation\u2460"}],"title":"4.1.2. Registration in [payment-method-id]"},{"refs":[{"id":"ref-for-secure-payment-confirmation\u2461"}],"title":"4.1.3. Modification of Payment Request constructor"},{"refs":[{"id":"ref-for-secure-payment-confirmation\u2462"},{"id":"ref-for-secure-payment-confirmation\u2463"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"#secure-payment-confirmation"},
 "secure-payment-confirmation-payment-handler": {"dfnID":"secure-payment-confirmation-payment-handler","dfnText":"Secure Payment\nConfirmation payment handler","external":false,"refSections":[{"refs":[{"id":"ref-for-secure-payment-confirmation-payment-handler"}],"title":"4.1.1. Payment Method Identifier"},{"refs":[{"id":"ref-for-secure-payment-confirmation-payment-handler\u2460"}],"title":"4.1.10. Displaying a transaction confirmation UX"},{"refs":[{"id":"ref-for-secure-payment-confirmation-payment-handler\u2461"}],"title":"8.1. Verifying an Authentication Assertion"}],"url":"#secure-payment-confirmation-payment-handler"},
@@ -3655,6 +3595,7 @@ let refsData = {
 "https://w3c.github.io/payment-request/#dom-paymentrequest-constructor": {"displayText":"constructor()","export":true,"for_":["PaymentRequest"],"level":"1","normative":true,"shortname":"payment-request","spec":"payment-request","status":"current","text":"constructor()","type":"constructor","url":"https://w3c.github.io/payment-request/#dom-paymentrequest-constructor"},
 "https://w3c.github.io/payment-request/#dom-paymentrequest-show": {"displayText":"show()","export":true,"for_":["PaymentRequest"],"level":"1","normative":true,"shortname":"payment-request","spec":"payment-request","status":"current","text":"show()","type":"method","url":"https://w3c.github.io/payment-request/#dom-paymentrequest-show"},
 "https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential": {"displayText":"request a credential","export":true,"for_":[],"level":"1","normative":true,"shortname":"credential-management","spec":"credential-management-1","status":"anchor-block","text":"request a credential","type":"dfn","url":"https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential"},
+"https://w3c.github.io/webappsec-credential-management/#credential-type-registry-create-permissions-policy": {"displayText":"Create Permissions Policy","export":true,"for_":[],"level":"1","normative":true,"shortname":"credential-management","spec":"credential-management-1","status":"anchor-block","text":"create permissions policy","type":"dfn","url":"https://w3c.github.io/webappsec-credential-management/#credential-type-registry-create-permissions-policy"},
 "https://w3c.github.io/webappsec-credential-management/#dom-credential-id": {"displayText":"id","export":true,"for_":["Credential"],"level":"1","normative":true,"shortname":"credential-management","spec":"credential-management-1","status":"current","text":"id","type":"attribute","url":"https://w3c.github.io/webappsec-credential-management/#dom-credential-id"},
 "https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create": {"displayText":"create()","export":true,"for_":["CredentialsContainer"],"level":"1","normative":true,"shortname":"credential-management","spec":"credential-management-1","status":"current","text":"create()","type":"method","url":"https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-create"},
 "https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get": {"displayText":"get()","export":true,"for_":["CredentialsContainer"],"level":"1","normative":true,"shortname":"credential-management","spec":"credential-management-1","status":"current","text":"get()","type":"method","url":"https://w3c.github.io/webappsec-credential-management/#dom-credentialscontainer-get"},
@@ -3697,6 +3638,7 @@ let refsData = {
 "https://w3c.github.io/webauthn/#dom-userverificationrequirement-required": {"displayText":"required","export":true,"for_":["UserVerificationRequirement"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"required","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-userverificationrequirement-required"},
 "https://w3c.github.io/webauthn/#extension-identifier": {"displayText":"extension identifier","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"extension identifier","type":"dfn","url":"https://w3c.github.io/webauthn/#extension-identifier"},
 "https://w3c.github.io/webauthn/#public-key-credential": {"displayText":"public key credential","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"public key credential","type":"dfn","url":"https://w3c.github.io/webauthn/#public-key-credential"},
+"https://w3c.github.io/webauthn/#publickey-credentials-create-feature": {"displayText":"publickey-credentials-create-feature","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"publickey-credentials-create-feature","type":"dfn","url":"https://w3c.github.io/webauthn/#publickey-credentials-create-feature"},
 "https://w3c.github.io/webauthn/#publickeycredential": {"displayText":"PublicKeyCredential","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"PublicKeyCredential","type":"interface","url":"https://w3c.github.io/webauthn/#publickeycredential"},
 "https://w3c.github.io/webauthn/#registration-extension": {"displayText":"registration extension","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"registration extension","type":"dfn","url":"https://w3c.github.io/webauthn/#registration-extension"},
 "https://w3c.github.io/webauthn/#relying-party": {"displayText":"relying party","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"relying party","type":"dfn","url":"https://w3c.github.io/webauthn/#relying-party"},

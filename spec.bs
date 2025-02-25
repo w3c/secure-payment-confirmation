@@ -405,7 +405,7 @@ const request = new PaymentRequest([{
     ],
 
     // Caller’s requested localized experience
-    locale: ["en"], 
+    locale: ["en"],
 
     timeout: 360000,  // 6 minutes
   }], {

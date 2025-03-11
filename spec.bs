@@ -360,13 +360,13 @@ The sample code for authenticating the user follows. Note that the example code
 presumes access to await/async, for easier to read promise handling.
 
 <pre class="example" id="authentication-example" highlight="js">
-/* isSecurePaymentConfirmationAvailable indicates whether the browser */
+/* securePaymentConfirmationAvailability indicates whether the browser */
 /* supports SPC. It does not indicate whether the user has a credential */
 /* ready to go on this device. */
 const spcAvailable =
   PaymentRequest &&
-  PaymentRequest.isSecurePaymentConfirmationAvailable &&
-  (await PaymentRequest.isSecurePaymentConfirmationAvailable()) === 'available';
+  PaymentRequest.securePaymentConfirmationAvailability &&
+  (await PaymentRequest.securePaymentConfirmationAvailability()) === 'available';
 if (!spcAvailable) {
   /* Browser does not support SPC; merchant should fallback to traditional flows. */
 }
@@ -659,7 +659,7 @@ A static API is added to {{PaymentRequest}} in order to provide developers a
 simplified method of checking whether Secure Payment Confirmation is available.
 
 <xmp class="idl">
-enum IsSecurePaymentConfirmationAvailableResult {
+enum SecurePaymentConfirmationAvailability {
   "available",
   "unavailable-unknown-reason",
   "unavailable-feature-not-enabled",
@@ -668,16 +668,16 @@ enum IsSecurePaymentConfirmationAvailableResult {
 };
 
 partial interface PaymentRequest {
-    static Promise<IsSecurePaymentConfirmationAvailableResult> isSecurePaymentConfirmationAvailable();
+    static Promise<SecurePaymentConfirmationAvailability> securePaymentConfirmationAvailability();
 };
 </xmp>
 <dl dfn-type="attribute" dfn-for="PaymentRequest">
-    :   {{PaymentRequest/isSecurePaymentConfirmationAvailable()}}
+    :   {{PaymentRequest/securePaymentConfirmationAvailability()}}
     ::  Upon invocation, a promise is returned that resolves with one of the
-        members of {{IsSecurePaymentConfirmationAvailableResult}}, based on the
+        members of {{SecurePaymentConfirmationAvailability}}, based on the
         current availability of the Secure Payment Confirmation feature.
 </dl>
-<dl dfn-type="enum-value" dfn-for="IsSecurePaymentConfirmationAvailableResult">
+<dl dfn-type="enum-value" dfn-for="SecurePaymentConfirmationAvailability">
     :   <dfn>available</dfn>
     ::  Indicates that the user agent believes that the Secure Payment
         Confirmation API is available in the calling frame.
@@ -712,11 +712,11 @@ initiate a SPC flow:
 <pre class="example" id="available-example" highlight="js">
 const spcAvailable =
     PaymentRequest &&
-    PaymentRequest.isSecurePaymentConfirmationAvailable &&
-    await PaymentRequest.isSecurePaymentConfirmationAvailable() === 'available';
+    PaymentRequest.securePaymentConfirmationAvailability &&
+    await PaymentRequest.securePaymentConfirmationAvailability() === 'available';
 </pre>
 
-NOTE: The use of the static {{PaymentRequest/isSecurePaymentConfirmationAvailable}} method is recommended for
+NOTE: The use of the static {{PaymentRequest/securePaymentConfirmationAvailability}} method is recommended for
       SPC feature detection, instead of calling {{PaymentRequest/canMakePayment}} on an already-constructed
       PaymentRequest object.
 
@@ -1588,15 +1588,15 @@ they are strong, cross-site identifiers. However in order to obtain them from
 the [=Relying Party=], the merchant already needs an as-strong identifier to
 give to the [=Relying Party=] (e.g., the credit card number).
 
-## Fingerprinting via isSecurePaymentConfirmationAvailable ## {#sctn-fingerprinting-via-is-secure-payment-confirmation-available}
+## Fingerprinting via securePaymentConfirmationAvailability ## {#sctn-fingerprinting-via-is-secure-payment-confirmation-available}
 
-The {{isSecurePaymentConfirmationAvailable}} API presents a possible
+The {{securePaymentConfirmationAvailability}} API presents a possible
 fingerprinting risk, as it can silently return specific reasons that the
 Secure Payment Confirmation API is not available for a specific frame. These
 reasons are not believed to leak significant information, but should be
 considered:
 
-- {{IsSecurePaymentConfirmationAvailableResult/unavailable-feature-not-enabled}}:
+- {{SecurePaymentConfirmationAvailability/unavailable-feature-not-enabled}}:
     some risk of fingerprinting, depending on under what circumstances the user
     agent considers Secure Payment Confirmation to be available or not. User
     agents are encouraged to make Secure Payment Confirmation available to all
@@ -1605,18 +1605,18 @@ considered:
     example, a user agent may ship Secure Payment Confirmation to all users on
     a given OS but not others - this then reduces the fingerprinting risk to
     no more than the user agent string already reveals.
-- {{IsSecurePaymentConfirmationAvailableResult/unavailable-no-permission-policy}}:
+- {{SecurePaymentConfirmationAvailability/unavailable-no-permission-policy}}:
     no (additional) fingerprinting risk, as the "[=payment permission
     string|payment=]" permission policy is already silently detectable by
     attempting to construct a {{PaymentRequest}} object (construction will throw
     an error if the permission policy is not enabled).
-- {{IsSecurePaymentConfirmationAvailableResult/unavailable-no-user-verifying-platform-authenticator}}:
+- {{SecurePaymentConfirmationAvailability/unavailable-no-user-verifying-platform-authenticator}}:
     no (additional) fingerprinting risk over the existing
     {{PublicKeyCredential/isUserVerifyingPlatformAuthenticatorAvailable}} API.
 
 In addition to the above considerations, this specification allows a user agent
 to choose to return
-{{IsSecurePaymentConfirmationAvailableResult/unavailable-unknown-reason}} even
+{{SecurePaymentConfirmationAvailability/unavailable-unknown-reason}} even
 when a specific reason is known, should it wish to in order to preserve user
 privacy. This might be done in the case, e.g., that a user agent has detected
 that the current frame has already accessed other APIs that pose a

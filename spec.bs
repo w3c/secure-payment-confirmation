@@ -44,6 +44,10 @@ spec: i18n-glossary; urlPrefix: https://www.w3.org/TR/i18n-glossary/
     type: dfn
         text: locale; url: dfn-locale
 
+spec: webcrypto; urlPrefix: https://www.w3.org/TR/webcrypto-2/
+    type: idl
+        text: getRandomValues
+
 spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
     type: dfn
         text: payment method; url: dfn-payment-method
@@ -76,6 +80,11 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: extension identifier; url: extension-identifier
         text: user member; url: dom-publickeycredentialcreationoptions-user
         text: user-verifying platform authenticator; url: user-verifying-platform-authenticator
+        text: create credential async loop; url: CreateCred-async-loop
+        text: credentialPublicKey; url: authdata-attestedcredentialdata-credentialpublickey
+        text: credentialIdResult; url: assertioncreationdata-credentialidresult
+        text: base64url encoding; url: base64url-encoding
+        text: COSEAlgorithmIdentifier
 
 spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
     type: dfn
@@ -93,6 +102,8 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
 spec:fetch; type:dfn; for:/; text:request;
 spec:i18n-glossary; type:dfn; text:bidi isolation
 spec:i18n-glossary; type:dfn; text:language priority list
+spec:infra; type:dfn; text:list
+spec:infra; type:dfn; text:user agent
 spec:url; type:dfn; text:valid domain;
 spec:html; type:dfn; for:environment settings object; text:origin
 </pre>
@@ -107,6 +118,12 @@ spec:html; type:dfn; for:environment settings object; text:origin
     "IANA-WebAuthn-Registries": {
         "title": "Registries for Web Authentication (WebAuthn)",
         "href": "https://www.rfc-editor.org/rfc/rfc8809.html"
+    },
+
+    "IANA-COSE-ALGS-REG": {
+        "href": "https://www.iana.org/assignments/cose/cose.xhtml#algorithms",
+        "title": "IANA CBOR Object Signing and Encryption (COSE) Algorithms Registry",
+        "publisher": "IANA"
     }
 }
 </pre>
@@ -143,8 +160,8 @@ opt-in to allowing this behavior during credential creation.
 
 Functionally, this specification defines a new [=payment method=] for the
 {{PaymentRequest}} API, and adds a [=WebAuthn Extension=] to extend
-[[webauthn-3]] with payment-specific datastructures and to relax assumptions to
-allow the API to be called in payment contexts.
+[[webauthn-3]] with payment-specific datastructures, device binding and to
+relax assumptions to allow the API to be called in payment contexts.
 
 ## Use Cases ## {#sctn-use-cases}
 
@@ -220,6 +237,20 @@ payment service providers are likely to build them on behalf of merchants.
 
 NOTE: Relying Parties that wish to provide the authentication user experience
 may still do so using SPC from an iframe.
+
+### Cryptographic evidence of device binding ### {#sctn-use-case-device-binding}
+
+In the payments industry a signal of device possession plays an important role
+as a second factor. WebAuthn allows for synced passkeys where one credential is
+available on multiple devices ([[webauthn-3#sctn-usecase-consumer-mdc]]).
+Although syncing improves the user experience for login use cases, concerns
+have been raised that synced passkeys alone do not satisfy device possession
+requirements in some regulatory environments.
+
+These concerns motivate the inclusion of auxiliary [=key pair|public private
+key pairs=] created by the user agent where the private key only resides on
+(and is used on) one device. Such a key and its use in SPC is referred to as a
+[=browser bound key=].
 
 ## Sample API Usage Scenarios ## {#sctn-sample-scenarios}
 
@@ -315,6 +346,19 @@ const publicKey = {
   extensions: {
     "payment": {
       isPayment: true,
+      // An optional list of allowed algorithms. When not present or empty, the
+      // pubKeyCredparams are used defaulting to ES256 and RS256. In this
+      // example ES256 and RS256 are allowed and RS256 is preferred.
+      browserBoundPubKeyCredParams: [
+        {
+          type: "public-key",
+          alg: -257 // "RS256"
+        },
+        {
+          type: "public-key",
+          alg: -7 // "ES256"
+        }
+      ]
     }
   }
 };
@@ -351,13 +395,16 @@ Payment Confirmation.
 
 1. The user agrees to the payment-specific information displayed in the SPC UX,
     and performs a subsequent WebAuthn authentication ceremony. The signed
-    cryptogram is returned to the merchant.
+    cryptogram is returned to the merchant (including browser bound key outputs
+    in {{AuthenticationExtensionsPaymentOutputs}}).
 
 1. The merchant communicates the signed cryptogram to the issuing bank
     out-of-band. The issuing bank verifies the cryptogram, and knows that the
     user is valid, what payment-specific information has been displayed, and
     that the user has consented to the transaction. The issuing bank authorizes
     the transaction and the merchant finishes the checkout process for the user.
+    The issuing bank stores the [=browser bound key=]'s public key,
+    {{CollectedClientAdditionalPaymentData/browserBoundPublicKey}}.
 
 The sample code for authenticating the user follows. Note that the example code
 presumes access to await/async, for easier to read promise handling.
@@ -408,6 +455,22 @@ const request = new PaymentRequest([{
     locale: ["en"],
 
     timeout: 360000,  // 6 minutes
+
+    // An optional list of allowed algorithms defaulting to ES256 and RS256.
+    // In this example ES256 and RS256 are allowed and ES256 is preferred.
+    // Browser bound keys are not created when already present, so this
+    // list is only used when the browser bound key does need to be
+    // created.
+    browserBoundPubKeyCredParams: [
+      {
+        type: "public-key",
+        alg: -7 // "ES256"
+      },
+      {
+        type: "public-key",
+        alg: -257 // "RS256"
+      }
+    ]
   }], {
     total: {
       label: "Total",
@@ -482,6 +545,30 @@ try {
     NOTE: This property is very similar to that which is required for the
     [[webauthn-conditional-ui inline]]. It is likely that both it and SPC could
     be supported by the same underlying API.
+
+: <dfn>Browser bound key</dfn>
+:: A public-private [=key pair=] that signs over the transaction details in
+    addition to the WebAuthn credential and is tied to a single device by the
+    user agent.
+
+: <dfn>Key Pair</dfn>
+:: A key pair is a [=struct=] consisting of <dfn>public key</dfn> and
+    <dfn>private key</dfn>, implementation defined types.
+
+    Note: [=Public key=] and [=private key=] are algorithm specific parameters
+        to the cryptographic algorithms referenced by the IANA COSE Algorithms
+        registry [[!IANA-COSE-ALGS-REG]].
+
+    Note: The [=public key=] portion is returned during registration in
+        {{CollectedClientAdditionalPaymentRegistrationData}}.{{CollectedClientAdditionalPaymentRegistrationData/browserBoundPublicKey}}
+        and during payment assertion in
+        {{CollectedClientAdditionalPaymentData}}.{{CollectedClientAdditionalPaymentData/browserBoundPublicKey}}.
+
+    Note: The [=private key=] is used to generate cryptographic signatures
+        included in
+        {{BrowserBoundSignature}}.{{BrowserBoundSignature/signature}}. The user
+        agent does not export the private key and may store the private key in
+        a secure element of the device.
 
 # Registration # {#sctn-registration}
 
@@ -594,6 +681,7 @@ NOTE: This allows the user agent to not require user activation, for
         USVString payeeOrigin;
         sequence<PaymentEntityLogo> paymentEntitiesLogos;
         AuthenticationExtensionsClientInputs extensions;
+        sequence<PublicKeyCredentialParameters> browserBoundPubKeyCredParams;
         sequence<USVString> locale;
         boolean showOptOut;
     };
@@ -651,6 +739,13 @@ members:
         credential(s). The caller does not need to specify the
         [[#sctn-payment-extension-registration| payment extension]]; it is added
         automatically.
+
+    :  <dfn>browserBoundPubKeyCredParams</dfn> member
+    :: The list of allowed types of credential restricting the types of
+        cryptographic algorithms used for the browser bound key.
+
+        Note: This member will be used only if a browser bound key will need to
+              be created.
 
     :  <dfn>locale</dfn> member
     :: An optional list of well-formed [[BCP47]] language tags, in descending
@@ -1106,6 +1201,8 @@ Note: These steps are only run if the user accepts the
     :: |request|.[=payment request details|[[details]]=]["{{PaymentDetailsInit/total}}"]
     : {{AuthenticationExtensionsPaymentInputs/instrument}}
     :: |data|["{{SecurePaymentConfirmationRequest/instrument}}"]
+    : {{AuthenticationExtensionsPaymentInputs/browserBoundPubKeyCredParams}}
+    :: |data|["{{SecurePaymentConfirmationRequest/browserBoundPubKeyCredParams}}"]
 
 1. Let |extensions| be a new {{AuthenticationExtensionsClientInputs}} dictionary
     whose {{AuthenticationExtensionsClientInputs/payment}} member is set to
@@ -1197,6 +1294,7 @@ Note: Previously, the `payment` extension allowed for the creation of
 
     dictionary AuthenticationExtensionsPaymentInputs {
       boolean isPayment;
+      sequence<PublicKeyCredentialParameters> browserBoundPubKeyCredParams;
 
       // Only used for authentication.
       USVString rpId;
@@ -1234,6 +1332,13 @@ Note: Previously, the `payment` extension allowed for the creation of
       :  <dfn>instrument</dfn> member
       :: The instrument details that were displayed to the user. Only used at authentication time; not registration.
 
+      :  <dfn>browserBoundPubKeyCredParams</dfn> member
+      :: The list of allowed types of credential restricting the types of
+         cryptographic algorithms used for the browser bound key.
+
+         Note: When this member is not present, it defaults to
+         {{PublicKeyCredentialCreationOptions}}.{{PublicKeyCredentialCreationOptions/pubKeyCredParams}}.
+
     </dl>
 
 :  <dfn export>Client extension processing ([=registration extension|registration=])</dfn>
@@ -1257,7 +1362,60 @@ Note: Previously, the `payment` extension allowed for the creation of
               enrollment.https.html
             </wpt>
 
-:  <dfn export>Client extension processing ([=authentication extension|authentication=])</dfn>
+    1. Before step 13 (creating a {{CollectedClientData}}).
+
+        1. Let |bbk_allowed_algorithms| be {{AuthenticationExtensionsPaymentInputs/browserBoundPubKeyCredParams}}.
+
+        1. If
+            {{AuthenticationExtensionsPaymentInputs/browserBoundPubKeyCredParams}}
+            is empty, let |bbk_allowed_algorithms| be
+            {{PublicKeyCredentialCreationOptions}}.{{PublicKeyCredentialCreationOptions/pubKeyCredParams}}.
+
+        1. Let |bbk_and_algorithm|, |bbk_id| be the result of [=creating a key
+            pair=] using |bbk_allowed_algorithms|.
+
+        1. If the result of [=creating a key pair=] is null, skip the steps
+            below relating to |bbk_and_algorithm| and |bbk_public_key|.
+
+        1. Let |bbk_public_key| be the result of [=getting a browser bound
+            public key=] using |bbk_and_algorithm|.
+
+    1. In step 13, instead of creating the {{CollectedClientData}} create a
+        {{CollectedClientPaymentData}} whose fields are:
+
+        1. {{CollectedClientPaymentData/payment}} set to a
+            {{CollectedClientAdditionalPaymentRegistrationData}} with
+
+            : {{CollectedClientAdditionalPaymentRegistrationData/browserBoundPublicKey}}
+            :: |bbk_public_key| - The COSE_Key encoded [=public key=].
+
+        1. All other fields set as per the original step 13.
+
+    1. In [=create credential async loop|step 22=], case "any authenticator
+        indicates success", step 3, just before returning <var
+        ignore>pubKeyCred</var>:
+
+        1. [=Bind a key pair=] using |bbk_id| and <var
+            ignore>pubKeyCred</var>.{{PublicKeyCredential/[[identifier]]}}. If
+            the result is failure, then return {{UnknownError}}.
+
+        1. Let |payment_outputs| be {{AuthenticationExtensionsPaymentOutputs}} with:
+
+            : {{AuthenticationExtensionsPaymentOutputs/browserBoundSignature}}
+            :: A {{BrowserBoundSignature}} with fields:
+
+                : {{BrowserBoundSignature/signature}}
+                :: Result of [=generating a browser bound signature=] using
+                    |bbk_and_algorithm| and |clientDataJson| from
+                    [[webauthn-3#sctn-createCredential|create credential]]
+                    step&nbsp;14.
+
+        1. Set
+            [[#sctn-payment-extension-registration|"payment"]] →
+            |payment_outputs| on the
+            {{PublicKeyCredential/[[clientExtensionsResults]]}}.
+
+: <dfn export>Client extension processing ([=authentication extension|authentication=])</dfn>
 :: When [[webauthn-3#sctn-getAssertion|making an assertion]] with a
     {{AuthenticationExtensionsPaymentInputs}} |extension_inputs|:
 
@@ -1283,7 +1441,20 @@ Note: Previously, the `payment` extension allowed for the creation of
             Note: This enables cross-domain authentication ceremonies; see
                   [[#sctn-use-case-merchant-authentication]].
 
-        1. In step 9, instead of creating a {{CollectedClientData}}, instead
+        1. Before step 10, before creating a {{CollectedClientData}}.
+
+            1. Let |allowed_algorithms| be the
+                {{SecurePaymentConfirmationRequest}}.{{SecurePaymentConfirmationRequest/browserBoundPubKeyCredParams}}.
+
+            1. Let |bbk_and_algorithm| be the result of [=get or create a browser bound
+                key|getting or creating a browser bound key=] using
+                |credential_id| and |allowed_algorithms|.
+
+            1. If |bbk_and_algorithm| is null, do not include the
+                {{CollectedClientAdditionalPaymentData/browserBoundPublicKey}}
+                in subsequent steps.
+
+        1. In step 10, instead of creating a {{CollectedClientData}}, instead
             create a {{CollectedClientPaymentData}} with:
 
             1. {{CollectedClientData/type}} set to "`payment.get`"
@@ -1307,15 +1478,64 @@ Note: Previously, the `payment` extension allowed for the creation of
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/total}}"]
                 : {{CollectedClientAdditionalPaymentData/instrument}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/instrument}}"]
+                : {{CollectedClientAdditionalPaymentData/browserBoundPublicKey}}
+                :: If a bbk was created, the result of [=getting a browser
+                    bound public key=].
 
-            1. All other fields set as per the original step 9.
+            1. All other fields set as per the original step 10.
 
             <wpt>
               authentication-accepted.https.html
             </wpt>
 
+        1. During "If any authenticator indicates success"; in step&nbsp;2 when
+            setting the clientExtensionResults.
+
+            1. Let |payment_outputs| be
+                {{AuthenticationExtensionsPaymentOutputs}} with:
+
+                : {{AuthenticationExtensionsPaymentOutputs/browserBoundSignature}}
+                :: A {{BrowserBoundSignature}} with fields:
+
+                    : {{BrowserBoundSignature/signature}}
+                    :: Result of [=generating a browser bound
+                        signature=] using |bbk_and_algorithm| and
+                        |clientDataJson| from
+                        [[webauthn-3#sctn-createCredential|create credential]]
+                        step&nbsp;14.
+
+            1. Set
+                [[#sctn-payment-extension-registration|"payment"]] →
+                |payment_outputs| on the
+                {{PublicKeyCredential/[[clientExtensionsResults]]}}.
+
 :  Client extension output
-:: None
+::
+    <xmp class="idl">
+    partial dictionary AuthenticationExtensionsClientOutputs {
+      AuthenticationExtensionsPaymentOutputs payment;
+    };
+
+    dictionary AuthenticationExtensionsPaymentOutputs {
+      BrowserBoundSignature browserBoundSignature;
+    };
+
+    dictionary BrowserBoundSignature {
+      required ArrayBuffer signature;
+    };
+    </xmp>
+
+    <dl dfn-type="dict-member" dfn-for="AuthenticationExtensionsPaymentOutputs">
+      :  <dfn>browserBoundSignature</dfn> member
+      :: Outputs of the browser bound signature procedure.
+
+    </dl>
+
+    <dl dfn-type="dict-member" dfn-for="BrowserBoundSignature">
+      :  <dfn>signature</dfn> member
+      :: The output of the browser bound signing process.
+
+    </dl>
 
 :  Authenticator extension processing
 :: None
@@ -1324,7 +1544,7 @@ Note: Previously, the `payment` extension allowed for the creation of
 
 <xmp class="idl">
     dictionary CollectedClientPaymentData : CollectedClientData {
-        required CollectedClientAdditionalPaymentData payment;
+        required (CollectedClientAdditionalPaymentData or CollectedClientAdditionalPaymentRegistrationData) payment;
     };
 </xmp>
 
@@ -1347,6 +1567,7 @@ The {{CollectedClientPaymentData}} dictionary inherits from
         sequence<PaymentEntityLogo> paymentEntitiesLogos;
         required PaymentCurrencyAmount total;
         required PaymentCredentialInstrument instrument;
+        USVString browserBoundPublicKey;
     };
 </xmp>
 
@@ -1378,11 +1599,236 @@ fields:
 
     :  <dfn>instrument</dfn> member
     :: The instrument information that was displayed to the user.
+
+    :  <dfn>browserBoundPublicKey</dfn> member
+    :: The base64url encoding of the [=browser bound key=] public key. See
+        [=Base64url encoding=] in WebAuthn.
 </dl>
 
 Note that there is no `paymentRequestOrigin` field in
 {{CollectedClientAdditionalPaymentData}}, because the origin of the calling
 frame is already included in {{CollectedClientData}} of [[webauthn-3]].
+
+## <dfn dictionary>CollectedClientAdditionalPaymentRegistrationData</dfn> Dictionary ## {#sctn-collectedclientadditionalpaymentregistrationdata-dictionary}
+
+<xmp class="idl">
+    dictionary CollectedClientAdditionalPaymentRegistrationData {
+        USVString browserBoundPublicKey;
+    };
+</xmp>
+
+The {{CollectedClientAdditionalPaymentRegistrationData}} dictionary contains the following
+fields:
+
+<dl dfn-type="dict-member" dfn-for="CollectedClientAdditionalPaymentRegistrationData">
+    :  <dfn>browserBoundPublicKey</dfn> member
+    :: The base64url encoding of the [=browser bound key=] public key. See
+        [=Base64url encoding=] in WebAuthn.
+</dl>
+
+# Browser Bound Key Store # {#sctn-browser-bound-key-store}
+
+This is an internal component owned by the [=user agent=] that manages
+platform-dependant cryptographic key pairs including their association to [=SPC
+credentials=] (i.e. passkeys). This section explains the <dfn>browser bound key
+store</dfn> and procedures for creating, binding, retrieving, and signing using
+the browser bound key pairs.
+
+Note: The [=browser bound key store=] needs to generate key pairs, retrieve key
+    pairs, export public keys, and generate signatures. Many operating system
+    provide APIs that implement these operations and provide storage of the
+    private in a secure element on the device when available. For example
+    [Android
+    KeyStore](https://source.android.com/docs/security/features/keystore),
+    [Apple CryptoKit](https://developer.apple.com/documentation/cryptokit/), or
+    [Windows Cryptography API: Next
+    Generation](https://learn.microsoft.com/en-us/windows/win32/seccng/cng-portal).
+
+The browser bound key store contains the following:
+
+    : <dfn>browser_bound_map</dfn>
+    :: a map from [=Credential ID=] to a key pair identifier.
+
+    : <dfn>keypair_map</dfn>
+    :: a map from a byte array, the key pair identifier, to a [=tuple=] of the
+        public private [=key pair=] and the algorithm identifier a
+        {{COSEAlgorithmIdentifier}}.
+
+        Note: The user agent may be using a cryptographic API that provides an
+            equivalent of the [=keypair_map=] in which case the user agent would
+            delegate this aspect to the cryptographic API.
+
+## Creating a key pair ## {#sctn-creating-a-keypair}
+
+To <dfn>create a key pair</dfn> given a {{PublicKeyCredentialParameters}},
+|allowed_algorithms|, returning a [=tuple=] of the [=key pair=]
+with its {{COSEAlgorithmIdentifier}} and the byte array of the key pair
+identifier execute the following steps:
+
+Note: Generates a [=key pair=] from the allowed algorithms or default allowed
+algorithms.
+
+1. If |allowed_algorithms| [=list/is empty=], set this list to a
+    default list containing the following in order:
+    * {{PublicKeyCredentialParameters/type}} =
+        {{PublicKeyCredentialType}} with {{PublicKeyCredentialParameters/alg}} =
+        -7 ("ES256").
+    * {{PublicKeyCredentialParameters/type}} =
+        {{PublicKeyCredentialType}} with {{PublicKeyCredentialParameters/alg}} =
+        -257 ("RS256").
+
+1. [=list/Remove=] any entries from |allowed_algorithms| that are not of type
+    {{PublicKeyCredential}}.
+
+1. [=list/Remove=] any entries from |allowed_algorithms| that the user agent
+    does not support.
+
+    Note: User agents may support different sets of a cryptographic algorithms
+    on different device platforms.
+
+1. If |allowed_algorithms|'s [=list/size=] is zero, then return null.
+
+      Note: The user agent does not add any browser bound outputs in this
+      case.
+
+1. if |allowed_algorithms|'s [=list/size=] is greater than zero, then
+
+    1. Let |chosen_algorithm| be the |allowed_algorithms|[0].
+
+    1. Let |bbk| be the result of generating the public private [=key pair=]
+        using the established procedure corresponding to |chosen_algorithm|.
+        Refer to the IANA COSE Algorithms registry [[!IANA-COSE-ALGS-REG]] for
+        established key generation algorithms. If the result is failure then
+        return null.
+
+    1. Let |bbk_and_algorithm| be the [=tuple=] (|bbk|, |chosen_algorithm|).
+
+    1. Let |bbk_id| be either
+
+        1. A byte array intialized as follows:
+
+            1. Let |bbk_id| be an array of length 32.
+
+            1. Call {{Crypto/getRandomValues}}(|bbk_id|).
+
+        1. The byte array result of serialization of a keypair handle from an
+            implementation defined key generation procedure. This byte array
+            must identify the key for later retrival when [=get or create a
+            browser bound key|getting or creating a browser bound key=].
+
+        Note: Many cryptographic APIs may return an identifier, handle, or
+            wrapped key instead of the private key and along with the public
+            key. For example when the private key is stored in a secure
+            element, the private key is not directly available to the user
+            agent, and the identifier/handle/wrapped_key must be passed into
+            another function of the cryptographi API in order to be used.
+
+    1. [=map/Set=] [=keypair_map=][|bbk_id|] to |bbk_and_algorithm|.
+
+    1. Return (|bbk_and_algorithm|, |bbk_id|).
+
+Issue: The spec could specify to prefer algorithms in hardware storage (in
+    given order) then algorithms in software (in the same given order). For the
+    time being this topic may be moot since Chrome plans to support only 1
+    algorithm per platform in hardware. See [Secure Payment Confirmation issue
+    #288](https://github.com/w3c/secure-payment-confirmation/issues/288) that
+    discusses storage type of BBKs including additional topics of which storage
+    types should be allowed and exposing the storage type to the relying party.
+
+## Binding a key pair ## {#sctn-binding-a-keypair}
+
+To <dfn>bind a key pair</dfn> given the byte array containing the key pair
+identifier, |bbk_id|, and a byte array, |credential_id|, possibly returning
+failure perform the following steps:
+
+Note: Stores the browser bound key identifier in the [=browser_bound_map=] for
+the [=Credential ID=] (i.e. passkey identifier).
+
+    1. [=map/Set=] [=browser_bound_map=][|credential_id|] to |bbk_id|. Catch
+        errors {{InvalidStateError}}, {{TypeError}} and {{QuotaExceededError}}
+        then return failure.
+
+        Note: Errors may be thrown by from an underlying file system operation
+            such as {{FileSystemSyncAccessHandle/write(buffer, options)}}.
+            False is returned here which causes the user agent to avoid
+            including the browser bound key on the transaction, and in this case
+            the relying party does not get the browser bound key on this
+            transaction. On a subsequent payment assertion a new key pair
+            creation will be attempted.
+
+## Retrieving a key pair ## {#sctn-retrieving-a-browser-bound-key}
+
+To <dfn>get or create a browser bound key</dfn> given a byte array,
+|credential_id|, and a [=list=] of {{PublicKeyCredentialParameters}},
+|allowed_algorithms|, returning a [=tuple=] of [=key pair=] with its
+{{COSEAlgorithmIdentifier}}:
+
+Note: Finds an existing associated key pair for a [=Credential ID=] or creates
+a new associated key pair and returns that key pair with its algorithm.
+
+1. If [=browser_bound_map=][|credential_id|] [=map/exists=]
+
+    1. Let |bbk_id| be [=browser_bound_map=][|credential_id|].
+
+    1. Let |bbk_and_algorithm| be [=keypair_map=][|bbk_id|].
+
+1. If [=browser_bound_map=][|credential_id|] does not [=map/exist=]
+
+    1. Let (|new_bbk_and_algorithm|, |bbk_id|) be the result of
+        [=creating a key pair=] using |allowed_algorithms|.
+
+    1. Let |binding_result| be the result of [=binding a key pair=]
+        using |bbk_id| and |credential_id|. If the result is failure, then let
+        |bbk_and_algorithm| be null.
+
+    1. If |binding_result| is not failure, let |bbk_and_algorithm| be
+        |new_bbk_and_algorithm|.
+
+1. Return |bbk_and_algorithm|.
+
+## Getting the browser bound public key ## {#sctn-getting-the-bbk-public-key}
+
+To <dfn>get a browser bound public key</dfn> given the [=tuple=] of key pair
+and {{COSEAlgorithmIdentifier}}, |bbk_and_algorithm|, returning a byte array:
+
+Note: Gets the encoded [=public key=] for a [=browser bound key=].
+
+1. Let |bbk| be |bbk_and_algorithm|[0].
+
+1. Let |algorithm| be |bbk_and_algorithm|[1].
+
+1. Let |public_key| be the [=public key=] of the |bbk| retrieved according to
+    established procedures for the |algorithm|.
+
+1. Let |encoded_public_key| be the COSE_Key encoding of |public_key|. Refer to
+    [=credentialPublicKey=] from WebAuthn's
+    [[webauthn-3#sctn-attested-credential-data]].
+
+1. Return |encoded_public_key|.
+
+## Signing client data ## {#sctn-signing-client-data}
+
+To <dfn>generate a browser bound signature</dfn> given a [=tuple=] of the key
+pair and {{COSEAlgorithmIdentifier}}, |bbk_and_algorithm|, and a byte array,
+|client_data_json|, returning a byte array:
+
+Note: Signs over the {{CollectedClientData}} (including
+{{CollectedClientAdditionalPaymentData}} or
+{{CollectedClientAdditionalPaymentRegistrationData}}) with the [=browser bound
+key=]'s [=private key=].
+
+1. Let |bbk| be |bbk_and_algorithm|[0].
+
+1. Let |algorithm| be |bbk_and_algorithm|[1].
+
+1. Let |signature| be the result of performing |algorithm| using
+    the [=private key=] of |bbk| on |client_data_json|. Refer to the IANA COSE
+    Algorithms registry [[!IANA-COSE-ALGS-REG]].
+
+    Note: The result will be a cryptographic signature over |client_data_json|
+        using the [=private key=] of |bbk|.
+
+1. Return |signature|.
 
 # Common Data Structures # {#sctn-common-data-structures}
 

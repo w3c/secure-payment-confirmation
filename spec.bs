@@ -701,6 +701,10 @@ The {{SecurePaymentConfirmationAvailability}} enum contains the following member
     ::  Indicates that the Secure Payment Confirmation API is not available in
         the calling frame, because there is no [=user-verifying platform
         authenticator=] available.
+
+        Note: This information can also be obtained by calling
+              {{PublicKeyCredential/isUserVerifyingPlatformAuthenticatorAvailable}},
+              but is included as part of this API for developer ergonomics.
 </dl>
 
 Upon invocation of {{PaymentRequest/securePaymentConfirmationAvailability()}}

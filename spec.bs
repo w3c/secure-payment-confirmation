@@ -688,7 +688,7 @@ The {{SecurePaymentConfirmationAvailability}} enum contains the following member
               credential=] is or will be available.
 
     :   <dfn>unavailable-unknown-reason</dfn>
-    ::  Indicates that the Secure Payment Confirmation API is not avaiable in
+    ::  Indicates that the Secure Payment Confirmation API is not available in
         the calling frame, for an unknown reason. A user agent MAY always choose
         to return this result instead of a more specific reason, in order to
         protect user privacy.

@@ -1635,7 +1635,7 @@ considered:
     sized groups such that no (additional) fingerprinting is possible. For
     example, a user agent may ship Secure Payment Confirmation to all users on
     a given OS but not others - this then reduces the fingerprinting risk to
-    no more than the user agent string already reveals.
+    no more than what the user agent string already reveals.
 - {{SecurePaymentConfirmationAvailability/unavailable-no-permission-policy}}:
     no (additional) fingerprinting risk, as the "[=payment permission
     string|payment=]" permission policy is already silently detectable by

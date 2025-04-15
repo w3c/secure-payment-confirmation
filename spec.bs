@@ -657,6 +657,11 @@ The [=payment method additional data type=] for this payment method is
 
 A static API is added to {{PaymentRequest}} in order to provide developers a
 simplified method of checking whether Secure Payment Confirmation is available.
+This method, {{PaymentRequest/securePaymentConfirmationAvailability()}},
+returns a member of an enum either indicating that Secure Payment Confirmation
+is available, or that it is unavailable with some indication as to the
+underlying reason. The use of an enum output is intended to aid developers in
+guiding and messaging to users with regards to their authentication options.
 
 <xmp class="idl">
 enum SecurePaymentConfirmationAvailability {

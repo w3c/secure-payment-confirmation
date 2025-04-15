@@ -671,12 +671,9 @@ partial interface PaymentRequest {
     static Promise<SecurePaymentConfirmationAvailability> securePaymentConfirmationAvailability();
 };
 </xmp>
-<dl dfn-type="attribute" dfn-for="PaymentRequest">
-    :   {{PaymentRequest/securePaymentConfirmationAvailability()}}
-    ::  Upon invocation, a promise is returned that resolves with one of the
-        members of {{SecurePaymentConfirmationAvailability}}, based on the
-        current availability of the Secure Payment Confirmation feature.
-</dl>
+
+The {{SecurePaymentConfirmationAvailability}} enum contains the following members:
+
 <dl dfn-type="enum-value" dfn-for="SecurePaymentConfirmationAvailability">
     :   <dfn>available</dfn>
     ::  Indicates that the user agent believes that the Secure Payment
@@ -706,8 +703,33 @@ partial interface PaymentRequest {
         authenticator=] available.
 </dl>
 
-This allows a developer to perform the following check when deciding whether to
-initiate a SPC flow:
+Upon invocation of {{PaymentRequest/securePaymentConfirmationAvailability()}}
+in a given {{Document}} |document|, the user agent must perform the below
+steps. A user agent may at any time choose to return
+"{{SecurePaymentConfirmationAvailability/unavailable-unknown-reason}}", if
+needed to protect the privacy of the user or if a step cannot be completed for
+a user-agent specific reason.
+
+1. If the user agent does not support Secure Payment Confirmation, or it does
+    support Secure Payment Confirmation but the feature is disabled via some
+    user-agent specific mechanism, return
+    "{{SecurePaymentConfirmationAvailability/unavailable-feature-not-enabled}}".
+
+1. If the "[=payment permission string|payment=]" permission policy is not
+    enabled for |document|, return
+    "{{SecurePaymentConfirmationAvailability/unavailable-no-permission-policy}}".
+
+1. If there is no [=user-verifying platform authenticator=] available, return
+    "{{SecurePaymentConfirmationAvailability/unavailable-no-user-verifying-platform-authenticator}}".
+
+1. If there is any other reason that the Secure Payment Confirmation feature
+    would not function if called in |document|, return
+    "{{SecurePaymentConfirmationAvailability/unavailable-unknown-reason}}".
+
+1. Return "{{SecurePaymentConfirmationAvailability/available}}".
+
+This API allows a developer to perform the following check when deciding
+whether to initiate a SPC flow:
 
 <pre class="example" id="available-example" highlight="js">
 const spcAvailable =

@@ -54,6 +54,8 @@ spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
         text: steps to respond to a payment request; url: dfn-steps-to-respond-to-a-payment-request
         text: payment permission string; url: dfn-payment
         text: payment request accessibility considerations; url: accessibility-considerations
+        text: user aborts the payment request algorithm; url: dfn-user-aborts-the-payment-request
+        text: user accepts the payment request algorithm; url: dfn-user-accepts-the-payment-request
 
 spec: payment-method-id; urlPrefix: https://w3c.github.io/payment-method-id/
     type: dfn
@@ -861,28 +863,20 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
         result is `false`, remove |id| from
         |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
 
-1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is now empty,
-    return `false`. The user agent must maintain
-    [[#sctn-privacy-probing-credential-ids|authentication ceremony privacy]]
-    and not leak this lack of matching credentials to the caller, by:
-
-    1. Not allowing the caller to perform a timing attack on this outcome versus
-        the user declining to authenticate on the
-        [[#sctn-transaction-confirmation-ux|transaction confirmation UX]], e.g.,
-        by presenting an alternative interstitial that the user must interact
-        with.
-    1. Rejecting the {{PaymentRequest/show|show()}} promise with a
-        "{{NotAllowedError}}" {{DOMException}}.
-
 1. Return `true`.
 
 ## Displaying a transaction confirmation UX ## {#sctn-transaction-confirmation-ux}
 
+When {{PaymentRequest/show|PaymentRequest.show()}} is called and the [=Secure
+Payment Confirmation payment handler=] is selected (steps 19-24 of that
+algorithm), the User Agent MUST present the user with a user interface that
+allows them to select if and how they wish to proceed.
+
+### Information presented to the user ### {#sctn-information-presented}
+
 To avoid restricting User Agent implementation choice, this specification does
-not require a User Agent to display a particular user interface when
-{{PaymentRequest/show|PaymentRequest.show()}} is called and the [=Secure
-Payment Confirmation payment handler=] is selected. However, so that a
-[=Relying Party=] can trust the information included in
+not require a User Agent to display a particular user interface.  However, so
+that a [=Relying Party=] can trust the information included in
 {{CollectedClientPaymentData}}, the User Agent MUST ensure that the following
 is communicated to the user and that the user's consent is collected for the
 authentication:
@@ -912,13 +906,55 @@ website.
 If {{SecurePaymentConfirmationRequest/showOptOut}} is `true`, the user agent
 MUST give the user the opportunity to indicate that they want to opt out of the
 process for the {{SecurePaymentConfirmationRequest/rpId|given relying party}}.
-If the user indicates that they wish to opt-out, then the user agent must reject
-the {{PaymentRequest/show|show()}} promise with an
-"{{OptOutError}}" {{DOMException}}. See [[#sctn-user-opt-out]].
 
 <wpt>
   authentication-optout.https.html
 </wpt>
+
+### Outcome of the transaction confirmation UX ### {#sctn-transaction-confirmation-outcome}
+
+A User Agent MUST allow the user to indicate one of the following options as to
+if and how to proceed:
+
+<dl class="switch">
+
+:  The user wishes to proceed with the payment, using an [=SPC Credential=] to
+    authenticate,
+:: Run the [=user accepts the payment request algorithm=] on the
+    {{PaymentRequest}} the user is interacting with.
+
+:  The user wishes to proceed with the payment, but either cannot (if
+    |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is
+    empty) or does not wish to use an [=SPC Credential=],
+:: Run the following steps:
+    1. Set |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] to an
+        empty list.
+
+        Note: This will cause the {{PaymentRequest/show|PaymentRequest.show()}}
+              promise to be rejected with a "{{NotAllowedError}}"
+              {{DOMException}}; see [[#sctn-steps-to-respond-to-a-payment-request]].
+
+    1. Run the [=user accepts the payment request algorithm=] on the
+        {{PaymentRequest}} the user is interacting with.
+
+: The user does not wish to proceed with the payment,
+:: Run the [=user aborts the payment request algorithm=] on the
+    {{PaymentRequest}} the user is interacting with.
+
+    Note: This will reject the {{PaymentRequest/show|PaymentRequest.show()}}
+          promise with an "{{AbortError}}" {{DOMException}}.
+
+: The user wishes to opt out of the process for the 
+   {{SecurePaymentConfirmationRequest/rpId|given relying party}},
+:: Reject the {{PaymentRequest/show|PaymentRequest.show()}} with an
+    "{{OptOutError}}" {{DOMException}}. See [[#sctn-user-opt-out]].
+
+    Note: This option only has to be available to the user if
+          {{SecurePaymentConfirmationRequest/showOptOut}} was set to `true`.
+
+</dl>
+
+### Test automation support ### {#sctn-transaction-ux-test-automation}
 
 If the [=current transaction automation mode=] is not "`none`", the user agent
 should first verify that it is in an automation context (see
@@ -939,10 +975,21 @@ transaction automation mode=]:
     :: Act as if the user has seen the transaction details and indicated
         they want to opt out.
 
+TODO: Introduce `autoVerifyAnotherWay`.
+
 ## Steps to respond to a payment request ## {#sctn-steps-to-respond-to-a-payment-request}
 
 The [=steps to respond to a payment request=] for this payment method, for a given
 {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |data|, are:
+
+1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
+    throw a "{{NotAllowedError}}" {{DOMException}}. This preserves
+    [[webauthn-3#sctn-assertion-privacy|Authentication Ceremony Privacy]]
+    in the case where a user either cannot or does not want to use SPC to
+    authenticate.
+
+    Note: Throwing here will cause the {{PaymentRequest/show|PaymentRequest.show()}}
+          promise to be rejected with a "{{NotAllowedError}}" {{DOMException}}.
 
 1. Let |topOrigin| be the [=top-level origin=] of the [=relevant settings object=] of |request|.
 

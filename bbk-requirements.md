@@ -46,7 +46,7 @@ Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK
 
 * To meet anticipated security requirements, issuance of the BBK by the user agent should involve a device-binding process that ensures a unique connection between the user agent (user profile) and the device. This may be, for example, through hardware crypto-security (e.g., TPM), keys stored in the secure element, or registration of the web browser linking a browser to a device.
 
-* Once a BBK private key has been bound to a device, it must only ever be bound to that device.
+* Once a BBK has been bound to a device, it must only ever be bound to that device.
 
 * The user agent may return a BBK even in environments where a device-binding process is not readily available. Not every transaction requires the same level of security (e.g., low-value transactions), and so even a BBK that is not device-bound can be useful. 
 

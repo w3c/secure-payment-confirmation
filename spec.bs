@@ -945,7 +945,7 @@ if and how to proceed:
           promise with an "{{AbortError}}" {{DOMException}}.
 
 : The user wishes to opt out of the process for the 
-   {{SecurePaymentConfirmationRequest/rpId|given relying party}},
+    {{SecurePaymentConfirmationRequest/rpId|given relying party}},
 :: Reject the {{PaymentRequest/show|PaymentRequest.show()}} with an
     "{{OptOutError}}" {{DOMException}}. See [[#sctn-user-opt-out]].
 

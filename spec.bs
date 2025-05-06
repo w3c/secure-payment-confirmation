@@ -498,13 +498,19 @@ Note: At registration time, Web Authentication requires both
       consistently. Developers should continue to monitor
       implementations.
 
-# Authentication # {#sctn-authentication}
+# Authentication - the Secure Payment Confirmation payment method # {#sctn-authentication}
 
 To authenticate a payment via Secure Payment Confirmation, this specification
-defines a new [=payment method=], "[=secure-payment-confirmation=]". This
-payment method confirms the transaction with the user and then performs an
-[=authentication ceremony=] to authenticate the user and create a signed blob
-representing the authentication ceremony.
+defines:
+
+1. A [=payment handler=], the <dfn>Secure Payment Confirmation payment
+    handler</dfn>, which handles requests to authenticate a given payment.
+1. A [=standardized payment method identifier=] for this payment handler,
+    "<dfn>secure-payment-confirmation</dfn>".
+
+The [=Secure Payment Confirmation payment handler=] confirms the transaction
+with the user and then performs an [=authentication ceremony=] to authenticate
+the user and create a signed blob representing the authentication ceremony.
 
 At a high level, authentication for Secure Payment Confirmation is similar to
 [[webauthn-3]], with one major conceptual shift. Secure Payment Confirmation
@@ -518,12 +524,6 @@ from the Relying Party on some other unspecified channel. See
   authentication-requires-user-activation.https.html
 </wpt>
 
-## Payment Method: Secure Payment Confirmation ## {#sctn-payment-method-spc}
-
-This specification defines a new [=payment handler=], the <dfn>Secure Payment
-Confirmation payment handler</dfn>, which handles requests to authenticate a
-given payment.
-
 NOTE: To quickly support an initial SPC experiment, this API was designed atop
 existing implementations of the Payment Request and Payment Handler APIs. There
 is now general agreement to explore a design of SPC independent of Payment
@@ -531,12 +531,7 @@ Request. We therefore expect (without a concrete timeline) that SPC will move
 away from its Payment Request origins. For developers, this should improve
 feature detection, invocation, and other aspects of the API.
 
-### Payment Method Identifier ### {#sctn-payment-method-identifier}
-
-The [=standardized payment method identifier=] for the [=Secure Payment
-Confirmation payment handler=] is "<dfn>secure-payment-confirmation</dfn>".
-
-### Registration in [[payment-method-id]] ### {#sctn-registration-in-payment-method-id}
+## Registration in [[payment-method-id]] ## {#sctn-registration-in-payment-method-id}
 
 Add the following to the [=registry of standardized payment methods=] in
 [[payment-method-id]]:
@@ -544,7 +539,7 @@ Add the following to the [=registry of standardized payment methods=] in
     : "[=secure-payment-confirmation=]"
     :: The <a href="https://w3c.github.io/secure-payment-confirmation/">Secure Payment Confirmation</a> specification.
 
-### Modification of Payment Request constructor ### {#sctn-modify-payment-request-constructor}
+## Modification of Payment Request constructor ## {#sctn-modify-payment-request-constructor}
 
 In the steps for the {{PaymentRequest/constructor|PaymentRequest object's constructor}},
 add a new step after step 4.3:
@@ -554,7 +549,7 @@ add a new step after step 4.3:
     4. If |seenPMIs| contains "[=secure-payment-confirmation=]" and the size
         of |seenPMIs| is greater than 1, throw a {{RangeError}}.
 
-### Modification of user activation requirement ### {#sctn-modify-user-activation-requirement}
+## Modification of user activation requirement ## {#sctn-modify-user-activation-requirement}
 
 In the steps for the {{PaymentRequest/show|PaymentRequest.show()}} method,
 modify steps 2 and 3:
@@ -572,7 +567,7 @@ NOTE: This allows the user agent to not require user activation, for
       may not be present upon redirect. See
       [[#sctn-security-user-activation-requirement]] for security considerations.
 
-### <dfn dictionary>SecurePaymentConfirmationRequest</dfn> Dictionary ### {#sctn-securepaymentconfirmationrequest-dictionary}
+## <dfn dictionary>SecurePaymentConfirmationRequest</dfn> Dictionary ## {#sctn-securepaymentconfirmationrequest-dictionary}
 
 <xmp class="idl">
     dictionary SecurePaymentConfirmationRequest {
@@ -648,12 +643,12 @@ members:
         Optional, default false.
 </dl>
 
-### Payment Method additional data type ### {#sctn-payment-method-additional-data-type}
+## Payment Method additional data type ## {#sctn-payment-method-additional-data-type}
 
 The [=payment method additional data type=] for this payment method is
 {{SecurePaymentConfirmationRequest}}.
 
-### Checking if Secure Payment Confirmation is available ### {#sctn-secure-payment-confirmation-available-api}
+## Checking if Secure Payment Confirmation is available ## {#sctn-secure-payment-confirmation-available-api}
 
 A static API is added to {{PaymentRequest}} in order to provide developers a
 simplified method of checking whether Secure Payment Confirmation is available.
@@ -754,7 +749,7 @@ NOTE: The use of the static {{PaymentRequest/securePaymentConfirmationAvailabili
 Note: For privacy considerations of this API, see
       [[#sctn-fingerprinting-via-is-secure-payment-confirmation-available]].
 
-### Steps to validate payment method data ### {#sctn-steps-to-validate-payment-method-data}
+## Steps to validate payment method data ## {#sctn-steps-to-validate-payment-method-data}
 
 The [=steps to validate payment method data=] for this payment method, for an
 input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |data|, are:
@@ -804,7 +799,7 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
 
     1. If |parsedURL|'s [=url/scheme=] is not "`https`", then throw a {{TypeError}}.
 
-### Steps to check if a payment can be made ### {#sctn-steps-to-check-if-a-payment-can-be-made}
+## Steps to check if a payment can be made ## {#sctn-steps-to-check-if-a-payment-can-be-made}
 
 The [=steps to check if a payment can be made=] for this payment method, for an
 input {{SecurePaymentConfirmationRequest}} |data|, are:
@@ -880,7 +875,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
 1. Return `true`.
 
-### Displaying a transaction confirmation UX ### {#sctn-transaction-confirmation-ux}
+## Displaying a transaction confirmation UX ## {#sctn-transaction-confirmation-ux}
 
 To avoid restricting User Agent implementation choice, this specification does
 not require a User Agent to display a particular user interface when
@@ -943,7 +938,7 @@ transaction automation mode=]:
     :: Act as if the user has seen the transaction details and indicated
         they want to opt out.
 
-### Steps to respond to a payment request ### {#sctn-steps-to-respond-to-a-payment-request}
+## Steps to respond to a payment request ## {#sctn-steps-to-respond-to-a-payment-request}
 
 The [=steps to respond to a payment request=] for this payment method, for a given
 {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |data|, are:

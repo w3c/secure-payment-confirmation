@@ -30,7 +30,7 @@ Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK
 
 * A given passkey should have only one associated BBK at any given time for a given user agent user profile.
 
-* A BBK must only ever be associated with one passkey.
+* A BBK must only ever be associated with one passkey. By implication, if a passkey is deleted by the user, any associated BBK should also be deleted.
 
 * If a BBK is deleted, the user agent should generate a new BBK associated with the same passkey.
 
@@ -46,7 +46,7 @@ Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK
 
 * To meet anticipated security requirements, issuance of the BBK by the user agent should involve a device-binding process that ensures a unique connection between the user agent (user profile) and the device. This may be, for example, through hardware crypto-security (e.g., TPM), keys stored in the secure element, or registration of the web browser linking a browser to a device.
 
-* Once a BBK has been bound to a device, it must only ever be bound to that device.
+* Once a BBK has been bound to a device, it must not be usable outside that device.
 
 * The user agent may return a BBK even in environments where a device-binding process is not readily available. Not every transaction requires the same level of security (e.g., low-value transactions), and so even a BBK that is not device-bound can be useful. 
 

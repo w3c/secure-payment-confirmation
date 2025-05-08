@@ -391,6 +391,8 @@ const request = new PaymentRequest([{
     payeeName: "Merchant Shop",
     payeeOrigin: "https://merchant.example",
 
+    // TODO: Add example here
+
     // Caller’s requested localized experience
     locale: ["en"], 
 
@@ -579,6 +581,7 @@ NOTE: This allows the user agent to not require user activation, for
         unsigned long timeout;
         USVString payeeName;
         USVString payeeOrigin;
+        sequence<FacilitatingEntityLogo> facilitatingEntityLogos;
         AuthenticationExtensionsClientInputs extensions;
         sequence<USVString> locale;
         boolean showOptOut;
@@ -618,6 +621,12 @@ members:
     :: The [=/origin=] of the payee that this SPC call is for (e.g., the
         merchant). Optional, may be provided alongside or instead of
         {{SecurePaymentConfirmationRequest/payeeName}}.
+
+    :  <dfn>facilitatingEntityLogos</dfn> member
+    :: An optional list of logos representing entities that are facilitating
+        the payment that this SPC call is for, in descending order of
+        importance. The user agent is not required to show any or all of the
+        logos, see the [[#sctn-steps-to-check-if-a-payment-can-be-made]].
 
     :  <dfn>extensions</dfn> member
     :: Any [=WebAuthn extensions=] that should be used for the passed
@@ -800,6 +809,18 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
 
     1. If |parsedURL|'s [=url/scheme=] is not "`https`", then throw a {{TypeError}}.
 
+1. If |data|["{{SecurePaymentConfirmationRequest/facilitatingEntityLogos}}"] is
+    present and non-empty:
+
+    1. For each |logo| in
+        |data|["{{SecurePaymentConfirmationRequest/facilitatingEntityLogos}}"]:
+
+        1. If |logo|["{{FacilitatingEntityLogo/url}}"] is empty, throw a
+            {{TypeError}}.
+
+        1. Run the URL parser on |logo|["{{FacilitatingEntityLogo/url}}"]. If
+            this returns failure, throw a {{TypeError}}.
+
 ## Steps to check if a payment can be made ## {#sctn-steps-to-check-if-a-payment-can-be-made}
 
 The [=steps to check if a payment can be made=] for this payment method, for an
@@ -843,6 +864,25 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
         string.
 
     Note: The image resource must be fetched whether or not any credential
+    matches, to defeat attempts to [[#sctn-privacy-probing-credential-ids|probe
+    for credential existence]].
+
+1. Optionally, the user agent may remove entries from
+    |data|["{{SecurePaymentConfirmationRequest/facilitatingEntityLogos}}"],
+    starting from the back of the list and moving backwards.
+
+    Note: This allows the user agent to control how many logos it will display,
+    while preserving the semantics that logos are in decreasing order of
+    importance to the caller.
+
+1. For each |logo| in |data|["{{SecurePaymentConfirmationRequest/facilitatingEntityLogos}}"]:
+
+    1. [=fetch an image resource|Fetch the image resource=] for the |logo|, passing
+        «["{{ImageResource/src}}" → |logo|["{{FacilitatingEntityLogo/url}}"]»
+        for *image*. If this fails, remove |logo| from
+        |data|["{{SecurePaymentConfirmationRequest/facilitatingEntityLogos}}"].
+
+    Note: The logo resources must be fetched whether or not any credential
     matches, to defeat attempts to [[#sctn-privacy-probing-credential-ids|probe
     for credential existence]].
 
@@ -903,6 +943,8 @@ authentication:
     {{PaymentCredentialInstrument/iconMustBeShown}} must be `false` here as
     otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps
     to check if a payment can be made]] would have failed previously.
+* The {{CollectedClientAdditionalPaymentData/facilitatingEntityLogos}}, if
+    non-empty.
 
 The user agent MAY utilize the information in
 {{SecurePaymentConfirmationRequest/locale}}, if any, to display a UX localized
@@ -961,6 +1003,9 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     : {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
     :: |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] if it is
         present, otherwise omitted.
+    : {{AuthenticationExtensionsPaymentInputs/facilitatingEntityLogos}}
+    :: |data|["{{SecurePaymentConfirmationRequest/facilitatingEntityLogos}}"] if
+        it is present and non-empty, otherwise omitted.
     : {{AuthenticationExtensionsPaymentInputs/total}}
     :: |request|.[=payment request details|[[details]]=]["{{PaymentDetailsInit/total}}"]
     : {{AuthenticationExtensionsPaymentInputs/instrument}}
@@ -1062,6 +1107,7 @@ Note: Previously, the `payment` extension allowed for the creation of
       USVString topOrigin;
       USVString payeeName;
       USVString payeeOrigin;
+      sequence<FacilitatingEntityLogo> facilitatingEntityLogos;
       PaymentCurrencyAmount total;
       PaymentCredentialInstrument instrument;
     };
@@ -1082,6 +1128,9 @@ Note: Previously, the `payment` extension allowed for the creation of
 
       :  <dfn>payeeOrigin</dfn> member
       :: The payee origin, if present, that was displayed to the user. Only used at authentication time; not registration.
+
+      :  <dfn>facilitatingEntityLogos</dfn> member
+      :: The logos, if any, that were displayed to the user representing entities that are facilitating the payment that this SPC call is for. Only used at authentication time; not registration.
 
       :  <dfn>total</dfn> member
       :: The transaction amount that was displayed to the user. Only used at authentication time; not registration.
@@ -1155,6 +1204,9 @@ Note: Previously, the `payment` extension allowed for the creation of
                 : {{CollectedClientAdditionalPaymentData/payeeOrigin}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}"]
                     if it is present, otherwise omitted.
+                : {{CollectedClientAdditionalPaymentData/facilitatingEntityLogos}}
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/facilitatingEntityLogos}}"]
+                    if it is present, otherwise omitted.
                 : {{CollectedClientAdditionalPaymentData/total}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/total}}"]
                 : {{CollectedClientAdditionalPaymentData/instrument}}
@@ -1196,6 +1248,7 @@ The {{CollectedClientPaymentData}} dictionary inherits from
         required USVString topOrigin;
         USVString payeeName;
         USVString payeeOrigin;
+        sequence<FacilitatingEntityLogo> facilitatingEntityLogos;
         required PaymentCurrencyAmount total;
         required PaymentCredentialInstrument instrument;
     };
@@ -1220,6 +1273,9 @@ fields:
 
     :  <dfn>payeeOrigin</dfn> member
     :: The origin of the payee, if present, that was displayed to the user.
+
+    :  <dfn>facilitatingEntityLogos</dfn> member
+    :: The logos, if any, that were displayed to the user representing entities that are facilitating the payment that this SPC call is for.
 
     :  <dfn>total</dfn> member
     :: The {{PaymentCurrencyAmount}} of the [[payment-request]] `total` field.
@@ -1275,6 +1331,35 @@ contains the following members:
     :  <dfn>iconMustBeShown</dfn> member
     :: Indicates whether the specified icon must be successfully fetched and shown for the
         request to succeed.
+</dl>
+
+## <dfn dictionary>FacilitatingEntityLogo</dfn> Dictionary ## {#sctn-facilitatingentitylogo-dictionary}
+
+<xmp class="idl">
+    dictionary FacilitatingEntityLogo {
+        required USVString url;
+    };
+</xmp>
+
+The {{FacilitatingEntityLogo}} dictionary contains information describing a
+logo for a payment entity that is facilitating the payment that the current
+Secure Payment Confirmation call is for. It contains the following members:
+
+<dl dfn-type="dict-member" dfn-for="FacilitatingEntityLogo">
+    :  <dfn>url</dfn> member
+    :: The URL of the logo.
+
+         NOTE: The {{FacilitatingEntityLogo/url}} may either identify
+         an image on an internet-accessible server (e.g., `https://bank.com/logo.png`),
+         or directly encode the logo data via a Data URL [[RFC2397]]. Between
+         the two types of URLs, Data URLs offer several benefits to the
+         [=Relying Party=]. They can improve reliability (e.g., in the case that
+         the logo hosting server may be unavailable). They can also enhance
+         validation because the [=Relying Party=]  has cryptographic evidence of
+         what the browser displayed to the user: the logo URL is signed as part
+         of the {{CollectedClientAdditionalPaymentData}} structure.
+
+         NOTE: See related [[#sctn-accessibility-considerations|accessibility considerations]].
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}
@@ -1349,6 +1434,13 @@ Confirmation, the [=Relying Party=] MUST proceed as follows:
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/payeeOrigin}}"]
             matches the origin of the payee that should have been displayed to the user, if any.
+
+        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/facilitatingEntityLogos}}"]
+            is a strict and ordered subset of the logos that should have been displayed to the user, if any.
+
+            Note: The user agent is permitted to not display all logos, but must
+            not include logos in the {{CollectedClientAdditionalPaymentData}}
+            that were not shown to the user.
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/total}}"]
             matches the transaction amount that should have been displayed to the user.

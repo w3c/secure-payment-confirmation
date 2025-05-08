@@ -391,7 +391,10 @@ const request = new PaymentRequest([{
     payeeName: "Merchant Shop",
     payeeOrigin: "https://merchant.example",
 
-    // TODO: Add example here
+    facilitatingEntityLogos: [
+      {url: "https://fancybank.example/logo.png"},
+      {url: "https://securenetwork.example/logo.png"},
+    ],
 
     // Caller’s requested localized experience
     locale: ["en"], 

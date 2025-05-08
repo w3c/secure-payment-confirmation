@@ -964,18 +964,22 @@ consent, and instead do the following based on the value of the [=current
 transaction automation mode=]:
 
     : "`autoAccept`"
-    :: Act as if the user has seen the transaction details and accepted
-        the authentication.
+    :: Act as if the user has seen the transaction details and accepted them.
+
+    : "`autoVerifyAnotherWay`"
+    :: Act as if the user has seen the transaction details, accepted them,
+        but also indicated that they do not wish to use an [=SPC Credential=]
+        to authenticate. If
+        |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
+        this is equivalent to "`autoAccept`".
 
     : "`autoReject`"
-    :: Act as if the user has seen the transaction details and rejected
-        the authentication.
+    :: Act as if the user has seen the transaction details and declined them
+        (that is, they do not want to continue with the transaction).
 
     : "`autoOptOut`"
     :: Act as if the user has seen the transaction details and indicated
         they want to opt out.
-
-TODO: Introduce `autoVerifyAnotherWay`.
 
 ## Steps to respond to a payment request ## {#sctn-steps-to-respond-to-a-payment-request}
 
@@ -1445,9 +1449,9 @@ The [=remote end steps=] are:
 1. Let |mode| be the result of [=getting a property=] named `"mode"` from
     |parameters|.
 
-1. If |mode| is [=undefined=] or is not one of "`autoAccept`", "`autoReject`",
-    or "`autoOptOut`", return a [=WebDriver error=] with [=WebDriver error
-    code=] [=invalid argument=].
+1. If |mode| is [=undefined=] or is not one of "`autoAccept`",
+    "`autoVerifyAnotherWay`", "`autoReject`", or "`autoOptOut`", return a
+    [=WebDriver error=] with [=WebDriver error code=] [=invalid argument=].
 
 1. Set the [=current transaction automation mode=] to |mode|.
 

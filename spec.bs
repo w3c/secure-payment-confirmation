@@ -1634,8 +1634,11 @@ If the above cases are distinguishable, information is leaked by which a
 malicious [=Relying Party=] could identify the user by probing for which
 [=public key credential|credentials=] are available.
 
-Section [[#sctn-steps-to-check-if-a-payment-can-be-made]] gives normative steps
-to mitigate this risk.
+This risk is mitigated in Secure Payment Confirmation by always showing the
+[[#sctn-transaction-confirmation-ux|transaction confirmation UX]], and
+returning the same return error (a "{{NotAllowedError}}" {{DOMException}}) in
+both the case that there is no [=SPC Credential=] available, and if there is an
+[=SPC Credential=] available but the user elects not to use it.
 
 ## Joining different payment instruments ## {#sctn-privacy-joining-payment-instruments}
 

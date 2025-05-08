@@ -628,8 +628,15 @@ members:
     :  <dfn>facilitatingEntityLogos</dfn> member
     :: An optional list of logos representing entities that are facilitating
         the payment that this SPC call is for, in descending order of
-        importance. The user agent is not required to show any or all of the
-        logos, see the [[#sctn-steps-to-check-if-a-payment-can-be-made]].
+        display priority. The user agent is not required to show any or all of
+        the logos, see the [[#sctn-steps-to-check-if-a-payment-can-be-made]].
+
+        Note: It is intentional that this specification does not specify
+        exactly how logos will be rendered, to preserve user agent control of
+        rendering and to allow them to best display the information in light of
+        many considerations and constraints. The order of logos in the list
+        does matter, however, which means that developers can experiment to
+        determine whether a particular order gives desired results.
 
     :  <dfn>extensions</dfn> member
     :: Any [=WebAuthn extensions=] that should be used for the passed
@@ -876,7 +883,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
     Note: This allows the user agent to control how many logos it will display,
     while preserving the semantics that logos are in decreasing order of
-    importance to the caller.
+    display priority to the caller.
 
 1. For each |logo| in |data|["{{SecurePaymentConfirmationRequest/facilitatingEntityLogos}}"]:
 

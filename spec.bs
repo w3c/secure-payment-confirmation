@@ -966,7 +966,7 @@ transaction automation mode=]:
     : "`autoAccept`"
     :: Act as if the user has seen the transaction details and accepted them.
 
-    : "`autoVerifyAnotherWay`"
+    : "`autoChooseToAuthAnotherWay`"
     :: Act as if the user has seen the transaction details, accepted them,
         but also indicated that they do not wish to use an [=SPC Credential=]
         to authenticate. If
@@ -983,8 +983,13 @@ transaction automation mode=]:
 
 ## Steps to respond to a payment request ## {#sctn-steps-to-respond-to-a-payment-request}
 
-The [=steps to respond to a payment request=] for this payment method, for a given
-{{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |data|, are:
+The [=steps to respond to a payment request=] for this payment method, for a
+given {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}}
+|data|, are as follows.
+
+Note: These steps are only run if the user accepts the
+      [[#sctn-transaction-confirmation-ux|transaction confirmation UX]]; they
+      are called by the [=user accepts the payment request algorithm=].
 
 1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
     throw a "{{NotAllowedError}}" {{DOMException}}. This preserves
@@ -1450,8 +1455,8 @@ The [=remote end steps=] are:
     |parameters|.
 
 1. If |mode| is [=undefined=] or is not one of "`autoAccept`",
-    "`autoVerifyAnotherWay`", "`autoReject`", or "`autoOptOut`", return a
-    [=WebDriver error=] with [=WebDriver error code=] [=invalid argument=].
+    "`autoChooseToAuthAnotherWay`", "`autoReject`", or "`autoOptOut`", return
+    a [=WebDriver error=] with [=WebDriver error code=] [=invalid argument=].
 
 1. Set the [=current transaction automation mode=] to |mode|.
 

@@ -1374,8 +1374,6 @@ Secure Payment Confirmation call is for. It contains the following members:
          validation because the [=Relying Party=]  has cryptographic evidence of
          what the browser displayed to the user: the logo URL is signed as part
          of the {{CollectedClientAdditionalPaymentData}} structure.
-
-         NOTE: See related [[#sctn-accessibility-considerations|accessibility considerations]].
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}

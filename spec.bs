@@ -392,8 +392,14 @@ const request = new PaymentRequest([{
     payeeOrigin: "https://merchant.example",
 
     paymentEntitiesLogos: [
-      {url: "https://fancybank.example/logo.png"},
-      {url: "https://securenetwork.example/logo.png"},
+      {
+        url: "https://fancybank.example/logo.png",
+        label: "Fancy Bank",
+      },
+      {
+        url: "https://securenetwork.example/logo.png",
+        label: "Secure Network",
+      },
     ],
 
     // Caller’s requested localized experience

@@ -831,6 +831,9 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
         1. Run the URL parser on |logo|["{{PaymentEntityLogo/url}}"]. If
             this returns failure, throw a {{TypeError}}.
 
+        1. If |logo|["{{PaymentEntityLogo/label}}"] is empty, throw a
+            {{TypeError}}.
+
 ## Steps to check if a payment can be made ## {#sctn-steps-to-check-if-a-payment-can-be-made}
 
 The [=steps to check if a payment can be made=] for this payment method, for an
@@ -959,8 +962,14 @@ authentication:
     {{PaymentCredentialInstrument/iconMustBeShown}} must be `false` here as
     otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps
     to check if a payment can be made]] would have failed previously.
-* The {{CollectedClientAdditionalPaymentData/paymentEntitiesLogos}}, if
+* The logos represented by the {{PaymentEntityLogo/url}} entries from
+    {{CollectedClientAdditionalPaymentData/paymentEntitiesLogos}}, if
     non-empty.
+
+      * The user is not required to display the {{PaymentEntityLogo/label}}
+         for each {{PaymentEntityLogo}}, but SHOULD use them for accessibility
+         purposes. The {{PaymentEntityLogo/label}}s will still be included and
+         signed over in the {{CollectedClientAdditionalPaymentData}}.
 
 The user agent MAY utilize the information in
 {{SecurePaymentConfirmationRequest/locale}}, if any, to display a UX localized
@@ -1354,6 +1363,7 @@ contains the following members:
 <xmp class="idl">
     dictionary PaymentEntityLogo {
         required USVString url;
+        required USVString label;
     };
 </xmp>
 
@@ -1374,6 +1384,13 @@ Secure Payment Confirmation call is for. It contains the following members:
          validation because the [=Relying Party=]  has cryptographic evidence of
          what the browser displayed to the user: the logo URL is signed as part
          of the {{CollectedClientAdditionalPaymentData}} structure.
+
+    :  <dfn>label</dfn> member
+    :: A descriptive label for the logo. The user agent may (but is not required
+         to) display this label to the user (see
+         [[#sctn-transaction-confirmation-ux]]), and should use it for
+         accessibility purposes (e.g., to be read aloud by a screen reader
+         when describing this logo on a UX).
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}

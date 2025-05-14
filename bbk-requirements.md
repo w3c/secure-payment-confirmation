@@ -52,7 +52,7 @@ specification, nor has it been implemented in Chrome.
 
 * At SPC authentication time, the client data will be signed by the passkey and the associated BBK.
 
-* To link the BBK to the passkey cryptographically, the BBK public key should be added in the client data.
+* To link the BBK to the passkey cryptographically, when the user agent does provide a BBK signature, the BBK public key must be added in the client data.
 
 ### Deletion
 

@@ -41,12 +41,11 @@ Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK
 
 * A user agent may choose not to create a BBK if it deems there is no suitable mechanism available for establishing the device binding.
 
-* Each BBK should be associated with a signal indicating the nature of the device-binding process (e.g., corresponding to "secure element", "software", "no device binding"). <b>Status Note:</b> As of May 2025, this feature is not yet defined in the SPC
-specification, nor has it been implemented in Chrome.
+* Each BBK should be associated with a signal indicating the nature of the device-binding process (e.g., corresponding to "secure element", "software", "no device binding"). <b>Status Note:</b> As of May 2025, this feature is not yet defined in the SPC specification, nor has it been implemented in Chrome.
 
 ### Association with passkeys
 
-* At both passkey generation time and SPC authentication time, if there is no BBK associated with a [BBK binding](#bbk-binding), the user agent should create one and associate it with that [BBK binding](#bbk-binding).
+* At both passkey generation time and SPC authentication time, if there is no BBK associated with a [BBK binding](#bbk-binding), the user agent should create one and associate it with that [BBK binding](#bbk-binding). <b>Status Note:</b> As of May 2025, the Chrome implementation SPC provides BBKs on passkey creation only when the payment extension is set.
 
 * Once the user agent has associated a BBK with a [BBK binding](#bbk-binding), the user agent should use that BBK whenever the relevant passkey is used with SPC authentication on this device. 
 

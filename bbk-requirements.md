@@ -50,7 +50,7 @@ specification, nor has it been implemented in Chrome.
 
 * Once the user agent has associated a BBK with a [BBK binding](#bbk-binding), the user agent should use that BBK whenever the relevant passkey is used with SPC authentication on this device. 
 
-* At SPC authentication time, the client data will be signed by the passkey and the associated BBK.
+* At both SPC registration and authentication time, the client data will be signed by the passkey and the associated BBK.
 
 * To link the BBK to the passkey cryptographically, when the user agent does provide a BBK signature, the BBK public key must be added in the client data.
 

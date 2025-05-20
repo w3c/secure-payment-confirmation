@@ -1540,6 +1540,36 @@ trust that the merchant showed the user the correct amount in their checkout
 flow (and any fraud discoveries are post-payment, when the user checks their
 account statement).
 
+## Attacker generated [=Browser Bound Key=] ## {#sctn-security-attacker-generated-bbk}
+
+The [=Relying Party=] (e.g., a bank) can and should protect against attacker
+generated BBKs by [[#sctn-verifying-assertion|verifying the authentication
+assertion]] that contains the [=browser bound key|BBK=] public key and ignoring
+BBK public keys from cryptograms with invalid signatures. While there will be
+two signatures present, one from the [=SPC Credential=] and one from the BBK,
+the assertion should be verified using the passkey (in addition to the BBK).
+The BBK provides an additional signature, not a replacement for the passkey
+signature.
+
+An attacker posing as a merchant may attempt to substitute a [=browser bound
+key|BBK=] public key with another, where the attacker controls the
+corresponding private key. Later, the attacker, now impersonating the user,
+vists a merchant website and signs the SPC cryptogram using the attacker's
+private key when the merchant calls SPC. The attacker has defeated the
+device binding aspect of the BBK.
+
+However, this attack is not feasible:
+
+1. When the attacker is substituting the BBK: The [=Relying Party=] will detect
+    an incorrect signature when verifying the {{CollectedClientData}} (that
+    contains the BBK public key) using the passkey public key. The [=Relying
+    Party=] should reject this transaction and treat this BBK public key as
+    untrusted.
+1. When the attacker attempts to impersonate the user: The [=Relying Party=]
+    will detect an incorrect signature when verifying using the passkey public
+    key. The [=Relying Party=] should continue to treat this BBK public key as
+    untrusted.
+
 ## Lack of user activation requirement ## {#sctn-security-user-activation-requirement}
 
 If the user agent does not require user activation, as outlined in
@@ -1603,7 +1633,7 @@ However, if payment methods that involve less identifying information
 (e.g., tokenization) become commonplace, it is important that
 ecosystem stakeholders take steps to preserve user privacy. For example:
 
-* Payment systems might establish rules that place limits on storage of credential ID(s) by third parties.
+* Payment systems might establish rules that place limits on storage of credential ID(s) or BBK public keys by third parties.
 * When a [=Relying Party=] assigns multiple instruments to a single SPC credential, it might choose not to share that credential ID with other parties. In this case, the [=Relying Party=] could still use the SPC credential itself (in either a first-party or third-party context) to authenticate the user.
 * A [=Relying Party=] (e.g., a bank) might enable the user to register a distinct SPC credential per payment instrument. This would not prevent the [=Relying Party=] from joining those accounts internally.
 
@@ -1614,6 +1644,15 @@ Even for a single payment instrument, the credential ID(s) returned by the
 they are strong, cross-site identifiers. However in order to obtain them from
 the [=Relying Party=], the merchant already needs an as-strong identifier to
 give to the [=Relying Party=] (e.g., the credit card number).
+
+## Browser Bound Key as a tracking vector ## {#sctn-privacy-browser-bound-key-tracking-vector}
+
+The BBK public key is only returned on each SPC payment assertion (and once
+during the initial first-party [=SPC Credential=] creation). However, to obtain
+the BBK a merchant must obtain the credential ID from the [=Relying Party=] in
+order to initiate SPC and the user must authenticate the transaction using
+their passkey. Since accessing the BBK public key requires access to the
+credential ID first, the BBK public key does not add any incremental tracking.
 
 ## Fingerprinting via securePaymentConfirmationAvailability ## {#sctn-fingerprinting-via-is-secure-payment-confirmation-available}
 

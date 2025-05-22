@@ -1,6 +1,6 @@
 # Secure Payment Confirmation: Browser Based Key Requirements and Design Considerations
 
-Status: This is a **draft** document without consensus.
+Status: This document has been discussed and revised by the Web Payments Working Group and thus informally represents Working Group consensus (even if incomplete).
 
 Though this document we seek to build consensus around requirements and design considerations for adding a browser-based key pair (BBK) to the results of Secure Payment Confirmation to serve as a possession factor during authentication. For discussion, see [issue 271](https://github.com/w3c/secure-payment-confirmation/issues/271).
 
@@ -45,11 +45,13 @@ Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK
 
 ### Association with passkeys
 
-* At both passkey generation time and SPC authentication time, if there is no BBK associated with a [BBK binding](#bbk-binding), the user agent should create one and associate it with that [BBK binding](#bbk-binding). <b>Status Note:</b> As of May 2025, the Chrome implementation SPC provides BBKs on passkey creation only when the payment extension is set.
+* At passkey registration, if the passkey has the "payment" extension and there is no BBK associated with a [BBK binding](#bbk-binding), the user agent should create one and associate it with that [BBK binding](#bbk-binding).
+
+* At SPC authentication time, whether or not the passkey has the "payment" extension, if there is no BBK associated with a [BBK binding](#bbk-binding), the user agent should create one and associate it with that [BBK binding](#bbk-binding).
 
 * Once the user agent has associated a BBK with a [BBK binding](#bbk-binding), the user agent should use that BBK whenever the relevant passkey is used with SPC authentication on this device. 
 
-* At both SPC registration and authentication time, the client data will be signed by the passkey and the associated BBK.
+* At both passkey registration and SPC authentication time, the client data will be signed by the passkey and the associated BBK.
 
 * To link the BBK to the passkey cryptographically, when the user agent does provide a BBK signature, the BBK public key must be added in the client data.
 

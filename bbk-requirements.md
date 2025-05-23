@@ -1,6 +1,6 @@
 # Secure Payment Confirmation: Browser Based Key Requirements and Design Considerations
 
-Status: This is a **draft** document without consensus.
+Status: This document has been discussed and revised by the Web Payments Working Group and thus informally represents Working Group consensus (even if incomplete).
 
 Though this document we seek to build consensus around requirements and design considerations for adding a browser-based key pair (BBK) to the results of Secure Payment Confirmation to serve as a possession factor during authentication. For discussion, see [issue 271](https://github.com/w3c/secure-payment-confirmation/issues/271).
 
@@ -16,7 +16,15 @@ Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK
 
 ## Assumptions
 
+* Device binding is the fundamental property of a BBK. Once a BBK has been associated with a device, it cannot be reused outside that device.
+* Although in theory a BBK could be shared among multiple browser instances on the same device, we assume here that a BBK will also be bound to a browser instance (as the name "browser bound key" indicates).
+* The consensus of the Web Payments Working Group is that, initially, each BBK will be paired with a passkey. We assume here that a BBK will be bound to a single passkey. In the future the Web Payments Working Group may explore the use of BBKs without passkeys.
+* A given passkey corresponds to an online identity. To distinguish online identities, the user will use different passkeys. 
 * A relying party will perform some ID &amp; V process before trusting a (new) BBK. That ID &amp; V process might take place before a Web Authentication registration (and thus, if the BBK is returned as part of the Web Authentication registration, the RP would not likely step up the user a second time). In the case of a synched passkey, when the RP first sees a BBK on a new user device, in the absence of other trust signals, the RP would likely perform some ID &amp; V process in order to trust the new BBK, and we consider that an acceptable user experience on a new device.
+
+## Definitions
+
+* <dfn id="bbk-binding">BBK binding</dfn>: a unique triplet consisting of a specific passkey, a specific browser instance, and a specific device.
 
 ## Requirements
 
@@ -25,32 +33,35 @@ Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK
 * These requirements are not prioritized.
 * "MUST", "SHOULD", and "MAY" are used per [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119).
 
+### Device binding
+
+* A BBK must only ever be associated with one [BBK binding](#bbk-binding). Thus, a BBK will not be usable with any other device, browser instance, or passkey. The device binding process may be, for example, through hardware crypto-security (e.g., TPM), keys stored in the secure element, or registration of the web browser linking a browser to a device.
+
+* A [BBK binding](#bbk-binding) should have at most one associated BBK at any given time.
+
+* A user agent may choose not to create a BBK if it deems there is no suitable mechanism available for establishing the device binding.
+
+* Each BBK should be associated with a signal indicating the nature of the device-binding process (e.g., corresponding to "secure element", "software", "no device binding"). <b>Status Note:</b> As of May 2025, this feature is not yet defined in the SPC specification, nor has it been implemented in Chrome.
 
 ### Association with passkeys
 
-* A given passkey should have only one associated BBK at any given time for a given user agent user profile.
+* At passkey registration, if the passkey has the "payment" extension and there is no BBK associated with a [BBK binding](#bbk-binding), the user agent should create one and associate it with that [BBK binding](#bbk-binding).
 
-* A BBK must only ever be associated with one passkey.
+* At SPC authentication time, whether or not the passkey has the "payment" extension, if there is no BBK associated with a [BBK binding](#bbk-binding), the user agent should create one and associate it with that [BBK binding](#bbk-binding).
 
-* If a BBK is deleted, the user agent should generate a new BBK associated with the same passkey.
+* Once the user agent has associated a BBK with a [BBK binding](#bbk-binding), the user agent should use that BBK whenever the relevant passkey is used with SPC authentication on this device. 
 
-* At authentication time, the client data will be signed by the passkey and the associated BBK.
+* At both passkey registration and SPC authentication time, the client data will be signed by the passkey and the associated BBK.
 
-* To link the BBK to the passkey cryptographically, the BBK public key should be added in the client data.
+* To link the BBK to the passkey cryptographically, when the user agent does provide a BBK signature, the BBK public key must be added in the client data.
 
-### User agent user profiles
+### Deletion
 
-* A user agent may reuse the same BBK across user profiles of the same user agent instance.
+* The user agent may delete BBKs for a variety of reasons (e.g., when the user uninstalls the browser, deletes passkeys, or chooses to clear all stored data).
 
-### Device binding
+* If a passkey is deleted, any associated BBKs should be deleted.
 
-* To meet anticipated security requirements, issuance of the BBK by the user agent should involve a device-binding process that ensures a unique connection between the user agent (user profile) and the device. This may be, for example, through hardware crypto-security (e.g., TPM), keys stored in the secure element, or registration of the web browser linking a browser to a device.
-
-* Once a BBK has been bound to a device, it must only ever be bound to that device.
-
-* The user agent may return a BBK even in environments where a device-binding process is not readily available. Not every transaction requires the same level of security (e.g., low-value transactions), and so even a BBK that is not device-bound can be useful. 
-
-* Each BBK should be associated with a signal indicating the nature of the device-binding process (e.g., corresponding to "secure element", "software", "no device binding").
+* The user agent is not required to provide a dedicated user experience for deleting individual BBKs.
 
 ### Attestation
 
@@ -58,8 +69,9 @@ _This section is in development._
 
 ### Security and privacy considerations
 
-* In private browsing mode, if a user can access passkeys when using
-  SPC, the user agent should also return the BBK.
+* In private browsing mode, if a user can access passkeys when using SPC authentication, the user agent should also return the BBK.
+
+* In private browsing mode, the user agent should not generate new BBKs.
 
 * The BBK must only be available through the SPC API and otherwise isolated from the Web page environment.
 

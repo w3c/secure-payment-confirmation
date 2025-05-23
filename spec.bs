@@ -888,7 +888,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 
 1. Optionally, the user agent may remove entries from
     |data|["{{SecurePaymentConfirmationRequest/paymentEntitiesLogos}}"],
-    starting from the back of the list and moving backwards.
+    starting from the end of the list and moving towards the start of the list.
 
     Note: This allows the user agent to control how many logos it will display,
     while preserving the semantics that logos are in decreasing order of
@@ -972,7 +972,7 @@ authentication:
     {{CollectedClientAdditionalPaymentData/paymentEntitiesLogos}}, if
     non-empty.
 
-      * The user is not required to display the {{PaymentEntityLogo/label}}
+      * The user agent is not required to display the {{PaymentEntityLogo/label}}
          for each {{PaymentEntityLogo}}, but SHOULD use them for accessibility
          purposes. The {{PaymentEntityLogo/label}}s will still be included and
          signed over in the {{CollectedClientAdditionalPaymentData}}.
@@ -1161,7 +1161,7 @@ Note: Previously, the `payment` extension allowed for the creation of
       :: The payee origin, if present, that was displayed to the user. Only used at authentication time; not registration.
 
       :  <dfn>paymentEntitiesLogos</dfn> member
-      :: The logos, if any, that were displayed to the user representing entities that are facilitating the payment that this SPC call is for. Only used at authentication time; not registration.
+      :: The logos, if any, that were displayed to the user in the transaction dialog. These logos are intended to represent the entities facilitating this transaction. Only used at authentication time; not registration.
 
       :  <dfn>total</dfn> member
       :: The transaction amount that was displayed to the user. Only used at authentication time; not registration.
@@ -1306,7 +1306,7 @@ fields:
     :: The origin of the payee, if present, that was displayed to the user.
 
     :  <dfn>paymentEntitiesLogos</dfn> member
-    :: The logos, if any, that were displayed to the user representing entities that are facilitating the payment that this SPC call is for.
+    :: The logos, if any, that were displayed to the user in the transaction dialog. These logos are intended to represent the entities facilitating this transaction.
 
     :  <dfn>total</dfn> member
     :: The {{PaymentCurrencyAmount}} of the [[payment-request]] `total` field.
@@ -1373,9 +1373,9 @@ contains the following members:
     };
 </xmp>
 
-The {{PaymentEntityLogo}} dictionary contains information describing a
-logo for a payment entity that is facilitating the payment that the current
-Secure Payment Confirmation call is for. It contains the following members:
+The {{PaymentEntityLogo}} dictionary contains information describing a logo for
+a payment entity that is facilitating the current transaction. It contains the
+following members:
 
 <dl dfn-type="dict-member" dfn-for="PaymentEntityLogo">
     :  <dfn>url</dfn> member

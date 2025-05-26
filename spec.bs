@@ -393,6 +393,17 @@ const request = new PaymentRequest([{
     payeeName: "Merchant Shop",
     payeeOrigin: "https://merchant.example",
 
+    paymentEntitiesLogos: [
+      {
+        url: "https://fancybank.example/logo.png",
+        label: "Fancy Bank",
+      },
+      {
+        url: "https://securenetwork.example/logo.png",
+        label: "Secure Network",
+      },
+    ],
+
     // Caller’s requested localized experience
     locale: ["en"], 
 
@@ -581,6 +592,7 @@ NOTE: This allows the user agent to not require user activation, for
         unsigned long timeout;
         USVString payeeName;
         USVString payeeOrigin;
+        sequence<PaymentEntityLogo> paymentEntitiesLogos;
         AuthenticationExtensionsClientInputs extensions;
         sequence<USVString> locale;
         boolean showOptOut;
@@ -620,6 +632,19 @@ members:
     :: The [=/origin=] of the payee that this SPC call is for (e.g., the
         merchant). Optional, may be provided alongside or instead of
         {{SecurePaymentConfirmationRequest/payeeName}}.
+
+    :  <dfn>paymentEntitiesLogos</dfn> member
+    :: An optional list of logos representing entities that are facilitating
+        the payment that this SPC call is for, in descending order of
+        display priority. The user agent is not required to show any or all of
+        the logos, see the [[#sctn-steps-to-check-if-a-payment-can-be-made]].
+
+        Note: It is intentional that this specification does not specify
+        exactly how logos will be rendered, to preserve user agent control of
+        rendering and to allow them to best display the information in light of
+        many considerations and constraints. The order of logos in the list
+        does matter, however, which means that developers can experiment to
+        determine whether a particular order gives desired results.
 
     :  <dfn>extensions</dfn> member
     :: Any [=WebAuthn extensions=] that should be used for the passed
@@ -802,6 +827,21 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
 
     1. If |parsedURL|'s [=url/scheme=] is not "`https`", then throw a {{TypeError}}.
 
+1. If |data|["{{SecurePaymentConfirmationRequest/paymentEntitiesLogos}}"] is
+    present and non-empty:
+
+    1. For each |logo| in
+        |data|["{{SecurePaymentConfirmationRequest/paymentEntitiesLogos}}"]:
+
+        1. If |logo|["{{PaymentEntityLogo/url}}"] is empty, throw a
+            {{TypeError}}.
+
+        1. Run the URL parser on |logo|["{{PaymentEntityLogo/url}}"]. If
+            this returns failure, throw a {{TypeError}}.
+
+        1. If |logo|["{{PaymentEntityLogo/label}}"] is empty, throw a
+            {{TypeError}}.
+
 ## Steps to check if a payment can be made ## {#sctn-steps-to-check-if-a-payment-can-be-made}
 
 The [=steps to check if a payment can be made=] for this payment method, for an
@@ -845,6 +885,31 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
         string.
 
     Note: The image resource must be fetched whether or not any credential
+    matches, to defeat attempts to [[#sctn-privacy-probing-credential-ids|probe
+    for credential existence]].
+
+1. Optionally, the user agent may remove entries from
+    |data|["{{SecurePaymentConfirmationRequest/paymentEntitiesLogos}}"],
+    starting from the end of the list and moving towards the start of the list.
+
+    Note: This allows the user agent to control how many logos it will display,
+    while preserving the semantics that logos are in decreasing order of
+    display priority to the caller.
+
+1. For each |logo| in |data|["{{SecurePaymentConfirmationRequest/paymentEntitiesLogos}}"]:
+
+    1. [=fetch an image resource|Fetch the image resource=] for the |logo|, passing
+        «["{{ImageResource/src}}" → |logo|["{{PaymentEntityLogo/url}}"]»
+        for *image*, and decode the result.
+
+    1. If either the fetch or decode fails, set |logo|["{{PaymentEntityLogo/url}}"]
+        to an empty string.
+
+        Note: This lets the RP know that the specified logo was not shown, as
+        the output {{CollectedClientAdditionalPaymentData/paymentEntitiesLogos}}
+        sequence will have an empty url string for the given logo.
+
+    Note: The logo resources must be fetched whether or not any credential
     matches, to defeat attempts to [[#sctn-privacy-probing-credential-ids|probe
     for credential existence]].
 
@@ -897,6 +962,14 @@ authentication:
     {{PaymentCredentialInstrument/iconMustBeShown}} must be `false` here as
     otherwise the [[#sctn-steps-to-check-if-a-payment-can-be-made|the steps
     to check if a payment can be made]] would have failed previously.
+* The logos represented by the {{PaymentEntityLogo/url}} entries from
+    {{CollectedClientAdditionalPaymentData/paymentEntitiesLogos}}, if
+    non-empty.
+
+      * The user agent is not required to display the {{PaymentEntityLogo/label}}
+         for each {{PaymentEntityLogo}}, but SHOULD use them for accessibility
+         purposes. The {{PaymentEntityLogo/label}}s will still be included and
+         signed over in the {{CollectedClientAdditionalPaymentData}}.
 
 The user agent MAY utilize the information in
 {{SecurePaymentConfirmationRequest/locale}}, if any, to display a UX localized
@@ -1017,6 +1090,18 @@ Note: These steps are only run if the user accepts the
     : {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
     :: |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] if it is
         present, otherwise omitted.
+    : {{AuthenticationExtensionsPaymentInputs/paymentEntitiesLogos}}
+    :: |data|["{{SecurePaymentConfirmationRequest/paymentEntitiesLogos}}"] if
+        it is present and non-empty, otherwise omitted.
+
+        Issue: The current version of this specification supports only a single
+        URL per {{PaymentEntityLogo}}, so simply copying and signing the data
+        structure suffices to indicate what was shown to the user. A future
+        version of this specification may add multiple URLs per
+        {{PaymentEntityLogo}} in order to, e.g., natively support dark mode. If
+        this happens, the specification will need to indicate to the [=Relying
+        Party=] which URL was shown for a given {{PaymentEntityLogo}}.
+
     : {{AuthenticationExtensionsPaymentInputs/total}}
     :: |request|.[=payment request details|[[details]]=]["{{PaymentDetailsInit/total}}"]
     : {{AuthenticationExtensionsPaymentInputs/instrument}}
@@ -1118,6 +1203,7 @@ Note: Previously, the `payment` extension allowed for the creation of
       USVString topOrigin;
       USVString payeeName;
       USVString payeeOrigin;
+      sequence<PaymentEntityLogo> paymentEntitiesLogos;
       PaymentCurrencyAmount total;
       PaymentCredentialInstrument instrument;
     };
@@ -1138,6 +1224,9 @@ Note: Previously, the `payment` extension allowed for the creation of
 
       :  <dfn>payeeOrigin</dfn> member
       :: The payee origin, if present, that was displayed to the user. Only used at authentication time; not registration.
+
+      :  <dfn>paymentEntitiesLogos</dfn> member
+      :: The logos, if any, that were displayed to the user in the transaction dialog. These logos are intended to represent the entities facilitating this transaction. Only used at authentication time; not registration.
 
       :  <dfn>total</dfn> member
       :: The transaction amount that was displayed to the user. Only used at authentication time; not registration.
@@ -1211,6 +1300,9 @@ Note: Previously, the `payment` extension allowed for the creation of
                 : {{CollectedClientAdditionalPaymentData/payeeOrigin}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/payeeOrigin}}"]
                     if it is present, otherwise omitted.
+                : {{CollectedClientAdditionalPaymentData/paymentEntitiesLogos}}
+                :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/paymentEntitiesLogos}}"]
+                    if it is present, otherwise omitted.
                 : {{CollectedClientAdditionalPaymentData/total}}
                 :: |extension_inputs|["{{AuthenticationExtensionsPaymentInputs/total}}"]
                 : {{CollectedClientAdditionalPaymentData/instrument}}
@@ -1252,6 +1344,7 @@ The {{CollectedClientPaymentData}} dictionary inherits from
         required USVString topOrigin;
         USVString payeeName;
         USVString payeeOrigin;
+        sequence<PaymentEntityLogo> paymentEntitiesLogos;
         required PaymentCurrencyAmount total;
         required PaymentCredentialInstrument instrument;
     };
@@ -1276,6 +1369,9 @@ fields:
 
     :  <dfn>payeeOrigin</dfn> member
     :: The origin of the payee, if present, that was displayed to the user.
+
+    :  <dfn>paymentEntitiesLogos</dfn> member
+    :: The logos, if any, that were displayed to the user in the transaction dialog. These logos are intended to represent the entities facilitating this transaction.
 
     :  <dfn>total</dfn> member
     :: The {{PaymentCurrencyAmount}} of the [[payment-request]] `total` field.
@@ -1331,6 +1427,41 @@ contains the following members:
     :  <dfn>iconMustBeShown</dfn> member
     :: Indicates whether the specified icon must be successfully fetched and shown for the
         request to succeed.
+</dl>
+
+## <dfn dictionary>PaymentEntityLogo</dfn> Dictionary ## {#sctn-paymententitylogo-dictionary}
+
+<xmp class="idl">
+    dictionary PaymentEntityLogo {
+        required USVString url;
+        required USVString label;
+    };
+</xmp>
+
+The {{PaymentEntityLogo}} dictionary contains information describing a logo for
+a payment entity that is facilitating the current transaction. It contains the
+following members:
+
+<dl dfn-type="dict-member" dfn-for="PaymentEntityLogo">
+    :  <dfn>url</dfn> member
+    :: The URL of the logo.
+
+         NOTE: The {{PaymentEntityLogo/url}} may either identify
+         an image on an internet-accessible server (e.g., `https://bank.com/logo.png`),
+         or directly encode the logo data via a Data URL [[RFC2397]]. Between
+         the two types of URLs, Data URLs offer several benefits to the
+         [=Relying Party=]. They can improve reliability (e.g., in the case that
+         the logo hosting server may be unavailable). They can also enhance
+         validation because the [=Relying Party=]  has cryptographic evidence of
+         what the browser displayed to the user: the logo URL is signed as part
+         of the {{CollectedClientAdditionalPaymentData}} structure.
+
+    :  <dfn>label</dfn> member
+    :: A descriptive label for the logo. The user agent may (but is not required
+         to) display this label to the user (see
+         [[#sctn-transaction-confirmation-ux]]), and should use it for
+         accessibility purposes (e.g., to be read aloud by a screen reader
+         when describing this logo on a UX).
 </dl>
 
 # Permissions Policy integration # {#sctn-permissions-policy}
@@ -1405,6 +1536,13 @@ Confirmation, the [=Relying Party=] MUST proceed as follows:
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/payeeOrigin}}"]
             matches the origin of the payee that should have been displayed to the user, if any.
+
+        * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/paymentEntitiesLogos}}"]
+            is a strict and ordered subset of the logos that should have been displayed to the user, if any.
+
+            Note: The user agent is permitted to not display all logos, but must
+            not include logos in the {{CollectedClientAdditionalPaymentData}}
+            that were not shown to the user.
 
         * Verify that the value of |C|["{{CollectedClientPaymentData/payment}}"]["{{CollectedClientAdditionalPaymentData/total}}"]
             matches the transaction amount that should have been displayed to the user.

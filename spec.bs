@@ -1037,6 +1037,15 @@ The [=steps to respond to a payment request=] for this payment method, for a giv
     : {{AuthenticationExtensionsPaymentInputs/paymentEntitiesLogos}}
     :: |data|["{{SecurePaymentConfirmationRequest/paymentEntitiesLogos}}"] if
         it is present and non-empty, otherwise omitted.
+
+        Issue: The current version of this specification supports only a single
+        URL per {{PaymentEntityLogo}}, so simply copying and signing the data
+        structure suffices to indicate what was shown to the user. A future
+        version of this specification may add multiple URLs per
+        {{PaymentEntityLogo}} in order to, e.g., natively support dark mode. If
+        this happens, the specification will need to indicate to the [=Relying
+        Party=] which URL was shown for a given {{PaymentEntityLogo}}.
+
     : {{AuthenticationExtensionsPaymentInputs/total}}
     :: |request|.[=payment request details|[[details]]=]["{{PaymentDetailsInit/total}}"]
     : {{AuthenticationExtensionsPaymentInputs/instrument}}

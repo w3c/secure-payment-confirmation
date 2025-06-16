@@ -55,7 +55,7 @@ spec: payment-request; urlPrefix: https://w3c.github.io/payment-request/
         text: payment permission string; url: dfn-payment
         text: payment request accessibility considerations; url: accessibility-considerations
         text: user aborts the payment request algorithm; url: dfn-user-aborts-the-payment-request
-        text: user accepts the payment request algorithm; url: dfn-user-accepts-the-payment-request
+        text: user accepts the payment request algorithm; url: dfn-user-accepts-the-payment-request-algorithm
 
 spec: payment-method-id; urlPrefix: https://w3c.github.io/payment-method-id/
     type: dfn

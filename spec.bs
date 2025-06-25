@@ -994,7 +994,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 1. For each |logo| in |data|["{{SecurePaymentConfirmationRequest/paymentEntitiesLogos}}"]:
 
     1. [=fetch an image resource|Fetch the image resource=] for the |logo|, passing
-        «["{{ImageResource/src}}" → |logo|["{{PaymentEntityLogo/url}}"]»
+        «["{{ImageResource/src}}" → |logo|["{{PaymentEntityLogo/url}}"]]»
         for *image*, and decode the result.
 
     1. If either the fetch or decode fails, set |logo|["{{PaymentEntityLogo/url}}"]

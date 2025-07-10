@@ -831,17 +831,11 @@ members:
               be created.
 
     : {{SecurePaymentConfirmationRequest/locale}}
-    :: An optional list of well-formed [[BCP47]] language tags, in descending
-        order of priority, that identify the [=locale=] preferences of the
-        website, i.e. a [=language priority list=] [[RFC4647]], which the user
-        agent can use to perform [=language negotiation=] and locale-affected
-        formatting with the caller.
-
-        NOTE: The {{SecurePaymentConfirmationRequest/locale}} is distinct from
-              language or direction metadata associated with specific input
-              members, in that it represents the caller's requested localized
-              experience rather than assertion about a specific string value.
-              See [[#sctn-i18n-considerations]] for more discussion.
+    :: An optional list of language tags (see [[BCP47]]), in descending order
+        of priority, that identify the [=locale=] preferences of the website,
+        i.e. a [=language priority list=] [[RFC4647]], which the user agent can
+        use to perform [=language negotiation=] and locale-affected formatting
+        with the caller.
 
     : {{SecurePaymentConfirmationRequest/showOptOut}}
     :: Whether the user should be given a chance to opt-out during the
@@ -1019,6 +1013,20 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
 
         1. If |logo|["{{PaymentEntityLogo/label}}"] is empty, throw a
             {{TypeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/locale}}"] [=map/exists=] and
+    [=list/is not empty=]
+
+    1. For each |tag| in |data|["{{SecurePaymentConfirmationRequest/locale}}"]:
+
+        1. If |tag| is not a well-formed [[BCP47]] language tag, throw a
+            {{TypeError}}.
+
+    NOTE: The {{SecurePaymentConfirmationRequest/locale}} is distinct from
+          language or direction metadata associated with specific input
+          members, in that it represents the caller's requested localized
+          experience rather than assertion about a specific string value.
+          See [[#sctn-i18n-considerations]] for more discussion.
 
 ## Steps to check if a payment can be made ## {#sctn-steps-to-check-if-a-payment-can-be-made}
 
@@ -1395,29 +1403,32 @@ Note: Previously, the `payment` extension allowed for the creation of
       :: Indicates that the extension is active.
 
       : {{AuthenticationExtensionsPaymentInputs/rpId}}
-      :: The [=Relying Party=] id of the credential(s) being used. Only used at authentication time; not registration.
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
       : {{AuthenticationExtensionsPaymentInputs/topOrigin}}
-      :: The origin of the top-level frame. Only used at authentication time; not registration.
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
       : {{AuthenticationExtensionsPaymentInputs/payeeName}}
-      :: The payee name, if present, that was displayed to the user. Only used at authentication time; not registration.
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
       : {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
-      :: The payee origin, if present, that was displayed to the user. Only used at authentication time; not registration.
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
       : {{AuthenticationExtensionsPaymentInputs/paymentEntitiesLogos}}
-      :: The logos, if any, that were displayed to the user in the transaction dialog. These logos are intended to represent the entities facilitating this transaction. Only used at authentication time; not registration.
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
       : {{AuthenticationExtensionsPaymentInputs/total}}
-      :: The transaction amount that was displayed to the user. Only used at authentication time; not registration.
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
       : {{AuthenticationExtensionsPaymentInputs/instrument}}
-      :: The instrument details that were displayed to the user. Only used at authentication time; not registration.
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
       :  {{AuthenticationExtensionsPaymentInputs/browserBoundPubKeyCredParams}}
       :: The list of allowed types of credential restricting the types of
-         cryptographic algorithms used for the browser bound key.
+         cryptographic algorithms used for the browser bound key. At
+         authentication web developers should set
+         {{SecurePaymentConfirmationRequest}}.{{SecurePaymentConfirmationRequest/browserBoundPubKeyCredParams}}
+         instead.
 
          Note: When this member is not present, it defaults to
          {{PublicKeyCredentialCreationOptions}}.{{PublicKeyCredentialCreationOptions/pubKeyCredParams}}.

@@ -1106,6 +1106,10 @@ if and how to proceed:
     1. Run the [=user accepts the payment request algorithm=] on the
         {{PaymentRequest}} the user is interacting with.
 
+    <wpt>
+      authentication-auth-another-way.https.html
+    </wpt>
+
 : The user does not wish to proceed with the payment,
 :: Run the [=user aborts the payment request algorithm=] on the
     {{PaymentRequest}} the user is interacting with.

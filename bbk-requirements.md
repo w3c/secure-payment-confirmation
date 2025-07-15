@@ -1,8 +1,8 @@
-# Secure Payment Confirmation: Browser Based Key Requirements and Design Considerations
+# Secure Payment Confirmation: Browser Bound Key Requirements and Design Considerations
 
 Status: This document has been discussed and revised by the Web Payments Working Group and thus informally represents Working Group consensus (even if incomplete).
 
-Though this document we seek to build consensus around requirements and design considerations for adding a browser-based key pair (BBK) to the results of Secure Payment Confirmation to serve as a possession factor during authentication. For discussion, see [issue 271](https://github.com/w3c/secure-payment-confirmation/issues/271).
+Though this document we seek to build consensus around requirements and design considerations for adding a browser-bound key pair (BBK) to the results of Secure Payment Confirmation to serve as a possession factor during authentication. For discussion, see [issue 271](https://github.com/w3c/secure-payment-confirmation/issues/271).
 
 ## Motivation
 
@@ -12,7 +12,7 @@ The payments industry has indicated that SPC would further benefit from a device
 
 The Web Authentication Working Group has considered but not adopted device binding proposals (cf. [SPK](https://github.com/w3c/webauthn/pull/1957) and [DPK](https://github.com/w3c/webauthn/issues/1658)).
 
-Therefore, the Web Payments Working Group plans to add a "browser-based key (BBK)" to SPC. This document endeavors to capture requirements for the BBK functionality.
+Therefore, the Web Payments Working Group plans to add a "browser-bound key (BBK)" to SPC. This document endeavors to capture requirements for the BBK functionality.
 
 ## Assumptions
 

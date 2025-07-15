@@ -1365,6 +1365,12 @@ Note: Previously, the `payment` extension allowed for the creation of
 
     1. Before step 13 (creating a {{CollectedClientData}}).
 
+        <wpt>
+          authentication-accepted-bbk-created.https.html
+          authentication-accepted-bbk-per-passkey.https.html
+          authentication-accepted-bbk-reused.https.html
+        </wpt>
+
         1. Let |bbk_allowed_algorithms| be {{AuthenticationExtensionsPaymentInputs/browserBoundPubKeyCredParams}}.
 
         1. If
@@ -1506,6 +1512,11 @@ Note: Previously, the `payment` extension allowed for the creation of
             1. [=map/Set=]
                 {{PublicKeyCredential/[[clientExtensionsResults]]}}[[[#sctn-payment-extension-registration|"payment"]]]
                 to |payment_outputs|.
+
+            <wpt>
+              enrollment-bbk-per-passkey.https.html
+              enrollment-bbk.https.html
+            </wpt>
 
 :  Client extension output
 ::

@@ -1967,7 +1967,7 @@ contains the following members:
     :: Indicates whether the specified icon must be successfully fetched and shown for the
         request to succeed.
 
-    :  <dfn>details</dfn> member
+    : {{PaymentCredentialInstrument/details}}
     :: Optional additional detail string for the payment instrument to be
         displayed to the user.
 

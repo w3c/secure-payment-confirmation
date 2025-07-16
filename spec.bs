@@ -122,6 +122,93 @@ spec:html; type:dfn; for:environment settings object; text:origin
 }
 </pre>
 
+<style>
+/* The heading colors reference https://www.w3.org/StyleSheets/TR/2021/base.css */
+:root {
+  --note-heading-text: var(--bg);
+  --note-heading-bg: var(--note-text);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --note-heading-text: var(--bg);
+    --note-heading-bg: var(--note-text);
+  }
+}
+
+/* The .domintro style is reused from https://resources.whatwg.org/standard.css
+   and https://resources.whatwg.org/spec.css */
+.domintro {
+  margin: 1.5em 0;
+  padding: 0.5em 1em;
+}
+li > .domintro {
+  margin: 1em 0;
+}
+.domintro > :first-child, .domintro > .self-link:first-child + * {
+  margin-top: 0;
+}
+.domintro > :last-child {
+  margin-bottom: 0;
+}
+
+/* These ones have decorations */
+.domintro {
+  position: relative;
+
+  /* top gets extra 0.5em (both above and below) for the decoration;
+     then we add the padding to the bottom as well for symmetry */
+  margin-top: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+li > .domintro {
+  margin-top: 1.5em;
+}
+.domintro::before {
+  padding: 0.15em 0.25em;
+  position: absolute;
+  top: -0.8em;
+  left: -0.8em;
+}
+
+.domintro {
+  color: var(--note-text);
+  background: var(--note-bg);
+}
+.domintro::before {
+  color:  var(--note-heading-text);
+  background: var(--note-heading-bg);
+}
+.domintro dt, .domintro dt * {
+  color: var(--text);
+}
+.domintro dd p {
+  margin: 0.5em 0;
+}
+.domintro dd p:first-child {
+  margin-top: 0;
+}
+.domintro dd p:last-child {
+  margin-bottom: 0;
+}
+.domintro dd p + p.note, .domintro dd p + p.warning {
+  /* Fix the gap above */
+  margin-top: 1.3em;
+  /* 1.3em = 0.5em + 0.8em */
+  /* 0.5em = margin-bottom of .domintro dd p */
+  /* 0.8em = top of .note::before */
+}
+.domintro dd span.note {
+  /* Differentiate inline notes from the background */
+  border: thin solid;
+  border-left: none;
+  padding-top: 0.15em; /* 0.15em = padding-top of .note::before */
+  padding-bottom: 0.15em;
+}
+
+dl.domintro::before { content: 'For web developers (non-normative)'; }
+</style>
+
 <div class="non-normative">
 
 # Introduction # {#sctn-intro}
@@ -687,38 +774,38 @@ NOTE: This allows the user agent to not require user activation, for
 The {{SecurePaymentConfirmationRequest}} dictionary contains the following
 members:
 
-<dl dfn-type="dict-member" dfn-for="SecurePaymentConfirmationRequest">
-    :  <dfn>challenge</dfn> member
+  <dl class="domintro">
+    : {{SecurePaymentConfirmationRequest/challenge}}
     :: A random challenge that the relying party generates on the server side
         to prevent replay attacks.
 
-    :  <dfn>rpId</dfn> member
+    : {{SecurePaymentConfirmationRequest/rpId}}
     :: The [=Relying Party Identifier=] of the credentials.
 
-    :  <dfn>credentialIds</dfn> member
+    : {{SecurePaymentConfirmationRequest/credentialIds}}
     :: The list of credential identifiers for the given instrument.
 
-    :  <dfn>instrument</dfn> member
+    : {{SecurePaymentConfirmationRequest/instrument}}
     :: The description of the instrument name and icon to display during
         registration and to be signed along with the transaction details.
 
-    :  <dfn>timeout</dfn> member
+    : {{SecurePaymentConfirmationRequest/timeout}}
     :: The number of milliseconds before the request to sign the transaction
         details times out. At most 1 hour. Default values and the range of
         allowed values is defined by the user agent. Web Authentication
         provides [[webauthn-3#sctn-createCredential|additional timeout guidance]].
 
-    :  <dfn>payeeName</dfn> member
+    : {{SecurePaymentConfirmationRequest/payeeName}}
     :: The display name of the payee that this SPC call is for (e.g., the
         merchant). Optional, may be provided alongside or instead of
         {{SecurePaymentConfirmationRequest/payeeOrigin}}.
 
-    :  <dfn>payeeOrigin</dfn> member
+    : {{SecurePaymentConfirmationRequest/payeeOrigin}}
     :: The [=/origin=] of the payee that this SPC call is for (e.g., the
         merchant). Optional, may be provided alongside or instead of
         {{SecurePaymentConfirmationRequest/payeeName}}.
 
-    :  <dfn>paymentEntitiesLogos</dfn> member
+    : {{SecurePaymentConfirmationRequest/paymentEntitiesLogos}}
     :: An optional list of logos representing entities that are facilitating
         the payment that this SPC call is for, in descending order of
         display priority. The user agent is not required to show any or all of
@@ -731,37 +818,31 @@ members:
         does matter, however, which means that developers can experiment to
         determine whether a particular order gives desired results.
 
-    :  <dfn>extensions</dfn> member
+    : {{SecurePaymentConfirmationRequest/extensions}}
     :: Any [=WebAuthn extensions=] that should be used for the passed
         credential(s). The caller does not need to specify the
         [[#sctn-payment-extension-registration| payment extension]]; it is added
         automatically.
 
-    :  <dfn>browserBoundPubKeyCredParams</dfn> member
+    : {{SecurePaymentConfirmationRequest/browserBoundPubKeyCredParams}}
     :: The list of allowed types of credential restricting the types of
         cryptographic algorithms used for the browser bound key.
 
         Note: This member will be used only if a browser bound key will need to
               be created.
 
-    :  <dfn>locale</dfn> member
-    :: An optional list of well-formed [[BCP47]] language tags, in descending
-        order of priority, that identify the [=locale=] preferences of the
-        website, i.e. a [=language priority list=] [[RFC4647]], which the user
-        agent can use to perform [=language negotiation=] and locale-affected
-        formatting with the caller.
+    : {{SecurePaymentConfirmationRequest/locale}}
+    :: An optional list of language tags (see [[BCP47]]), in descending order
+        of priority, that identify the [=locale=] preferences of the website,
+        i.e. a [=language priority list=] [[RFC4647]], which the user agent can
+        use to perform [=language negotiation=] and locale-affected formatting
+        with the caller.
 
-        NOTE: The {{SecurePaymentConfirmationRequest/locale}} is distinct from
-              language or direction metadata associated with specific input
-              members, in that it represents the caller's requested localized
-              experience rather than assertion about a specific string value.
-              See [[#sctn-i18n-considerations]] for more discussion.
-
-    :  <dfn>showOptOut</dfn> member
+    : {{SecurePaymentConfirmationRequest/showOptOut}}
     :: Whether the user should be given a chance to opt-out during the
         [[#sctn-transaction-confirmation-ux|transaction confirmation UX]].
         Optional, default false.
-</dl>
+  </dl>
 
 ## Payment Method additional data type ## {#sctn-payment-method-additional-data-type}
 
@@ -936,6 +1017,20 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
 
         1. If |logo|["{{PaymentEntityLogo/label}}"] is empty, throw a
             {{TypeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/locale}}"] [=map/exists=] and
+    [=list/is not empty=]
+
+    1. For each |tag| in |data|["{{SecurePaymentConfirmationRequest/locale}}"]:
+
+        1. If |tag| is not a well-formed [[BCP47]] language tag, throw a
+            {{TypeError}}.
+
+    NOTE: The {{SecurePaymentConfirmationRequest/locale}} is distinct from
+          language or direction metadata associated with specific input
+          members, in that it represents the caller's requested localized
+          experience rather than assertion about a specific string value.
+          See [[#sctn-i18n-considerations]] for more discussion.
 
 ## Steps to check if a payment can be made ## {#sctn-steps-to-check-if-a-payment-can-be-made}
 
@@ -1312,34 +1407,37 @@ Note: Previously, the `payment` extension allowed for the creation of
     };
     </xmp>
 
-    <dl dfn-type="dict-member" dfn-for="AuthenticationExtensionsPaymentInputs">
-      :  <dfn>isPayment</dfn> member
+    <dl class="domintro">
+      : {{AuthenticationExtensionsPaymentInputs/isPayment}}
       :: Indicates that the extension is active.
 
-      :  <dfn>rpId</dfn> member
-      :: The [=Relying Party=] id of the credential(s) being used. Only used at authentication time; not registration.
+      : {{AuthenticationExtensionsPaymentInputs/rpId}}
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
-      :  <dfn>topOrigin</dfn> member
-      :: The origin of the top-level frame. Only used at authentication time; not registration.
+      : {{AuthenticationExtensionsPaymentInputs/topOrigin}}
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
-      :  <dfn>payeeName</dfn> member
-      :: The payee name, if present, that was displayed to the user. Only used at authentication time; not registration.
+      : {{AuthenticationExtensionsPaymentInputs/payeeName}}
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
-      :  <dfn>payeeOrigin</dfn> member
-      :: The payee origin, if present, that was displayed to the user. Only used at authentication time; not registration.
+      : {{AuthenticationExtensionsPaymentInputs/payeeOrigin}}
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
-      :  <dfn>paymentEntitiesLogos</dfn> member
-      :: The logos, if any, that were displayed to the user in the transaction dialog. These logos are intended to represent the entities facilitating this transaction. Only used at authentication time; not registration.
+      : {{AuthenticationExtensionsPaymentInputs/paymentEntitiesLogos}}
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
-      :  <dfn>total</dfn> member
-      :: The transaction amount that was displayed to the user. Only used at authentication time; not registration.
+      : {{AuthenticationExtensionsPaymentInputs/total}}
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
-      :  <dfn>instrument</dfn> member
-      :: The instrument details that were displayed to the user. Only used at authentication time; not registration.
+      : {{AuthenticationExtensionsPaymentInputs/instrument}}
+      :: Only used at authentication time, not registration, and should not be set directly by web developers.
 
-      :  <dfn>browserBoundPubKeyCredParams</dfn> member
+      :  {{AuthenticationExtensionsPaymentInputs/browserBoundPubKeyCredParams}}
       :: The list of allowed types of credential restricting the types of
-         cryptographic algorithms used for the browser bound key.
+         cryptographic algorithms used for the browser bound key. At
+         authentication web developers should set
+         {{SecurePaymentConfirmationRequest}}.{{SecurePaymentConfirmationRequest/browserBoundPubKeyCredParams}}
+         instead.
 
          Note: When this member is not present, it defaults to
          {{PublicKeyCredentialCreationOptions}}.{{PublicKeyCredentialCreationOptions/pubKeyCredParams}}.
@@ -1538,16 +1636,12 @@ Note: Previously, the `payment` extension allowed for the creation of
     };
     </xmp>
 
-    <dl dfn-type="dict-member" dfn-for="AuthenticationExtensionsPaymentOutputs">
-      :  <dfn>browserBoundSignature</dfn> member
-      :: Outputs of the browser bound signature procedure.
+    <dl class="domintro">
+        : {{AuthenticationExtensionsPaymentOutputs/browserBoundSignature}}
+        :: Outputs of the browser bound signature procedure.
 
-    </dl>
-
-    <dl dfn-type="dict-member" dfn-for="BrowserBoundSignature">
-      :  <dfn>signature</dfn> member
-      :: The output of the browser bound signing process.
-
+        : {{BrowserBoundSignature/signature}}
+        :: The output of the browser bound signing process.
     </dl>
 
 :  Authenticator extension processing
@@ -1564,8 +1658,8 @@ Note: Previously, the `payment` extension allowed for the creation of
 The {{CollectedClientPaymentData}} dictionary inherits from
 {{CollectedClientData}}. It contains the following additional field:
 
-<dl dfn-type="dict-member" dfn-for="CollectedClientPaymentData">
-    :  <dfn>payment</dfn> member
+<dl class="domintro">
+    : {{CollectedClientPaymentData/payment}}
     :: The additional payment information to sign.
 </dl>
 
@@ -1587,33 +1681,33 @@ The {{CollectedClientPaymentData}} dictionary inherits from
 The {{CollectedClientAdditionalPaymentData}} dictionary contains the following
 fields:
 
-<dl dfn-type="dict-member" dfn-for="CollectedClientAdditionalPaymentData">
-    :  <dfn>rpId</dfn> member
+<dl class="domintro">
+    : {{CollectedClientAdditionalPaymentData/rpId}}
     :: The id of the [=Relying Party=] that created the credential.
 
            NOTE: For historical reasons, some implementations may additionally
                  include this parameter with the name `rp`. The values of `rp` and
                  `rpId` must be the same if both are present.
 
-    :  <dfn>topOrigin</dfn> member
+    : {{CollectedClientAdditionalPaymentData/topOrigin}}
     :: The origin of the top level context that requested to sign the transaction details.
 
-    :  <dfn>payeeName</dfn> member
+    : {{CollectedClientAdditionalPaymentData/payeeName}}
     :: The name of the payee, if present, that was displayed to the user.
 
-    :  <dfn>payeeOrigin</dfn> member
+    : {{CollectedClientAdditionalPaymentData/payeeOrigin}}
     :: The origin of the payee, if present, that was displayed to the user.
 
-    :  <dfn>paymentEntitiesLogos</dfn> member
+    : {{CollectedClientAdditionalPaymentData/paymentEntitiesLogos}}
     :: The logos, if any, that were displayed to the user in the transaction dialog. These logos are intended to represent the entities facilitating this transaction.
 
-    :  <dfn>total</dfn> member
+    : {{CollectedClientAdditionalPaymentData/total}}
     :: The {{PaymentCurrencyAmount}} of the [[payment-request]] `total` field.
 
-    :  <dfn>instrument</dfn> member
+    : {{CollectedClientAdditionalPaymentData/instrument}}
     :: The instrument information that was displayed to the user.
 
-    :  <dfn>browserBoundPublicKey</dfn> member
+    : {{CollectedClientAdditionalPaymentData/browserBoundPublicKey}}
     :: The base64url encoding of the [=browser bound key=] public key. See
         [=Base64url encoding=] in WebAuthn.
 </dl>
@@ -1633,8 +1727,8 @@ frame is already included in {{CollectedClientData}} of [[webauthn-3]].
 The {{CollectedClientAdditionalPaymentRegistrationData}} dictionary contains the following
 fields:
 
-<dl dfn-type="dict-member" dfn-for="CollectedClientAdditionalPaymentRegistrationData">
-    :  <dfn>browserBoundPublicKey</dfn> member
+<dl class="domintro">
+    : {{CollectedClientAdditionalPaymentRegistrationData/browserBoundPublicKey}}
     :: The base64url encoding of the [=browser bound key=] public key. See
         [=Base64url encoding=] in WebAuthn.
 </dl>
@@ -1862,14 +1956,14 @@ The {{PaymentCredentialInstrument}} dictionary contains the information to be
 displayed to the user and signed together with the transaction details. It
 contains the following members:
 
-<dl dfn-type="dict-member" dfn-for="PaymentCredentialInstrument">
-    :  <dfn>displayName</dfn> member
+<dl class="domintro">
+    : {{PaymentCredentialInstrument/displayName}}
     :: The name of the payment instrument to be displayed to the user.
 
          NOTE: See [[#sctn-i18n-considerations]] for discussion about
          internationalization of the {{PaymentCredentialInstrument/displayName}}.
 
-    :  <dfn>icon</dfn> member
+    : {{PaymentCredentialInstrument/icon}}
     :: The URL of the icon of the payment instrument.
 
          NOTE: The {{PaymentCredentialInstrument/icon}} URL may either identify
@@ -1884,11 +1978,11 @@ contains the following members:
 
          NOTE: See related [[#sctn-accessibility-considerations|accessibility considerations]].
 
-    :  <dfn>iconMustBeShown</dfn> member
+    : {{PaymentCredentialInstrument/iconMustBeShown}}
     :: Indicates whether the specified icon must be successfully fetched and shown for the
         request to succeed.
 
-    :  <dfn>details</dfn> member
+    : {{PaymentCredentialInstrument/details}}
     :: Optional additional detail string for the payment instrument to be
         displayed to the user.
 
@@ -1909,8 +2003,8 @@ The {{PaymentEntityLogo}} dictionary contains information describing a logo for
 a payment entity that is facilitating the current transaction. It contains the
 following members:
 
-<dl dfn-type="dict-member" dfn-for="PaymentEntityLogo">
-    :  <dfn>url</dfn> member
+<dl class="domintro">
+    : {{PaymentEntityLogo/url}}
     :: The URL of the logo.
 
          NOTE: The {{PaymentEntityLogo/url}} may either identify
@@ -1923,7 +2017,7 @@ following members:
          what the browser displayed to the user: the logo URL is signed as part
          of the {{CollectedClientAdditionalPaymentData}} structure.
 
-    :  <dfn>label</dfn> member
+    : {{PaymentEntityLogo/label}}
     :: A descriptive label for the logo. The user agent may (but is not required
          to) display this label to the user (see
          [[#sctn-transaction-confirmation-ux]]), and should use it for

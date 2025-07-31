@@ -210,8 +210,8 @@ The following table describes Chrome’s implementation of SPC as of July 2025, 
   <tr>
 	<th>Windows</th>
 	<td>Windows Hello</td>
-	<td>Yes<sup>\*</sup> (No<sup>&#x2020;</sup>)</td>
-	<td>Yes<sup>\*</sup> (No)</td>
+	<td>Yes<sup>*</sup> (No<sup>&#x2020;</sup>)</td>
+	<td>Yes<sup>*</sup> (No)</td>
 </tr>
   <tr>
 	<th>MacOS</th>

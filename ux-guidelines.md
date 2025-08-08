@@ -27,7 +27,7 @@ Relevant fields: [instrument.displayName], [instrument.icon], [instrument.detail
 
 ### Payment entity logos
 
-Relevant fields: [paymentEntitiesLogos], [paymentEntitiesLogos[x].url], [paymentEntitiesLogos[x].label]
+Relevant fields: [paymentEntitiesLogos], [paymentEntitiesLogos\[x\].url], [paymentEntitiesLogos\[x\].label]
 
 ## UX differences across different screen sizes/layouts
 
@@ -37,6 +37,6 @@ Relevant fields: [paymentEntitiesLogos], [paymentEntitiesLogos[x].url], [payment
 [payeeName]: https://w3c.github.io/secure-payment-confirmation/#dom-securepaymentconfirmationrequest-payeename
 [payeeOrigin]: https://w3c.github.io/secure-payment-confirmation/#dom-securepaymentconfirmationrequest-payeeorigin
 [paymentEntitiesLogos]: https://w3c.github.io/secure-payment-confirmation/#dom-securepaymentconfirmationrequest-paymententitieslogos
-[paymentEntitiesLogos[x].label]: https://w3c.github.io/secure-payment-confirmation/#dom-paymententitylogo-label
-[paymentEntitiesLogos[x].url]: https://w3c.github.io/secure-payment-confirmation/#dom-paymententitylogo-url
+[paymentEntitiesLogos\[x\].label]: https://w3c.github.io/secure-payment-confirmation/#dom-paymententitylogo-label
+[paymentEntitiesLogos\[x\].url]: https://w3c.github.io/secure-payment-confirmation/#dom-paymententitylogo-url
 [transaction confirmation UX]: https://w3c.github.io/secure-payment-confirmation/#sctn-transaction-confirmation-ux

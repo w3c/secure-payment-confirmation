@@ -21,6 +21,23 @@ experience and payment industry feedback.
 
 Relevant fields: [payeeName], [payeeOrigin]
 
+The payee information fields are intended to communicate to the user who will
+be the recipient of the funds. In most cases this would be the merchant (or
+other entity) that the user has already been interacting with in the current
+session. The `payeeName` field, if present, communicates a natural language
+name, such as "Big Shoe Store Inc.", whilst the `payeeOrigin`, if present,
+communicates the web URL at which the payee can be found, such as
+`https://bigshoestore.example`.
+
+The specification allows for either one or both of the fields to be present.
+Implementors may display them separately, or may combine them into a single
+visual block such as `payeeName (payeeOrigin)`, for example "Big Shoe Store
+Inc. (https://bigshoestore.example)".
+
+Note: An implementor may truncate these fields in order to fit the text into
+the available UX space. See issue #269 for discussions on setting normative
+length limits on fields including payeeName and payeeOrigin.
+
 ### Payment instrument information
 
 Relevant fields: [instrument.displayName], [instrument.icon], [instrument.details]

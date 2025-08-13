@@ -6,14 +6,14 @@ A key step of the user journey for Secure Payment Confirmation (SPC) is the
 display of and user interaction with the [transaction confirmation UX]. This
 step communicates information from the caller of SPC (e.g., a merchant website,
 perhaps on behalf of a payment service provider or issuing bank) to the user,
-for the user to verify and ultimately sign via WebAuthn.
+for the user to verify and ultimately authenticate via WebAuthn.
 
 While web specifications do not generally make recommendations about how User
-Agents implement UX, it can be useful for both integrators of SPC (e.g.,
-financial organizations) and implementors of SPC (i.e., User Agents) to have
-some general guidelines about the information that can be provided and will be
-shown. This file aims to document those guidelines, based on implementor
-experience and payment industry feedback.
+Agents implement UX, both integrators of SPC (e.g., financial organizations)
+and implementors of SPC (i.e., User Agents) have requested general guidance
+about what information can be provided to the API and how it is likely to be
+displayed to the user. The non-normative guidance in this document is based on
+implementor experience and payment industry feedback.
 
 ## Information presented in the transaction confirmation UX
 
@@ -24,10 +24,10 @@ Relevant fields: [payeeName], [payeeOrigin]
 The payee information fields are intended to communicate to the user who will
 be the recipient of the funds. In most cases this would be the merchant (or
 other entity) that the user has already been interacting with in the current
-session. The `payeeName` field, if present, communicates a natural language
-name, such as "Big Shoe Store Inc.", whilst the `payeeOrigin`, if present,
-communicates the web URL at which the payee can be found, such as
-"https://bigshoestore.example".
+session (e.g., checkout flow). The `payeeName` field, if present, communicates
+a natural language name, such as "Big Shoe Store Inc.", whilst the
+`payeeOrigin`, if present, communicates the web URL at which the payee can be
+found, such as "https://bigshoestore.example".
 
 The specification allows for either one or both of the fields to be present.
 Implementors may display them separately, or may combine them into a single
@@ -36,7 +36,7 @@ Inc. (https://bigshoestore.example)".
 
 Note: An implementor may truncate these fields in order to fit the text into
 the available UX space. See issue #269 for discussions on setting normative
-length limits on fields including payeeName and payeeOrigin.
+length limits on fields.
 
 ### Payment instrument information
 
@@ -56,44 +56,43 @@ add additional clarifying details to help the user differentiate or make
 decisions.  For example, for a credit card payment instrument, `displayName`
 may be set to the product name for the card (e.g., "FancyBank Infinity Card"),
 whilst details might include the last four digits of the card and/or expiry
-date (e.g., "1234 01/32).
+date (e.g., "1234 01/32").
 
 Note: An implementor may truncate the `displayName` and `details` fields in
 order to fit the text into the available UX space. See issue #269 for
-discussions on setting normative length limits on fields including payeeName
-and payeeOrigin.
+discussions on setting normative length limits on fields.
 
 The `icon` field is set to the URL of an image representing the payment
 instrument. Implementors are expected to support common image formats such as
 PNG or JPG. The payment instrument icon image is intended to be a quick visual
-confirmation for the user, and is expected to be displayed fairly small.
+confirmation for the user, and is expected to be somewhat small on the screen.
 
 Implementation specifics:
 
 - Google Chrome's (and other Chromium-based browsers) implementation on both
   desktop and mobile platforms currently linearly scales the image (preserving
-  the input aspect ratio) to fit in a 32dp x 20dp region, e.g. the display
+  the input aspect ratio) to fit in a 32dp x 20dp region, i.e., the display
   region has an aspect ratio of 1.6:1.
     - Given current average screen densities, we would recommend that
       integrators pass in a logo with physical pixel size at least 3x of that,
-      e.g. minimal 96px by 60px.
+      i.e., at least 96px by 60px.
     - The Chrome team have stated that they are interested in hearing from
       partners if a 32dp x 20dp region is too small, as it may not allow for
       detailed icons (such as full card art for credit cards).
 
 ### Payment entity logos
 
-Relevant fields: [paymentEntitiesLogos], [paymentEntitiesLogos\[x\].url], [paymentEntitiesLogos\[x\].label]a
+Relevant fields: [paymentEntitiesLogos], [paymentEntitiesLogos\[x\].url], [paymentEntitiesLogos\[x\].label]
 
-The payment entity logos are intended to communicate to the user the identity
-of payment companies or organizations that are involved in the current
-transaction, who might otherwise not be clear to the user. Examples include the
-issuing bank and/or a card network in the case of credit/debit card payments,
-the user's bank and a payment initiation services provider (PISP) in Open
-Banking, etc.
+The payment entity logos are intended to communicate to the user which payment
+companies or organizations are involved in the current transaction. This is
+especially helpful if the identities of these parties would not otherwise be
+obvious to the user. Examples include the issuing bank and/or a card network in
+the case of credit/debit card payments, the user's bank and a payment
+initiation services provider (PISP) in Open Banking, etc.
 
 The payment entity logos are expected to be displayed prominently within the
-SPC transaction confirmation UX, but should not significantly overweight the
+SPC transaction confirmation UX, but should not significantly overshadow the
 other information shown. Implementors are able to support any number of logos
 passed within `paymentEntityLogos`, and may ignore 'extra' logos beyond what
 they support displaying, but it is recommended that they support up to two
@@ -105,7 +104,7 @@ The `label` field is used to convey a textual description of the payment entity
 to the user. This field may be displayed by the implementor, or it may be used
 only for accessibility purposes (e.g., for a screen reader to describe the
 logo). It is recommended that this text be short but descriptive to the user,
-e.g. "FancyBank logo".
+e.g., "FancyBank logo".
 
 The `url` field is set to the URL of a payment entity logo image. Implementors
 are expected to support common image formats such as PNG or JPG. Logos should
@@ -116,14 +115,14 @@ backgrounds, to allow them to be layered seamlessly onto implementor UX.
 Implementation specifics:
 
 - Google Chrome's (and other Chromium-based browsers) implementation currently
-  supports 0-2 payment entity logos, inclusive. If more than two logos are
+  supports zero, one, or two payment entity logos. If more than two logos are
   provided, Chrome currently discards the third logo onwards. Logos are placed
   at the top of the SPC dialog.
     - For `label`; Chrome currently does not display this value, but does use
       it as the accessibility text for the logo.
     - For `url` (i.e., the logo itself), Chrome's implementation currently
       linearly scales the image (preserving the input aspect ratio) to fit in a
-      104dp x 24dp region on mobile and a planned 188dp x 43dp on desktop, e.g.
+      104dp x 24dp region on mobile and a planned 188dp x 43dp on desktop, i.e.,
       the display region has an aspect ratio of 4.333:1.
         - We recommend treating this as the upper-bound for aspect-ratio;
           images that have to be scaled to fit the height look better than

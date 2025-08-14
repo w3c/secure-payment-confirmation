@@ -1,6 +1,8 @@
 # Authenticators and SPC
 
-In this document we explain the landscape (and complexities) of FIDO authenticators and how they can be used with Secure Payment Confirmation (SPC). One goal of this document is to facilitate conversations within the Web Payments Working Group about priorities for increasing support for authenticators that work with SPC. Questions? Please contact Stephen McGruer and Ian Jacobs on the Web Payments Working Group's mailing list [public-payments-wg@w3.org](https://lists.w3.org/Archives/Public/public-payments-wg/).
+In this document we explain the landscape (and complexities) of FIDO authenticators and how they can be used with Secure Payment Confirmation (SPC). One goal of this document is to facilitate conversations within the Web Payments Working Group about priorities for increasing support for authenticators that work with SPC. To suggest improvements or fixes to this document, please create a pull request in this repo. To provide feedback to help with prioritization, please send comments on [issue 312](https://github.com/w3c/secure-payment-confirmation/issues/312).
+
+Created by Stephen McGruer and Ian Jacobs.
 
 ## Background
 

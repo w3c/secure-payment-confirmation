@@ -21,11 +21,11 @@ implementor experience and payment industry feedback.
 
 Relevant fields: [payeeName], [payeeOrigin]
 
-The payee information fields are intended to communicate to the user who will
-be the recipient of the funds. In most cases this would be the merchant (or
-other entity) that the user has already been interacting with in the current
-session (e.g., checkout flow). The `payeeName` field, if present, communicates
-a natural language name, such as "Big Shoe Store Inc.", whilst the
+The payee information fields are intended to communicate to the user which
+entity will be the recipient of the funds. In most cases this would be the
+merchant (or other entity) that the user has already been interacting with in
+the current session (e.g., checkout flow). The `payeeName` field, if present,
+communicates a natural language name, such as "Big Shoe Store Inc.", whilst the
 `payeeOrigin`, if present, communicates the web URL at which the payee can be
 found, such as "https://bigshoestore.example".
 

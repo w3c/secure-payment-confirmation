@@ -94,7 +94,7 @@ initiation services provider (PISP) in Open Banking, etc.
 The payment entity logos are expected to be displayed prominently within the
 SPC transaction confirmation UX, but should not significantly overshadow the
 other information shown. Implementors are able to support any number of logos
-passed within `paymentEntityLogos`, and may ignore 'extra' logos beyond what
+passed within `paymentEntityLogos`, and may ignore extra logos beyond what
 they support displaying, but it is recommended that they support up to two
 logos being shown.
 
@@ -109,8 +109,8 @@ e.g., "FancyBank logo".
 The `url` field is set to the URL of a payment entity logo image. Implementors
 are expected to support common image formats such as PNG or JPG. Logos should
 generally be "wordmark" or combination logos, which often display more clearly
-to users than 'simple' square logos. Logos should also have transparent
-backgrounds, to allow them to be layered seamlessly onto implementor UX.
+to users than square logos. Logos should also have transparent backgrounds, to
+allow them to be layered seamlessly onto implementor UX.
 
 Implementation specifics:
 

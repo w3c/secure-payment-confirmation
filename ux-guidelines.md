@@ -35,8 +35,9 @@ visual block such as `payeeName (payeeOrigin)`, for example "Big Shoe Store
 Inc. (https://bigshoestore.example)".
 
 Note: An implementor may truncate these fields in order to fit the text into
-the available UX space. See issue #269 for discussions on setting normative
-length limits on fields.
+the available UX space. See [issue
+#269](https://github.com/w3c/secure-payment-confirmation/issues/269) for
+discussions on setting normative length limits on fields.
 
 ### Payment instrument information
 
@@ -59,7 +60,8 @@ whilst details might include the last four digits of the card and/or expiry
 date (e.g., "1234 01/32").
 
 Note: An implementor may truncate the `displayName` and `details` fields in
-order to fit the text into the available UX space. See issue #269 for
+order to fit the text into the available UX space. See [issue
+#269](https://github.com/w3c/secure-payment-confirmation/issues/269) for
 discussions on setting normative length limits on fields.
 
 The `icon` field is set to the URL of an image representing the payment

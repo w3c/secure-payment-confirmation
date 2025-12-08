@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="ED" name="w3c-status">
-  <meta content="Bikeshed version 3f621ba99, updated Mon Jul 28 15:38:36 2025 -0700" name="generator">
+  <meta content="Bikeshed version 9d09b8007, updated Fri Dec 5 13:42:18 2025 -0800" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="bc60d13adbd763efb06035d1146291115af18629" name="revision">
+  <meta content="8cc822bb0be2202972084405e3f94a4d761fcad3" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>
 /* The heading colors reference https://www.w3.org/StyleSheets/TR/2021/base.css */
@@ -404,7 +404,7 @@ body {
 }
 .invalid.example:not(.no-marker)::before,
 .illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
+    content: "Invalid Example " counter(example);
 }
 
 figcaption {
@@ -920,9 +920,9 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
     <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
 </a>
 </p>
-   <h1 class="p-name no-ref" id="title">Secure Payment Confirmation</h1>
+   <h1 class="no-ref p-name" id="title">Secure Payment Confirmation</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2025-09-26">26 September 2025</time></p>
+    <time class="dt-updated" datetime="2025-12-08">8 December 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -937,9 +937,9 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
       <dd><a href="https://github.com/w3c/secure-payment-confirmation/issues/">GitHub</a>
       <dd><a href="#issues-index">Inline In Spec</a>
       <dt class="editor">Editor:
-      <dd class="editor p-author h-card vcard" data-editor-id="96463"><a class="p-name fn u-email email" href="mailto:smcgruer@chromium.org">Stephen McGruer</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
+      <dd class="editor h-card p-author vcard" data-editor-id="96463"><a class="email fn p-name u-email" href="mailto:smcgruer@chromium.org">Stephen McGruer</a> (<a class="org p-org" href="https://www.google.com/">Google</a>)
       <dt class="editor">Former Editor:
-      <dd class="editor p-author h-card vcard" data-editor-id="83784"><a class="p-name fn u-email email" href="mailto:rouslan@chromium.org">Rouslan Solomakhin</a> (<a class="p-org org" href="https://www.google.com/">Google</a>)
+      <dd class="editor h-card p-author vcard" data-editor-id="83784"><a class="email fn p-name u-email" href="mailto:rouslan@chromium.org">Rouslan Solomakhin</a> (<a class="org p-org" href="https://www.google.com/">Google</a>)
       <dt>Contributors:
       <dd><a href="mailto:ij@w3.org">Ian Jacobs</a> (<a href="https://w3.org">W3C</a>)
       <dd><a href="mailto:nburris@chromium.org">Nick Burris</a> (<a href="https://www.google.com">Google</a>)
@@ -954,13 +954,13 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
-   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+   <h2 class="heading no-num no-ref no-toc settled" id="abstract"><span class="content">Abstract</span></h2>
    <p>Secure Payment Confirmation (SPC) is a Web API to support streamlined
 authentication during a payment transaction. It is designed to scale authentication
 across merchants, to be used within a wide range of authentication protocols, and
 to produce cryptographic evidence that the user has confirmed transaction details.</p>
   </div>
-  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
+  <h2 class="heading no-num no-ref no-toc settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
    <p><em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current W3C publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/">W3C technical reports index</a> at https://www.w3.org/TR/.</em></p>
    <p>
@@ -999,8 +999,8 @@ to produce cryptographic evidence that the user has confirmed transaction detail
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
-   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
-   <ol class="toc" role="directory">
+   <h2 class="no-num no-ref no-toc" id="contents">Table of Contents</h2>
+   <ol class="toc">
     <li>
      <a href="#sctn-intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
      <ol class="toc">
@@ -1630,7 +1630,7 @@ modify steps 2 and 3:</p>
       may not be present upon redirect. See
       <a href="#sctn-security-user-activation-requirement">§ 11.4 Lack of user activation requirement</a> for security considerations.</p>
    <h3 class="heading settled" data-level="4.4" id="sctn-securepaymentconfirmationrequest-dictionary"><span class="secno">4.4. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-securepaymentconfirmationrequest"><code>SecurePaymentConfirmationRequest</code></dfn> Dictionary</span><a class="self-link" href="#sctn-securepaymentconfirmationrequest-dictionary"></a></h3>
-<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest"><c- g>SecurePaymentConfirmationRequest</c-></a> {
+<pre class="def highlight idl"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-securepaymentconfirmationrequest" id="ref-for-dictdef-securepaymentconfirmationrequest"><c- g>SecurePaymentConfirmationRequest</c-></a> {
     <c- b>required</c-> <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource"><c- n>BufferSource</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export data-type="BufferSource" id="dom-securepaymentconfirmationrequest-challenge"><code><c- g>challenge</c-></code></dfn>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString"><c- b>USVString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export data-type="USVString" id="dom-securepaymentconfirmationrequest-rpid"><code><c- g>rpId</c-></code></dfn>;
     <c- b>required</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource①"><c- n>BufferSource</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="SecurePaymentConfirmationRequest" data-dfn-type="dict-member" data-export data-type="sequence<BufferSource>" id="dom-securepaymentconfirmationrequest-credentialids"><code><c- g>credentialIds</c-></code></dfn>;
@@ -1726,7 +1726,7 @@ returns a member of an enum either indicating that Secure Payment Confirmation
 is available, or that it is unavailable with some indication as to the
 underlying reason. The use of an enum output is intended to aid developers in
 guiding and messaging to users with regards to their authentication options.</p>
-<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-securepaymentconfirmationavailability"><code><c- g>SecurePaymentConfirmationAvailability</c-></code></dfn> {
+<pre class="def highlight idl"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-securepaymentconfirmationavailability"><code><c- g>SecurePaymentConfirmationAvailability</c-></code></dfn> {
   <a class="idl-code" data-link-type="enum-value" href="#dom-securepaymentconfirmationavailability-available" id="ref-for-dom-securepaymentconfirmationavailability-available"><c- s>"available"</c-></a>,
   <a class="idl-code" data-link-type="enum-value" href="#dom-securepaymentconfirmationavailability-unavailable-unknown-reason" id="ref-for-dom-securepaymentconfirmationavailability-unavailable-unknown-reason"><c- s>"unavailable-unknown-reason"</c-></a>,
   <a class="idl-code" data-link-type="enum-value" href="#dom-securepaymentconfirmationavailability-unavailable-feature-not-enabled" id="ref-for-dom-securepaymentconfirmationavailability-unavailable-feature-not-enabled"><c- s>"unavailable-feature-not-enabled"</c-></a>,
@@ -1908,6 +1908,7 @@ input <code class="idl"><a data-link-type="idl" href="#dictdef-securepaymentconf
     <ul class="wpt-tests-list">
      <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/constructor.https.html" title="secure-payment-confirmation/constructor.https.html">constructor.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/constructor.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/constructor.https.html"><small>(source)</small></a>
      <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-invalid-icon.https.html" title="secure-payment-confirmation/authentication-invalid-icon.https.html">authentication-invalid-icon.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-invalid-icon.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-invalid-icon.https.html"><small>(source)</small></a>
+     <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-invalid-payment-entity-logo.https.html" title="secure-payment-confirmation/authentication-invalid-payment-entity-logo.https.html">authentication-invalid-payment-entity-logo.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-invalid-payment-entity-logo.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-invalid-payment-entity-logo.https.html"><small>(source)</small></a>
      <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-icon-data-url.https.html" title="secure-payment-confirmation/authentication-icon-data-url.https.html">authentication-icon-data-url.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-icon-data-url.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-icon-data-url.https.html"><small>(source)</small></a>
      <li class="wpt-test"><a class="wpt-name" href="https://wpt.fyi/results/secure-payment-confirmation/authentication-rejected.https.html" title="secure-payment-confirmation/authentication-rejected.https.html">authentication-rejected.https.html</a> <a class="wpt-live" href="https://wpt.live/secure-payment-confirmation/authentication-rejected.https.html"><small>(live test)</small></a> <a class="wpt-source" href="https://github.com/web-platform-tests/wpt/blob/master/secure-payment-confirmation/authentication-rejected.https.html"><small>(source)</small></a>
     </ul>
@@ -2272,7 +2273,7 @@ directly; for authentication the extension can only be accessed via
      <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension①">Registration</a> and <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension①">authentication</a></p>
     <dt data-md>Client extension input
     <dd data-md>
-<pre class="idl highlight def"><c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs②"><c- g>AuthenticationExtensionsClientInputs</c-></a> {
+<pre class="def highlight idl"><c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs" id="ref-for-dictdef-authenticationextensionsclientinputs②"><c- g>AuthenticationExtensionsClientInputs</c-></a> {
   <a data-link-type="idl-name" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs①"><c- n>AuthenticationExtensionsPaymentInputs</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsClientInputs" data-dfn-type="dict-member" data-export data-type="AuthenticationExtensionsPaymentInputs" id="dom-authenticationextensionsclientinputs-payment"><code><c- g>payment</c-></code></dfn>;
 };
 
@@ -2551,7 +2552,7 @@ to <var>payment_outputs</var>.</p>
      </ol>
     <dt data-md>Client extension output
     <dd data-md>
-<pre class="idl highlight def"><c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientoutputs" id="ref-for-dictdef-authenticationextensionsclientoutputs"><c- g>AuthenticationExtensionsClientOutputs</c-></a> {
+<pre class="def highlight idl"><c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientoutputs" id="ref-for-dictdef-authenticationextensionsclientoutputs"><c- g>AuthenticationExtensionsClientOutputs</c-></a> {
   <a data-link-type="idl-name" href="#dictdef-authenticationextensionspaymentoutputs" id="ref-for-dictdef-authenticationextensionspaymentoutputs③"><c- n>AuthenticationExtensionsPaymentOutputs</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="AuthenticationExtensionsClientOutputs" data-dfn-type="dict-member" data-export data-type="AuthenticationExtensionsPaymentOutputs" id="dom-authenticationextensionsclientoutputs-payment"><code><c- g>payment</c-></code></dfn>;
 };
 
@@ -2576,7 +2577,7 @@ to <var>payment_outputs</var>.</p>
      <p>None</p>
    </dl>
    <h3 class="heading settled" data-level="5.1" id="sctn-collectedclientpaymentdata-dictionary"><span class="secno">5.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientpaymentdata"><code>CollectedClientPaymentData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientpaymentdata-dictionary"></a></h3>
-<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata③"><c- g>CollectedClientPaymentData</c-></a> : <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑤"><c- n>CollectedClientData</c-></a> {
+<pre class="def highlight idl"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientpaymentdata" id="ref-for-dictdef-collectedclientpaymentdata③"><c- g>CollectedClientPaymentData</c-></a> : <a data-link-type="idl-name" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑤"><c- n>CollectedClientData</c-></a> {
     <c- b>required</c-> (<a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata③"><c- n>CollectedClientAdditionalPaymentData</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#dictdef-collectedclientadditionalpaymentregistrationdata" id="ref-for-dictdef-collectedclientadditionalpaymentregistrationdata②"><c- n>CollectedClientAdditionalPaymentRegistrationData</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientPaymentData" data-dfn-type="dict-member" data-export data-type="(CollectedClientAdditionalPaymentData or CollectedClientAdditionalPaymentRegistrationData)" id="dom-collectedclientpaymentdata-payment"><code><c- g>payment</c-></code></dfn>;
 };
 </pre>
@@ -2588,7 +2589,7 @@ to <var>payment_outputs</var>.</p>
      <p>The additional payment information to sign.</p>
    </dl>
    <h3 class="heading settled" data-level="5.2" id="sctn-collectedclientadditionalpaymentdata-dictionary"><span class="secno">5.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientadditionalpaymentdata"><code>CollectedClientAdditionalPaymentData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientadditionalpaymentdata-dictionary"></a></h3>
-<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata④"><c- g>CollectedClientAdditionalPaymentData</c-></a> {
+<pre class="def highlight idl"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata④"><c- g>CollectedClientAdditionalPaymentData</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑧"><c- b>USVString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export data-type="USVString" id="dom-collectedclientadditionalpaymentdata-rpid"><code><c- g>rpId</c-></code></dfn>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString⑨"><c- b>USVString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export data-type="USVString" id="dom-collectedclientadditionalpaymentdata-toporigin"><code><c- g>topOrigin</c-></code></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⓪"><c- b>USVString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentData" data-dfn-type="dict-member" data-export data-type="USVString" id="dom-collectedclientadditionalpaymentdata-payeename"><code><c- g>payeeName</c-></code></dfn>;
@@ -2635,7 +2636,7 @@ fields:</p>
 <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata⑥">CollectedClientAdditionalPaymentData</a></code>, because the origin of the calling
 frame is already included in <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-collectedclientdata" id="ref-for-dictdef-collectedclientdata⑦">CollectedClientData</a></code> of <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a>.</p>
    <h3 class="heading settled" data-level="5.3" id="sctn-collectedclientadditionalpaymentregistrationdata-dictionary"><span class="secno">5.3. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-collectedclientadditionalpaymentregistrationdata"><code>CollectedClientAdditionalPaymentRegistrationData</code></dfn> Dictionary</span><a class="self-link" href="#sctn-collectedclientadditionalpaymentregistrationdata-dictionary"></a></h3>
-<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentregistrationdata" id="ref-for-dictdef-collectedclientadditionalpaymentregistrationdata③"><c- g>CollectedClientAdditionalPaymentRegistrationData</c-></a> {
+<pre class="def highlight idl"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-collectedclientadditionalpaymentregistrationdata" id="ref-for-dictdef-collectedclientadditionalpaymentregistrationdata③"><c- g>CollectedClientAdditionalPaymentRegistrationData</c-></a> {
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①③"><c- b>USVString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="CollectedClientAdditionalPaymentRegistrationData" data-dfn-type="dict-member" data-export data-type="USVString" id="dom-collectedclientadditionalpaymentregistrationdata-browserboundpublickey"><code><c- g>browserBoundPublicKey</c-></code></dfn>;
 };
 </pre>
@@ -2851,7 +2852,7 @@ IANA COSE Algorithms registry <a data-link-type="biblio" href="#biblio-iana-cose
    <h2 class="heading settled" data-level="7" id="sctn-common-data-structures"><span class="secno">7. </span><span class="content">Common Data Structures</span><a class="self-link" href="#sctn-common-data-structures"></a></h2>
    <p>The following data structures are shared between registration and authentication.</p>
    <h3 class="heading settled" data-level="7.1" id="sctn-paymentcredentialinstrument-dictionary"><span class="secno">7.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-paymentcredentialinstrument"><code>PaymentCredentialInstrument</code></dfn> Dictionary</span><a class="self-link" href="#sctn-paymentcredentialinstrument-dictionary"></a></h3>
-<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument③"><c- g>PaymentCredentialInstrument</c-></a> {
+<pre class="def highlight idl"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymentcredentialinstrument" id="ref-for-dictdef-paymentcredentialinstrument③"><c- g>PaymentCredentialInstrument</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①④"><c- b>USVString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export data-type="USVString" id="dom-paymentcredentialinstrument-displayname"><code><c- g>displayName</c-></code></dfn>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑤"><c- b>USVString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export data-type="USVString" id="dom-paymentcredentialinstrument-icon"><code><c- g>icon</c-></code></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="true" data-dfn-for="PaymentCredentialInstrument" data-dfn-type="dict-member" data-export data-type="boolean" id="dom-paymentcredentialinstrument-iconmustbeshown"><code><c- g>iconMustBeShown</c-></code></dfn> = <c- b>true</c->;
@@ -2892,7 +2893,7 @@ displayed to the user.</p>
  internationalization of the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-details" id="ref-for-dom-paymentcredentialinstrument-details③">details</a></code>.</p>
    </dl>
    <h3 class="heading settled" data-level="7.2" id="sctn-paymententitylogo-dictionary"><span class="secno">7.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-paymententitylogo"><code>PaymentEntityLogo</code></dfn> Dictionary</span><a class="self-link" href="#sctn-paymententitylogo-dictionary"></a></h3>
-<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymententitylogo" id="ref-for-dictdef-paymententitylogo⑦"><c- g>PaymentEntityLogo</c-></a> {
+<pre class="def highlight idl"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-paymententitylogo" id="ref-for-dictdef-paymententitylogo⑦"><c- g>PaymentEntityLogo</c-></a> {
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑦"><c- b>USVString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="PaymentEntityLogo" data-dfn-type="dict-member" data-export data-type="USVString" id="dom-paymententitylogo-url"><code><c- g>url</c-></code></dfn>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①⑧"><c- b>USVString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="PaymentEntityLogo" data-dfn-type="dict-member" data-export data-type="USVString" id="dom-paymententitylogo-label"><code><c- g>label</c-></code></dfn>;
 };
@@ -3388,8 +3389,8 @@ when it is not.</p>
    </ul>
   </main>
   <div data-fill-with="conformance">
-   <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
-   <h3 class="no-ref no-num heading settled" id="w3c-conventions"><span class="content">Document conventions</span><a class="self-link" href="#w3c-conventions"></a></h3>
+   <h2 class="heading no-num no-ref settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
+   <h3 class="heading no-num no-ref settled" id="w3c-conventions"><span class="content">Document conventions</span><a class="self-link" href="#w3c-conventions"></a></h3>
    <p>Conformance requirements are expressed
     with a combination of descriptive assertions
     and RFC 2119 terminology.
@@ -3432,7 +3433,7 @@ when it is not.</p>
     <hr>
    </details>
    <section>
-    <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
+    <h3 class="heading no-num no-ref settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
     <p>Requirements phrased in the imperative as part of algorithms
     (such as "strip any leading space characters"
     or "return false and abort these steps")
@@ -3452,8 +3453,8 @@ when it is not.</p>
    </section>
   </div>
   <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
-  <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
-  <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
+  <h2 class="heading no-num no-ref settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <h3 class="heading no-num no-ref settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
    <li><a href="#dictdef-authenticationextensionspaymentinputs">AuthenticationExtensionsPaymentInputs</a><span>, in § 5</span>
    <li><a href="#dictdef-authenticationextensionspaymentoutputs">AuthenticationExtensionsPaymentOutputs</a><span>, in § 5</span>
@@ -3580,7 +3581,7 @@ when it is not.</p>
    <li><a href="#dom-securepaymentconfirmationavailability-unavailable-unknown-reason">unavailable-unknown-reason</a><span>, in § 4.6</span>
    <li><a href="#dom-paymententitylogo-url">url</a><span>, in § 7.2</span>
   </ul>
-  <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
+  <h3 class="heading no-num no-ref settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[CREDENTIAL-MANAGEMENT-1]</a> defines the following terms:
@@ -3801,8 +3802,8 @@ when it is not.</p>
      <li><span class="dfn-paneled" id="e97a9688">unsigned long</span>
     </ul>
   </ul>
-  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
-  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
+  <h2 class="heading no-num no-ref settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="heading no-num no-ref settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-credential-management-1">[CREDENTIAL-MANAGEMENT-1]
    <dd>Nina Satragno; Marcos Caceres. <a href="https://w3c.github.io/webappsec-credential-management/"><cite>Credential Management Level 1</cite></a>. URL: <a href="https://w3c.github.io/webappsec-credential-management/">https://w3c.github.io/webappsec-credential-management/</a>
@@ -3827,7 +3828,7 @@ when it is not.</p>
    <dt id="biblio-payment-method-id">[PAYMENT-METHOD-ID]
    <dd>Marcos Caceres. <a href="https://w3c.github.io/payment-method-id/"><cite>Payment Method Identifiers</cite></a>. URL: <a href="https://w3c.github.io/payment-method-id/">https://w3c.github.io/payment-method-id/</a>
    <dt id="biblio-payment-request">[PAYMENT-REQUEST]
-   <dd>Marcos Caceres; Rouslan Solomakhin; Ian Jacobs. <a href="https://w3c.github.io/payment-request/"><cite>Payment Request API</cite></a>. URL: <a href="https://w3c.github.io/payment-request/">https://w3c.github.io/payment-request/</a>
+   <dd>Marcos Caceres; Ian Jacobs; Stephen McGruer. <a href="https://w3c.github.io/payment-request/"><cite>Payment Request API</cite></a>. URL: <a href="https://w3c.github.io/payment-request/">https://w3c.github.io/payment-request/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-rfc8809">[RFC8809]
@@ -3845,7 +3846,7 @@ when it is not.</p>
    <dt id="biblio-webidl">[WEBIDL]
    <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
   </dl>
-  <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
+  <h3 class="heading no-num no-ref settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-bcp47">[BCP47]
    <dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
@@ -3858,8 +3859,8 @@ when it is not.</p>
    <dt id="biblio-webauthn-conditional-ui">[WEBAUTHN-CONDITIONAL-UI]
    <dd><a href="https://github.com/w3c/webauthn/issues/1545"><cite>WebAuthn Conditional UI Proposal</cite></a>. URL: <a href="https://github.com/w3c/webauthn/issues/1545">https://github.com/w3c/webauthn/issues/1545</a>
   </dl>
-  <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
-<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-securepaymentconfirmationrequest"><c- g>SecurePaymentConfirmationRequest</c-></a> {
+  <h2 class="heading no-num no-ref settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
+<pre class="def highlight idl"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-securepaymentconfirmationrequest"><c- g>SecurePaymentConfirmationRequest</c-></a> {
     <c- b>required</c-> <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource"><c- n>BufferSource</c-></a> <a data-type="BufferSource" href="#dom-securepaymentconfirmationrequest-challenge"><code><c- g>challenge</c-></code></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a data-type="USVString" href="#dom-securepaymentconfirmationrequest-rpid"><code><c- g>rpId</c-></code></a>;
     <c- b>required</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource"><c- n>BufferSource</c-></a>> <a data-type="sequence<BufferSource>" href="#dom-securepaymentconfirmationrequest-credentialids"><code><c- g>credentialIds</c-></code></a>;
@@ -3948,7 +3949,7 @@ when it is not.</p>
 };
 
 </pre>
-  <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
+  <h2 class="heading no-num no-ref settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
    <div class="issue"> The current version of this specification supports only a single
 URL per <code class="idl"><a data-link-type="idl" href="#dictdef-paymententitylogo">PaymentEntityLogo</a></code>, so simply copying and signing the data

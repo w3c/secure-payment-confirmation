@@ -1040,6 +1040,7 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
 <wpt>
   constructor.https.html
   authentication-invalid-icon.https.html
+  authentication-invalid-payment-entity-logo.https.html
   authentication-icon-data-url.https.html
   authentication-rejected.https.html
 </wpt>

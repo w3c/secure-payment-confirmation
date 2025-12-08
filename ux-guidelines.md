@@ -9,11 +9,8 @@ perhaps on behalf of a payment service provider or issuing bank) to the user,
 for the user to verify and ultimately authenticate via WebAuthn.
 
 While web specifications do not generally make recommendations about how User
-Agents implement UX, both integrators of SPC (e.g., financial organizations)
-and implementors of SPC (i.e., User Agents) have requested general guidance
-about what information can be provided to the API and how it is likely to be
-displayed to the user. The non-normative guidance in this document is based on
-implementor experience and payment industry feedback.
+Agents implement UX, we wanted to offer general guidance about how the API's
+information will likely be displayed to the user.
 
 ## Information presented in the transaction confirmation UX
 

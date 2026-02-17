@@ -970,7 +970,7 @@ typedef record<DOMString, boolean> SecurePaymentConfirmationCapabilities;
 [=map/Keys=] in {{SecurePaymentConfirmationCapabilities}} MUST be sorted in
 ascending lexicographical order. The set of [=map/keys=] SHOULD contain the set
 of [=enumeration values=] of {{SecurePaymentConfirmationCapability}}, but the
-client MAY omit [=map/keys=] as it deems necessary; see
+user agent MAY omit [=map/keys=] as it deems necessary; see
 [[#sctn-fingerprinting-via-get-secure-payment-confirmation-capabilities]].
 
 When the value for a given capability is `true`, the feature is known to be

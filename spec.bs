@@ -974,13 +974,16 @@ user agent MAY omit [=map/keys=] as it deems necessary; see
 [[#sctn-fingerprinting-via-get-secure-payment-confirmation-capabilities]].
 
 When the value for a given capability is `true`, the feature is known to be
-currently supported by Secure Payment Confirmation.
+currently supported in this user agent's implementation of Secure Payment
+Confirmation.
 
 When the value for a given capability is `false`, the feature is known to be not
-currently supported by Secure Payment Confirmation.
+currently supported in this user agent's implementation of Secure Payment
+Confirmation.
 
 When a capability does not [=map/exist=] as a key, the availability of the
-Secure Payment Confirmation feature is not known.
+feature is not known in this user agent's implementation of Secure Payment
+Confirmation.
 
 This API allows a developer to check for specific supported features when
 deciding whether to initiate a Secure Payment Confirmation flow, as follows:

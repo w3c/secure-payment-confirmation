@@ -981,9 +981,8 @@ When the value for a given capability is `false`, the feature is known to be not
 currently supported in this user agent's implementation of Secure Payment
 Confirmation.
 
-When a capability does not [=map/exist=] as a key, the availability of the
-feature is not known in this user agent's implementation of Secure Payment
-Confirmation.
+When a capability does not [=map/exist=] as a key, support for the feature is
+unknown in this user agent's implementation of Secure Payment Confirmation.
 
 This API allows a developer to check for specific supported features when
 deciding whether to initiate a Secure Payment Confirmation flow, as follows:

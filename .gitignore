@@ -4,3 +4,6 @@ spec.html
 
 # Junk files
 .DS_Store
+
+# IDE settings
+.vscode/

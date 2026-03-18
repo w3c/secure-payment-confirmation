@@ -17,6 +17,7 @@ When a transaction requires BBK support but the user's device doesn't support it
 * Provide a mechanism for API callers to detect if the BBK feature is available before making the "secure-payment-confirmation" payment request.
 * Save users from wasted authentication dialog interactions when required hardware capabilities are absent.
 * Provide an extensible API design to easily incorporate future SPC capabilities without significant specification churn.
+* Minimize any privacy impact relating to being able to fingerprint user devices.
 
 ## Proposed Solution
 

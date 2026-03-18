@@ -2,7 +2,7 @@
 
 ## tl;dr
 
-The **Secure Payment Confirmation (SPC) Capabilities API** is a proposed extension to [https://w3c.github.io/secure-payment-confirmation/](Secure Payment Confirmation) that allows detecting support for specific features before invoking a "secure-payment-confirmation" payment request. Specifically, this proposal introduces feature detection for Browser Bound Keys (BBK).
+The **Secure Payment Confirmation (SPC) Capabilities API** is a proposed extension to [Secure Payment Confirmation](https://w3c.github.io/secure-payment-confirmation/) that allows detecting support for specific features before invoking a "secure-payment-confirmation" payment request. Specifically, this proposal introduces feature detection for Browser Bound Keys (BBK).
 
 It provides an API surface modeled after WebAuthn's `getClientCapabilities()`, allowing Relying Parties to determine whether they can proceed with an SPC flow without forcing the user through unnecessary authentication dialogs when required features are unavailable.
 
@@ -25,7 +25,7 @@ The proposed solution adds a static API to enable callers to detect whether spec
 
 ### Proposed APIs
 
-The caller queries a new static `getSecurePaymentConfirmationCapabilities()` method on the `PaymentRequest` object to receive a record mapping capability strings to boolean availability values.
+The caller queries a new static `getSecurePaymentConfirmationCapabilities()` method on the `PaymentRequest` object to receive a record that maps capability strings to boolean availability values.
 
 ```javascript
 partial interface PaymentRequest {
@@ -35,9 +35,9 @@ partial interface PaymentRequest {
 typedef record<DOMString, boolean> SecurePaymentConfirmationCapabilities;
 ```
 
-The boolean value determines whether the SPC capability is available. A capability key might be missing from the map entirely, in which case the API user should interpret the availability of that specific capability as "unknown".
+The boolean value conveys whether the SPC capability is available. A capability key might be missing from the map entirely, in which case the API user should interpret the availability of that specific capability as "unknown".
 
-The primary capability introduced is `browserBoundKeyHardware`, used to verify if hardware necessary for storing non-extractable keys is available.
+The primary capability introduced is `browserBoundKeyHardware`. A value of `true` means that hardware necessary for storing non-extractable keys is available.
 
 ```javascript
 // Check if getSecurePaymentConfirmationCapabilities function is defined.

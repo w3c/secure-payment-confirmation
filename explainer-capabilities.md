@@ -101,6 +101,6 @@ Although this represents the simplest change to surface the BBK feature, it is b
 
 The primary concern with this proposal is that it presents a potential fingerprinting risk, revealing whether a given device is equipped with a hardware security chip. 
 
-However, similar low-level feature detections are already largely obtainable. In discussions regarding DBSC (Device Bound Session Credentials), TPM detection is not generally considered an unmanageable fingerprinting vector given that timing attacks (slow TPM vs. fast TPM vs. no TPM) already expose such hardware realities.
+However, similar low-level feature detections are already readily available. In discussions regarding DBSC (Device Bound Session Credentials), TPM detection is not generally considered an unmanageable fingerprinting vector given that timing attacks (slow TPM vs. fast TPM vs. no TPM) already expose information about hardware.
 
 To mitigate this risk, clients can elect to limit the capabilities returned to the API user. Specifically, clients should prefer to omit capabilities entirely rather than definitively returning a boolean `false`. Omitting the capability value altogether still provides a negative signal to an API user relying on the capability, but limits explicit confirmation about what hardware is definitively absent, making robust fingerprinting harder to achieve.

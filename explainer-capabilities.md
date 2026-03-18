@@ -21,7 +21,7 @@ When a transaction requires BBK support but the user's device doesn't support it
 
 ## Proposed Solution
 
-The proposal enables API users to detect whether specific capabilities, such as the BBK hardware feature, are available before initiating an SPC payment request.
+The proposed solution adds a static API to enable callers to detect whether specific capabilities, such as the BBK hardware feature, are available before initiating a "secure-payment-confirmation" payment request.
 
 ### Proposed APIs
 

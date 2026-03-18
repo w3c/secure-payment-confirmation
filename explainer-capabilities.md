@@ -4,7 +4,7 @@
 
 The **Secure Payment Confirmation (SPC) Capabilities API** is a proposed extension to [https://w3c.github.io/secure-payment-confirmation/](Secure Payment Confirmation) that allows detecting support for specific features before invoking a "secure-payment-confirmation" payment request. Specifically, this proposal introduces feature detection for Browser Bound Keys (BBK).
 
-It provides an API surface modeled after WebAuthn's `getClientCapabilities()`, allowing Relying Parties to determine whether they should proceed with an SPC flow without forcing the user through unnecessary authentication dialogs when required features are unavailable.
+It provides an API surface modeled after WebAuthn's `getClientCapabilities()`, allowing Relying Parties to determine whether they can proceed with an SPC flow without forcing the user through unnecessary authentication dialogs when required features are unavailable.
 
 ## Motivation
 

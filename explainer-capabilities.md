@@ -25,7 +25,7 @@ The proposed solution adds a static API to enable callers to detect whether spec
 
 ### Proposed APIs
 
-An API user queries a new static `getSecurePaymentConfirmationCapabilities()` method on the `PaymentRequest` object to receive a record mapping capability strings to boolean availability values.
+The caller queries a new static `getSecurePaymentConfirmationCapabilities()` method on the `PaymentRequest` object to receive a record mapping capability strings to boolean availability values.
 
 ```javascript
 partial interface PaymentRequest {

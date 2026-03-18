@@ -14,7 +14,7 @@ When a transaction requires BBK support but the user's device doesn't support it
 
 ### Goals
 
-* Provide a mechanism for API users to detect if the BBK feature is available before making the SPC payment request.
+* Provide a mechanism for API callers to detect if the BBK feature is available before making the "secure-payment-confirmation" payment request.
 * Save users from wasted authentication dialog interactions when required hardware capabilities are absent.
 * Provide an extensible API design to easily incorporate future SPC capabilities without significant specification churn.
 

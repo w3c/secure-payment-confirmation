@@ -816,7 +816,9 @@ members:
     :: Any [=WebAuthn extensions=] that should be used for the passed
         credential(s). The caller does not need to specify the
         [[#sctn-payment-extension-registration| payment extension]]; it is added
-        automatically.
+        automatically. In cross-origin contexts, only
+        [[#sctn-allowed-webauthn-extensions|allowed WebAuthn extensions]] may
+        be specified.
 
     : {{SecurePaymentConfirmationRequest/browserBoundPubKeyCredParams}}
     :: The list of allowed types of credential restricting the types of
@@ -842,6 +844,14 @@ members:
 
 The [=payment method additional data type=] for this payment method is
 {{SecurePaymentConfirmationRequest}}.
+
+## Allowed WebAuthn Extensions ## {#sctn-allowed-webauthn-extensions}
+
+The <dfn>allowed WebAuthn extensions</dfn> for a cross-origin Secure Payment
+Confirmation authentication are:
+
+*   "`uvm`"
+*   "`credProtect`"
 
 ## Checking if Secure Payment Confirmation is available ## {#sctn-secure-payment-confirmation-available-api}
 
@@ -1095,6 +1105,18 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
           members, in that it represents the caller's requested localized
           experience rather than assertion about a specific string value.
           See [[#sctn-i18n-considerations]] for more discussion.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not the
+    [=origin/host=] of the [=relevant settings object=]'s [=origin=] of
+    |request|:
+
+    1. If |data|["{{SecurePaymentConfirmationRequest/extensions}}"] [=map/exists=]:
+
+        1. For each |extensionIdentifier| in
+            |data|["{{SecurePaymentConfirmationRequest/extensions}}"] [=map/keys=]:
+
+            1. If |extensionIdentifier| is not one of the [=allowed WebAuthn extensions=],
+                throw a {{TypeError}}.
 
 ## Steps to check if a payment can be made ## {#sctn-steps-to-check-if-a-payment-can-be-made}
 

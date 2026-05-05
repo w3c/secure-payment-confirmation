@@ -850,7 +850,7 @@ The [=payment method additional data type=] for this payment method is
 The <dfn>allowed WebAuthn extensions</dfn> for a third-party Secure Payment
 Confirmation authentication (that is, one where the caller's [=origin=] is not
 the same as the [=origin=] of the [=Relying Party=] for the requested
-credential(s) are:
+credentials) are:
 
 *   TODO
 

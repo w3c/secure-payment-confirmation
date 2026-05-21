@@ -2368,7 +2368,7 @@ an unauthorized payment using Secure Payment Confirmation credentials
 
 WebAuthn allows for [=authentication extensions=] to be used during an
 authentication ceremony. Some extensions can be used to store or retrieve data
-on the authenticator that is sensitive to the [=Relying Party=].
+(on the authenticator) that is sensitive to the [=Relying Party=].
 
 In a Secure Payment Confirmation authentication ceremony, a third party (the
 caller) can initiate the ceremony for a credential owned by a different
@@ -2384,7 +2384,7 @@ Party=] had stored there, assuming the user authorizes the ceremony.
 
 To mitigate this risk, Secure Payment Confirmation restricts the use of
 WebAuthn extensions in cross-origin authentication ceremonies to a small
-[[#sctn-allowed-webauthn-extensions|allowlist of safe extensions]].
+[[#sctn-allowed-webauthn-extensions|list of allowed extensions]].
 
 ## Merchant-supplied authentication data ## {#sctn-security-merchant-data}
 

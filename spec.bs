@@ -44,8 +44,8 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
 spec: FIDO-CTAP; urlPrefix: https://fidoalliance.org/specs/fido-v2.3-ps-20260226/fido-client-to-authenticator-protocol-v2.3-ps-20260226.html
     type: dfn
         text: credProtect; url: sctn-credProtect-extension
-        text: minPinLength; url: sctn-minPinLength-extension
-        text: pinComplexityPolicy; url: sctn-pinComplexityPolicy-extension
+        text: minPinLength; url: sctn-minpinlength-extension
+        text: pinComplexityPolicy; url: sctn-pincomplexitypolicy-extension
 
 spec: i18n-glossary; urlPrefix: https://www.w3.org/TR/i18n-glossary/
     type: dfn
@@ -87,7 +87,7 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: credentialPublicKey; url: authdata-attestedcredentialdata-credentialpublickey
         text: base64url encoding; url: base64url-encoding
         text: largeBlob; url: largeblob
-        text: credProp; url: credProp
+        text: credProps; url: credprops
 
 spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
     type: dfn
@@ -856,9 +856,7 @@ The [=payment method additional data type=] for this payment method is
 ## Allowed WebAuthn Extensions ## {#sctn-allowed-webauthn-extensions}
 
 The <dfn>allowed WebAuthn extensions</dfn> for a third-party Secure Payment
-Confirmation authentication (that is, one where the caller's [=origin=] is not
-the same as the [=origin=] of the [=Relying Party=] for the requested
-credentials) are:
+Confirmation authentication are:
 
 * [=credProps=]
 * [=credProtect=]

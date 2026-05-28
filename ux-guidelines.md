@@ -121,7 +121,7 @@ Implementation specifics:
       it as the accessibility text for the logo.
     - For `url` (i.e., the logo itself), Chrome's implementation currently
       linearly scales the image (preserving the input aspect ratio) to fit in a
-      104dp x 24dp region on mobile and a planned 188dp x 43dp on desktop, i.e.,
+      104dp x 24dp region on mobile and a planned 130dp x 30dp on desktop, i.e.,
       the display region has an aspect ratio of 4.333:1.
         - We recommend treating this as the upper-bound for aspect-ratio;
           images that have to be scaled to fit the height look better than

@@ -6,7 +6,7 @@
   <meta content="ED" name="w3c-status">
   <meta content="Bikeshed version 0a3d88311, updated Mon May 4 18:07:03 2026 +0000" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="31cdf436f43db0573c9466dd46e5d126be73484b" name="revision">
+  <meta content="3c2d9f8dee91cbad4f73e7a0a7d05c6f2210e74e" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>
 /* The heading colors reference https://www.w3.org/StyleSheets/TR/2021/base.css */
@@ -953,7 +953,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
 </p>
    <h1 class="no-ref p-name" id="title">Secure Payment Confirmation</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-05-25">25 May 2026</time></p>
+    <time class="dt-updated" datetime="2026-05-28">28 May 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -2170,7 +2170,7 @@ empty list.</p>
      </details>
     <dt data-md>The user does not wish to proceed with the payment,
     <dd data-md>
-     <p>Run the <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request" id="ref-for-dfn-user-aborts-the-payment-request">user aborts the payment request algorithm</a> on the
+     <p>Run the <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request-algorithm" id="ref-for-dfn-user-aborts-the-payment-request-algorithm">user aborts the payment request algorithm</a> on the
 <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest⑧">PaymentRequest</a></code> the user is interacting with.</p>
      <p class="note" role="note"><span class="marker">Note:</span> This will reject the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show③">PaymentRequest.show()</a></code>
       promise with an "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#aborterror" id="ref-for-aborterror">AbortError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code>.</p>
@@ -3793,7 +3793,7 @@ when it is not.</p>
      <li><span class="dfn-paneled" id="559656f0">steps to respond to a payment request</span>
      <li><span class="dfn-paneled" id="ba4dacbc">steps to validate payment method data</span>
      <li><span class="dfn-paneled" id="3230704c">total</span>
-     <li><span class="dfn-paneled" id="04060d97">user aborts the payment request algorithm</span>
+     <li><span class="dfn-paneled" id="1c786b1f">user aborts the payment request algorithm</span>
      <li><span class="dfn-paneled" id="3c7fe9c4">user accepts the payment request algorithm</span>
      <li><span class="dfn-paneled" id="5f695b8a">value</span>
     </ul>
@@ -3950,7 +3950,7 @@ when it is not.</p>
    <dt id="biblio-url">[URL]
    <dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-webauthn-3">[WEBAUTHN-3]
-   <dd>Michael Jones; et al. <a href="https://w3c.github.io/webauthn/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. URL: <a href="https://w3c.github.io/webauthn/">https://w3c.github.io/webauthn/</a>
+   <dd>Akshay Kumar; et al. <a href="https://w3c.github.io/webauthn/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. URL: <a href="https://w3c.github.io/webauthn/">https://w3c.github.io/webauthn/</a>
    <dt id="biblio-webcrypto-2">[WEBCRYPTO-2]
    <dd>Daniel Huigens. <a href="https://w3c.github.io/webcrypto/"><cite>Web Cryptography Level 2</cite></a>. URL: <a href="https://w3c.github.io/webcrypto/">https://w3c.github.io/webcrypto/</a>
    <dt id="biblio-webdriver2">[WebDriver2]
@@ -4294,7 +4294,6 @@ let dfnPanelData = {
 "02f7d0f9": {"dfnID":"02f7d0f9","dfnText":"steps to check if a payment can be made","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-steps-to-check-if-a-payment-can-be-made"}],"title":"4.9. Steps to check if a payment can be made"}],"url":"https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made"},
 "03162f8e": {"dfnID":"03162f8e","dfnText":"user-verifying platform authenticator","external":true,"refSections":[{"refs":[{"id":"ref-for-user-verifying-platform-authenticator"},{"id":"ref-for-user-verifying-platform-authenticator\u2460"}],"title":"4.6. Checking if Secure Payment Confirmation is available"}],"url":"https://w3c.github.io/webauthn/#user-verifying-platform-authenticator"},
 "03afaf9c": {"dfnID":"03afaf9c","dfnText":"empty","external":true,"refSections":[{"refs":[{"id":"ref-for-list-empty"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://infra.spec.whatwg.org/#list-empty"},
-"04060d97": {"dfnID":"04060d97","dfnText":"user aborts the payment request algorithm","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-user-aborts-the-payment-request"}],"title":"4.10.2. Outcome of the transaction confirmation UX"}],"url":"https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request"},
 "0624097e": {"dfnID":"0624097e","dfnText":"challenge (for CollectedClientData)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-collectedclientdata-challenge"}],"title":"9.1. Verifying an Authentication Assertion"},{"refs":[{"id":"ref-for-dom-collectedclientdata-challenge\u2460"}],"title":"11.1.1. Login Attack"},{"refs":[{"id":"ref-for-dom-collectedclientdata-challenge\u2461"}],"title":"11.1.2. Payment Attack"}],"url":"https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge"},
 "086e3aff": {"dfnID":"086e3aff","dfnText":"origin","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-origin"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"}],"url":"https://html.spec.whatwg.org/multipage/browsers.html#concept-origin"},
 "0d174a15": {"dfnID":"0d174a15","dfnText":"PaymentCurrencyAmount","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-paymentcurrencyamount"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-dom-paymentcurrencyamount\u2460"},{"id":"ref-for-dom-paymentcurrencyamount\u2461"}],"title":"5.2. CollectedClientAdditionalPaymentData Dictionary"}],"url":"https://w3c.github.io/payment-request/#dom-paymentcurrencyamount"},
@@ -4305,6 +4304,7 @@ let dfnPanelData = {
 "16ad0fd2": {"dfnID":"16ad0fd2","dfnText":"locale","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-locale"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dfn-locale\u2460"}],"title":"14. Internationalization Considerations"}],"url":"https://www.w3.org/TR/i18n-glossary/#dfn-locale"},
 "1a0d3ec4": {"dfnID":"1a0d3ec4","dfnText":"registry of standardized payment methods","external":true,"refSections":[{"refs":[{"id":"ref-for-registry"}],"title":"4.1. Registration in [payment-method-id]"}],"url":"https://w3c.github.io/payment-method-id/#registry"},
 "1a99fe79": {"dfnID":"1a99fe79","dfnText":"publickey-credentials-create-feature","external":true,"refSections":[{"refs":[{"id":"ref-for-publickey-credentials-create-feature"}],"title":"1.2.1. Registration during a checkout"}],"url":"https://w3c.github.io/webauthn/#publickey-credentials-create-feature"},
+"1c786b1f": {"dfnID":"1c786b1f","dfnText":"user aborts the payment request algorithm","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-user-aborts-the-payment-request-algorithm"}],"title":"4.10.2. Outcome of the transaction confirmation UX"}],"url":"https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request-algorithm"},
 "22176f90": {"dfnID":"22176f90","dfnText":"payment handler","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-payment-handler"}],"title":"4. Authentication - the Secure Payment Confirmation payment method"}],"url":"https://w3c.github.io/payment-request/#dfn-payment-handler"},
 "221df805": {"dfnID":"221df805","dfnText":"origin","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-collectedclientdata-origin"}],"title":"9.1. Verifying an Authentication Assertion"},{"refs":[{"id":"ref-for-dom-collectedclientdata-origin\u2460"}],"title":"11.1.1. Login Attack"},{"refs":[{"id":"ref-for-dom-collectedclientdata-origin\u2461"}],"title":"11.1.2. Payment Attack"}],"url":"https://w3c.github.io/webauthn/#dom-collectedclientdata-origin"},
 "22e266bf": {"dfnID":"22e266bf","dfnText":"PublicKeyCredentialType","external":true,"refSections":[{"refs":[{"id":"ref-for-enumdef-publickeycredentialtype"},{"id":"ref-for-enumdef-publickeycredentialtype\u2460"}],"title":"6.1. Creating a key pair"}],"url":"https://w3c.github.io/webauthn/#enumdef-publickeycredentialtype"},
@@ -5041,7 +5041,7 @@ let refsData = {
 "https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made": {"displayText":"steps to check if a payment can be made","export":true,"for_":[],"level":"","normative":true,"shortname":"payment-request","spec":"payment-request","status":"anchor-block","text":"steps to check if a payment can be made","type":"dfn","url":"https://w3c.github.io/payment-request/#dfn-steps-to-check-if-a-payment-can-be-made"},
 "https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request": {"displayText":"steps to respond to a payment request","export":true,"for_":[],"level":"","normative":true,"shortname":"payment-request","spec":"payment-request","status":"anchor-block","text":"steps to respond to a payment request","type":"dfn","url":"https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request"},
 "https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data": {"displayText":"steps to validate payment method data","export":true,"for_":[],"level":"","normative":true,"shortname":"payment-request","spec":"payment-request","status":"anchor-block","text":"steps to validate payment method data","type":"dfn","url":"https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data"},
-"https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request": {"displayText":"user aborts the payment request algorithm","export":true,"for_":[],"level":"","normative":true,"shortname":"payment-request","spec":"payment-request","status":"anchor-block","text":"user aborts the payment request algorithm","type":"dfn","url":"https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request"},
+"https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request-algorithm": {"displayText":"user aborts the payment request algorithm","export":true,"for_":[],"level":"","normative":true,"shortname":"payment-request","spec":"payment-request","status":"anchor-block","text":"user aborts the payment request algorithm","type":"dfn","url":"https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request-algorithm"},
 "https://w3c.github.io/payment-request/#dfn-user-accepts-the-payment-request-algorithm": {"displayText":"user accepts the payment request algorithm","export":true,"for_":[],"level":"","normative":true,"shortname":"payment-request","spec":"payment-request","status":"anchor-block","text":"user accepts the payment request algorithm","type":"dfn","url":"https://w3c.github.io/payment-request/#dfn-user-accepts-the-payment-request-algorithm"},
 "https://w3c.github.io/payment-request/#dom-paymentcurrencyamount": {"displayText":"PaymentCurrencyAmount","export":true,"for_":[],"level":"1","normative":true,"shortname":"payment-request","spec":"payment-request","status":"current","text":"PaymentCurrencyAmount","type":"dictionary","url":"https://w3c.github.io/payment-request/#dom-paymentcurrencyamount"},
 "https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-currency": {"displayText":"currency","export":true,"for_":["PaymentCurrencyAmount"],"level":"1","normative":true,"shortname":"payment-request","spec":"payment-request","status":"current","text":"currency","type":"dict-member","url":"https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-currency"},

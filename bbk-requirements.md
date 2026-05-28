@@ -77,6 +77,18 @@ _This section is in development._
 
 * This proposal relies on underlying [FIDO security assumptions](https://fidoalliance.org/specs/common-specs/fido-security-ref-v2.1-ps-20220523.html#fido-security-assumptions) and related threat models.
 
+## FAQ
+* Can a BBK be reused across different accounts on the same installed browser program?
+  * Implementation specific.
+* Can a BBK be reused across an installed browser program and a web view version of that browser?
+  * No; each webview is considered a distinct installed browser program bounded by the embedding application.
+* Can a BBK be reused across an installed browser program and other installed browser programs using the same underlying engine (eg. Chromium)
+  * No; it cannot be shared among distinct installed browser programs (even if they share the same engine).
+* Can a BBK be reused across different browsers on the same device if they use the same underlying passkey manager?
+  * No; it cannot be shared among distinct installed browser programs.
+* If different apps use the same installed browser program to compose content (e.g., via Android Custom Tabs or Trusted Web Activity), can the same BBK be reused across those apps?
+  * Yes. In this case, the installed browser program is not embedded but invoked independently.
+
 ## Questions
 
 * If TPM is the focus of security, do we need any requirements related to BBK storage (e.g., must be encrypted storage)?

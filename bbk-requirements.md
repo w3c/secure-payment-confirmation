@@ -17,15 +17,15 @@ Therefore, the Web Payments Working Group plans to add a "browser-bound key (BBK
 ## Assumptions
 
 * Device binding is the fundamental property of a BBK. Once a BBK has been associated with a device, it cannot be reused outside that device.
-* Although in theory a BBK could be shared among multiple browser instances on the same device, we assume here that a BBK will also be bound to a browser instance (as the name "browser bound key" indicates).
+* Although in theory a BBK could be shared among multiple [installed browser program](#installed-browser-program)s on the same device, we assume here that a BBK will also be bound to an [installed browser program](#installed-browser-program) (as the name "browser bound key" indicates).
 * The consensus of the Web Payments Working Group is that, initially, each BBK will be paired with a passkey. We assume here that a BBK will be bound to a single passkey. In the future the Web Payments Working Group may explore the use of BBKs without passkeys.
 * A given passkey corresponds to an online identity. To distinguish online identities, the user will use different passkeys. 
-* A relying party will perform some ID &amp; V process before trusting a (new) BBK. That ID &amp; V process might take place before a Web Authentication registration (and thus, if the BBK is returned as part of the Web Authentication registration, the RP would not likely step up the user a second time). In the case of a synched passkey, when the RP first sees a BBK on a new user device, in the absence of other trust signals, the RP would likely perform some ID &amp; V process in order to trust the new BBK, and we consider that an acceptable user experience on a new device.
+* A relying party will perform some ID &amp; V process before trusting a (new) BBK. That ID &amp; V process might take place before a Web Authentication registration (and thus, if the BBK is returned as part of the Web Authentication registration, the RP would not likely step up the user a second time). In the case of a synced passkey, when the RP first sees a BBK on a new user device, in the absence of other trust signals, the RP would likely perform some ID &amp; V process in order to trust the new BBK, and we consider that an acceptable user experience on a new device.
 
 ## Definitions
 
-* <dfn id="bbk-binding">BBK binding</dfn>: a unique triplet consisting of a specific passkey, a specific browser instance, and a specific device.
-
+* <dfn id="bbk-binding">BBK binding</dfn>: a unique triplet consisting of a specific passkey, a specific [installed browser program](#installed-browser-program), and a specific device.
+* <dfn id="installed-browser-program">Installed browser program</dfn>: a specific installation of a web browser on a device. Note that a WebView is considered a part of the embedding application and thus a separate [installed browser program](#installed-browser-program) to the browser running the WebView.
 ## Requirements
 
 ***Notes:***
@@ -35,9 +35,9 @@ Therefore, the Web Payments Working Group plans to add a "browser-bound key (BBK
 
 ### Device binding
 
-* A BBK must only ever be associated with one [BBK binding](#bbk-binding). Thus, a BBK will not be usable with any other device, browser instance, or passkey. The device binding process may be, for example, through hardware crypto-security (e.g., TPM), keys stored in the secure element, or registration of the web browser linking a browser to a device.
+* A BBK must only ever be associated with one [BBK binding](#bbk-binding). Thus, a BBK will not be usable with any other device, [installed browser program](#installed-browser-program), or passkey. The device binding process may be, for example, through hardware crypto-security (e.g., TPM), keys stored in the secure element, or registration of the web browser linking a browser to a device.
 
-* A [BBK binding](#bbk-binding) should have at most one associated BBK at any given time.
+* A [BBK binding](#bbk-binding) may have more than one BBK associated with it (e.g., if the user has multiple profiles using the same passkey on the same [installed browser program](#installed-browser-program), each profile may have its own associated BBK).
 
 * A user agent may choose not to create a BBK if it deems there is no suitable mechanism available for establishing the device binding.
 

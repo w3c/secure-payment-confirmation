@@ -133,6 +133,12 @@ Implementation specifics:
           narrower with an aspect ratio of 2.7:1, it should be at least
           350px x 130px.
 
+Note: On Chrome for Desktop versions < 150, a bug meant that logos were being
+improperly resized. If you want to handle those Chrome versions, you must pass a
+logo of size 30dp x 63dp instead. You can use the
+[User-Agent Client Hints API](http://go/mdn/API/User-Agent_Client_Hints_API) to
+detect the Chrome version for serving different icon sizes.
+
 ### Transaction amount
 
 Relevant fields: [details.total.amount.currency], [details.total.amount.value]

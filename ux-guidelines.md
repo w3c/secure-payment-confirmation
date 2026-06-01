@@ -121,7 +121,7 @@ Implementation specifics:
       it as the accessibility text for the logo.
     - For `url` (i.e., the logo itself), Chrome's implementation currently
       linearly scales the image (preserving the input aspect ratio) to fit in a
-      104dp x 24dp region on mobile and a planned 188dp x 43dp on desktop, i.e.,
+      104dp x 24dp region on mobile and a planned 130dp x 30dp on desktop, i.e.,
       the display region has an aspect ratio of 4.333:1.
         - We recommend treating this as the upper-bound for aspect-ratio;
           images that have to be scaled to fit the height look better than
@@ -132,6 +132,12 @@ Implementation specifics:
           4.333:1 should be at least 563px x 130px. If the image instead was
           narrower with an aspect ratio of 2.7:1, it should be at least
           350px x 130px.
+
+Note: On Chrome for Desktop versions < 150, a bug meant that logos were being
+improperly resized. If you want to handle those Chrome versions, you must pass a
+logo of size 30dp x 63dp instead. You can use the
+[User-Agent Client Hints API](http://go/mdn/API/User-Agent_Client_Hints_API) to
+detect the Chrome version for serving different icon sizes.
 
 ### Transaction amount
 

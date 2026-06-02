@@ -24,7 +24,7 @@ Therefore, the Web Payments Working Group plans to add a "browser-bound key (BBK
 ## Definitions
 
 * <dfn id="bbk-binding">BBK binding</dfn>: a unique triplet consisting of a specific passkey, a specific [installed browser program](#installed-browser-program), and a specific device.
-* <dfn id="installed-browser-program">Installed browser program</dfn>: a specific installation of a web browser on a device. Note that a browser embedded in another application (e.g. WebView)  is considered a part of the embedding application and thus a distinct installed browser program.
+* <dfn id="installed-browser-program">Installed browser program</dfn>: a specific installation of a web browser on a device. Note that a browser embedded in another application (e.g., WebView)  is considered a part of the embedding application and thus a distinct installed browser program.
 ## Requirements
 
 ***Notes:***
@@ -78,10 +78,10 @@ _This section is in development._
 
 ## FAQ
 * Can a BBK be reused across different accounts on the same installed browser program?
-  * Implementation specific.
-* Can a BBK be reused across an installed browser program and a web view version of that browser?
-  * No; each webview is considered a distinct installed browser program bounded by the embedding application.
-* Can a BBK be reused across an installed browser program and other installed browser programs using the same underlying engine (eg. Chromium)
+  * This is an implementation choice left to the installed browser program.
+* Can a BBK be reused across an installed browser program and a WebView version of that browser?
+  * No; each WebView is considered a distinct installed browser program bounded by the embedding application.
+* Can a BBK be reused across an installed browser program and other installed browser programs using the same underlying engine (e.g., Chromium)?
   * No; it cannot be shared among distinct installed browser programs (even if they share the same engine).
 * Can a BBK be reused across different browsers on the same device if they use the same underlying passkey manager?
   * No; it cannot be shared among distinct installed browser programs.

@@ -817,7 +817,12 @@ members:
     :: Any [=WebAuthn extensions=] that should be used for the passed
         credential(s). The caller does not need to specify the
         [[#sctn-payment-extension-registration| payment extension]]; it is added
-        automatically. For a third-party SPC call, the dictionary MUST be empty.
+        automatically.
+
+        NOTE: A third-party SPC call will throw if this dictionary is
+        non-empty, to avoid attacks on [=Relying Party=] extensions that can
+        store private data. See
+        [[#sctn-security-restricted-webauthn-extensions]].
 
     : {{SecurePaymentConfirmationRequest/browserBoundPubKeyCredParams}}
     :: The list of allowed types of credential restricting the types of

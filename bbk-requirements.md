@@ -79,7 +79,7 @@ _This section is in development._
 
 ## FAQ
 * Can a BBK be reused across different accounts on the same installed browser program?
-  * Implementation specific.
+  * This is an implementation choice left to the installed browser program.
 * Can a BBK be reused across an installed browser program and a web view version of that browser?
   * No; each webview is considered a distinct installed browser program bounded by the embedding application.
 * Can a BBK be reused across an installed browser program and other installed browser programs using the same underlying engine (eg. Chromium)

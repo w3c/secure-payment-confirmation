@@ -25,7 +25,7 @@ Therefore, the Web Payments Working Group plans to add a "browser-bound key (BBK
 ## Definitions
 
 * <dfn id="bbk-binding">BBK binding</dfn>: a unique triplet consisting of a specific passkey, a specific [installed browser program](#installed-browser-program), and a specific device.
-* <dfn id="installed-browser-program">Installed browser program</dfn>: a specific installation of a web browser on a device. Note that a browser embedded in another application (e.g. WebView)  is considered a part of the embedding application and thus a distinct installed browser program.
+* <dfn id="installed-browser-program">Installed browser program</dfn>: a specific installation of a web browser on a device. Note that a browser embedded in another application (e.g., WebView)  is considered a part of the embedding application and thus a distinct installed browser program.
 ## Requirements
 
 ***Notes:***

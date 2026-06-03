@@ -821,8 +821,7 @@ members:
 
         NOTE: A third-party SPC call will throw if this dictionary is
         non-empty, to avoid attacks on [=Relying Party=] extensions that can
-        store private data. See
-        [[#sctn-security-restricted-webauthn-extensions]].
+        store private data. See [[#sctn-security-webauthn-extensions]].
 
     : {{SecurePaymentConfirmationRequest/browserBoundPubKeyCredParams}}
     :: The list of allowed types of credential restricting the types of
@@ -2341,7 +2340,7 @@ an unauthorized payment using Secure Payment Confirmation credentials
         if an attacker attempts to sit between the user and a valid merchant
         site and forward the assertion.
 
-### Restricted WebAuthn Extensions ### {#sctn-security-restricted-webauthn-extensions}
+### WebAuthn Extensions Only Allowed for the Relying Party ### {#sctn-security-webauthn-extensions}
 
 WebAuthn allows for [=authentication extensions=] to be used during an
 authentication ceremony. Some extensions can be used to store or retrieve data

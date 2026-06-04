@@ -80,6 +80,7 @@ spec: web-authn; urlPrefix: https://w3c.github.io/webauthn/
         text: create credential async loop; url: CreateCred-async-loop
         text: credentialPublicKey; url: authdata-attestedcredentialdata-credentialpublickey
         text: base64url encoding; url: base64url-encoding
+        text: largeBlob; url: largeblob
 
 spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
     type: dfn
@@ -818,6 +819,10 @@ members:
         [[#sctn-payment-extension-registration| payment extension]]; it is added
         automatically.
 
+        NOTE: A third-party SPC call will throw if this dictionary is
+        non-empty, to avoid attacks on [=Relying Party=] extensions that can
+        store private data. See [[#sctn-security-webauthn-extensions]].
+
     : {{SecurePaymentConfirmationRequest/browserBoundPubKeyCredParams}}
     :: The list of allowed types of credential restricting the types of
         cryptographic algorithms used for the browser bound key.
@@ -1081,6 +1086,11 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
 
         1. If |logo|["{{PaymentEntityLogo/label}}"] is empty, throw a
             {{TypeError}}.
+
+1. If |data|["{{SecurePaymentConfirmationRequest/extensions}}"] [=map/exists=]
+    and [=map/is not empty=], and
+    |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is not the [=origin=] of
+    the [=relevant settings object=] of |request|, throw a {{TypeError}}.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/locale}}"] [=map/exists=] and
     [=list/is not empty=]
@@ -2329,6 +2339,28 @@ an unauthorized payment using Secure Payment Confirmation credentials
     * An incorrect {{CollectedClientData}}["{{CollectedClientData/origin}}"],
         if an attacker attempts to sit between the user and a valid merchant
         site and forward the assertion.
+
+### WebAuthn Extensions Only Allowed for the Relying Party ### {#sctn-security-webauthn-extensions}
+
+WebAuthn allows for [=authentication extensions=] to be used during an
+authentication ceremony. Some extensions can be used to store or retrieve data
+(on the authenticator) that is sensitive to the [=Relying Party=].
+
+In a Secure Payment Confirmation authentication ceremony, a third party (the
+caller) can initiate the ceremony for a credential owned by a different
+[=Relying Party=]. If the caller were allowed to specify arbitrary WebAuthn
+extensions, they might be able to access sensitive data belonging to the
+[=Relying Party=] that the [=Relying Party=] did not intend to share with the
+caller.
+
+For example, the [=largeBlob=] extension allows for storing and retrieving
+large amounts of data. If an attacker could initiate an SPC ceremony with the
+`largeBlob` extension, they might be able to read data that the [=Relying
+Party=] had stored there, assuming the user authorizes the ceremony.
+
+To mitigate this risk, Secure Payment Confirmation disallows the use of
+WebAuthn extensions in cross-origin authentication ceremonies; they are only
+allowed when the caller is the [=Relying Party=].
 
 ## Merchant-supplied authentication data ## {#sctn-security-merchant-data}
 

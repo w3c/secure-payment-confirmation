@@ -1827,7 +1827,7 @@ Note: The requirements and design considerations for browser bound keys are desc
 The browser bound key store contains the following:
 
     : <dfn>browser_bound_map</dfn>
-    :: a map from [=Credential ID=] to a key pair identifier. Each key pair may be associated with at most one [=Credential ID=].
+    :: a map from [=Credential ID=] to a key pair identifier. Each key pair identifier may be associated with at most one [=Credential ID=].
 
     : <dfn>keypair_map</dfn>
     :: a map from a byte array, the key pair identifier, to a [=tuple=] of the

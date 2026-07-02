@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="ED" name="w3c-status">
-  <meta content="Bikeshed version cfb78d9c0, updated Tue Jun 2 16:21:00 2026 -0700" name="generator">
+  <meta content="Bikeshed version d113b2e81, updated Tue Jun 9 14:57:55 2026 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="bc0e94298bbc797305d6efab13e06bfbf0128cc6" name="revision">
+  <meta content="9d70780a8341a3468337933977291ab0b7e54a69" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>
 /* The heading colors reference https://www.w3.org/StyleSheets/TR/2021/base.css */
@@ -953,7 +953,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
 </p>
    <h1 class="no-ref p-name" id="title">Secure Payment Confirmation</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-06-04">4 June 2026</time></p>
+    <time class="dt-updated" datetime="2026-07-02">2 July 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1555,7 +1555,8 @@ be supported by the same underlying API.</p>
     <dd data-md>
      <p>A public-private <a data-link-type="dfn" href="#key-pair" id="ref-for-key-pair①">key pair</a> that signs over the transaction details in
 addition to the WebAuthn credential and is tied to a single device by the
-user agent.</p>
+user agent. <b>Note:</b> The name was chosen as initial implementations of this feature
+were created for browsers, but the concept is applicable to any user agent.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="key-pair">Key Pair</dfn>
     <dd data-md>
      <p>A key pair is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#struct" id="ref-for-struct">struct</a> consisting of <dfn class="dfn-paneled" data-dfn-for="key pair" data-dfn-type="dfn" data-lt="public key" data-noexport id="key-pair-public-key">public
@@ -2736,7 +2737,11 @@ fields:</p>
    </dl>
    <h2 class="heading settled" data-level="6" id="sctn-browser-bound-key-store"><span class="secno">6. </span><span class="content">Browser Bound Key Store</span><a class="self-link" href="#sctn-browser-bound-key-store"></a></h2>
    <p>This is an internal component owned by the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-user-agent">user agent</a> that manages
-platform-dependant cryptographic key pairs including their association to <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential⑥">SPC credentials</a> (i.e. passkeys). This section explains the <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="browser bound key store" data-noexport id="browser-bound-key-store">browser bound key
+platform-dependant cryptographic key pairs including their association to <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential⑥">SPC credentials</a> (i.e. passkeys). Each browser bound key store is owned by a single
+user agent which binds it to both the device and the browser. Each
+user agent may hold multiple browser bound key stores, for
+example if the user agent has multiple profiles.
+This section explains the <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="browser bound key store" data-noexport id="browser-bound-key-store">browser bound key
 store</dfn> and procedures for creating, binding, retrieving, and signing using
 the browser bound key pairs.</p>
    <p class="note" role="note"><span class="marker">Note:</span> The <a data-link-type="dfn" href="#browser-bound-key-store" id="ref-for-browser-bound-key-store">browser bound key store</a> needs to generate key pairs, retrieve key
@@ -2748,11 +2753,20 @@ the browser bound key pairs.</p>
     <a href="https://developer.apple.com/documentation/cryptokit/">Apple CryptoKit</a>, or
     <a href="https://learn.microsoft.com/en-us/windows/win32/seccng/cng-portal">Windows Cryptography API: Next
     Generation</a>.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> The requirements and design considerations for browser bound keys are described in the
+    <a href="https://github.com/w3c/secure-payment-confirmation/blob/main/bbk-requirements.md">BBK requirements document</a>.
+    The design of the browser bound key store and its procedures are based on those requirements and considerations.
+    Within the requirements document, the term "installed browser program" is used to refer to the user agent, as
+    the document was written with browser implementations in mind. However, the requirements and design considerations
+    are applicable to any user agent implementation.</p>
    <p>The browser bound key store contains the following:</p>
    <dl>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="browser_bound_map">browser_bound_map</dfn>
     <dd data-md>
      <p>a map from <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id②">Credential ID</a> to a key pair identifier.</p>
+   </dl>
+   <p class="note" role="note"><span class="marker">Note:</span> Each key pair identifier may be associated with at most one <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id③">Credential ID</a>.</p>
+   <dl>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="keypair_map">keypair_map</dfn>
     <dd data-md>
      <p>a map from a byte array, the key pair identifier, to a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#tuple" id="ref-for-tuple">tuple</a> of the
@@ -2848,7 +2862,7 @@ must identify the key for later retrival when <a data-link-type="dfn" href="#get
 identifier, <var>bbk_id</var>, and a byte array, <var>credential_id</var>, possibly returning
 failure perform the following steps:</p>
    <p class="note" role="note"><span class="marker">Note:</span> Stores the browser bound key identifier in the <a data-link-type="dfn" href="#browser_bound_map" id="ref-for-browser_bound_map">browser_bound_map</a> for
-the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id③">Credential ID</a> (i.e. passkey identifier).</p>
+the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id④">Credential ID</a> (i.e. passkey identifier).</p>
    <ol>
     <li data-md>
      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-set" id="ref-for-map-set②">Set</a> <a data-link-type="dfn" href="#browser_bound_map" id="ref-for-browser_bound_map①">browser_bound_map</a>[<var>credential_id</var>] to <var>bbk_id</var>. Catch
@@ -2867,7 +2881,7 @@ then return failure.</p>
 <var>credential_id</var>, and a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-list">list</a> of <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters" id="ref-for-dictdef-publickeycredentialparameters③">PublicKeyCredentialParameters</a></code>,
 <var>allowed_algorithms</var>, returning a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#tuple" id="ref-for-tuple③">tuple</a> of <a data-link-type="dfn" href="#key-pair" id="ref-for-key-pair⑥">key pair</a> with its
 <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#typedefdef-cosealgorithmidentifier" id="ref-for-typedefdef-cosealgorithmidentifier②">COSEAlgorithmIdentifier</a></code>:</p>
-   <p class="note" role="note"><span class="marker">Note:</span> Finds an existing associated key pair for a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id④">Credential ID</a> or creates
+   <p class="note" role="note"><span class="marker">Note:</span> Finds an existing associated key pair for a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id⑤">Credential ID</a> or creates
 a new associated key pair and returns that key pair with its algorithm.</p>
    <ol>
     <li data-md>
@@ -3946,7 +3960,7 @@ when it is not.</p>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-rfc8809">[RFC8809]
-   <dd>J. Hodges; G. Mandyam; M. Jones. <a href="https://www.rfc-editor.org/rfc/rfc8809"><cite>Registries for Web Authentication (WebAuthn)</cite></a>. August 2020. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc8809">https://www.rfc-editor.org/rfc/rfc8809</a>
+   <dd>J. Hodges; G. Mandyam; M. Jones. <a href="https://www.rfc-editor.org/info/rfc8809/"><cite>Registries for Web Authentication (WebAuthn)</cite></a>. August 2020. Informational. URL: <a href="https://www.rfc-editor.org/info/rfc8809/">https://www.rfc-editor.org/info/rfc8809/</a>
    <dt id="biblio-url">[URL]
    <dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-webauthn-3">[WEBAUTHN-3]
@@ -3961,15 +3975,15 @@ when it is not.</p>
   <h3 class="heading no-num no-ref settled" id="informative"><span class="content">Non-Normative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-bcp47">[BCP47]
-   <dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
+   <dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://www.rfc-editor.org/info/rfc5646/"><cite>Tags for Identifying Languages</cite></a>. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc5646/">https://www.rfc-editor.org/info/rfc5646/</a>
    <dt id="biblio-dbsc">[DBSC]
    <dd>Ian Clelland; Daniel Rubery; thefrog t. <a href="https://w3c.github.io/webappsec-dbsc/"><cite>Device Bound Session Credentials</cite></a>. URL: <a href="https://w3c.github.io/webappsec-dbsc/">https://w3c.github.io/webappsec-dbsc/</a>
    <dt id="biblio-fs">[FS]
    <dd>Austin Sullivan. <a href="https://fs.spec.whatwg.org/"><cite>File System Standard</cite></a>. Living Standard. URL: <a href="https://fs.spec.whatwg.org/">https://fs.spec.whatwg.org/</a>
    <dt id="biblio-rfc2397">[RFC2397]
-   <dd>L. Masinter. <a href="https://www.rfc-editor.org/rfc/rfc2397"><cite>The "data" URL scheme</cite></a>. August 1998. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2397">https://www.rfc-editor.org/rfc/rfc2397</a>
+   <dd>L. Masinter. <a href="https://www.rfc-editor.org/info/rfc2397/"><cite>The "data" URL scheme</cite></a>. August 1998. Proposed Standard. URL: <a href="https://www.rfc-editor.org/info/rfc2397/">https://www.rfc-editor.org/info/rfc2397/</a>
    <dt id="biblio-rfc4647">[RFC4647]
-   <dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://www.rfc-editor.org/rfc/rfc4647"><cite>Matching of Language Tags</cite></a>. September 2006. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc4647">https://www.rfc-editor.org/rfc/rfc4647</a>
+   <dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://www.rfc-editor.org/info/rfc4647/"><cite>Matching of Language Tags</cite></a>. September 2006. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc4647/">https://www.rfc-editor.org/info/rfc4647/</a>
    <dt id="biblio-webauthn-conditional-ui">[WEBAUTHN-CONDITIONAL-UI]
    <dd><a href="https://github.com/w3c/webauthn/issues/1545"><cite>WebAuthn Conditional UI Proposal</cite></a>. URL: <a href="https://github.com/w3c/webauthn/issues/1545">https://github.com/w3c/webauthn/issues/1545</a>
   </dl>
@@ -4498,7 +4512,7 @@ let dfnPanelData = {
 "dom-securepaymentconfirmationrequest-showoptout": {"dfnID":"dom-securepaymentconfirmationrequest-showoptout","dfnText":"showOptOut","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout\u2460"}],"title":"4.10.1. Information presented to the user"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout\u2461"}],"title":"4.10.2. Outcome of the transaction confirmation UX"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-showoptout\u2462"}],"title":"12.7. User opt out"}],"url":"#dom-securepaymentconfirmationrequest-showoptout"},
 "dom-securepaymentconfirmationrequest-timeout": {"dfnID":"dom-securepaymentconfirmationrequest-timeout","dfnText":"timeout","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-timeout"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-timeout\u2460"}],"title":"4.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-timeout"},
 "e0843234": {"dfnID":"e0843234","dfnText":"getRandomValues()","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-Crypto-method-getRandomValues"}],"title":"6.1. Creating a key pair"}],"url":"https://w3c.github.io/webcrypto/#dfn-Crypto-method-getRandomValues"},
-"e4d7113a": {"dfnID":"e4d7113a","dfnText":"credential ID","external":true,"refSections":[{"refs":[{"id":"ref-for-credential-id"},{"id":"ref-for-credential-id\u2460"}],"title":"2. Terminology"},{"refs":[{"id":"ref-for-credential-id\u2461"}],"title":"6. Browser Bound Key Store"},{"refs":[{"id":"ref-for-credential-id\u2462"}],"title":"6.2. Binding a key pair"},{"refs":[{"id":"ref-for-credential-id\u2463"}],"title":"6.3. Retrieving a key pair"}],"url":"https://w3c.github.io/webauthn/#credential-id"},
+"e4d7113a": {"dfnID":"e4d7113a","dfnText":"credential ID","external":true,"refSections":[{"refs":[{"id":"ref-for-credential-id"},{"id":"ref-for-credential-id\u2460"}],"title":"2. Terminology"},{"refs":[{"id":"ref-for-credential-id\u2461"},{"id":"ref-for-credential-id\u2462"}],"title":"6. Browser Bound Key Store"},{"refs":[{"id":"ref-for-credential-id\u2463"}],"title":"6.2. Binding a key pair"},{"refs":[{"id":"ref-for-credential-id\u2464"}],"title":"6.3. Retrieving a key pair"}],"url":"https://w3c.github.io/webauthn/#credential-id"},
 "e8aa4aef": {"dfnID":"e8aa4aef","dfnText":"src","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-imageresource-src"},{"id":"ref-for-dom-imageresource-src\u2460"}],"title":"4.9. Steps to check if a payment can be made"}],"url":"https://w3c.github.io/image-resource/#dom-imageresource-src"},
 "e97a9688": {"dfnID":"e97a9688","dfnText":"unsigned long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-long"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-long"},
 "e99bd18e": {"dfnID":"e99bd18e","dfnText":"relevant global object","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-relevant-global"},{"id":"ref-for-concept-relevant-global\u2460"}],"title":"4.3. Modification of user activation requirement"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global"},

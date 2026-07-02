@@ -632,7 +632,8 @@ try {
 : <dfn>Browser bound key</dfn>
 :: A public-private [=key pair=] that signs over the transaction details in
     addition to the WebAuthn credential and is tied to a single device by the
-    user agent.
+    user agent. <b>Note:</b> The name was chosen as initial implementations of this feature
+    were created for browsers, but the concept is applicable to any user agent.
 
 : <dfn>Key Pair</dfn>
 :: A key pair is a [=struct=] consisting of <dfn for="key pair">public
@@ -1802,7 +1803,11 @@ fields:
 
 This is an internal component owned by the [=user agent=] that manages
 platform-dependant cryptographic key pairs including their association to [=SPC
-credentials=] (i.e. passkeys). This section explains the <dfn>browser bound key
+credentials=] (i.e. passkeys). Each browser bound key store is owned by a single
+user agent which binds it to both the device and the browser. Each
+user agent may hold multiple browser bound key stores, for
+example if the user agent has multiple profiles.
+This section explains the <dfn>browser bound key
 store</dfn> and procedures for creating, binding, retrieving, and signing using
 the browser bound key pairs.
 
@@ -1816,10 +1821,19 @@ Note: The [=browser bound key store=] needs to generate key pairs, retrieve key
     [Windows Cryptography API: Next
     Generation](https://learn.microsoft.com/en-us/windows/win32/seccng/cng-portal).
 
+Note: The requirements and design considerations for browser bound keys are described in the
+    [BBK requirements document](https://github.com/w3c/secure-payment-confirmation/blob/main/bbk-requirements.md).
+    The design of the browser bound key store and its procedures are based on those requirements and considerations.
+    Within the requirements document, the term "installed browser program" is used to refer to the user agent, as
+    the document was written with browser implementations in mind. However, the requirements and design considerations
+    are applicable to any user agent implementation.
+
 The browser bound key store contains the following:
 
     : <dfn>browser_bound_map</dfn>
     :: a map from [=Credential ID=] to a key pair identifier.
+
+Note: Each key pair identifier may be associated with at most one [=Credential ID=].
 
     : <dfn>keypair_map</dfn>
     :: a map from a byte array, the key pair identifier, to a [=tuple=] of the

@@ -1804,7 +1804,7 @@ fields:
 This is an internal component owned by the [=user agent=] that manages
 platform-dependant cryptographic key pairs including their association to [=SPC
 credentials=] (i.e. passkeys). Each browser bound key store is owned by a single
-user agent, binding it to both the device and the browser. Each
+user agent which binds it to both the device and the browser. Each
 user agent may hold multiple browser bound key stores, for
 example if the user agent has multiple profiles.
 This section explains the <dfn>browser bound key

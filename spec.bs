@@ -632,7 +632,7 @@ try {
 : <dfn>Browser bound key</dfn>
 :: A public-private [=key pair=] that signs over the transaction details in
     addition to the WebAuthn credential and is tied to a single device by the
-    user agent. The name was chosen as initial implementations of this feature
+    user agent. <b>Note:</b> The name was chosen as initial implementations of this feature
     were created for browsers, but the concept is applicable to any user agent.
 
 : <dfn>Key Pair</dfn>

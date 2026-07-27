@@ -506,8 +506,12 @@ if (!spcAvailable) {
 const request = new PaymentRequest([{
   supportedMethods: "secure-payment-confirmation",
   data: {
-    // List of credential IDs obtained from the bank.
-    credentialIds,
+    // List of allowed credentials obtained from the bank.
+    allowCredentials: [{
+      type: "public-key",
+      id: credentialId,
+      transports: ["internal"],
+    }],
 
     rpId: "fancybank.example",
 
@@ -753,7 +757,7 @@ NOTE: This allows the user agent to not require user activation, for
     dictionary SecurePaymentConfirmationRequest {
         required BufferSource challenge;
         required USVString rpId;
-        required sequence<BufferSource> credentialIds;
+        required sequence<PublicKeyCredentialDescriptor> allowCredentials;
         required PaymentCredentialInstrument instrument;
         unsigned long timeout;
         USVString payeeName;
@@ -777,8 +781,11 @@ members:
     : {{SecurePaymentConfirmationRequest/rpId}}
     :: The [=Relying Party Identifier=] of the credentials.
 
-    : {{SecurePaymentConfirmationRequest/credentialIds}}
-    :: The list of credential identifiers for the given instrument.
+    : {{SecurePaymentConfirmationRequest/allowCredentials}}
+    :: The list of {{PublicKeyCredentialDescriptor}}s for the given instrument.
+
+        Note: Chrome may support an old `credentialIds` member, but that is
+        deprecated and should not be relied on.
 
     : {{SecurePaymentConfirmationRequest/instrument}}
     :: The description of the instrument name and icon to display during
@@ -1029,12 +1036,20 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
   constructor-validate-payment-method-data.https.html
 </wpt>
 
-1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
+1. If |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"] is empty,
     throw a {{RangeError}}.
 
-1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
+1. For each |descriptor| in |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"]:
 
-    1. If |id| is empty, throw a {{RangeError}}.
+    1. If |descriptor|["{{PublicKeyCredentialDescriptor/type}}"] is not
+        {{PublicKeyCredentialType/public-key}}, throw a {{RangeError}}.
+
+    1. If |descriptor|["{{PublicKeyCredentialDescriptor/id}}"] is empty,
+        throw a {{RangeError}}.
+
+    1. If |descriptor|["{{PublicKeyCredentialDescriptor/transports}}"] is omitted,
+        or is not a sequence of length 1 whose only member is
+        {{AuthenticatorTransport/internal}}, throw a {{RangeError}}.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/challenge}}"] is null or
     empty, throw a {{TypeError}}.
@@ -1178,20 +1193,22 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
     matches, to defeat attempts to [[#sctn-privacy-probing-credential-ids|probe
     for credential existence]].
 
-1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
+1. For each |descriptor| in |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"]:
 
     1. Run the [=steps to silently determine if a credential is available for
         the current device=], passing in
-        |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|.
-        If the result is `false`, remove |id| from
-        |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
+        |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and
+        |descriptor|["{{PublicKeyCredentialDescriptor/id}}"].
+        If the result is `false`, remove |descriptor| from
+        |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"].
     1.  If the |data|["{{SecurePaymentConfirmationRequest/rpId}}"] is
         not the [=origin=] of the [=relevant settings object=] of |request|,
         run the [=steps to silently determine if an SPC Credential is
         third-party enabled=], passing in
-        |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and |id|. If the
-        result is `false`, remove |id| from
-        |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"].
+        |data|["{{SecurePaymentConfirmationRequest/rpId}}"] and
+        |descriptor|["{{PublicKeyCredentialDescriptor/id}}"]. If the
+        result is `false`, remove |descriptor| from
+        |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"].
 
 1. Return `true`.
 
@@ -1263,10 +1280,10 @@ if and how to proceed:
     {{PaymentRequest}} the user is interacting with.
 
 :  The user wishes to proceed with the payment, but either cannot (if
-    |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is
+    |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"] is
     empty) or does not wish to use an [=SPC Credential=],
 :: Run the following steps:
-    1. Set |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] to an
+    1. Set |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"] to an
         empty list.
 
         Note: This will cause the {{PaymentRequest/show|PaymentRequest.show()}}
@@ -1313,7 +1330,7 @@ transaction automation mode=]:
     :: Act as if the user has seen the transaction details, accepted them,
         but also indicated that they do not wish to use an [=SPC Credential=]
         to authenticate. If
-        |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
+        |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"] is empty,
         this is equivalent to "`autoAccept`".
 
     : "`autoReject`"
@@ -1334,7 +1351,7 @@ Note: These steps are only run if the user accepts the
       [[#sctn-transaction-confirmation-ux|transaction confirmation UX]]; they
       are called by the [=user accepts the payment request algorithm=].
 
-1. If |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"] is empty,
+1. If |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"] is empty,
     throw a "{{NotAllowedError}}" {{DOMException}}. This preserves
     [[webauthn-3#sctn-assertion-privacy|Authentication Ceremony Privacy]]
     in the case where a user either cannot or does not want to use SPC to
@@ -1389,6 +1406,8 @@ Note: These steps are only run if the user accepts the
 
     : {{PublicKeyCredentialRequestOptions/challenge}}
     :: |data|["{{SecurePaymentConfirmationRequest/challenge}}"]
+    : {{PublicKeyCredentialRequestOptions/allowCredentials}}
+    :: |data|["{{SecurePaymentConfirmationRequest/allowCredentials}}"]
     : {{PublicKeyCredentialRequestOptions/timeout}}
     :: |data|["{{SecurePaymentConfirmationRequest/timeout}}"]
     : {{PublicKeyCredentialRequestOptions/rpId}}
@@ -1400,26 +1419,11 @@ Note: These steps are only run if the user accepts the
 
     Note: This algorithm hard-codes "required" as the value for {{PublicKeyCredentialRequestOptions/userVerification}}, because that is what Chrome's initial implementation supports. The current limitations may change. The Working Group invites implementers to share use cases that would benefit from support for other values (e.g., "preferred" or "discouraged").
 
-1. For each |id| in |data|["{{SecurePaymentConfirmationRequest/credentialIds}}"]:
-
-    1. Let |descriptor| be a new {{PublicKeyCredentialDescriptor}} dictionary,
-        whose fields are:
-
-        : {{PublicKeyCredentialDescriptor/type}}
-        :: {{PublicKeyCredentialType/public-key}}
-        : {{PublicKeyCredentialDescriptor/id}}
-        :: |id|
-        : {{PublicKeyCredentialDescriptor/transports}}
-        :: A sequence of length 1 whose only member is
-            {{AuthenticatorTransport/internal}}.
-
-    1. [=list/Append=] |descriptor| to |publicKeyOpts|["{{PublicKeyCredentialRequestOptions/allowCredentials}}"].
-
 1. Let |outputCredential| be the result of running the algorithm to
     [=Request a Credential=], passing «["{{CredentialRequestOptions/publicKey}}"
     → |publicKeyOpts|]».
 
-    Note: Chrome's initial implementation does not pass the full `data.credentialIds` list to [=Request a Credential=]. Instead, it chooses one credential in the list that matches the current device and passes only that in.
+    Note: Chrome's initial implementation does not pass the full `data.allowCredentials` list to [=Request a Credential=]. Instead, it chooses one credential in the list that matches the current device and passes only that in.
 
     Note: This triggers [[webauthn-3]]'s [[webauthn-3#sctn-getAssertion|Get]] behavior
 

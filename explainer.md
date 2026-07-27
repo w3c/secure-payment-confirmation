@@ -309,8 +309,12 @@ Proposed new `secure-payment-confirmation` payment method:
 const request = new PaymentRequest([{
   supportedMethods: "secure-payment-confirmation",
   data: {
-    // List of credential IDs obtained from the Account Provider.
-    credentialIds,
+    // List of allowed credentials obtained from the Account Provider.
+    allowCredentials: [{
+      type: "public-key",
+      id: credentialId,
+      transports: ["internal"],
+    }],
 
     // The challenge is also obtained from the Account Provider.
     challenge: new Uint8Array(

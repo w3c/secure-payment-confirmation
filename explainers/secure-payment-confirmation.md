@@ -15,7 +15,7 @@ collection.
 See also:
   - [Specification](https://w3c.github.io/secure-payment-confirmation/), the formal draft spec.
   - [Scope document](https://github.com/w3c/secure-payment-confirmation/blob/main/scope.md)
-  - [Requirements document](https://github.com/w3c/secure-payment-confirmation/blob/main/requirements.md)
+  - [Requirements document](https://github.com/w3c/secure-payment-confirmation/blob/main/requirements/secure-payment-confirmation.md)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

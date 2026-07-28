@@ -10,7 +10,9 @@ the user has confirmed transaction details.
 
 Through this document we seek to build consensus around the scope of SPC.
 
-See also: [SPC Requirements and Design Considerations](requirements.md) for discussion about concrete requirements.
+See also: [SPC Requirements and Design
+Considerations](requirements/secure-payment-confirmation.md) for discussion
+about concrete requirements.
 
 We have been discussing three steps in a payment flow where browser
 capabilities could help streamline the user experience:

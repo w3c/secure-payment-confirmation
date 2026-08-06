@@ -1831,7 +1831,7 @@ Note: The [=browser bound key store=] needs to generate key pairs, retrieve key
     Generation](https://learn.microsoft.com/en-us/windows/win32/seccng/cng-portal).
 
 Note: The requirements and design considerations for browser bound keys are described in the
-    [BBK requirements document](https://github.com/w3c/secure-payment-confirmation/blob/main/bbk-requirements.md).
+    [BBK requirements document](https://github.com/w3c/secure-payment-confirmation/blob/main/requirements/browser-bound-keys.md).
     The design of the browser bound key store and its procedures are based on those requirements and considerations.
     Within the requirements document, the term "installed browser program" is used to refer to the user agent, as
     the document was written with browser implementations in mind. However, the requirements and design considerations

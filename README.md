@@ -9,10 +9,10 @@ Group](https://www.w3.org/Payments/WG/) is developing SPC.
 
 Links:
 
-- [Explainer](explainer.md)
+- [Explainer](explainers/secure-payment-confirmation.md)
 - [Specification](https://w3c.github.io/secure-payment-confirmation/) ([spec.bs](spec.bs))
 - [Use Cases](scope.md#user-stories)
-- [Requirements](requirements.md)
+- [Requirements](requirements/secure-payment-confirmation.md)
 - [Tests](https://wpt.fyi/results/secure-payment-confirmation?label=master&label=experimental&aligned)
 
 ![Screenshot](payment.png)

@@ -97,7 +97,9 @@ spec: webdriver; urlPrefix: https://w3c.github.io/webdriver/
 <pre class="link-defaults">
 spec:fetch; type:dfn; for:/; text:request;
 spec:i18n-glossary; type:dfn; text:bidi isolation
-spec:i18n-glossary; type:dfn; text:language priority list
+spec:i18n-glossary; type:dfn; text:language subtag
+spec:i18n-glossary; type:dfn; text:language tag
+spec:infra; type:dfn; text:ASCII case-insensitive
 spec:infra; type:dfn; text:list
 spec:infra; type:dfn; text:user agent
 spec:url; type:dfn; text:valid domain;
@@ -534,7 +536,7 @@ const request = new PaymentRequest([{
       },
     ],
 
-    // Caller’s requested localized experience
+    // Caller’s preferred locale(s) for validation
     locale: ["en"],
 
     timeout: 360000,  // 6 minutes
@@ -737,7 +739,7 @@ modify steps 2 and 3:
 2. If the [=relevant global object=] of [=request=] does not have
         [=transient activation=], the user agent MAY:
 
-    1. Return [=a promise rejected with=] with a {{"SecurityError"}}
+    1. Return [=a promise rejected with=] with a "{{SecurityError}}"
             {{DOMException}}.
 
 3. Otherwise, [=consume user activation=] of the [=relevant global object=].
@@ -831,11 +833,14 @@ members:
               be created.
 
     : {{SecurePaymentConfirmationRequest/locale}}
-    :: An optional list of language tags (see [[BCP47]]), in descending order
-        of priority, that identify the [=locale=] preferences of the website,
-        i.e. a [=language priority list=] [[RFC4647]], which the user agent can
-        use to perform [=language negotiation=] and locale-affected formatting
-        with the caller.
+    :: An optional list of language tags (see [[BCP47]]) that identify the
+        [=locale=] preferences of the website. If this is set with at
+        least one language tag, then the user agent will validate the list of
+        supplied language tags against the language tag that will be used for
+        the Secure Payment Confirmation dialog. If none of the supplied language
+        tags match, then the user agent will reject the promise returned by
+        {{PaymentRequest/canMakePayment|PaymentRequest.canMakePayment()}} with a
+        "{{NotSupportedError}}" {{DOMException}}.
 
     : {{SecurePaymentConfirmationRequest/showOptOut}}
     :: Whether the user should be given a chance to opt-out during the
@@ -1093,12 +1098,32 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
     the [=relevant settings object=] of |request|, throw a {{TypeError}}.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/locale}}"] [=map/exists=] and
-    [=list/is not empty=]
+    [=list/is not empty=]:
+
+    1. Let |dialogLanguageTag| be the [=language tag=] used by the Secure
+        Payment Confirmation dialog.
+
+    1. Let |matched| be false.
 
     1. For each |tag| in |data|["{{SecurePaymentConfirmationRequest/locale}}"]:
 
         1. If |tag| is not a well-formed [[BCP47]] language tag, throw a
             {{TypeError}}.
+
+        1. If both |tag| and |dialogLanguageTag| contain more than one
+            [=language subtag=], and |tag| and |dialogLanguageTag| are an
+            [=ASCII case-insensitive=] match, set |matched| to true and break.
+
+        1. If at least one of |tag| or |dialogLanguageTag| consists only of a
+            primary [=language subtag=], and their primary [=language subtags=]
+            are an [=ASCII case-insensitive=] match, set |matched| to true and
+            break.
+
+    1. If |matched| is false, throw a "{{NotSupportedError}}" {{DOMException}}.
+
+    NOTE: Returning {{NotSupportedError}} when no match is found lets the
+          RP know that the dialog locale does not match any of the requested
+          locale preferences.
 
     NOTE: The {{SecurePaymentConfirmationRequest/locale}} is distinct from
           language or direction metadata associated with specific input
@@ -1236,11 +1261,6 @@ authentication:
          for each {{PaymentEntityLogo}}, but SHOULD use them for accessibility
          purposes. The {{PaymentEntityLogo/label}}s will still be included and
          signed over in the {{CollectedClientAdditionalPaymentData}}.
-
-The user agent MAY utilize the information in
-{{SecurePaymentConfirmationRequest/locale}}, if any, to display a UX localized
-into a language and using locale-based formatting consistent with that of the
-website.
 
 If {{SecurePaymentConfirmationRequest/showOptOut}} is `true`, the user agent
 MUST give the user the opportunity to indicate that they want to opt out of the
@@ -2599,6 +2619,22 @@ should make this clear to the user, for example with some clarifying text:
 "This provider may have stored information about your payment method, which you
 can request to be deleted."
 
+## Fingerprinting via locale ## {#sctn-locale-fingerprinting}
+
+The {{SecurePaymentConfirmationRequest/locale}} member presents a possible
+fingerprinting risk, as it can silently expose the locale used by the Secure
+Payment Confirmation dialog. To do this, an attacker can create multiple Secure
+Payment Confirmation requests with different locales and observe whether calls
+to {{PaymentRequest/canMakePayment|PaymentRequest.canMakePayment()}} reject with
+an error until the attacker identifies the locale used by the Secure Payment
+Confirmation dialog.
+
+If the locale used by the Secure Payment Confirmation dialog is relatively rare,
+it would provide a way for attackers to uniquely identify users.
+
+Although this is an avenue for fingerprinting, note that this locale may
+already be exposed through other APIs (e.g. via [[HTML#language-preferences]]).
+
 # Accessibility Considerations # {#sctn-accessibility-considerations}
 
 User agents render the {{PaymentCredentialInstrument/icon}} and {{PaymentCredentialInstrument/displayName}} together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the {{PaymentCredentialInstrument/displayName}} (e.g., if the icon represents a bank, by including the bank name in the {{PaymentCredentialInstrument/displayName}}).
@@ -2609,26 +2645,28 @@ and [=payment request accessibility considerations|PaymentRequest's Accessibilit
 
 # Internationalization Considerations # {#sctn-i18n-considerations}
 
-Callers of the API should express the desired [=locale=] of the
-transaction dialog as well as the localization of any displayable
-strings via the {{SecurePaymentConfirmationRequest/locale}} member. In
-general this member should match the localization of the page where
-the request originates (such as by querying the `lang` attribute of
-the button triggering the request).
+Callers of the API should use the {{SecurePaymentConfirmationRequest/locale}}
+member to align the locale of the transaction dialog with the locale of the
+displayable strings they provide as input to the API (e.g.,
+{{PaymentCredentialInstrument/displayName}}). In particular, callers should:
 
-This specification does not (yet) include mechanisms for callers to
-associate language or direction metadata with the displayable strings
-they provide as input to the API (e.g., {{PaymentCredentialInstrument/displayName}}).
+* Aim for consistency between values of
+    {{SecurePaymentConfirmationRequest/locale}} (when provided) and the language
+    of displayable strings.
 
-In the meantime, callers of the API should:
+* Use {{PaymentRequest/canMakePayment|PaymentRequest.canMakePayment()}} to
+    determine if the Secure Payment Confirmation dialog will be displayed in the
+    locale set in {{SecurePaymentConfirmationRequest/locale}}.
 
-* Aim for consistency between values of {{SecurePaymentConfirmationRequest/locale}}
-    (when provided) and the language of displayable strings.
+* Fall back to a [=language tag=] containing only a primary [=language subtag=]
+    (e.g., `"en"`) if a match cannot be found for a locale with additional
+    [=language subtags=].
 
-* Ensure that direction changes within a string will be correctly
-    rendered when the string is displayed (see [How to use Unicode controls
-    for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls)
-    and [Inline changes to base direction](https://www.w3.org/TR/international-specs/#inline_changes)
+* Ensure that direction changes within supplied displayable strings will be
+    correctly rendered when the string is displayed (see
+    [How to use Unicode controls for bidi text](https://www.w3.org/International/questions/qa-bidi-unicode-controls)
+    and
+    [Inline changes to base direction](https://www.w3.org/TR/international-specs/#inline_changes)
     for more information).
 
 Implementations (and other processes attempting to display values)

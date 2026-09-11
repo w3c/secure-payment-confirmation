@@ -1098,12 +1098,32 @@ input {{PaymentRequest}} |request| and {{SecurePaymentConfirmationRequest}} |dat
     the [=relevant settings object=] of |request|, throw a {{TypeError}}.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/locale}}"] [=map/exists=] and
-    [=list/is not empty=]
+    [=list/is not empty=]:
+
+    1. Let |dialogLanguageTag| be the [=language tag=] used by the Secure
+        Payment Confirmation dialog.
+
+    1. Let |matched| be false.
 
     1. For each |tag| in |data|["{{SecurePaymentConfirmationRequest/locale}}"]:
 
         1. If |tag| is not a well-formed [[BCP47]] language tag, throw a
             {{TypeError}}.
+
+        1. If both |tag| and |dialogLanguageTag| contain more than one
+            [=language subtag=], and |tag| and |dialogLanguageTag| are an
+            [=ASCII case-insensitive=] match, set |matched| to true and break.
+
+        1. If at least one of |tag| or |dialogLanguageTag| consists only of a
+            primary [=language subtag=], and their primary [=language subtags=]
+            are an [=ASCII case-insensitive=] match, set |matched| to true and
+            break.
+
+    1. If |matched| is false, throw a "{{NotSupportedError}}" {{DOMException}}.
+
+    NOTE: Returning {{NotSupportedError}} when no match is found lets the
+          RP know that the dialog locale does not match any of the requested
+          locale preferences.
 
     NOTE: The {{SecurePaymentConfirmationRequest/locale}} is distinct from
           language or direction metadata associated with specific input
@@ -1123,36 +1143,6 @@ input {{SecurePaymentConfirmationRequest}} |data|, are:
   authentication-icon-data-url.https.html
   authentication-rejected.https.html
 </wpt>
-
-1. If |data|["{{SecurePaymentConfirmationRequest/locale}}"] [=map/exists=] and
-    [=list/is not empty=]:
-
-    1. Let |dialogLanguageTag| be the [=language tag=] used by the Secure
-        Payment Confirmation dialog.
-
-    1. Let |matched| be false.
-
-    1. For each |tag| in |data|["{{SecurePaymentConfirmationRequest/locale}}"]:
-
-        1. If both |tag| and |dialogLanguageTag| contain more than one
-            [=language subtag=], and |tag| and |dialogLanguageTag| are an
-            [=ASCII case-insensitive=] match, set |matched| to true and break.
-
-        1. If at least one of |tag| or |dialogLanguageTag| consists only of a
-            primary [=language subtag=], and their primary [=language subtags=]
-            are an [=ASCII case-insensitive=] match, set |matched| to true and
-            break.
-
-    1. If |matched| is false:
-
-        1. Reject the
-            {{PaymentRequest/canMakePayment|PaymentRequest.canMakePayment()}}
-            promise with a "{{NotSupportedError}}" {{DOMException}}.
-
-        1. Return false.
-
-        Note: This lets the RP know that the locale used by the dialog does not
-        match their requested locale preference.
 
 1. If |data|["{{SecurePaymentConfirmationRequest/payeeOrigin}}"] is present:
 

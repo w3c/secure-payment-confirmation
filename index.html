@@ -4,9 +4,9 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>Secure Payment Confirmation</title>
   <meta content="ED" name="w3c-status">
-  <meta content="Bikeshed version d113b2e81, updated Tue Jun 9 14:57:55 2026 -0700" name="generator">
+  <meta content="Bikeshed version ea4009a02, updated Thu Sep 17 15:24:44 2026 -0700" name="generator">
   <link href="https://www.w3.org/TR/secure-payment-confirmation/" rel="canonical">
-  <meta content="2af79bc12277010af6dfd80ab9c258f649adf611" name="revision">
+  <meta content="1877eaa14db9e94883b9f07da753f723cd2c270c" name="revision">
   <meta content="dark light" name="color-scheme">
 <style>
 /* The heading colors reference https://www.w3.org/StyleSheets/TR/2021/base.css */
@@ -953,7 +953,7 @@ dd:not(:last-child) > .wpt-tests-block:not([open]):last-child {
 </p>
    <h1 class="no-ref p-name" id="title">Secure Payment Confirmation</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-07-02">2 July 2026</time></p>
+    <time class="dt-updated" datetime="2026-10-13">13 October 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1134,6 +1134,7 @@ to produce cryptographic evidence that the user has confirmed transaction detail
       <li><a href="#sctn-fingerprinting-via-is-secure-payment-confirmation-available"><span class="secno">12.5</span> <span class="content">Fingerprinting via securePaymentConfirmationAvailability</span></a>
       <li><a href="#sctn-fingerprinting-via-get-secure-payment-confirmation-capabilities"><span class="secno">12.6</span> <span class="content">Fingerprinting via getSecurePaymentConfirmationCapabilities</span></a>
       <li><a href="#sctn-user-opt-out"><span class="secno">12.7</span> <span class="content">User opt out</span></a>
+      <li><a href="#sctn-locale-fingerprinting"><span class="secno">12.8</span> <span class="content">Fingerprinting via locale</span></a>
      </ol>
     <li><a href="#sctn-accessibility-considerations"><span class="secno">13</span> <span class="content">Accessibility Considerations</span></a>
     <li><a href="#sctn-i18n-considerations"><span class="secno">14</span> <span class="content">Internationalization Considerations</span></a>
@@ -1265,7 +1266,7 @@ may still do so using SPC from an iframe.</p>
     <h4 class="heading settled" data-level="1.1.3" id="sctn-use-case-device-binding"><span class="secno">1.1.3. </span><span class="content">Cryptographic evidence of device binding</span><a class="self-link" href="#sctn-use-case-device-binding"></a></h4>
     <p>In the payments industry a signal of device possession plays an important role
 as a second factor. WebAuthn allows for synced passkeys where one credential is
-available on multiple devices (<a href="https://w3c.github.io/webauthn/#sctn-usecase-consumer-mdc"><cite>Web Authentication</cite> § 1.2.1 Consumer with Multi-Device Credentials</a>).
+available on multiple devices (<a href="https://www.w3.org/TR/webauthn-3/#sctn-usecase-consumer-mdc"><cite>Web Authentication</cite> § 1.2.1 Consumer with Multi-Device Credentials</a>).
 Although syncing improves the user experience for login use cases, concerns
 have been raised that synced passkeys alone do not satisfy device possession
 requirements in some regulatory environments.</p>
@@ -1464,7 +1465,7 @@ presumes access to async/await, for easier to read promise handling.</p>
       <c- p>},</c->
     <c- p>],</c->
 
-    <c- c1>// Caller’s requested localized experience</c->
+    <c- c1>// Caller’s preferred locale(s) for validation</c->
     locale<c- o>:</c-> <c- p>[</c-><c- u>"en"</c-><c- p>],</c->
 
     timeout<c- o>:</c-> <c- mf>360000</c-><c- p>,</c->  <c- c1>// 6 minutes</c->
@@ -1540,7 +1541,7 @@ issue 1667</a>.</p>
 <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party-identifier" id="ref-for-relying-party-identifier①">Relying Party Identifier</a> and a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#credential-id" id="ref-for-credential-id①">credential ID</a>, silently (i.e.,
 without user interaction) determine if the credential represented by that
 credential ID is available for the current device (i.e., could be
-successfully used as part of a WebAuthn <a href="https://w3c.github.io/webauthn/#sctn-getAssertion">Get</a>
+successfully used as part of a WebAuthn <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">Get</a>
 call).</p>
      <p>This allows the user agent to only conditionally display
 <a href="#sctn-transaction-confirmation-ux">the transaction UX</a> to the user if
@@ -1652,7 +1653,7 @@ modify steps 2 and 3:</p>
     <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a>, the user agent MAY:</p>
      <ol>
       <li data-md>
-       <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-a-promise-rejected-with">a promise rejected with</a> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#securityerror" id="ref-for-securityerror">"SecurityError"</a></code>
+       <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-rejected-with" id="ref-for-a-promise-rejected-with">a promise rejected with</a> with a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#securityerror" id="ref-for-securityerror">SecurityError</a></code>"
     <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code>.</p>
      </ol>
     <li data-md>
@@ -1700,7 +1701,7 @@ registration and to be signed along with the transaction details.</p>
      <p>The number of milliseconds before the request to sign the transaction
 details times out. At most 1 hour. Default values and the range of
 allowed values is defined by the user agent. Web Authentication
-provides <a href="https://w3c.github.io/webauthn/#sctn-createCredential">additional timeout guidance</a>.</p>
+provides <a href="https://www.w3.org/TR/webauthn-3/#sctn-createCredential">additional timeout guidance</a>.</p>
     <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-payeename" id="ref-for-dom-securepaymentconfirmationrequest-payeename">payeeName</a></code>
     <dd data-md>
      <p>The display name of the payee that this SPC call is for (e.g., the
@@ -1740,11 +1741,13 @@ cryptographic algorithms used for the browser bound key.</p>
       be created.</p>
     <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale">locale</a></code>
     <dd data-md>
-     <p>An optional list of language tags (see <a data-link-type="biblio" href="#biblio-bcp47" title="Tags for Identifying Languages">[BCP47]</a>), in descending order
-of priority, that identify the <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="ref-for-dfn-locale">locale</a> preferences of the website,
-i.e. a <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-priority-list" id="ref-for-dfn-language-priority-list">language priority list</a> <a data-link-type="biblio" href="#biblio-rfc4647" title="Matching of Language Tags">[RFC4647]</a>, which the user agent can
-use to perform <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-negotiation" id="ref-for-dfn-language-negotiation">language negotiation</a> and locale-affected formatting
-with the caller.</p>
+     <p>An optional list of language tags (see <a data-link-type="biblio" href="#biblio-bcp47" title="Tags for Identifying Languages">[BCP47]</a>) that identify the
+<a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="ref-for-dfn-locale">locale</a> preferences of the caller. If this is set with at
+least one language tag, then the user agent will determine whether any tag in the list
+is consistent with the language that will be used in the Secure Payment Confirmation dialog. If none of the supplied language
+tags match, then the user agent will reject the promise returned by
+<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-canmakepayment" id="ref-for-dom-paymentrequest-canmakepayment">PaymentRequest.canMakePayment()</a></code> with a
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notsupportederror" id="ref-for-notsupportederror">NotSupportedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code>.</p>
     <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-showoptout" id="ref-for-dom-securepaymentconfirmationrequest-showoptout">showOptOut</a></code>
     <dd data-md>
      <p>Whether the user should be given a chance to opt-out during the
@@ -1837,7 +1840,7 @@ whether to initiate a SPC flow:</p>
     <c- k>await</c-> PaymentRequest<c- p>.</c->securePaymentConfirmationAvailability<c- p>()</c-> <c- o>===</c-> <c- t>'available'</c-><c- p>;</c->
 </pre>
    <p class="note" role="note"><span class="marker">NOTE:</span> The use of the static <code class="idl"><a data-link-type="idl" href="#dom-paymentrequest-securepaymentconfirmationavailability" id="ref-for-dom-paymentrequest-securepaymentconfirmationavailability②">securePaymentConfirmationAvailability</a></code> method is recommended for
-      SPC feature detection, instead of calling <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-canmakepayment" id="ref-for-dom-paymentrequest-canmakepayment">canMakePayment</a></code> on an already-constructed
+      SPC feature detection, instead of calling <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-canmakepayment" id="ref-for-dom-paymentrequest-canmakepayment①">canMakePayment</a></code> on an already-constructed
       PaymentRequest object.</p>
    <p class="note" role="note"><span class="marker">Note:</span> For privacy considerations of this API, see
       <a href="#sctn-fingerprinting-via-is-secure-payment-confirmation-available">§ 12.5 Fingerprinting via securePaymentConfirmationAvailability</a>.</p>
@@ -1979,16 +1982,38 @@ and <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-is-empty" i
 the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object">relevant settings object</a> of <var>request</var>, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror①③">TypeError</a></code>.</p>
     <li data-md>
      <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale①">locale</a></code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists②">exists</a> and
-<a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-is-empty" id="ref-for-list-is-empty">is not empty</a></p>
+<a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-is-empty" id="ref-for-list-is-empty">is not empty</a>:</p>
      <ol>
+      <li data-md>
+       <p>Let <var>dialogLanguageTag</var> be the <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-tag" id="ref-for-dfn-language-tag">language tag</a> used by the Secure
+Payment Confirmation dialog.</p>
+      <li data-md>
+       <p>Let <var>matched</var> be false.</p>
       <li data-md>
        <p>For each <var>tag</var> in <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale②">locale</a></code>"]:</p>
        <ol>
         <li data-md>
          <p>If <var>tag</var> is not a well-formed <a data-link-type="biblio" href="#biblio-bcp47" title="Tags for Identifying Languages">[BCP47]</a> language tag, throw a
 <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror①④">TypeError</a></code>.</p>
+        <li data-md>
+         <p>If both <var>tag</var> and <var>dialogLanguageTag</var> contain more than one
+<a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-subtag" id="ref-for-dfn-language-subtag">language subtag</a>, and <var>tag</var> and <var>dialogLanguageTag</var> are an
+<a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-case-insensitive" id="ref-for-ascii-case-insensitive">ASCII case-insensitive</a> match, set <var>matched</var> to true and break.</p>
+        <li data-md>
+         <p>If at least one of <var>tag</var> or <var>dialogLanguageTag</var> consists only of a
+primary language subtag (see <a data-link-type="biblio" href="#biblio-bcp47" title="Tags for Identifying Languages">[BCP47]</a>), and their primary language
+subtags are an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-case-insensitive" id="ref-for-ascii-case-insensitive①">ASCII case-insensitive</a> match, set <var>matched</var> to
+true and break.</p>
        </ol>
+      <li data-md>
+       <p>If <var>matched</var> is false, throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notsupportederror" id="ref-for-notsupportederror①">NotSupportedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code>.</p>
      </ol>
+     <p class="note" role="note"><span class="marker">NOTE:</span> Returning <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notsupportederror" id="ref-for-notsupportederror②">NotSupportedError</a></code> when no match is found lets the
+      caller know that the dialog locale does not match any of the requested
+      locale preferences.</p>
+     <p class="note" role="note"><span class="marker">NOTE:</span> Standard <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-negotiation" id="ref-for-dfn-language-negotiation">language negotiation</a> is not applied here because the
+      resulting language or locale will not be used for the Secure Payment
+      Confirmation dialog.</p>
      <p class="note" role="note"><span class="marker">NOTE:</span> The <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale③">locale</a></code> is distinct from
       language or direction metadata associated with specific input
       members, in that it represents the caller’s requested localized
@@ -2133,10 +2158,6 @@ non-empty.</p>
  signed over in the <code class="idl"><a data-link-type="idl" href="#dictdef-collectedclientadditionalpaymentdata" id="ref-for-dictdef-collectedclientadditionalpaymentdata①">CollectedClientAdditionalPaymentData</a></code>.</p>
      </ul>
    </ul>
-   <p>The user agent MAY utilize the information in
-<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale④">locale</a></code>, if any, to display a UX localized
-into a language and using locale-based formatting consistent with that of the
-website.</p>
    <p>If <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-showoptout" id="ref-for-dom-securepaymentconfirmationrequest-showoptout①">showOptOut</a></code> is <code>true</code>, the user agent
 MUST give the user the opportunity to indicate that they want to opt out of the
 process for the <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid⑥">given relying party</a></code>.</p>
@@ -2166,7 +2187,7 @@ empty) or does not wish to use an <a data-link-type="dfn" href="#spc-credential"
 empty list.</p>
        <p class="note" role="note"><span class="marker">Note:</span> This will cause the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show②">PaymentRequest.show()</a></code>
       promise to be rejected with a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code>"
-      <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code>; see <a href="#sctn-steps-to-respond-to-a-payment-request">§ 4.11 Steps to respond to a payment request</a>.</p>
+      <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException③">DOMException</a></code>; see <a href="#sctn-steps-to-respond-to-a-payment-request">§ 4.11 Steps to respond to a payment request</a>.</p>
       <li data-md>
        <p>Run the <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-user-accepts-the-payment-request-algorithm" id="ref-for-dfn-user-accepts-the-payment-request-algorithm①">user accepts the payment request algorithm</a> on the
 <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest⑦">PaymentRequest</a></code> the user is interacting with.</p>
@@ -2182,12 +2203,12 @@ empty list.</p>
      <p>Run the <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request-algorithm" id="ref-for-dfn-user-aborts-the-payment-request-algorithm">user aborts the payment request algorithm</a> on the
 <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest" id="ref-for-dom-paymentrequest⑧">PaymentRequest</a></code> the user is interacting with.</p>
      <p class="note" role="note"><span class="marker">Note:</span> This will reject the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show③">PaymentRequest.show()</a></code>
-      promise with an "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#aborterror" id="ref-for-aborterror">AbortError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code>.</p>
+      promise with an "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#aborterror" id="ref-for-aborterror">AbortError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException④">DOMException</a></code>.</p>
     <dt data-md>The user wishes to opt out of the process for the
 <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-rpid" id="ref-for-dom-securepaymentconfirmationrequest-rpid⑦">given relying party</a></code>,
     <dd data-md>
      <p>Reject the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show④">PaymentRequest.show()</a></code> with an
-"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#optouterror" id="ref-for-optouterror">OptOutError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException③">DOMException</a></code>. See <a href="#sctn-user-opt-out">§ 12.7 User opt out</a>.</p>
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#optouterror" id="ref-for-optouterror">OptOutError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException⑤">DOMException</a></code>. See <a href="#sctn-user-opt-out">§ 12.7 User opt out</a>.</p>
      <p class="note" role="note"><span class="marker">Note:</span> This option only has to be available to the user if
       <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-showoptout" id="ref-for-dom-securepaymentconfirmationrequest-showoptout②">showOptOut</a></code> was set to <code>true</code>.</p>
    </dl>
@@ -2227,12 +2248,12 @@ given <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/paym
    <ol>
     <li data-md>
      <p>If <var>data</var>["<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-credentialids" id="ref-for-dom-securepaymentconfirmationrequest-credentialids⑨">credentialIds</a></code>"] is empty,
-throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException④">DOMException</a></code>. This preserves
-<a href="https://w3c.github.io/webauthn/#sctn-assertion-privacy">Authentication Ceremony Privacy</a>
+throw a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror①">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException⑥">DOMException</a></code>. This preserves
+<a href="https://www.w3.org/TR/webauthn-3/#sctn-assertion-privacy">Authentication Ceremony Privacy</a>
 in the case where a user either cannot or does not want to use SPC to
 authenticate.</p>
      <p class="note" role="note"><span class="marker">Note:</span> Throwing here will cause the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-show" id="ref-for-dom-paymentrequest-show⑤">PaymentRequest.show()</a></code>
-      promise to be rejected with a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror②">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException⑤">DOMException</a></code>.</p>
+      promise to be rejected with a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror②">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException⑦">DOMException</a></code>.</p>
     <li data-md>
      <p>Let <var>topOrigin</var> be the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-environment-top-level-origin" id="ref-for-concept-environment-top-level-origin">top-level origin</a> of the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object" id="ref-for-relevant-settings-object②">relevant settings object</a> of <var>request</var>.</p>
     <li data-md>
@@ -2328,7 +2349,7 @@ whose fields are:</p>
 <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential" id="ref-for-abstract-opdef-request-a-credential">Request a Credential</a>, passing «["<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey" id="ref-for-dom-credentialrequestoptions-publickey">publicKey</a></code>"
 → <var>publicKeyOpts</var>]».</p>
      <p class="note" role="note"><span class="marker">Note:</span> Chrome’s initial implementation does not pass the full <code>data.credentialIds</code> list to <a data-link-type="dfn" href="https://w3c.github.io/webappsec-credential-management/#abstract-opdef-request-a-credential" id="ref-for-abstract-opdef-request-a-credential①">Request a Credential</a>. Instead, it chooses one credential in the list that matches the current device and passes only that in.</p>
-     <p class="note" role="note"><span class="marker">Note:</span> This triggers <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a>’s <a href="https://w3c.github.io/webauthn/#sctn-getAssertion">Get</a> behavior</p>
+     <p class="note" role="note"><span class="marker">Note:</span> This triggers <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a>’s <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">Get</a> behavior</p>
     <li data-md>
      <p>Return <var>outputCredential</var>.</p>
    </ol>
@@ -2423,7 +2444,7 @@ directly; for authentication the extension can only be accessed via
      </dl>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="client-extension-processing-registration">Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#registration-extension" id="ref-for-registration-extension②">registration</a>)</dfn>
     <dd data-md>
-     <p>When <a href="https://w3c.github.io/webauthn/#sctn-createCredential">creating a new credential</a>:</p>
+     <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-createCredential">creating a new credential</a>:</p>
      <ol>
       <li data-md>
        <p>After step 3, insert the following step:</p>
@@ -2509,7 +2530,7 @@ the result is failure, then return <code class="idl"><a data-link-type="idl" hre
             <dd data-md>
              <p>Result of <a data-link-type="dfn" href="#generate-a-browser-bound-signature" id="ref-for-generate-a-browser-bound-signature">generating a browser bound signature</a> using
 <var>bbk_and_algorithm</var> and <var>clientDataJson</var> from
-<a href="https://w3c.github.io/webauthn/#sctn-createCredential">create credential</a>
+<a href="https://www.w3.org/TR/webauthn-3/#sctn-createCredential">create credential</a>
 step 14.</p>
            </dl>
          </dl>
@@ -2521,12 +2542,12 @@ to <var>payment_outputs</var>.</p>
      </ol>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-export id="client-extension-processing-authentication">Client extension processing (<a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authentication-extension" id="ref-for-authentication-extension②">authentication</a>)</dfn>
     <dd data-md>
-     <p>When <a href="https://w3c.github.io/webauthn/#sctn-getAssertion">making an assertion</a> with a
+     <p>When <a href="https://www.w3.org/TR/webauthn-3/#sctn-getAssertion">making an assertion</a> with a
 <code class="idl"><a data-link-type="idl" href="#dictdef-authenticationextensionspaymentinputs" id="ref-for-dictdef-authenticationextensionspaymentinputs②">AuthenticationExtensionsPaymentInputs</a></code> <var>extension_inputs</var>:</p>
      <ol>
       <li data-md>
        <p>If not in a "<a data-link-type="dfn" href="#secure-payment-confirmation" id="ref-for-secure-payment-confirmation③">secure-payment-confirmation</a>" payment handler, return a
-"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror③">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException⑥">DOMException</a></code>.</p>
+"<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror③">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException⑧">DOMException</a></code>.</p>
        <details class="wpt-tests-block" dir="ltr" lang="en">
         <summary>Tests</summary>
         <ul class="wpt-tests-list">
@@ -2627,7 +2648,7 @@ indicates success"; in step 2 when setting the
               <dd data-md>
                <p>The Result of <a data-link-type="dfn" href="#generate-a-browser-bound-signature" id="ref-for-generate-a-browser-bound-signature①">generating a browser bound signature</a> using <var>bbk_and_algorithm</var> and
 <var>clientDataJson</var> from
-<a href="https://w3c.github.io/webauthn/#sctn-createCredential">create credential</a>
+<a href="https://www.w3.org/TR/webauthn-3/#sctn-createCredential">create credential</a>
 step 14.</p>
              </dl>
            </dl>
@@ -2762,7 +2783,7 @@ the browser bound key pairs.</p>
     <a href="https://learn.microsoft.com/en-us/windows/win32/seccng/cng-portal">Windows Cryptography API: Next
     Generation</a>.</p>
    <p class="note" role="note"><span class="marker">Note:</span> The requirements and design considerations for browser bound keys are described in the
-    <a href="https://github.com/w3c/secure-payment-confirmation/blob/main/bbk-requirements.md">BBK requirements document</a>.
+    <a href="https://github.com/w3c/secure-payment-confirmation/blob/main/requirements/browser-bound-keys.md">BBK requirements document</a>.
     The design of the browser bound key store and its procedures are based on those requirements and considerations.
     Within the requirements document, the term "installed browser program" is used to refer to the user agent, as
     the document was written with browser implementations in mind. However, the requirements and design considerations
@@ -2932,7 +2953,7 @@ according to established procedures for the <var>algorithm</var>.</p>
     <li data-md>
      <p>Let <var>encoded_public_key</var> be the COSE_Key encoding of <var>public_key</var>. Refer to
 <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#authdata-attestedcredentialdata-credentialpublickey" id="ref-for-authdata-attestedcredentialdata-credentialpublickey">credentialPublicKey</a> from WebAuthn’s
-<a href="https://w3c.github.io/webauthn/#sctn-attested-credential-data"><cite>Web Authentication</cite> § 6.5.1 Attested Credential Data</a>.</p>
+<a href="https://www.w3.org/TR/webauthn-3/#sctn-attested-credential-data"><cite>Web Authentication</cite> § 6.5.1 Attested Credential Data</a>.</p>
     <li data-md>
      <p>Return <var>encoded_public_key</var>.</p>
    </ol>
@@ -3065,7 +3086,7 @@ control of authentication</a>, the entity that invokes SPC may not be the
 <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑤">Relying Party</a>. This first step presumes that the SPC caller has returned
 a credential obtained via SPC to the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party②⑥">Relying Party</a>.</p>
     <li data-md>
-     <p>Perform steps 3-21 <a href="https://w3c.github.io/webauthn/#sctn-verifying-assertion"> as specified in
+     <p>Perform steps 3-21 <a href="https://www.w3.org/TR/webauthn-3/#sctn-verifying-assertion"> as specified in
 WebAuthn</a>, with the following changes:</p>
      <ol>
       <li data-md>
@@ -3115,7 +3136,7 @@ matches the payment instrument details that should have been displayed to the us
    <h2 class="heading settled" data-level="10" id="sctn-automation"><span class="secno">10. </span><span class="content">User Agent Automation</span><a class="self-link" href="#sctn-automation"></a></h2>
    <p>For the purposes of user agent automation and website testing, this document
 defines the below <a data-link-type="biblio" href="#biblio-webdriver2" title="WebDriver">[WebDriver2]</a> <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-extension-commands" id="ref-for-dfn-extension-commands">extension commands</a>. Interested parties
-should also consult the <a href="https://w3c.github.io/webauthn/#sctn-automation">equivalent automation
+should also consult the <a href="https://www.w3.org/TR/webauthn-3/#sctn-automation">equivalent automation
 section</a> in <a data-link-type="biblio" href="#biblio-webauthn-3" title="Web Authentication: An API for accessing Public Key Credentials - Level 3">[webauthn-3]</a>.</p>
    <h3 class="heading settled" data-level="10.1" id="sctn-automation-set-spc-transaction-mode"><span class="secno">10.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="set-spc-transaction-mode">Set SPC Transaction Mode</dfn></span><a class="self-link" href="#sctn-automation-set-spc-transaction-mode"></a></h3>
    <p>The <a data-link-type="dfn" href="#set-spc-transaction-mode" id="ref-for-set-spc-transaction-mode">Set SPC Transaction Mode</a> WebDriver <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-extension-commands" id="ref-for-dfn-extension-commands①">extension command</a> instructs the
@@ -3155,7 +3176,7 @@ a <a data-link-type="dfn" href="https://w3c.github.io/webdriver/#dfn-error" id="
    </ol>
    <h2 class="heading settled" data-level="11" id="sctn-security-considerations"><span class="secno">11. </span><span class="content">Security Considerations</span><a class="self-link" href="#sctn-security-considerations"></a></h2>
    <p>As this specification builds on top of WebAuthn, the
-<a href="https://w3c.github.io/webauthn/#sctn-security-considerations">WebAuthn Security Considerations</a>
+<a href="https://www.w3.org/TR/webauthn-3/#sctn-security-considerations">WebAuthn Security Considerations</a>
 are applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific security considerations, where this specification
 diverges from WebAuthn.</p>
@@ -3196,7 +3217,7 @@ the assertion they receive.</p>
    </ol>
    <p><a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑥">Relying Parties</a> can guard against this attack in two ways.</p>
    <p>Firstly, a <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party③⑦">Relying Party</a> must always follow the correct assertion
-validation steps either for <a href="https://w3c.github.io/webauthn/#sctn-verifying-assertion">WebAuthn
+validation steps either for <a href="https://www.w3.org/TR/webauthn-3/#sctn-verifying-assertion">WebAuthn
 login</a> or <a href="#sctn-verifying-assertion">SPC payment</a> as appropriate. In
 particular, the following fields can all be used to detect an inappropriate use
 of a credential:</p>
@@ -3356,12 +3377,12 @@ requires the document to be visible, and thus SPC cannot be triggered from a
 background tab, minimized window, or other similar hidden situations.</p>
    <h2 class="heading settled" data-level="12" id="sctn-privacy-considerations"><span class="secno">12. </span><span class="content">Privacy Considerations</span><a class="self-link" href="#sctn-privacy-considerations"></a></h2>
    <p>As this specification builds on top of WebAuthn, the
-<a href="https://w3c.github.io/webauthn/#sctn-privacy-considerations">WebAuthn Privacy Considerations</a> are
+<a href="https://www.w3.org/TR/webauthn-3/#sctn-privacy-considerations">WebAuthn Privacy Considerations</a> are
 applicable. The below subsections comprise the current Secure Payment
 Confirmation-specific privacy considerations, where this specification diverges
 from WebAuthn.</p>
    <h3 class="heading settled" data-level="12.1" id="sctn-privacy-probing-credential-ids"><span class="secno">12.1. </span><span class="content">Probing for credential ids</span><a class="self-link" href="#sctn-privacy-probing-credential-ids"></a></h3>
-   <p>As per WebAuthn’s section on <a href="https://w3c.github.io/webauthn/#sctn-assertion-privacy">Authentication
+   <p>As per WebAuthn’s section on <a href="https://www.w3.org/TR/webauthn-3/#sctn-assertion-privacy">Authentication
 Ceremony Privacy</a>, implementors of Secure Payment Confirmation must make sure
 not to enable malicious callers (who now may not even be the <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-party" id="ref-for-relying-party⑤⑦">Relying Party</a>)
 to distinguish between these cases:</p>
@@ -3376,7 +3397,7 @@ malicious <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#relying-
 <a data-link-type="dfn" href="https://w3c.github.io/webauthn/#public-key-credential" id="ref-for-public-key-credential②">credentials</a> are available.</p>
    <p>This risk is mitigated in Secure Payment Confirmation by always showing the
 <a href="#sctn-transaction-confirmation-ux">transaction confirmation UX</a>, and
-returning the same return error (a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror④">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException⑦">DOMException</a></code>) in
+returning the same return error (a "<code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror④">NotAllowedError</a></code>" <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-DOMException" id="ref-for-idl-DOMException⑨">DOMException</a></code>) in
 both the case that there is no <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential⑧">SPC Credential</a> available, and if there is an
 <a data-link-type="dfn" href="#spc-credential" id="ref-for-spc-credential⑨">SPC Credential</a> available but the user elects not to use it.</p>
    <h3 class="heading settled" data-level="12.2" id="sctn-privacy-joining-payment-instruments"><span class="secno">12.2. </span><span class="content">Joining different payment instruments</span><a class="self-link" href="#sctn-privacy-joining-payment-instruments"></a></h3>
@@ -3484,31 +3505,47 @@ it is for the developer to prompt for opt out via the user agent. The user agent
 should make this clear to the user, for example with some clarifying text:
 "This provider may have stored information about your payment method, which you
 can request to be deleted."</p>
+   <h3 class="heading settled" data-level="12.8" id="sctn-locale-fingerprinting"><span class="secno">12.8. </span><span class="content">Fingerprinting via locale</span><a class="self-link" href="#sctn-locale-fingerprinting"></a></h3>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale④">locale</a></code> member presents a possible
+fingerprinting risk, as it can silently expose the locale used by the Secure
+Payment Confirmation dialog. To do this, an attacker can create multiple Secure
+Payment Confirmation requests with different locales and observe whether calls
+to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-canmakepayment" id="ref-for-dom-paymentrequest-canmakepayment②">PaymentRequest.canMakePayment()</a></code> reject with
+an error until the attacker identifies the locale used by the Secure Payment
+Confirmation dialog.</p>
+   <p>If the locale used by the Secure Payment Confirmation dialog is relatively rare,
+it would provide a way for attackers to uniquely identify users.</p>
+   <p>Although this is an avenue for fingerprinting, note that this locale may
+already be exposed through other APIs (e.g., via <a href="https://html.spec.whatwg.org/multipage/system-state.html#language-preferences"><cite>HTML</cite> § 8.10.1.2 Language preferences</a>).</p>
    <h2 class="heading settled" data-level="13" id="sctn-accessibility-considerations"><span class="secno">13. </span><span class="content">Accessibility Considerations</span><a class="self-link" href="#sctn-accessibility-considerations"></a></h2>
    <p>User agents render the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-icon" id="ref-for-dom-paymentcredentialinstrument-icon⑧">icon</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname④">displayName</a></code> together. Relying parties ensure the accessibility of the icon presentation by providing sufficient information via the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑤">displayName</a></code> (e.g., if the icon represents a bank, by including the bank name in the <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑥">displayName</a></code>).</p>
    <p>User Agents implementing this specification should follow both
-<a href="https://w3c.github.io/webauthn/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a>
+<a href="https://www.w3.org/TR/webauthn-3/#sctn-accessiblility-considerations">WebAuthn’s Accessibility Considerations</a>
 and <a data-link-type="dfn" href="https://w3c.github.io/payment-request/#accessibility-considerations" id="ref-for-accessibility-considerations">PaymentRequest’s Accessibility Considerations</a>.</p>
    <h2 class="heading settled" data-level="14" id="sctn-i18n-considerations"><span class="secno">14. </span><span class="content">Internationalization Considerations</span><a class="self-link" href="#sctn-i18n-considerations"></a></h2>
-   <p>Callers of the API should express the desired <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="ref-for-dfn-locale①">locale</a> of the
-transaction dialog as well as the localization of any displayable
-strings via the <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale⑤">locale</a></code> member. In
-general this member should match the localization of the page where
-the request originates (such as by querying the <code>lang</code> attribute of
-the button triggering the request).</p>
-   <p>This specification does not (yet) include mechanisms for callers to
-associate language or direction metadata with the displayable strings
-they provide as input to the API (e.g., <code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑦">displayName</a></code>).</p>
-   <p>In the meantime, callers of the API should:</p>
+   <p>Callers of the API should use the <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale⑤">locale</a></code>
+member to align the locale of the transaction dialog with the locale of the
+displayable strings they provide as input to the API (e.g.,
+<code class="idl"><a data-link-type="idl" href="#dom-paymentcredentialinstrument-displayname" id="ref-for-dom-paymentcredentialinstrument-displayname⑦">displayName</a></code>). In particular, callers should:</p>
    <ul>
     <li data-md>
-     <p>Aim for consistency between values of <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale⑥">locale</a></code>
-(when provided) and the language of displayable strings.</p>
+     <p>Aim for consistency between values of
+<code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale⑥">locale</a></code> (when provided) and the language
+of displayable strings.</p>
     <li data-md>
-     <p>Ensure that direction changes within a string will be correctly
-rendered when the string is displayed (see <a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls">How to use Unicode controls
-for bidi text</a>
-and <a href="https://www.w3.org/TR/international-specs/#inline_changes">Inline changes to base direction</a>
+     <p>Use <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/payment-request/#dom-paymentrequest-canmakepayment" id="ref-for-dom-paymentrequest-canmakepayment③">PaymentRequest.canMakePayment()</a></code> to
+determine if the Secure Payment Confirmation dialog will be displayed in the
+locale set in <code class="idl"><a data-link-type="idl" href="#dom-securepaymentconfirmationrequest-locale" id="ref-for-dom-securepaymentconfirmationrequest-locale⑦">locale</a></code>.</p>
+    <li data-md>
+     <p>Fall back to a <a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-tag" id="ref-for-dfn-language-tag①">language tag</a> containing only a primary language subtag
+(e.g., <code>"en"</code>) if a match cannot be found for a locale with additional
+<a data-link-type="dfn" href="https://w3c.github.io/i18n-glossary/#dfn-language-subtag" id="ref-for-dfn-language-subtag①">language subtags</a>.</p>
+    <li data-md>
+     <p>Ensure that direction changes within supplied displayable strings will be
+correctly rendered when the string is displayed (see
+<a href="https://www.w3.org/International/questions/qa-bidi-unicode-controls">How to use Unicode controls for bidi text</a>
+and
+<a href="https://www.w3.org/TR/international-specs/#inline_changes">Inline changes to base direction</a>
 for more information).</p>
    </ul>
    <p>Implementations (and other processes attempting to display values)
@@ -3779,7 +3816,8 @@ when it is not.</p>
     <ul>
      <li><span class="dfn-paneled" id="2ba936be">bidi isolation</span>
      <li><span class="dfn-paneled" id="6d26b819">language negotiation</span>
-     <li><span class="dfn-paneled" id="30eadef0">language priority list</span>
+     <li><span class="dfn-paneled" id="bc9b33e2">language subtag</span>
+     <li><span class="dfn-paneled" id="55df6081">language tag</span>
      <li><span class="dfn-paneled" id="16ad0fd2">locale</span>
     </ul>
    <li>
@@ -3792,6 +3830,7 @@ when it is not.</p>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="53275e46">append</span>
+     <li><span class="dfn-paneled" id="7f9469b5">ASCII case-insensitive</span>
      <li><span class="dfn-paneled" id="03afaf9c">empty</span>
      <li><span class="dfn-paneled" id="1243a891">exist</span>
      <li><span class="dfn-paneled" id="860300d4">implementation-defined</span>
@@ -3866,7 +3905,7 @@ when it is not.</p>
      <li><span class="dfn-paneled" id="2e3d2880">WebAuthn Extension</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[WEBAUTHN-3]</a> defines the following terms:
+    <a data-link-type="biblio">[WEBAUTHN-4]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="b6db798e">AuthenticationExtensionsClientInputs</span>
      <li><span class="dfn-paneled" id="67de32a5">AuthenticationExtensionsClientOutputs</span>
@@ -3940,6 +3979,7 @@ when it is not.</p>
      <li><span class="dfn-paneled" id="8855a9aa">DOMString</span>
      <li><span class="dfn-paneled" id="797018a7">InvalidStateError</span>
      <li><span class="dfn-paneled" id="ba556545">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="3182eb71">NotSupportedError</span>
      <li><span class="dfn-paneled" id="b1c1965a">OptOutError</span>
      <li><span class="dfn-paneled" id="bdbd19d1">Promise</span>
      <li><span class="dfn-paneled" id="5e129c74">QuotaExceededError</span>
@@ -3991,6 +4031,8 @@ when it is not.</p>
    <dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
    <dt id="biblio-webauthn-3">[WEBAUTHN-3]
    <dd>Akshay Kumar; et al. <a href="https://w3c.github.io/webauthn/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 3</cite></a>. URL: <a href="https://w3c.github.io/webauthn/">https://w3c.github.io/webauthn/</a>
+   <dt id="biblio-webauthn-4">[WEBAUTHN-4]
+   <dd>Akshay Kumar; et al. <a href="https://w3c.github.io/webauthn/"><cite>Web Authentication: An API for accessing Public Key Credentials - Level 4</cite></a>. URL: <a href="https://w3c.github.io/webauthn/">https://w3c.github.io/webauthn/</a>
    <dt id="biblio-webcrypto-2">[WEBCRYPTO-2]
    <dd>Daniel Huigens. <a href="https://w3c.github.io/webcrypto/"><cite>Web Cryptography Level 2</cite></a>. URL: <a href="https://w3c.github.io/webcrypto/">https://w3c.github.io/webcrypto/</a>
    <dt id="biblio-webdriver2">[WebDriver2]
@@ -4001,15 +4043,13 @@ when it is not.</p>
   <h3 class="heading no-num no-ref settled" id="informative"><span class="content">Non-Normative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-bcp47">[BCP47]
-   <dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://www.rfc-editor.org/info/rfc5646/"><cite>Tags for Identifying Languages</cite></a>. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc5646/">https://www.rfc-editor.org/info/rfc5646/</a>
+   <dd>Addison Phillips; Mark Davis. <a href="https://www.rfc-editor.org/info/bcp47"><cite>Tags for Identifying Languages</cite></a>. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/bcp47">https://www.rfc-editor.org/info/bcp47</a>
    <dt id="biblio-dbsc">[DBSC]
    <dd>Ian Clelland; Daniel Rubery; thefrog t. <a href="https://w3c.github.io/webappsec-dbsc/"><cite>Device Bound Session Credentials</cite></a>. URL: <a href="https://w3c.github.io/webappsec-dbsc/">https://w3c.github.io/webappsec-dbsc/</a>
    <dt id="biblio-fs">[FS]
    <dd>Austin Sullivan. <a href="https://fs.spec.whatwg.org/"><cite>File System Standard</cite></a>. Living Standard. URL: <a href="https://fs.spec.whatwg.org/">https://fs.spec.whatwg.org/</a>
    <dt id="biblio-rfc2397">[RFC2397]
    <dd>L. Masinter. <a href="https://www.rfc-editor.org/info/rfc2397/"><cite>The "data" URL scheme</cite></a>. August 1998. Proposed Standard. URL: <a href="https://www.rfc-editor.org/info/rfc2397/">https://www.rfc-editor.org/info/rfc2397/</a>
-   <dt id="biblio-rfc4647">[RFC4647]
-   <dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://www.rfc-editor.org/info/rfc4647/"><cite>Matching of Language Tags</cite></a>. September 2006. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc4647/">https://www.rfc-editor.org/info/rfc4647/</a>
    <dt id="biblio-webauthn-conditional-ui">[WEBAUTHN-CONDITIONAL-UI]
    <dd><a href="https://github.com/w3c/webauthn/issues/1545"><cite>WebAuthn Conditional UI Proposal</cite></a>. URL: <a href="https://github.com/w3c/webauthn/issues/1545">https://github.com/w3c/webauthn/issues/1545</a>
   </dl>
@@ -4341,7 +4381,7 @@ let dfnPanelData = {
 "0e8de730": {"dfnID":"0e8de730","dfnText":"tuple","external":true,"refSections":[{"refs":[{"id":"ref-for-tuple"}],"title":"6. Browser Bound Key Store"},{"refs":[{"id":"ref-for-tuple\u2460"},{"id":"ref-for-tuple\u2461"}],"title":"6.1. Creating a key pair"},{"refs":[{"id":"ref-for-tuple\u2462"}],"title":"6.3. Retrieving a key pair"},{"refs":[{"id":"ref-for-tuple\u2463"}],"title":"6.4. Getting the browser bound public key"},{"refs":[{"id":"ref-for-tuple\u2464"}],"title":"6.5. Signing client data"}],"url":"https://infra.spec.whatwg.org/#tuple"},
 "1243a891": {"dfnID":"1243a891","dfnText":"exist","external":true,"refSections":[{"refs":[{"id":"ref-for-map-exists"}],"title":"4.7. Availability of Secure Payment Confirmation capabilities"},{"refs":[{"id":"ref-for-map-exists\u2460"},{"id":"ref-for-map-exists\u2461"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-map-exists\u2462"},{"id":"ref-for-map-exists\u2463"}],"title":"6.3. Retrieving a key pair"}],"url":"https://infra.spec.whatwg.org/#map-exists"},
 "12b8dfc0": {"dfnID":"12b8dfc0","dfnText":"current settings object","external":true,"refSections":[{"refs":[{"id":"ref-for-current-settings-object"}],"title":"8. Permissions Policy integration"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object"},
-"16ad0fd2": {"dfnID":"16ad0fd2","dfnText":"locale","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-locale"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dfn-locale\u2460"}],"title":"14. Internationalization Considerations"}],"url":"https://www.w3.org/TR/i18n-glossary/#dfn-locale"},
+"16ad0fd2": {"dfnID":"16ad0fd2","dfnText":"locale","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-locale"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"}],"url":"https://www.w3.org/TR/i18n-glossary/#dfn-locale"},
 "1a0d3ec4": {"dfnID":"1a0d3ec4","dfnText":"registry of standardized payment methods","external":true,"refSections":[{"refs":[{"id":"ref-for-registry"}],"title":"4.1. Registration in [payment-method-id]"}],"url":"https://w3c.github.io/payment-method-id/#registry"},
 "1a99fe79": {"dfnID":"1a99fe79","dfnText":"publickey-credentials-create-feature","external":true,"refSections":[{"refs":[{"id":"ref-for-publickey-credentials-create-feature"}],"title":"1.2.1. Registration during a checkout"}],"url":"https://w3c.github.io/webauthn/#publickey-credentials-create-feature"},
 "1c786b1f": {"dfnID":"1c786b1f","dfnText":"user aborts the payment request algorithm","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-user-aborts-the-payment-request-algorithm"}],"title":"4.10.2. Outcome of the transaction confirmation UX"}],"url":"https://w3c.github.io/payment-request/#dfn-user-aborts-the-payment-request-algorithm"},
@@ -4352,8 +4392,8 @@ let dfnPanelData = {
 "2c8910a4": {"dfnID":"2c8910a4","dfnText":"platform","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-authenticatorattachment-platform"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform"},
 "2e3d2880": {"dfnID":"2e3d2880","dfnText":"WebAuthn Extension","external":true,"refSections":[{"refs":[{"id":"ref-for-webauthn-extensions"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-webauthn-extensions\u2460"}],"title":"3. Registration"},{"refs":[{"id":"ref-for-webauthn-extensions\u2461"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"}],"url":"https://w3c.github.io/webauthn/#webauthn-extensions"},
 "2f8afbfe": {"dfnID":"2f8afbfe","dfnText":"ArrayBuffer","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-ArrayBuffer"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://webidl.spec.whatwg.org/#idl-ArrayBuffer"},
-"30eadef0": {"dfnID":"30eadef0","dfnText":"language priority list","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-language-priority-list"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"}],"url":"https://w3c.github.io/i18n-glossary/#dfn-language-priority-list"},
 "3146e9fe": {"dfnID":"3146e9fe","dfnText":"[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredential-discoverfromexternalsource-slot"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-dom-publickeycredential-discoverfromexternalsource-slot\u2460"}],"title":"8. Permissions Policy integration"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot"},
+"3182eb71": {"dfnID":"3182eb71","dfnText":"NotSupportedError","external":true,"refSections":[{"refs":[{"id":"ref-for-notsupportederror"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-notsupportederror\u2460"},{"id":"ref-for-notsupportederror\u2461"}],"title":"4.8. Steps to validate payment method data"}],"url":"https://webidl.spec.whatwg.org/#notsupportederror"},
 "31db57e6": {"dfnID":"31db57e6","dfnText":"keys","external":true,"refSections":[{"refs":[{"id":"ref-for-map-getting-the-keys"},{"id":"ref-for-map-getting-the-keys\u2460"},{"id":"ref-for-map-getting-the-keys\u2461"}],"title":"4.7. Availability of Secure Payment Confirmation capabilities"}],"url":"https://infra.spec.whatwg.org/#map-getting-the-keys"},
 "3230704c": {"dfnID":"3230704c","dfnText":"total","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-paymentdetailsinit-total"}],"title":"4.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/payment-request/#dom-paymentdetailsinit-total"},
 "3591f7a6": {"dfnID":"3591f7a6","dfnText":"isUserVerifyingPlatformAuthenticatorAvailable()","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredential-isuserverifyingplatformauthenticatoravailable"}],"title":"4.6. Checking if Secure Payment Confirmation is available"},{"refs":[{"id":"ref-for-dom-publickeycredential-isuserverifyingplatformauthenticatoravailable\u2460"}],"title":"12.5. Fingerprinting via securePaymentConfirmationAvailability"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredential-isuserverifyingplatformauthenticatoravailable"},
@@ -4374,6 +4414,7 @@ let dfnPanelData = {
 "5372cca8": {"dfnID":"5372cca8","dfnText":"boolean","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-boolean"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-idl-boolean\u2460"}],"title":"4.7. Availability of Secure Payment Confirmation capabilities"},{"refs":[{"id":"ref-for-idl-boolean\u2461"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-idl-boolean\u2462"}],"title":"7.1. PaymentCredentialInstrument Dictionary"}],"url":"https://webidl.spec.whatwg.org/#idl-boolean"},
 "55213b5b": {"dfnID":"55213b5b","dfnText":"request","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-request"}],"title":"4.3. Modification of user activation requirement"}],"url":"https://fetch.spec.whatwg.org/#concept-request"},
 "559656f0": {"dfnID":"559656f0","dfnText":"steps to respond to a payment request","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-steps-to-respond-to-a-payment-request"}],"title":"4.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/payment-request/#dfn-steps-to-respond-to-a-payment-request"},
+"55df6081": {"dfnID":"55df6081","dfnText":"language tag","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-language-tag"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dfn-language-tag\u2460"}],"title":"14. Internationalization Considerations"}],"url":"https://w3c.github.io/i18n-glossary/#dfn-language-tag"},
 "57afee2f": {"dfnID":"57afee2f","dfnText":"authenticatorAttachment","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-authenticatorselectioncriteria-authenticatorattachment"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment"},
 "5a486d64": {"dfnID":"5a486d64","dfnText":"authenticatorSelection","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialcreationoptions-authenticatorselection"},{"id":"ref-for-dom-publickeycredentialcreationoptions-authenticatorselection\u2460"},{"id":"ref-for-dom-publickeycredentialcreationoptions-authenticatorselection\u2461"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection"},
 "5b668531": {"dfnID":"5b668531","dfnText":"getting a property","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-getting-properties"}],"title":"10.1. Set SPC Transaction Mode"}],"url":"https://w3c.github.io/webdriver/#dfn-getting-properties"},
@@ -4390,7 +4431,7 @@ let dfnPanelData = {
 "67de32a5": {"dfnID":"67de32a5","dfnText":"AuthenticationExtensionsClientOutputs","external":true,"refSections":[{"refs":[{"id":"ref-for-dictdef-authenticationextensionsclientoutputs"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientoutputs"},
 "6b815fdd": {"dfnID":"6b815fdd","dfnText":"is empty","external":true,"refSections":[{"refs":[{"id":"ref-for-list-is-empty"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-list-is-empty\u2460"}],"title":"6.1. Creating a key pair"}],"url":"https://infra.spec.whatwg.org/#list-is-empty"},
 "6d19ac93": {"dfnID":"6d19ac93","dfnText":"user agent","external":true,"refSections":[{"refs":[{"id":"ref-for-user-agent"}],"title":"6. Browser Bound Key Store"}],"url":"https://infra.spec.whatwg.org/#user-agent"},
-"6d26b819": {"dfnID":"6d26b819","dfnText":"language negotiation","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-language-negotiation"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"}],"url":"https://w3c.github.io/i18n-glossary/#dfn-language-negotiation"},
+"6d26b819": {"dfnID":"6d26b819","dfnText":"language negotiation","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-language-negotiation"}],"title":"4.8. Steps to validate payment method data"}],"url":"https://w3c.github.io/i18n-glossary/#dfn-language-negotiation"},
 "6f6046b7": {"dfnID":"6f6046b7","dfnText":"allowCredentials","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialrequestoptions-allowcredentials"}],"title":"4.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials"},
 "70765a7d": {"dfnID":"70765a7d","dfnText":"[[identifier]]","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredential-identifier-slot"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredential-identifier-slot"},
 "7482107b": {"dfnID":"7482107b","dfnText":"WebDriver error code","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-error-code"},{"id":"ref-for-dfn-error-code\u2460"}],"title":"10.1. Set SPC Transaction Mode"}],"url":"https://w3c.github.io/webdriver/#dfn-error-code"},
@@ -4401,6 +4442,7 @@ let dfnPanelData = {
 "79cad4dd": {"dfnID":"79cad4dd","dfnText":"valid domain","external":true,"refSections":[{"refs":[{"id":"ref-for-valid-domain"}],"title":"4.8. Steps to validate payment method data"}],"url":"https://url.spec.whatwg.org/#valid-domain"},
 "7a83f58e": {"dfnID":"7a83f58e","dfnText":"challenge (for PublicKeyCredentialRequestOptions)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialrequestoptions-challenge"}],"title":"1.1.1. Cryptographic evidence of transaction confirmation"},{"refs":[{"id":"ref-for-dom-publickeycredentialrequestoptions-challenge\u2460"}],"title":"4.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge"},
 "7ab3c32e": {"dfnID":"7ab3c32e","dfnText":"standardized payment method identifier","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-standardized-payment-method-identifier"}],"title":"4. Authentication - the Secure Payment Confirmation payment method"}],"url":"https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier"},
+"7f9469b5": {"dfnID":"7f9469b5","dfnText":"ASCII case-insensitive","external":true,"refSections":[{"refs":[{"id":"ref-for-ascii-case-insensitive"},{"id":"ref-for-ascii-case-insensitive\u2460"}],"title":"4.8. Steps to validate payment method data"}],"url":"https://infra.spec.whatwg.org/#ascii-case-insensitive"},
 "81dd847b": {"dfnID":"81dd847b","dfnText":"UnknownError","external":true,"refSections":[{"refs":[{"id":"ref-for-unknownerror"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://webidl.spec.whatwg.org/#unknownerror"},
 "82c23298": {"dfnID":"82c23298","dfnText":"remote end steps","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-remote-end-steps"}],"title":"10.1. Set SPC Transaction Mode"}],"url":"https://w3c.github.io/webdriver/#dfn-remote-end-steps"},
 "82ca3efc": {"dfnID":"82ca3efc","dfnText":"TypeError","external":true,"refSections":[{"refs":[{"id":"ref-for-exceptiondef-typeerror"},{"id":"ref-for-exceptiondef-typeerror\u2460"},{"id":"ref-for-exceptiondef-typeerror\u2461"},{"id":"ref-for-exceptiondef-typeerror\u2462"},{"id":"ref-for-exceptiondef-typeerror\u2463"},{"id":"ref-for-exceptiondef-typeerror\u2464"},{"id":"ref-for-exceptiondef-typeerror\u2465"},{"id":"ref-for-exceptiondef-typeerror\u2466"},{"id":"ref-for-exceptiondef-typeerror\u2467"},{"id":"ref-for-exceptiondef-typeerror\u2468"},{"id":"ref-for-exceptiondef-typeerror\u2460\u24ea"},{"id":"ref-for-exceptiondef-typeerror\u2460\u2460"},{"id":"ref-for-exceptiondef-typeerror\u2460\u2461"},{"id":"ref-for-exceptiondef-typeerror\u2460\u2462"},{"id":"ref-for-exceptiondef-typeerror\u2460\u2463"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-exceptiondef-typeerror\u2460\u2464"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-exceptiondef-typeerror\u2460\u2465"}],"title":"6.2. Binding a key pair"}],"url":"https://webidl.spec.whatwg.org/#exceptiondef-typeerror"},
@@ -4446,6 +4488,7 @@ let dfnPanelData = {
 "b8c02d5c": {"dfnID":"b8c02d5c","dfnText":"required (for UserVerificationRequirement)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-userverificationrequirement-required"}],"title":"4.11. Steps to respond to a payment request"},{"refs":[{"id":"ref-for-dom-userverificationrequirement-required\u2460"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dom-userverificationrequirement-required"},
 "ba4dacbc": {"dfnID":"ba4dacbc","dfnText":"steps to validate payment method data","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-steps-to-validate-payment-method-data"}],"title":"4.8. Steps to validate payment method data"}],"url":"https://w3c.github.io/payment-request/#dfn-steps-to-validate-payment-method-data"},
 "ba556545": {"dfnID":"ba556545","dfnText":"NotAllowedError","external":true,"refSections":[{"refs":[{"id":"ref-for-notallowederror"}],"title":"4.10.2. Outcome of the transaction confirmation UX"},{"refs":[{"id":"ref-for-notallowederror\u2460"},{"id":"ref-for-notallowederror\u2461"}],"title":"4.11. Steps to respond to a payment request"},{"refs":[{"id":"ref-for-notallowederror\u2462"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-notallowederror\u2463"}],"title":"12.1. Probing for credential ids"}],"url":"https://webidl.spec.whatwg.org/#notallowederror"},
+"bc9b33e2": {"dfnID":"bc9b33e2","dfnText":"language subtag","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-language-subtag"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dfn-language-subtag\u2460"}],"title":"14. Internationalization Considerations"}],"url":"https://w3c.github.io/i18n-glossary/#dfn-language-subtag"},
 "bd0c1062": {"dfnID":"bd0c1062","dfnText":"publicKey","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-credentialrequestoptions-publickey"}],"title":"4.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey"},
 "bdbd19d1": {"dfnID":"bdbd19d1","dfnText":"Promise","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-promise"}],"title":"4.6. Checking if Secure Payment Confirmation is available"},{"refs":[{"id":"ref-for-idl-promise\u2460"}],"title":"4.7. Availability of Secure Payment Confirmation capabilities"}],"url":"https://webidl.spec.whatwg.org/#idl-promise"},
 "bind-a-key-pair": {"dfnID":"bind-a-key-pair","dfnText":"bind a key pair","external":false,"refSections":[{"refs":[{"id":"ref-for-bind-a-key-pair"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-bind-a-key-pair\u2460"}],"title":"6.3. Retrieving a key pair"}],"url":"#bind-a-key-pair"},
@@ -4474,10 +4517,10 @@ let dfnPanelData = {
 "dae0bfde": {"dfnID":"dae0bfde","dfnText":"serialization of an origin","external":true,"refSections":[{"refs":[{"id":"ref-for-ascii-serialisation-of-an-origin"}],"title":"4.9. Steps to check if a payment can be made"}],"url":"https://html.spec.whatwg.org/multipage/browsers.html#ascii-serialisation-of-an-origin"},
 "dafe96b4": {"dfnID":"dafe96b4","dfnText":"rpId","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredentialrequestoptions-rpid"}],"title":"4.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid"},
 "dc24f2fe": {"dfnID":"dc24f2fe","dfnText":"payment permission string","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-payment"},{"id":"ref-for-dfn-payment\u2460"}],"title":"4.6. Checking if Secure Payment Confirmation is available"},{"refs":[{"id":"ref-for-dfn-payment\u2461"},{"id":"ref-for-dfn-payment\u2462"}],"title":"8. Permissions Policy integration"},{"refs":[{"id":"ref-for-dfn-payment\u2463"}],"title":"12.5. Fingerprinting via securePaymentConfirmationAvailability"}],"url":"https://w3c.github.io/payment-request/#dfn-payment"},
-"dca2de17": {"dfnID":"dca2de17","dfnText":"DOMException","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-DOMException"}],"title":"4.3. Modification of user activation requirement"},{"refs":[{"id":"ref-for-idl-DOMException\u2460"},{"id":"ref-for-idl-DOMException\u2461"},{"id":"ref-for-idl-DOMException\u2462"}],"title":"4.10.2. Outcome of the transaction confirmation UX"},{"refs":[{"id":"ref-for-idl-DOMException\u2463"},{"id":"ref-for-idl-DOMException\u2464"}],"title":"4.11. Steps to respond to a payment request"},{"refs":[{"id":"ref-for-idl-DOMException\u2465"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-idl-DOMException\u2466"}],"title":"12.1. Probing for credential ids"}],"url":"https://webidl.spec.whatwg.org/#idl-DOMException"},
+"dca2de17": {"dfnID":"dca2de17","dfnText":"DOMException","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-DOMException"}],"title":"4.3. Modification of user activation requirement"},{"refs":[{"id":"ref-for-idl-DOMException\u2460"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-idl-DOMException\u2461"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-idl-DOMException\u2462"},{"id":"ref-for-idl-DOMException\u2463"},{"id":"ref-for-idl-DOMException\u2464"}],"title":"4.10.2. Outcome of the transaction confirmation UX"},{"refs":[{"id":"ref-for-idl-DOMException\u2465"},{"id":"ref-for-idl-DOMException\u2466"}],"title":"4.11. Steps to respond to a payment request"},{"refs":[{"id":"ref-for-idl-DOMException\u2467"}],"title":"5. WebAuthn Extension - \"payment\""},{"refs":[{"id":"ref-for-idl-DOMException\u2468"}],"title":"12.1. Probing for credential ids"}],"url":"https://webidl.spec.whatwg.org/#idl-DOMException"},
 "dd14e576": {"dfnID":"dd14e576","dfnText":"[[Create]](origin, options, sameOriginWithAncestors)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-publickeycredential-create-slot"}],"title":"8. Permissions Policy integration"}],"url":"https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot"},
 "dd460c8e": {"dfnID":"dd460c8e","dfnText":"is not empty (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-is-empty"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-list-is-empty\u2460"}],"title":"6.1. Creating a key pair"}],"url":"https://infra.spec.whatwg.org/#list-is-empty"},
-"dd8fd6f0": {"dfnID":"dd8fd6f0","dfnText":"canMakePayment()","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-paymentrequest-canmakepayment"}],"title":"4.6. Checking if Secure Payment Confirmation is available"}],"url":"https://w3c.github.io/payment-request/#dom-paymentrequest-canmakepayment"},
+"dd8fd6f0": {"dfnID":"dd8fd6f0","dfnText":"canMakePayment()","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-paymentrequest-canmakepayment"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-paymentrequest-canmakepayment\u2460"}],"title":"4.6. Checking if Secure Payment Confirmation is available"},{"refs":[{"id":"ref-for-dom-paymentrequest-canmakepayment\u2461"}],"title":"12.8. Fingerprinting via locale"},{"refs":[{"id":"ref-for-dom-paymentrequest-canmakepayment\u2462"}],"title":"14. Internationalization Considerations"}],"url":"https://w3c.github.io/payment-request/#dom-paymentrequest-canmakepayment"},
 "de38fdaf": {"dfnID":"de38fdaf","dfnText":"userVerification (for AuthenticatorSelectionCriteria)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-authenticatorselectioncriteria-userverification"}],"title":"5. WebAuthn Extension - \"payment\""}],"url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification"},
 "df23dd0d": {"dfnID":"df23dd0d","dfnText":"currency","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-paymentcurrencyamount-currency"}],"title":"4.10.1. Information presented to the user"}],"url":"https://w3c.github.io/payment-request/#dom-paymentcurrencyamount-currency"},
 "dff7edfa": {"dfnID":"dff7edfa","dfnText":"PublicKeyCredentialDescriptor","external":true,"refSections":[{"refs":[{"id":"ref-for-dictdef-publickeycredentialdescriptor"}],"title":"4.11. Steps to respond to a payment request"}],"url":"https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor"},
@@ -4532,7 +4575,7 @@ let dfnPanelData = {
 "dom-securepaymentconfirmationrequest-credentialids": {"dfnID":"dom-securepaymentconfirmationrequest-credentialids","dfnText":"credentialIds","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2460"},{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2461"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2462"},{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2463"},{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2464"}],"title":"4.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2465"},{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2466"}],"title":"4.10.2. Outcome of the transaction confirmation UX"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2467"}],"title":"4.10.3. Test automation support"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2468"},{"id":"ref-for-dom-securepaymentconfirmationrequest-credentialids\u2460\u24ea"}],"title":"4.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-credentialids"},
 "dom-securepaymentconfirmationrequest-extensions": {"dfnID":"dom-securepaymentconfirmationrequest-extensions","dfnText":"extensions","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-extensions"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-extensions\u2460"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-extensions\u2461"}],"title":"4.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-extensions"},
 "dom-securepaymentconfirmationrequest-instrument": {"dfnID":"dom-securepaymentconfirmationrequest-instrument","dfnText":"instrument","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-instrument"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-instrument\u2460"},{"id":"ref-for-dom-securepaymentconfirmationrequest-instrument\u2461"},{"id":"ref-for-dom-securepaymentconfirmationrequest-instrument\u2462"},{"id":"ref-for-dom-securepaymentconfirmationrequest-instrument\u2463"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-instrument\u2464"},{"id":"ref-for-dom-securepaymentconfirmationrequest-instrument\u2465"},{"id":"ref-for-dom-securepaymentconfirmationrequest-instrument\u2466"}],"title":"4.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-instrument\u2467"}],"title":"4.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-instrument"},
-"dom-securepaymentconfirmationrequest-locale": {"dfnID":"dom-securepaymentconfirmationrequest-locale","dfnText":"locale","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-locale"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2460"},{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2461"},{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2462"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2463"}],"title":"4.10.1. Information presented to the user"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2464"},{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2465"}],"title":"14. Internationalization Considerations"}],"url":"#dom-securepaymentconfirmationrequest-locale"},
+"dom-securepaymentconfirmationrequest-locale": {"dfnID":"dom-securepaymentconfirmationrequest-locale","dfnText":"locale","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-locale"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2460"},{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2461"},{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2462"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2463"}],"title":"12.8. Fingerprinting via locale"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2464"},{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2465"},{"id":"ref-for-dom-securepaymentconfirmationrequest-locale\u2466"}],"title":"14. Internationalization Considerations"}],"url":"#dom-securepaymentconfirmationrequest-locale"},
 "dom-securepaymentconfirmationrequest-payeename": {"dfnID":"dom-securepaymentconfirmationrequest-payeename","dfnText":"payeeName","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename\u2460"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename\u2461"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename\u2462"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeename\u2463"}],"title":"4.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-payeename"},
 "dom-securepaymentconfirmationrequest-payeeorigin": {"dfnID":"dom-securepaymentconfirmationrequest-payeeorigin","dfnText":"payeeOrigin","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2460"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2461"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2462"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2463"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2464"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2465"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2466"},{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2467"}],"title":"4.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-payeeorigin\u2468"}],"title":"4.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-payeeorigin"},
 "dom-securepaymentconfirmationrequest-paymententitieslogos": {"dfnID":"dom-securepaymentconfirmationrequest-paymententitieslogos","dfnText":"paymentEntitiesLogos","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-paymententitieslogos"}],"title":"4.4. SecurePaymentConfirmationRequest Dictionary"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-paymententitieslogos\u2460"},{"id":"ref-for-dom-securepaymentconfirmationrequest-paymententitieslogos\u2461"}],"title":"4.8. Steps to validate payment method data"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-paymententitieslogos\u2462"},{"id":"ref-for-dom-securepaymentconfirmationrequest-paymententitieslogos\u2463"}],"title":"4.9. Steps to check if a payment can be made"},{"refs":[{"id":"ref-for-dom-securepaymentconfirmationrequest-paymententitieslogos\u2464"}],"title":"4.11. Steps to respond to a payment request"}],"url":"#dom-securepaymentconfirmationrequest-paymententitieslogos"},
@@ -5049,6 +5092,7 @@ let refsData = {
 "https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-origin": {"displayText":"origin","export":true,"for_":["environment settings object"],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"origin","type":"dfn","url":"https://html.spec.whatwg.org/multipage/webappapis.html#concept-settings-object-origin"},
 "https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object": {"displayText":"current settings object","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"current settings object","type":"dfn","url":"https://html.spec.whatwg.org/multipage/webappapis.html#current-settings-object"},
 "https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object": {"displayText":"relevant settings object","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"relevant settings object","type":"dfn","url":"https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object"},
+"https://infra.spec.whatwg.org/#ascii-case-insensitive": {"displayText":"ASCII case-insensitive","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"ascii case-insensitive","type":"dfn","url":"https://infra.spec.whatwg.org/#ascii-case-insensitive"},
 "https://infra.spec.whatwg.org/#implementation-defined": {"displayText":"implementation-defined","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"implementation-defined","type":"dfn","url":"https://infra.spec.whatwg.org/#implementation-defined"},
 "https://infra.spec.whatwg.org/#list": {"displayText":"list","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"list","type":"dfn","url":"https://infra.spec.whatwg.org/#list"},
 "https://infra.spec.whatwg.org/#list-append": {"displayText":"append","export":true,"for_":["list"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"append","type":"dfn","url":"https://infra.spec.whatwg.org/#list-append"},
@@ -5070,7 +5114,8 @@ let refsData = {
 "https://url.spec.whatwg.org/#valid-domain": {"displayText":"valid domain","export":false,"for_":[],"level":"1","normative":true,"shortname":"url","spec":"url","status":"current","text":"valid domain","type":"dfn","url":"https://url.spec.whatwg.org/#valid-domain"},
 "https://w3c.github.io/i18n-glossary/#dfn-bidi-isolation": {"displayText":"bidi isolation","export":true,"for_":[],"level":"1","normative":false,"shortname":"i18n-glossary","spec":"i18n-glossary","status":"current","text":"bidi isolation","type":"dfn","url":"https://w3c.github.io/i18n-glossary/#dfn-bidi-isolation"},
 "https://w3c.github.io/i18n-glossary/#dfn-language-negotiation": {"displayText":"language negotiation","export":true,"for_":[],"level":"1","normative":false,"shortname":"i18n-glossary","spec":"i18n-glossary","status":"current","text":"language negotiation","type":"dfn","url":"https://w3c.github.io/i18n-glossary/#dfn-language-negotiation"},
-"https://w3c.github.io/i18n-glossary/#dfn-language-priority-list": {"displayText":"language priority list","export":true,"for_":[],"level":"1","normative":false,"shortname":"i18n-glossary","spec":"i18n-glossary","status":"current","text":"language priority list","type":"dfn","url":"https://w3c.github.io/i18n-glossary/#dfn-language-priority-list"},
+"https://w3c.github.io/i18n-glossary/#dfn-language-subtag": {"displayText":"language subtag","export":true,"for_":[],"level":"1","normative":false,"shortname":"i18n-glossary","spec":"i18n-glossary","status":"current","text":"language subtag","type":"dfn","url":"https://w3c.github.io/i18n-glossary/#dfn-language-subtag"},
+"https://w3c.github.io/i18n-glossary/#dfn-language-tag": {"displayText":"language tag","export":true,"for_":[],"level":"1","normative":false,"shortname":"i18n-glossary","spec":"i18n-glossary","status":"current","text":"language tag","type":"dfn","url":"https://w3c.github.io/i18n-glossary/#dfn-language-tag"},
 "https://w3c.github.io/image-resource/#dfn-fetching-an-image-resource": {"displayText":"fetching an image resource","export":true,"for_":[],"level":"1","normative":true,"shortname":"image-resource","spec":"image-resource","status":"current","text":"fetching an image resource","type":"dfn","url":"https://w3c.github.io/image-resource/#dfn-fetching-an-image-resource"},
 "https://w3c.github.io/image-resource/#dom-imageresource-src": {"displayText":"src","export":true,"for_":["ImageResource"],"level":"1","normative":true,"shortname":"image-resource","spec":"image-resource","status":"current","text":"src","type":"dict-member","url":"https://w3c.github.io/image-resource/#dom-imageresource-src"},
 "https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier": {"displayText":"standardized payment method identifier","export":true,"for_":[],"level":"1","normative":true,"shortname":"payment-method-id","spec":"payment-method-id","status":"current","text":"standardized payment method identifier","type":"dfn","url":"https://w3c.github.io/payment-method-id/#dfn-standardized-payment-method-identifier"},
@@ -5106,58 +5151,58 @@ let refsData = {
 "https://w3c.github.io/webauthn/#base64url-encoding": {"displayText":"base64url encoding","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"base64url encoding","type":"dfn","url":"https://w3c.github.io/webauthn/#base64url-encoding"},
 "https://w3c.github.io/webauthn/#client-extension": {"displayText":"client extension","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"client extension","type":"dfn","url":"https://w3c.github.io/webauthn/#client-extension"},
 "https://w3c.github.io/webauthn/#credential-id": {"displayText":"credential ID","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"credential id","type":"dfn","url":"https://w3c.github.io/webauthn/#credential-id"},
-"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs": {"displayText":"AuthenticationExtensionsClientInputs","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"AuthenticationExtensionsClientInputs","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs"},
-"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientoutputs": {"displayText":"AuthenticationExtensionsClientOutputs","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"AuthenticationExtensionsClientOutputs","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientoutputs"},
-"https://w3c.github.io/webauthn/#dictdef-collectedclientdata": {"displayText":"CollectedClientData","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"CollectedClientData","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-collectedclientdata"},
-"https://w3c.github.io/webauthn/#dictdef-publickeycredentialcreationoptions": {"displayText":"PublicKeyCredentialCreationOptions","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"PublicKeyCredentialCreationOptions","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-publickeycredentialcreationoptions"},
-"https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor": {"displayText":"PublicKeyCredentialDescriptor","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"PublicKeyCredentialDescriptor","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor"},
-"https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters": {"displayText":"PublicKeyCredentialParameters","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"PublicKeyCredentialParameters","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters"},
-"https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions": {"displayText":"PublicKeyCredentialRequestOptions","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"PublicKeyCredentialRequestOptions","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions"},
+"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs": {"displayText":"AuthenticationExtensionsClientInputs","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"AuthenticationExtensionsClientInputs","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientinputs"},
+"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientoutputs": {"displayText":"AuthenticationExtensionsClientOutputs","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"AuthenticationExtensionsClientOutputs","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-authenticationextensionsclientoutputs"},
+"https://w3c.github.io/webauthn/#dictdef-collectedclientdata": {"displayText":"CollectedClientData","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"CollectedClientData","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-collectedclientdata"},
+"https://w3c.github.io/webauthn/#dictdef-publickeycredentialcreationoptions": {"displayText":"PublicKeyCredentialCreationOptions","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"PublicKeyCredentialCreationOptions","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-publickeycredentialcreationoptions"},
+"https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor": {"displayText":"PublicKeyCredentialDescriptor","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"PublicKeyCredentialDescriptor","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-publickeycredentialdescriptor"},
+"https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters": {"displayText":"PublicKeyCredentialParameters","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"PublicKeyCredentialParameters","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-publickeycredentialparameters"},
+"https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions": {"displayText":"PublicKeyCredentialRequestOptions","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"PublicKeyCredentialRequestOptions","type":"dictionary","url":"https://w3c.github.io/webauthn/#dictdef-publickeycredentialrequestoptions"},
 "https://w3c.github.io/webauthn/#discoverable-credential": {"displayText":"discoverable credential","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"discoverable credential","type":"dfn","url":"https://w3c.github.io/webauthn/#discoverable-credential"},
-"https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform": {"displayText":"platform","export":true,"for_":["AuthenticatorAttachment"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"platform","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform"},
-"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment": {"displayText":"authenticatorAttachment","export":true,"for_":["AuthenticatorSelectionCriteria"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"authenticatorAttachment","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment"},
-"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey": {"displayText":"residentKey","export":true,"for_":["AuthenticatorSelectionCriteria"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"residentKey","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey"},
-"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification": {"displayText":"userVerification","export":true,"for_":["AuthenticatorSelectionCriteria"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"userVerification","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification"},
-"https://w3c.github.io/webauthn/#dom-authenticatortransport-internal": {"displayText":"internal","export":true,"for_":["AuthenticatorTransport"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"internal","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-authenticatortransport-internal"},
-"https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge": {"displayText":"challenge","export":true,"for_":["CollectedClientData"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"challenge","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge"},
-"https://w3c.github.io/webauthn/#dom-collectedclientdata-origin": {"displayText":"origin","export":true,"for_":["CollectedClientData"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"origin","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-collectedclientdata-origin"},
-"https://w3c.github.io/webauthn/#dom-collectedclientdata-type": {"displayText":"type","export":true,"for_":["CollectedClientData"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"type","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-collectedclientdata-type"},
-"https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey": {"displayText":"publicKey","export":true,"for_":["CredentialRequestOptions"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"publicKey","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey"},
-"https://w3c.github.io/webauthn/#dom-publickeycredential-clientextensionsresults-slot": {"displayText":"[[clientExtensionsResults]]","export":true,"for_":["PublicKeyCredential"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"[[clientExtensionsResults]]","type":"attribute","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-clientextensionsresults-slot"},
-"https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot": {"displayText":"[[Create]](origin, options, sameOriginWithAncestors)","export":true,"for_":["PublicKeyCredential"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"[[Create]](origin, options, sameOriginWithAncestors)","type":"method","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot"},
-"https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot": {"displayText":"[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)","export":true,"for_":["PublicKeyCredential"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)","type":"method","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot"},
-"https://w3c.github.io/webauthn/#dom-publickeycredential-identifier-slot": {"displayText":"[[identifier]]","export":true,"for_":["PublicKeyCredential"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"[[identifier]]","type":"attribute","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-identifier-slot"},
-"https://w3c.github.io/webauthn/#dom-publickeycredential-isuserverifyingplatformauthenticatoravailable": {"displayText":"isUserVerifyingPlatformAuthenticatorAvailable()","export":true,"for_":["PublicKeyCredential"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"isUserVerifyingPlatformAuthenticatorAvailable()","type":"method","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-isuserverifyingplatformauthenticatoravailable"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection": {"displayText":"authenticatorSelection","export":true,"for_":["PublicKeyCredentialCreationOptions"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"authenticatorSelection","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-pubkeycredparams": {"displayText":"pubKeyCredParams","export":true,"for_":["PublicKeyCredentialCreationOptions"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"pubKeyCredParams","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-pubkeycredparams"},
+"https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform": {"displayText":"platform","export":true,"for_":["AuthenticatorAttachment"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"platform","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-authenticatorattachment-platform"},
+"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment": {"displayText":"authenticatorAttachment","export":true,"for_":["AuthenticatorSelectionCriteria"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"authenticatorAttachment","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-authenticatorattachment"},
+"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey": {"displayText":"residentKey","export":true,"for_":["AuthenticatorSelectionCriteria"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"residentKey","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-residentkey"},
+"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification": {"displayText":"userVerification","export":true,"for_":["AuthenticatorSelectionCriteria"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"userVerification","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-authenticatorselectioncriteria-userverification"},
+"https://w3c.github.io/webauthn/#dom-authenticatortransport-internal": {"displayText":"internal","export":true,"for_":["AuthenticatorTransport"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"internal","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-authenticatortransport-internal"},
+"https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge": {"displayText":"challenge","export":true,"for_":["CollectedClientData"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"challenge","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-collectedclientdata-challenge"},
+"https://w3c.github.io/webauthn/#dom-collectedclientdata-origin": {"displayText":"origin","export":true,"for_":["CollectedClientData"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"origin","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-collectedclientdata-origin"},
+"https://w3c.github.io/webauthn/#dom-collectedclientdata-type": {"displayText":"type","export":true,"for_":["CollectedClientData"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"type","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-collectedclientdata-type"},
+"https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey": {"displayText":"publicKey","export":true,"for_":["CredentialRequestOptions"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"publicKey","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-credentialrequestoptions-publickey"},
+"https://w3c.github.io/webauthn/#dom-publickeycredential-clientextensionsresults-slot": {"displayText":"[[clientExtensionsResults]]","export":true,"for_":["PublicKeyCredential"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"[[clientExtensionsResults]]","type":"attribute","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-clientextensionsresults-slot"},
+"https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot": {"displayText":"[[Create]](origin, options, sameOriginWithAncestors)","export":true,"for_":["PublicKeyCredential"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"[[Create]](origin, options, sameOriginWithAncestors)","type":"method","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-create-slot"},
+"https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot": {"displayText":"[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)","export":true,"for_":["PublicKeyCredential"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"[[DiscoverFromExternalSource]](origin, options, sameOriginWithAncestors)","type":"method","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-discoverfromexternalsource-slot"},
+"https://w3c.github.io/webauthn/#dom-publickeycredential-identifier-slot": {"displayText":"[[identifier]]","export":true,"for_":["PublicKeyCredential"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"[[identifier]]","type":"attribute","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-identifier-slot"},
+"https://w3c.github.io/webauthn/#dom-publickeycredential-isuserverifyingplatformauthenticatoravailable": {"displayText":"isUserVerifyingPlatformAuthenticatorAvailable()","export":true,"for_":["PublicKeyCredential"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"isUserVerifyingPlatformAuthenticatorAvailable()","type":"method","url":"https://w3c.github.io/webauthn/#dom-publickeycredential-isuserverifyingplatformauthenticatoravailable"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection": {"displayText":"authenticatorSelection","export":true,"for_":["PublicKeyCredentialCreationOptions"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"authenticatorSelection","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-authenticatorselection"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-pubkeycredparams": {"displayText":"pubKeyCredParams","export":true,"for_":["PublicKeyCredentialCreationOptions"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"pubKeyCredParams","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-pubkeycredparams"},
 "https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-user": {"displayText":"user member","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"user member","type":"dfn","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialcreationoptions-user"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id": {"displayText":"id","export":true,"for_":["PublicKeyCredentialDescriptor"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"id","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports": {"displayText":"transports","export":true,"for_":["PublicKeyCredentialDescriptor"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"transports","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type": {"displayText":"type","export":true,"for_":["PublicKeyCredentialDescriptor"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"type","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialentity-name": {"displayText":"name","export":true,"for_":["PublicKeyCredentialEntity"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"name","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialentity-name"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialparameters-alg": {"displayText":"alg","export":true,"for_":["PublicKeyCredentialParameters"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"alg","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialparameters-alg"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialparameters-type": {"displayText":"type","export":true,"for_":["PublicKeyCredentialParameters"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"type","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialparameters-type"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials": {"displayText":"allowCredentials","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"allowCredentials","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge": {"displayText":"challenge","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"challenge","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions": {"displayText":"extensions","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"extensions","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid": {"displayText":"rpId","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"rpId","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout": {"displayText":"timeout","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"timeout","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification": {"displayText":"userVerification","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"userVerification","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key": {"displayText":"public-key","export":true,"for_":["PublicKeyCredentialType"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"public-key","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key"},
-"https://w3c.github.io/webauthn/#dom-publickeycredentialuserentity-displayname": {"displayText":"displayName","export":true,"for_":["PublicKeyCredentialUserEntity"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"displayName","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialuserentity-displayname"},
-"https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred": {"displayText":"preferred","export":true,"for_":["ResidentKeyRequirement"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"preferred","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred"},
-"https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required": {"displayText":"required","export":true,"for_":["ResidentKeyRequirement"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"required","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required"},
-"https://w3c.github.io/webauthn/#dom-userverificationrequirement-required": {"displayText":"required","export":true,"for_":["UserVerificationRequirement"],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"required","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-userverificationrequirement-required"},
-"https://w3c.github.io/webauthn/#enumdef-publickeycredentialtype": {"displayText":"PublicKeyCredentialType","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"PublicKeyCredentialType","type":"enum","url":"https://w3c.github.io/webauthn/#enumdef-publickeycredentialtype"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id": {"displayText":"id","export":true,"for_":["PublicKeyCredentialDescriptor"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"id","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-id"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports": {"displayText":"transports","export":true,"for_":["PublicKeyCredentialDescriptor"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"transports","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-transports"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type": {"displayText":"type","export":true,"for_":["PublicKeyCredentialDescriptor"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"type","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialdescriptor-type"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialentity-name": {"displayText":"name","export":true,"for_":["PublicKeyCredentialEntity"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"name","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialentity-name"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialparameters-alg": {"displayText":"alg","export":true,"for_":["PublicKeyCredentialParameters"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"alg","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialparameters-alg"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialparameters-type": {"displayText":"type","export":true,"for_":["PublicKeyCredentialParameters"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"type","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialparameters-type"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials": {"displayText":"allowCredentials","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"allowCredentials","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-allowcredentials"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge": {"displayText":"challenge","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"challenge","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-challenge"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions": {"displayText":"extensions","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"extensions","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-extensions"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid": {"displayText":"rpId","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"rpId","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-rpid"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout": {"displayText":"timeout","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"timeout","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-timeout"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification": {"displayText":"userVerification","export":true,"for_":["PublicKeyCredentialRequestOptions"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"userVerification","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialrequestoptions-userverification"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key": {"displayText":"public-key","export":true,"for_":["PublicKeyCredentialType"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"public-key","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialtype-public-key"},
+"https://w3c.github.io/webauthn/#dom-publickeycredentialuserentity-displayname": {"displayText":"displayName","export":true,"for_":["PublicKeyCredentialUserEntity"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"displayName","type":"dict-member","url":"https://w3c.github.io/webauthn/#dom-publickeycredentialuserentity-displayname"},
+"https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred": {"displayText":"preferred","export":true,"for_":["ResidentKeyRequirement"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"preferred","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-residentkeyrequirement-preferred"},
+"https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required": {"displayText":"required","export":true,"for_":["ResidentKeyRequirement"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"required","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-residentkeyrequirement-required"},
+"https://w3c.github.io/webauthn/#dom-userverificationrequirement-required": {"displayText":"required","export":true,"for_":["UserVerificationRequirement"],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"required","type":"enum-value","url":"https://w3c.github.io/webauthn/#dom-userverificationrequirement-required"},
+"https://w3c.github.io/webauthn/#enumdef-publickeycredentialtype": {"displayText":"PublicKeyCredentialType","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"PublicKeyCredentialType","type":"enum","url":"https://w3c.github.io/webauthn/#enumdef-publickeycredentialtype"},
 "https://w3c.github.io/webauthn/#extension-identifier": {"displayText":"extension identifier","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"extension identifier","type":"dfn","url":"https://w3c.github.io/webauthn/#extension-identifier"},
 "https://w3c.github.io/webauthn/#largeblob": {"displayText":"largeBlob","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"largeblob","type":"dfn","url":"https://w3c.github.io/webauthn/#largeblob"},
 "https://w3c.github.io/webauthn/#public-key-credential": {"displayText":"public key credential","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"public key credential","type":"dfn","url":"https://w3c.github.io/webauthn/#public-key-credential"},
-"https://w3c.github.io/webauthn/#publickey-credentials-create-feature": {"displayText":"publickey-credentials-create-feature","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"publickey-credentials-create-feature","type":"dfn","url":"https://w3c.github.io/webauthn/#publickey-credentials-create-feature"},
-"https://w3c.github.io/webauthn/#publickeycredential": {"displayText":"PublicKeyCredential","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"PublicKeyCredential","type":"interface","url":"https://w3c.github.io/webauthn/#publickeycredential"},
+"https://w3c.github.io/webauthn/#publickey-credentials-create-feature": {"displayText":"publickey-credentials-create-feature","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"publickey-credentials-create-feature","type":"dfn","url":"https://w3c.github.io/webauthn/#publickey-credentials-create-feature"},
+"https://w3c.github.io/webauthn/#publickeycredential": {"displayText":"PublicKeyCredential","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"PublicKeyCredential","type":"interface","url":"https://w3c.github.io/webauthn/#publickeycredential"},
 "https://w3c.github.io/webauthn/#registration-extension": {"displayText":"registration extension","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"registration extension","type":"dfn","url":"https://w3c.github.io/webauthn/#registration-extension"},
 "https://w3c.github.io/webauthn/#relying-party": {"displayText":"relying party","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"relying party","type":"dfn","url":"https://w3c.github.io/webauthn/#relying-party"},
 "https://w3c.github.io/webauthn/#relying-party-identifier": {"displayText":"relying party identifier","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"relying party identifier","type":"dfn","url":"https://w3c.github.io/webauthn/#relying-party-identifier"},
-"https://w3c.github.io/webauthn/#typedefdef-cosealgorithmidentifier": {"displayText":"COSEAlgorithmIdentifier","export":true,"for_":[],"level":"3","normative":true,"shortname":"webauthn","spec":"webauthn-3","status":"current","text":"COSEAlgorithmIdentifier","type":"typedef","url":"https://w3c.github.io/webauthn/#typedefdef-cosealgorithmidentifier"},
+"https://w3c.github.io/webauthn/#typedefdef-cosealgorithmidentifier": {"displayText":"COSEAlgorithmIdentifier","export":true,"for_":[],"level":"4","normative":true,"shortname":"webauthn","spec":"webauthn-4","status":"current","text":"COSEAlgorithmIdentifier","type":"typedef","url":"https://w3c.github.io/webauthn/#typedefdef-cosealgorithmidentifier"},
 "https://w3c.github.io/webauthn/#user-verifying-platform-authenticator": {"displayText":"user-verifying platform authenticator","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"user-verifying platform authenticator","type":"dfn","url":"https://w3c.github.io/webauthn/#user-verifying-platform-authenticator"},
 "https://w3c.github.io/webauthn/#webauthn-extensions": {"displayText":"WebAuthn Extension","export":true,"for_":[],"level":"","normative":true,"shortname":"web-authn","spec":"web-authn","status":"anchor-block","text":"webauthn extension","type":"dfn","url":"https://w3c.github.io/webauthn/#webauthn-extensions"},
 "https://w3c.github.io/webcrypto/#dfn-Crypto-method-getRandomValues": {"displayText":"getRandomValues()","export":true,"for_":["Crypto"],"level":"2","normative":true,"shortname":"webcrypto","spec":"webcrypto-2","status":"current","text":"getRandomValues()","type":"method","url":"https://w3c.github.io/webcrypto/#dfn-Crypto-method-getRandomValues"},
@@ -5186,6 +5231,7 @@ let refsData = {
 "https://webidl.spec.whatwg.org/#idl-unsigned-long": {"displayText":"unsigned long","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"unsigned long","type":"interface","url":"https://webidl.spec.whatwg.org/#idl-unsigned-long"},
 "https://webidl.spec.whatwg.org/#invalidstateerror": {"displayText":"InvalidStateError","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"InvalidStateError","type":"exception","url":"https://webidl.spec.whatwg.org/#invalidstateerror"},
 "https://webidl.spec.whatwg.org/#notallowederror": {"displayText":"NotAllowedError","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"NotAllowedError","type":"exception","url":"https://webidl.spec.whatwg.org/#notallowederror"},
+"https://webidl.spec.whatwg.org/#notsupportederror": {"displayText":"NotSupportedError","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"NotSupportedError","type":"exception","url":"https://webidl.spec.whatwg.org/#notsupportederror"},
 "https://webidl.spec.whatwg.org/#optouterror": {"displayText":"OptOutError","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"OptOutError","type":"exception","url":"https://webidl.spec.whatwg.org/#optouterror"},
 "https://webidl.spec.whatwg.org/#quotaexceedederror": {"displayText":"QuotaExceededError","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"QuotaExceededError","type":"interface","url":"https://webidl.spec.whatwg.org/#quotaexceedederror"},
 "https://webidl.spec.whatwg.org/#securityerror": {"displayText":"SecurityError","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"SecurityError","type":"exception","url":"https://webidl.spec.whatwg.org/#securityerror"},

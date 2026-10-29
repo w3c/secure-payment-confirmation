@@ -231,17 +231,24 @@ second is [[#sctn-authentication]], where the user responds to a challenge from
 the [=Relying Party=] (possibly via an intermediary payment service provider)
 to consent to a specific payment.
 
-It is a goal of this specification to reduce authentication friction during
-checkout, and one aspect of that is to maximize the number of authentications
-that the user can perform for a given registration. That is, with consent
-from the [=Relying Party=], ideally the user could "register once" and
-authenticate on any merchant origin (and via payment service provider),
-not just the merchant origin where the user first registered.
+It is a goal of this specification to reduce authentication friction during a
+payment (for example, during an e-commerce checkout), and one aspect of that is
+to maximize the number of authentications that the user can perform for a given
+registration. That is, with consent from the [=Relying Party=], ideally the user
+could "register once" and authenticate on any payee or merchant origin (and via
+a payment service provider), not just the origin where the user first
+registered.
 
 To that end, an important feature of Secure Payment Confirmation is
 that the merchant (or another entity) may initiate the authentication
 ceremony on the [=Relying Party's=] behalf. The [=Relying Party=] must
 opt-in to allowing this behavior during credential creation.
+
+NOTE: The purpose of Secure Payment Confirmation is to authenticate *payment*
+scenarios on the web. While e-commerce checkout (where a user pays a merchant)
+is used throughout this specification as a common example of a payment scenario,
+SPC is not restricted to e-commerce and can be used across a wide variety of
+payment scenarios (such as bill payments or account-to-account transfers).
 
 Functionally, this specification defines a new [=payment method=] for the
 {{PaymentRequest}} API, and adds a [=WebAuthn Extension=] to extend
@@ -341,7 +348,8 @@ key pairs=] created by the user agent where the private key only resides on
 
 In this section, we walk through some scenarios for Secure Payment Confirmation
 and the corresponding sample code for using this API. Note that these are
-example flows and do not limit the scope of how the API can be used.
+example flows (specifically, using an e-commerce checkout as one example of a
+payment scenario) and do not limit the scope of how the API can be used.
 
 ### Registration during a checkout ### {#sctn-sample-registration}
 

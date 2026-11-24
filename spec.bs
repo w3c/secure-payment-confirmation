@@ -249,7 +249,8 @@ transactions* on the web, encompassing both payments to a third party and
 transfers of funds between accounts. While e-commerce checkout (where a user
 pays a merchant) is used throughout this specification as a common example, SPC
 is not restricted to e-commerce and can be used across a wide variety of payment
-transactions (such as bill payments or account-to-account transfers).
+transactions (such as bill payments or account-to-account transfers) whose data
+requirements align with the data model defined in this specification.
 
 Functionally, this specification defines a new [=payment method=] for the
 {{PaymentRequest}} API, and adds a [=WebAuthn Extension=] to extend

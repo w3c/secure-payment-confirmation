@@ -1,7 +1,8 @@
-# Explainer: Connected roaming authenticators
+# Explainer: Roaming authenticators
 
 ## Author:
 
+Darwin Yang \<darwinyang@chromium.org\>
 Stephen McGruer \<smcgruer@chromium.org\>
 
 (With thanks to Nina Satragno)
@@ -17,8 +18,8 @@ _Last updated: 28-Jul-2026_
 This explainer proposes loosening the restrictions on SPC-related credentials
 to allow non-platform authenticators with non-internal transports. Doing so
 would allow user agents to support connected roaming authenticators (e.g., a
-plugged-in security key) with SPC's current flow. It does not address the
-problem of supporting non-connected roaming authenticators.
+plugged-in security key) with SPC's current flow. This proposal also goes over
+how we will support non-connected roaming authenticators.
 
 This proposal should have no impact on integrators of SPC who do not want to
 allow roaming authenticators, other than its reliance on [issue
@@ -159,11 +160,20 @@ proprietary).
 
 ## Supporting non-connected roaming authenticators
 
-As noted above, this proposal does not enable support for non-connected roaming
-authenticators. This may cause it to be of limited use, as there is no way
-(outside of website UX) for a user to know that they have to plug in their
-roaming authenticator *before* an SPC call is triggered - and indeed some
-roaming authenticators cannot be "plugged in" at all.
+A separate explainer was written that goes over support for [non-queryable
+authenticators](https://github.com/w3c/secure-payment-confirmation/blob/main/explainers/non-queryable-authenticators.md) which the non-connected roaming authenticator
+is one of. This explainer will not go into support for non-queryable
+authneticators in detail but will summarize the options that will lead to the
+quickest way to support non-connect roaming authenticators:
 
-I am also working on an explainer for supporting non-connected roaming
-authenticators in SPC, which will be linked from here once available.
+1. **Partition Candidate Credentials**: into *definitely available* and
+*potentially available* credentials (the latter which represents non-connected
+roaming authenticators).
+
+2. **Allow calling website to require always showing the verification dialog**:
+so that websites that know that the user has a roaming authenticator can
+prompt the user to connect it if needed.
+
+3. **Skip BBKs if the set of potentially available credentials contain multiple
+credentials**: as by definition, a roaming authenticator indicates that the user
+physically has the authenticating device and so the BBK is not needed.

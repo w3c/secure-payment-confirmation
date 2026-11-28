@@ -11,7 +11,7 @@ Stephen McGruer \<smcgruer@chromium.org\>
 
 _Document state: **Proposal**_
 
-_Last updated: 30-Nov-2026_
+_Last updated: 27-Nov-2026_
 
 ## Summary
 
@@ -204,23 +204,23 @@ adapt SPC's design for each category.
 
 ## Proposal
 
-I propose modifying SPC to accommodate the reality that the browser cannot
+We propose modifying SPC to accommodate the reality that the browser cannot
 always know silently if a given passkey will be available or if it has the
 third-party payment bit enabled, whilst still keeping the UX flow as optimal as
 possible for the "happy path" case.
 
-### Partition Candidate Credentials
+### Partition candidate credentials
 
 The proposal is to partition candidate credentials into **definitely available**
 and **potentially available**. It is possible that a credential is dropped if
 it does not fit into either set.
 
 **Definitely available credentials**: contain credentials that can be
-silently detectable and support the third-party payment bit. This is the set of
+silently detected and support the third-party payment bit. This is the set of
 credentials that SPC currently supports.
 
 **Potentially available credentials**: contain credentials that cannot be
-silently detectable (for non-queryable authenticators) and only for first-party
+silently detected (for non-queryable authenticators) and only for first-party
 payment scenarios.
 
 At a specification level, step 5 of [this
@@ -255,7 +255,12 @@ level description, actual specification steps would differ slightly):
 
     1. If the [steps to silently determine if a credential is available for the
        current device](https://w3c.github.io/secure-payment-confirmation/#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device)
-       return false **AND** this is not a third-party case, add the id to `potentiallyAvailableCredentials` and go to the next iteration.
+       return false:
+
+        1. If this is not a third-party case, add the id to
+           `potentiallyAvailableCredentials`.
+
+        2. Go to the next iteration.
 
     2. If this is not a third-party case, add the id to
        `definitelyAvailableCredentials` and go to the next iteration.
@@ -267,12 +272,11 @@ level description, actual specification steps would differ slightly):
 
 > [!IMPORTANT]
 >
-> `potentiallyAvailableCredentials` is not supported in the third-party case
-> because it is required to enforce the third-party payment bit protection. If we
-> cannot query the credential silently, we cannot know whether or not the
-> passkey (if it does exist) is third-party enabled. More on how this can be
-> resolved can be found in a later section on
-> [third-party payment support](#third-party payment-support).
+> `potentiallyAvailableCredentials` is never populated in the third-party case.
+> This preserves the third-party payment bit protection: if we cannot query a
+> credential silently, we cannot know whether that passkey (if it exists) is
+> third-party enabled. See [Third-party payment
+> support](#third-party-payment-support) for a possible way to relax this.
 
 Then later in [Outcome of the transaction confirmation
 UX](https://w3c.github.io/secure-payment-confirmation/#sctn-transaction-confirmation-outcome),
@@ -304,12 +308,12 @@ relevant.
 
 ![Diagram showing how credentials are partitioned as a visual flow](non-queryable-authenticators-image-7.png)
 
-### Using the Potentially Available Credentials
+### Using the potentially available credentials
 
 If the set of definitely available credentials is populated, then that set is
 used with the original SPC flow. If the set of definitely available credentials
 is empty and the set of potentially available credentials is populated, then
-I propose that we allow websites to opt into using this set through two
+we propose allowing websites to opt into using this set through two
 complementary solutions:
 
 1. Allow calling website to require always showing the verification dialog.
@@ -318,12 +322,12 @@ complementary solutions:
 
 The former allows websites to opt into the full transaction UX all the
 time, providing a clearer UX at the cost of potentially sending the user into a
-"cannot proceed" state. The later keeps SPC's current optimal UX flow, while 
+"cannot proceed" state. The latter keeps SPC's current optimal UX flow, while
 providing an 'escape hatch' for cases where a passkey cannot be silently
-detectable but the user knows that they have one (e.g., if they have a security
-key that they can plug in). 
+detected but the user knows that they have one (e.g., if they have a security
+key that they can plug in).
 
-#### Summary of UX Behaviors across Scenarios
+#### Summary of UX behaviors across scenarios
 
 | Authenticator / Credential State | Current SPC Behavior | Proposal 1 (`alwaysShowTransactionDialog`) | Proposal 2 (`showCredentialsInFallback`) |
 | :--- | :--- | :--- | :--- |
@@ -358,7 +362,7 @@ flag).
 
 If `alwaysShowTransactionDialog` is set to true, the browser would always show
 the Transaction UX, and would always trigger WebAuthn afterwards (which might
-then present UX to the user to plugin a security key, use their phone, etc).
+then present UX to the user to plug in a security key, use their phone, etc).
 The default would remain as false to align with current SPC behavior.
 
 At a specification level, the `alwaysShowTransactionDialog` would simply be a
@@ -379,40 +383,44 @@ However, we expect it to be challenging to design a good UX in Chrome
 that offers using a passkey to the user without that being confusing or
 visually poor quality - this is an area we still need to explore more.
 
-**Note**: explicitly displaying the Relying Party identifier (e.g., `"Use
-passkey for bank.example"`) in the fallback UX provides essential clarity in
-third-party payment contexts, where the merchant origin invoking SPC differs
-from the credential issuer.
-
-## Browser Bound Key Support
+## Browser Bound Key support
 
 In the case of multiple definitely available credentials, SPC can arbitrarily
 pick a BBK to use. But if the set of potentially available credentials needs to
 be used and there are multiple credentials in the set, this poses a **BIG
-PROBLEM** for BKK support. Since the BBK needs to be included with the data to
+PROBLEM** for BBK support. Since the BBK needs to be included with the data to
 be signed by the credential, there is no way to know which credential (and
 associated BBK) will be chosen ahead of time.
 
 ![Diagram showing how the wrong BBK can be used](non-queryable-authenticators-image-8.png)
 
-I have two solutions to allow potentially available credentials to work with
+We have two solutions to allow potentially available credentials to work with
 BBKs:
 
-1. **Skip BBKs**: if the set of potentially available credentials contain
-multiple credentials. Websites that require the BBK can invoke SPC with a single
-credential.
+1. **Skip BBKs**: if the set of potentially available credentials contains
+   multiple credentials. Websites that require the BBK can invoke SPC with a
+   single credential.
 
 2. **Update BBKs to a BBK-to-RP relationship**: only a single RP is used for
-each SPC query, so only one BBK will be needed.
+   each SPC query, so only one BBK will be needed. This means that BBKs never
+   need to be skipped, but it comes with trade-offs:
 
-## Third-party Payment Support
+> [!IMPORTANT]
+>
+> **A BBK-to-RP relationship makes accounts linkable.** The BBK requirements
+> assume that users keep online identities apart by using different passkeys. A
+> per-RP BBK would be shared by all of a user's passkeys for that RP in the same
+> browser on the same device, so the RP could link those accounts (e.g., a
+> personal and a business account at the same bank).
+
+## Third-party payment support
 
 As mentioned previously, SPC enforces third-party payment bit protection where
 if the third-party payment bit cannot be checked ahead of time (the case for
 all potentially available credentials) then `rp.com` cannot be shown in the
 WebAuthn dialog.
 
-A simple solution to this could be ot regress on the promise to never show
+A simple solution to this could be to regress on the promise to never show
 `rp.com` in the WebAuthn flow unless `rp.com` has set the third-party payment
 bit on their credentials. Instead we would only promise (of course!) that the
 browser will never return the signed cryptogram to the calling website if we

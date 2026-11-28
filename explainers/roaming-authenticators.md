@@ -1,7 +1,8 @@
-# Explainer: Connected roaming authenticators
+# Explainer: Roaming authenticators
 
 ## Author:
 
+Darwin Yang \<darwinyang@chromium.org\>
 Stephen McGruer \<smcgruer@chromium.org\>
 
 (With thanks to Nina Satragno)
@@ -10,15 +11,16 @@ Stephen McGruer \<smcgruer@chromium.org\>
 
 _Document state: **Proposal**_
 
-_Last updated: 28-Jul-2026_
+_Last updated: 27-Nov-2026_
 
 ## Summary
 
 This explainer proposes loosening the restrictions on SPC-related credentials
 to allow non-platform authenticators with non-internal transports. Doing so
 would allow user agents to support connected roaming authenticators (e.g., a
-plugged-in security key) with SPC's current flow. It does not address the
-problem of supporting non-connected roaming authenticators.
+plugged-in security key) with SPC's current flow. This proposal also goes over
+how we will support non-connected roaming authenticators, initially for
+first-party payments only.
 
 This proposal should have no impact on integrators of SPC who do not want to
 allow roaming authenticators, other than its reliance on [issue
@@ -54,7 +56,7 @@ WebAuthn layer would only look for "internal" transports (i.e. those offered by
 platform authenticators).
 
 The restriction to only allow platform authenticators was originally put in
-place for two reasons that I am aware of:
+place for two reasons that we are aware of:
 
 1. Initial Relying Parties for SPC were only interested in platform
    authenticators, and not supporting roaming authenticators simplified the
@@ -159,11 +161,36 @@ proprietary).
 
 ## Supporting non-connected roaming authenticators
 
-As noted above, this proposal does not enable support for non-connected roaming
-authenticators. This may cause it to be of limited use, as there is no way
-(outside of website UX) for a user to know that they have to plug in their
-roaming authenticator *before* an SPC call is triggered - and indeed some
-roaming authenticators cannot be "plugged in" at all.
+A separate explainer was written that goes over support for [non-queryable
+authenticators](non-queryable-authenticators.md), of which non-connected roaming
+authenticators are one kind. This explainer will not go into support for
+non-queryable authenticators in detail but will summarize the options that will
+lead to the quickest way to support non-connected roaming authenticators:
 
-I am also working on an explainer for supporting non-connected roaming
-authenticators in SPC, which will be linked from here once available.
+1. **Partition candidate credentials**: into *definitely available* and
+   *potentially available* credentials (the latter of which would include
+   credentials on non-connected roaming authenticators).
+
+2. **Allow calling website to require always showing the verification dialog**:
+   so that websites that know that the user has a roaming authenticator can
+   prompt the user to connect it if needed.
+
+3. **Skip BBKs if the set of potentially available credentials contains
+   multiple credentials**: as by definition, a roaming authenticator indicates
+   that the user physically has the authenticating device and so the BBK is not
+   needed.
+
+> [NOTE]
+>
+> The first iteration of support for non-connected roaming authenticators will
+> only cover first-party payments, where the calling website is the Relying
+> Party. In third-party payments, SPC only uses credentials that it has
+> silently confirmed to have the third-party payment bit, but the browser
+> cannot check for the bit on an authenticator that is not connected. See
+> [third-party payment
+> support](non-queryable-authenticators.md#third-party-payment-support) for how
+> this restriction could be lifted in a later iteration.
+>
+> This does not affect connected roaming authenticators: as described in the
+> [proposal](#proposal), the browser can silently check them for the third-party
+> payment bit, so they can be used for third-party payments too.

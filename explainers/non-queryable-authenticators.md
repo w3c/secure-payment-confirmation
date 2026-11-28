@@ -2,15 +2,16 @@
 
 ## Author:
 
+Darwin Yang \<darwinyang@chromium.org\>
 Stephen McGruer \<smcgruer@chromium.org\>
 
-(With thanks to Nina Satragno and Darwin Yang)
+(With thanks to Nina Satragno)
 
 ## Status:
 
 _Document state: **Proposal**_
 
-_Last updated: 05-Aug-2026_
+_Last updated: 27-Nov-2026_
 
 ## Summary
 
@@ -23,17 +24,17 @@ excludes **non-queryable authenticators**, including Android Credential Manager
 security keys.
 
 To expand SPC authenticator support without compromising user experience, this
-explainer proposes two complementary specification changes:
+explainer proposes two complementary specification changes that can be enabled
+by calling websites:
 
-1. **Prefer silently detectable passkeys while surfacing others in fallback
-   UX**: Partition candidate credentials into *definitely available* and
-   *potentially available*, enabling fallback UX to offer a "Use passkey" option
-   when credentials cannot be queried upfront.
-
-2. **Opt-in forced transaction UX (`alwaysShowTransactionDialog`)**: Allow
+1. **Forced Transaction UX (`alwaysShowTransactionDialog`)**: Allow
    calling websites to explicitly request showing the full transaction UX
    regardless of silent availability detection, catering to flows where users
    are expected to use roaming hardware keys or third-party providers.
+
+2. **Prefer silently detectable passkeys while surfacing others in fallback
+   UX**: Allow calling websites to explicitly request enabling fallback UX to
+   offer a "Use passkey" option when credentials cannot be queried upfront.
 
 ## Background
 
@@ -203,51 +204,26 @@ adapt SPC's design for each category.
 
 ## Proposal
 
-I propose modifying SPC to accommodate the reality that the browser cannot
+We propose modifying SPC to accommodate the reality that the browser cannot
 always know silently if a given passkey will be available or if it has the
 third-party payment bit enabled, whilst still keeping the UX flow as optimal as
 possible for the "happy path" case.
 
-Two modifications are proposed:
+### Partition candidate credentials
 
-1. Prefer silently detectable passkeys, but make others available in fallback UX.
+The proposal is to partition candidate credentials into **definitely available**
+and **potentially available**. It is possible that a credential is dropped if
+it does not fit into either set.
 
-2. Allow calling website to require always showing the verification dialog.
+**Definitely available credentials**: contain credentials that can be
+silently detected and support the third-party payment bit. This is the set of
+credentials that SPC currently supports.
 
-The former keeps SPC's current optimal UX flow, while providing an 'escape
-hatch' for cases where a passkey cannot be silently detectable but the user
-knows that they have one (e.g., if they have a security key that they can plug
-in). The latter allows websites to opt into the full transaction UX all the
-time, providing a clearer UX at the cost of potentially sending the user into a
-"cannot proceed" state.
+**Potentially available credentials**: contain credentials that cannot be
+silently detected (for non-queryable authenticators) and only for first-party
+payment scenarios.
 
-### Summary of UX Behaviors across Scenarios
-
-| Authenticator / Credential State | Current SPC Behavior | Proposal 1 (Default) | Proposal 2 (`alwaysShowTransactionDialog: true`) |
-| :--- | :--- | :--- | :--- |
-| **Queryable passkey available on device** | Shows SPC Transaction UX | Shows SPC Transaction UX | Shows SPC Transaction UX |
-| **Non-queryable passkey available (e.g., security key, Apple Passkey)** | Shows Fallback UX (Confirm/Cancel only) | Shows Fallback UX with "Use passkey for RP" option | Shows SPC Transaction UX |
-| **No passkey exists anywhere** | Shows Fallback UX (Confirm/Cancel only) | Shows Fallback UX with "Use passkey for RP" (WebAuthn "cannot proceed" state if pressed) | Shows SPC Transaction UX → WebAuthn "cannot proceed" state |
-
-
-### Prefer silently detectable passkeys; make others available in fallback UX
-
-The idea here is to make it always possible for the user to indicate that they
-want to use a passkey, **preferring** the case where the browser can detect
-that automatically, but also giving users the ability to indicate that they
-have a non-queryable authenticator that they want to use. For example, in
-Chrome's 'fallback UX' dialog this ability might look like (engineering mock!):
-
-<img src="non-queryable-authenticators-image-6.png" alt="Image of the SPC fallback dialog in Chrome, with a 'Use my passkey for rp.com' option added alongside 'Cancel' and 'Confirm'" width="50%">
-
-Explicitly displaying the Relying Party identifier (e.g., `"Use passkey for
-bank.example"`) in the fallback UX provides essential clarity in third-party
-payment contexts, where the merchant origin invoking SPC differs from the
-credential issuer.
-
-How this would work at a specification level is a little nuanced, as
-technically the specification does not have the concept of a "fallback dialog".
-In the SPC specification, step 5 of [this
+At a specification level, step 5 of [this
 algorithm](https://w3c.github.io/secure-payment-confirmation/#sctn-steps-to-check-if-a-payment-can-be-made)
 removes all credential IDs which fail the [steps to silently determine if a
 credential is available for the current
@@ -279,8 +255,12 @@ level description, actual specification steps would differ slightly):
 
     1. If the [steps to silently determine if a credential is available for the
        current device](https://w3c.github.io/secure-payment-confirmation/#steps-to-silently-determine-if-a-credential-is-available-for-the-current-device)
-       return false, add the id to `potentiallyAvailableCredentials` and go to the
-       next iteration.
+       return false:
+
+        1. If this is not a third-party case, add the id to
+           `potentiallyAvailableCredentials`.
+
+        2. Go to the next iteration.
 
     2. If this is not a third-party case, add the id to
        `definitelyAvailableCredentials` and go to the next iteration.
@@ -290,19 +270,13 @@ level description, actual specification steps would differ slightly):
        enabled](https://w3c.github.io/secure-payment-confirmation/#steps-to-silently-determine-if-an-spc-credential-is-third-party-enabled)
        return true, add the id to `definitelyAvailableCredentials`.
 
-4. If this is a third-party case, clear the `potentiallyAvailableCredentials` list.
-
 > [!IMPORTANT]
 >
-> Step 4. is required to enforce the third-party payment bit protection. If we
-> cannot query the credential silently, we cannot know whether or not the
-> passkey (if it does exist) is third-party enabled.
->
-> Alternatively, we could regress on the promise to never show `rp.com` in an
-> SPC flow unless `rp.com` has set the third-party payment bit on their
-> credentials. Instead we would only promise (of course!) that the browser will
-> never return the signed cryptogram to the calling website if we find out
-> **afterwards** that there's no third-party payment bit.
+> `potentiallyAvailableCredentials` is never populated in the third-party case.
+> This preserves the third-party payment bit protection: if we cannot query a
+> credential silently, we cannot know whether that passkey (if it exists) is
+> third-party enabled. See [Third-party payment
+> support](#third-party-payment-support) for a possible way to relax this.
 
 Then later in [Outcome of the transaction confirmation
 UX](https://w3c.github.io/secure-payment-confirmation/#sctn-transaction-confirmation-outcome),
@@ -330,15 +304,42 @@ we would modify `data["credentialIds"]` based on the outcome:
 These spec changes would allow user agents to build UX flows that give the user
 the choice to use a passkey even if none have been found in queryable
 authenticators, while still preferencing the queryable authenticators if
-relevant. However, we expect it to be challenging to design a good UX in Chrome
-that offers using a passkey to the user without that being confusing or
-visually poor quality - this is an area we still need to explore more.
+relevant.
 
-### Allow calling website to require always showing the verification dialog
+![Diagram showing how credentials are partitioned as a visual flow](non-queryable-authenticators-image-7.png)
 
-As an additive approach to the above, we could enable the calling website to
-indicate that the browser should **always** show the verification transaction
-dialog, even if it was unable to silently match any of the credentials.
+### Using the potentially available credentials
+
+If the set of definitely available credentials is populated, then that set is
+used with the original SPC flow. If the set of definitely available credentials
+is empty and the set of potentially available credentials is populated, then
+we propose allowing websites to opt into using this set through two
+complementary solutions:
+
+1. Allow calling website to require always showing the verification dialog.
+
+2. Allow calling website to make credentials available in the fallback UX.
+
+The former allows websites to opt into the full transaction UX all the
+time, providing a clearer UX at the cost of potentially sending the user into a
+"cannot proceed" state. The latter keeps SPC's current optimal UX flow, while
+providing an 'escape hatch' for cases where a passkey cannot be silently
+detected but the user knows that they have one (e.g., if they have a security
+key that they can plug in).
+
+#### Summary of UX behaviors across scenarios
+
+| Authenticator / Credential State | Current SPC Behavior | Proposal 1 (`alwaysShowTransactionDialog`) | Proposal 2 (`showCredentialsInFallback`) |
+| :--- | :--- | :--- | :--- |
+| **Queryable passkey available on device** | Shows SPC Transaction UX | Shows SPC Transaction UX | Shows SPC Transaction UX |
+| **Non-queryable passkey available (e.g., security key, Apple Passkey)** | Shows Fallback UX (Confirm/Cancel only) | Shows SPC Transaction UX | Shows Fallback UX with "Use passkey for RP" option |
+| **No passkey exists anywhere** | Shows Fallback UX (Confirm/Cancel only) | Shows SPC Transaction UX → WebAuthn "cannot proceed" state | Shows Fallback UX with "Use passkey for RP" (WebAuthn "cannot proceed" state if pressed) |
+
+#### Allow calling website to require always showing the verification dialog
+
+In this approach, we could enable the calling website to indicate that the
+browser should **always** show the verification transaction dialog, even if it
+was unable to silently match any of the credentials.
 
 This would allow websites that want to support roaming authenticators to set
 this mode, whilst having the default experience still be optimized for only
@@ -359,9 +360,9 @@ dictionary SecurePaymentConfirmationRequest {
 behaviors or authenticator requirements need to be specified beyond a boolean
 flag).
 
-If alwaysShowTransactionDialog is set to true, the browser would always show
+If `alwaysShowTransactionDialog` is set to true, the browser would always show
 the Transaction UX, and would always trigger WebAuthn afterwards (which might
-then present UX to the user to plugin a security key, use their phone, etc).
+then present UX to the user to plug in a security key, use their phone, etc).
 The default would remain as false to align with current SPC behavior.
 
 At a specification level, the `alwaysShowTransactionDialog` would simply be a
@@ -369,6 +370,58 @@ hint to the browser to optimize their UX flow, rather than have a normative
 impact on the text (as, again, the SPC specification itself does not currently
 have the concept of a "fallback dialog").
 
-**Note**: As above, we would likely still need to remove any
-`potentiallyAvailableCredentials` for the third-party case, so again there is
-some limitation on this idea.
+#### Allow calling website to make credentials available in the fallback UX
+
+The idea here is to make it always possible for the user to indicate that they
+want to use a passkey by giving users the ability to indicate that they have a
+non-queryable authenticator that they want to use. For example, in Chrome's
+'fallback UX' dialog this ability might look like (engineering mock!):
+
+<img src="non-queryable-authenticators-image-6.png" alt="Image of the SPC fallback dialog in Chrome, with a 'Use my passkey for rp.com' option added alongside 'Cancel' and 'Confirm'" width="50%">
+
+However, we expect it to be challenging to design a good UX in Chrome
+that offers using a passkey to the user without that being confusing or
+visually poor quality - this is an area we still need to explore more.
+
+## Browser Bound Key support
+
+In the case of multiple definitely available credentials, SPC can arbitrarily
+pick a BBK to use. But if the set of potentially available credentials needs to
+be used and there are multiple credentials in the set, this poses a **BIG
+PROBLEM** for BBK support. Since the BBK needs to be included with the data to
+be signed by the credential, there is no way to know which credential (and
+associated BBK) will be chosen ahead of time.
+
+![Diagram showing how the wrong BBK can be used](non-queryable-authenticators-image-8.png)
+
+We have two solutions to allow potentially available credentials to work with
+BBKs:
+
+1. **Skip BBKs**: if the set of potentially available credentials contains
+   multiple credentials. Websites that require the BBK can invoke SPC with a
+   single credential.
+
+2. **Update BBKs to a BBK-to-RP relationship**: only a single RP is used for
+   each SPC query, so only one BBK will be needed. This means that BBKs never
+   need to be skipped, but it comes with trade-offs:
+
+> [!IMPORTANT]
+>
+> **A BBK-to-RP relationship makes accounts linkable.** The BBK requirements
+> assume that users keep online identities apart by using different passkeys. A
+> per-RP BBK would be shared by all of a user's passkeys for that RP in the same
+> browser on the same device, so the RP could link those accounts (e.g., a
+> personal and a business account at the same bank).
+
+## Third-party payment support
+
+As mentioned previously, SPC enforces third-party payment bit protection where
+if the third-party payment bit cannot be checked ahead of time (the case for
+all potentially available credentials) then `rp.com` cannot be shown in the
+WebAuthn dialog.
+
+A simple solution to this could be to regress on the promise to never show
+`rp.com` in the WebAuthn flow unless `rp.com` has set the third-party payment
+bit on their credentials. Instead we would only promise (of course!) that the
+browser will never return the signed cryptogram to the calling website if we
+find out **afterwards** that there's no third-party payment bit.
